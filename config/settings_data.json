@@ -692,7 +692,7 @@
         "settings": {
           "layout": "logo_left",
           "full_header": true,
-          "height": 70,
+          "height": 79,
           "arrow": false,
           "align": "center",
           "hover": "hover_sideup",
@@ -706,7 +706,7 @@
           "hover_icon": "2",
           "show_search": true,
           "show_acc": true,
-          "show_wis": true,
+          "show_wis": false,
           "cart_des": "1",
           "bg_hc": "#000000",
           "cl_hc": "#ffffff",
