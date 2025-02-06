@@ -292,7 +292,7 @@
           "footer-11": {
             "type": "custom_text",
             "settings": {
-              "text": "Subscribe to our newsletter and get 10% off your first purchase",
+              "text": "Suscríbete y recibe ofertas especiales para nuestros primos.",
               "remove_br_tag": false,
               "tag": "p",
               "fontf": "inherit",
