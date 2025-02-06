@@ -216,46 +216,8 @@
           "footer-4": {
             "type": "bl_col",
             "settings": {
-              "col_heading": "Categories",
+              "col_heading": "POLÍTICAS",
               "menu": "footer",
-              "menu_style": "1",
-              "col_border": "none",
-              "col_dk": "2",
-              "col_tb": "6",
-              "col_mb": "12",
-              "content_align": "t4s-text-md-start",
-              "padding_inner": "5px,0,0,0",
-              "content_align_tb": "t4s-text-md-start",
-              "padding_inner_tb": "",
-              "col_heading_mobile": "",
-              "content_align_mb": "t4s-text-start",
-              "padding_inner_mb": ""
-            }
-          },
-          "footer-6": {
-            "type": "bl_col",
-            "settings": {
-              "col_heading": "Infomation",
-              "menu": "",
-              "menu_style": "1",
-              "col_border": "none",
-              "col_dk": "2",
-              "col_tb": "6",
-              "col_mb": "12",
-              "content_align": "t4s-text-md-start",
-              "padding_inner": "5px,0,0,0",
-              "content_align_tb": "t4s-text-md-start",
-              "padding_inner_tb": "",
-              "col_heading_mobile": "",
-              "content_align_mb": "t4s-text-start",
-              "padding_inner_mb": ""
-            }
-          },
-          "footer-8": {
-            "type": "bl_col",
-            "settings": {
-              "col_heading": "Useful links",
-              "menu": "",
               "menu_style": "1",
               "col_border": "none",
               "col_dk": "2",
@@ -273,7 +235,7 @@
           "footer-10": {
             "type": "bl_col",
             "settings": {
-              "col_heading": "Newsletter Signup",
+              "col_heading": "SUSCRIBETE",
               "menu": "",
               "menu_style": "1",
               "col_border": "none",
@@ -331,16 +293,6 @@
               "mgb_mb": 20
             }
           },
-          "385c1474-1235-4a3d-b73c-9555b5f8dcfb": {
-            "type": "image",
-            "settings": {
-              "link_img": "",
-              "img_width": 0,
-              "img_width_mb": 0,
-              "mgb": 20,
-              "mgb_mb": 20
-            }
-          },
           "33eb929e-a001-4d96-82a0-5aab1aaabaea": {
             "type": "payments",
             "disabled": true,
@@ -359,12 +311,9 @@
           "footer-2",
           "footer-3",
           "footer-4",
-          "footer-6",
-          "footer-8",
           "footer-10",
           "footer-11",
           "footer-12",
-          "385c1474-1235-4a3d-b73c-9555b5f8dcfb",
           "33eb929e-a001-4d96-82a0-5aab1aaabaea"
         ],
         "settings": {
@@ -669,7 +618,7 @@
               "cus_cl": false,
               "cl": "#ec0101",
               "lb": "",
-              "lb_cl": "#00BADB",
+              "lb_cl": "#00badb",
               "pos_sub": "bottom",
               "wid": "cus",
               "cus_wid": 1200,
