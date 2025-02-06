@@ -510,6 +510,19 @@
       "header-inline": {
         "type": "header-inline",
         "blocks": {
+          "base_BzUAYh": {
+            "type": "base",
+            "settings": {
+              "title": "NOSOTROS",
+              "url": "/",
+              "open_link": "_self",
+              "icon": "",
+              "cus_cl": false,
+              "cl": "#ec0101",
+              "lb": "",
+              "lb_cl": ""
+            }
+          },
           "9883384a-d19a-4abe-9a94-388d91fce9b6": {
             "type": "mega",
             "settings": {
@@ -651,6 +664,7 @@
           }
         },
         "block_order": [
+          "base_BzUAYh",
           "9883384a-d19a-4abe-9a94-388d91fce9b6",
           "e0be43d6-bf02-4962-a06e-4294c6d6bd53",
           "3944a4f5-3618-4f4b-9d13-238ddb1b72f2",
