@@ -1597,7 +1597,7 @@
           "mini_cart-6": {
             "type": "btn",
             "settings": {
-              "title": "Regresar a la tienda",
+              "title": "Volver a la tienda",
               "url": "",
               "btn_icon": false,
               "button_style": "default",
