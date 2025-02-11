@@ -513,7 +513,7 @@
         "fb81d2b5-38b4-4322-93fc-cd722f8758f3"
       ],
       "settings": {
-        "design_heading": "2",
+        "design_heading": "11",
         "heading_align": "t4s-text-center",
         "top_heading": "",
         "icon_heading": "gem",
@@ -1230,23 +1230,89 @@
         "code_cus_css": ".SectionID {\nbackground-color:red\n}"
       }
     },
-    "instagram_feed_api_bbxmCC": {
-      "type": "instagram_feed_api",
+    "feature_columns_4XHcGJ": {
+      "type": "feature_columns",
+      "blocks": {
+        "text_block_bYVTXK": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "title": "Add a title or tagline",
+            "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+            "button_label": "",
+            "button_link": "",
+            "open_link": "_blank",
+            "btn_icon": false,
+            "button_style": "default",
+            "btn_size": "large",
+            "btn_cl": "dark",
+            "button_effect": "fade"
+          }
+        },
+        "text_block_FF69jd": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "title": "Add a title or tagline",
+            "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+            "button_label": "",
+            "button_link": "",
+            "open_link": "_blank",
+            "btn_icon": false,
+            "button_style": "default",
+            "btn_size": "large",
+            "btn_cl": "dark",
+            "button_effect": "fade"
+          }
+        },
+        "text_block_mKRagU": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "title": "Add a title or tagline",
+            "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+            "button_label": "",
+            "button_link": "",
+            "open_link": "_blank",
+            "btn_icon": false,
+            "button_style": "default",
+            "btn_size": "large",
+            "btn_cl": "dark",
+            "button_effect": "fade"
+          }
+        }
+      },
+      "block_order": [
+        "text_block_bYVTXK",
+        "text_block_FF69jd",
+        "text_block_mKRagU"
+      ],
       "settings": {
-        "mode": "1",
-        "acc": "",
-        "limit": 12,
-        "open_link": "_blank",
-        "layout_des": "2",
-        "round": 0,
-        "col_dk": "6",
-        "col_tb": "4",
-        "col_mb": "2",
-        "space_item": "0",
-        "space_item_mb": "0",
-        "image_ratio": "ratio1_1",
+        "design_heading": "3",
+        "heading_align": "t4s-text-start",
+        "top_heading": "",
+        "icon_heading": "las la-gem",
+        "top_subheading": "",
+        "tophead_mb": 30,
+        "text_align": "center",
+        "pos_text": "default",
+        "fs_title": 22,
+        "fs_text": 14,
+        "fs_title_mb": 22,
+        "fs_text_mb": 12,
+        "image_ratio": "ratio16_9",
         "image_size": "cover",
         "image_position": "8",
+        "img_effect": "none",
+        "b_effect": "none",
+        "layout_des": "1",
+        "space_h_item": "30",
+        "space_v_item": "30",
+        "space_h_item_mb": "10",
+        "space_v_item_mb": "10",
+        "col_dk": "3",
+        "col_tb": "2",
+        "col_mb": "1",
         "loop": true,
         "au_time": 0,
         "au_hover": true,
@@ -1286,6 +1352,6 @@
     "16460368750174c54a",
     "1646209857bf69e76a",
     "164620932069107a3a",
-    "instagram_feed_api_bbxmCC"
+    "feature_columns_4XHcGJ"
   ]
 }
