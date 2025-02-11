@@ -1090,13 +1090,13 @@
         "ae083dc7-4338-494b-8f4b-e764a38d2a97"
       ],
       "settings": {
-        "design_heading": "1",
+        "design_heading": "7",
         "heading_align": "t4s-text-center",
         "top_heading": "@ FOLLOW US ON INSTAGRAM",
         "icon_heading": "gem",
         "top_subheading": "",
         "tophead_mb": 20,
-        "layout_des": "2",
+        "layout_des": "1",
         "pr_pin_des": "6",
         "open_link": "_self",
         "space": "0",
@@ -1229,6 +1229,52 @@
         "use_cus_css": false,
         "code_cus_css": ".SectionID {\nbackground-color:red\n}"
       }
+    },
+    "instagram_feed_api_bbxmCC": {
+      "type": "instagram_feed_api",
+      "settings": {
+        "mode": "1",
+        "acc": "",
+        "limit": 12,
+        "open_link": "_blank",
+        "layout_des": "2",
+        "round": 0,
+        "col_dk": "6",
+        "col_tb": "4",
+        "col_mb": "2",
+        "space_item": "0",
+        "space_item_mb": "0",
+        "image_ratio": "ratio1_1",
+        "image_size": "cover",
+        "image_position": "8",
+        "loop": true,
+        "au_time": 0,
+        "au_hover": true,
+        "nav_btn": false,
+        "btn_vi": "hover",
+        "btn_owl": "default",
+        "btn_shape": "none",
+        "btn_cl": "dark",
+        "btn_size": "small",
+        "btn_hidden_mobile": true,
+        "nav_dot": false,
+        "dot_owl": "default",
+        "dots_cl": "dark",
+        "dots_round": true,
+        "dots_space": 10,
+        "dots_hidden_mobile": false,
+        "layout": "t4s-container-wrap",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": ",,50px,",
+        "pd": "",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": ",,30px,",
+        "pd_mb": "",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
     }
   },
   "order": [
@@ -1239,6 +1285,7 @@
     "164603686708691778",
     "16460368750174c54a",
     "1646209857bf69e76a",
-    "164620932069107a3a"
+    "164620932069107a3a",
+    "instagram_feed_api_bbxmCC"
   ]
 }
