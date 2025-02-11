@@ -9,63 +9,6 @@
  */
 {
   "sections": {
-    "scrolling_text_PpjRrY": {
-      "type": "scrolling-text",
-      "blocks": {
-        "item_CBAE4y": {
-          "type": "item",
-          "settings": {
-            "content": "<p>Personalizado disponible </p>"
-          }
-        },
-        "item_wXRXD7": {
-          "type": "item",
-          "settings": {
-            "content": "<p>Perzonalizado disponible </p>"
-          }
-        },
-        "item_TRV7kj": {
-          "type": "item",
-          "settings": {
-            "content": "<p>Personalizado disponible</p>"
-          }
-        },
-        "item_gRQbfb": {
-          "type": "item",
-          "settings": {
-            "content": "<p>Personalizado disponible </p>"
-          }
-        },
-        "item_4T86EG": {
-          "type": "item",
-          "settings": {
-            "content": "<p>Personalizado disponible </p>"
-          }
-        }
-      },
-      "block_order": [
-        "item_CBAE4y",
-        "item_wXRXD7",
-        "item_TRV7kj",
-        "item_gRQbfb",
-        "item_4T86EG"
-      ],
-      "settings": {
-        "speed": 18,
-        "direction": "rtl",
-        "pause_when_hover": false,
-        "adding_border": false,
-        "cl": "#fff",
-        "cl_bg": "#222222",
-        "cl_bg_gradient": "",
-        "mg": ",,50px,",
-        "pd": "20px,,20px,",
-        "mg_tb": ",,50px,",
-        "pd_tb": "",
-        "mg_mb": ",,30px,",
-        "pd_mb": ""
-      }
-    },
     "1646028739ae283905": {
       "type": "slideshow",
       "blocks": {
@@ -468,6 +411,63 @@
         "pd_mb": "",
         "use_cus_css": false,
         "code_cus_css": ".SectionID {\nbackground-color:red\n}"
+      }
+    },
+    "scrolling_text_PpjRrY": {
+      "type": "scrolling-text",
+      "blocks": {
+        "item_CBAE4y": {
+          "type": "item",
+          "settings": {
+            "content": "<p>Personalizado disponible </p>"
+          }
+        },
+        "item_wXRXD7": {
+          "type": "item",
+          "settings": {
+            "content": "<p>Perzonalizado disponible </p>"
+          }
+        },
+        "item_TRV7kj": {
+          "type": "item",
+          "settings": {
+            "content": "<p>Personalizado disponible</p>"
+          }
+        },
+        "item_gRQbfb": {
+          "type": "item",
+          "settings": {
+            "content": "<p>Personalizado disponible </p>"
+          }
+        },
+        "item_4T86EG": {
+          "type": "item",
+          "settings": {
+            "content": "<p>Personalizado disponible </p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_CBAE4y",
+        "item_wXRXD7",
+        "item_TRV7kj",
+        "item_gRQbfb",
+        "item_4T86EG"
+      ],
+      "settings": {
+        "speed": 18,
+        "direction": "rtl",
+        "pause_when_hover": false,
+        "adding_border": false,
+        "cl": "#ffffff",
+        "cl_bg": "#222222",
+        "cl_bg_gradient": "",
+        "mg": ",,50px,",
+        "pd": "20px,,20px,",
+        "mg_tb": ",,50px,",
+        "pd_tb": "",
+        "mg_mb": ",,30px,",
+        "pd_mb": ""
       }
     },
     "164603504020ce33da": {
@@ -1090,7 +1090,7 @@
         "ae083dc7-4338-494b-8f4b-e764a38d2a97"
       ],
       "settings": {
-        "design_heading": "2",
+        "design_heading": "1",
         "heading_align": "t4s-text-center",
         "top_heading": "@ FOLLOW US ON INSTAGRAM",
         "icon_heading": "gem",
@@ -1232,8 +1232,8 @@
     }
   },
   "order": [
-    "scrolling_text_PpjRrY",
     "1646028739ae283905",
+    "scrolling_text_PpjRrY",
     "164603504020ce33da",
     "16460362229768af39",
     "164603686708691778",
