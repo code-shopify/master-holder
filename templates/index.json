@@ -1239,7 +1239,7 @@
             "enable_image": true,
             "title": "Add a title or tagline",
             "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
-            "button_label": "",
+            "button_label": "shop npw",
             "button_link": "",
             "open_link": "_blank",
             "btn_icon": false,
@@ -1288,7 +1288,7 @@
         "text_block_mKRagU"
       ],
       "settings": {
-        "design_heading": "3",
+        "design_heading": "5",
         "heading_align": "t4s-text-start",
         "top_heading": "",
         "icon_heading": "las la-gem",
@@ -1305,12 +1305,12 @@
         "image_position": "8",
         "img_effect": "none",
         "b_effect": "none",
-        "layout_des": "1",
+        "layout_des": "2",
         "space_h_item": "30",
         "space_v_item": "30",
         "space_h_item_mb": "10",
         "space_v_item_mb": "10",
-        "col_dk": "3",
+        "col_dk": "2",
         "col_tb": "2",
         "col_mb": "1",
         "loop": true,
@@ -1345,13 +1345,13 @@
   },
   "order": [
     "1646028739ae283905",
+    "feature_columns_4XHcGJ",
     "scrolling_text_PpjRrY",
     "164603504020ce33da",
     "16460362229768af39",
     "164603686708691778",
     "16460368750174c54a",
     "1646209857bf69e76a",
-    "164620932069107a3a",
-    "feature_columns_4XHcGJ"
+    "164620932069107a3a"
   ]
 }
