@@ -81,7 +81,7 @@
             "remove_br_tag": false,
             "tag": "p",
             "fontf": "inherit",
-            "text_cl": "#222222",
+            "text_cl": "#fff",
             "text_fs": 55,
             "text_lh": 55,
             "text_fw": 600,
