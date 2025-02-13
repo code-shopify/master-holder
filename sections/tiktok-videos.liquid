@@ -1,6 +1,49 @@
 {% schema %}
-  {
-    "name": "Section name",
-    "settings": []
-  }
+{
+  "name": "Sección TikTok Videos",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "TikTok Video",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tiktok_url",
+          "label": "URL del Video de TikTok"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 7,
+  "presets": [
+    {
+      "name": "Sección TikTok Videos",
+      "category": "Custom"
+    }
+  ]
+}
 {% endschema %}
+
+<div class="tiktok-video-section">
+  <div class="tiktok-videos-grid">
+    {% for block in section.blocks %}
+      <div class="tiktok-video-item" {{ block.shopify_attributes }}>
+        <iframe src="{{ block.settings.tiktok_url }}" frameborder="0" allowfullscreen></iframe>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .tiktok-videos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  .tiktok-video-item iframe {
+    width: 100%;
+    height: 450px;
+  }
+</style>
+ s
