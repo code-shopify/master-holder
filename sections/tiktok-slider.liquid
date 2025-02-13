@@ -196,48 +196,26 @@ background: linear-gradient(0deg, #fe2d52, #28ffff);
 
 {% schema %}
 {
-  "name": "Opiniones de Vitatú",
-  "settings": [
-    {
-      "type": "text",
-      "id": "custom-class",
-      "label": "Clase Personalizada"
-    },
-    {
-      "type": "text",
-      "id": "section_title",
-      "label": "Título de la Sección",
-      "default": "+30,000 personas opinan de Vitatú"
-    },
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "Color de Fondo",
-      "default": "#FFFFFF"
-    }
-  ],
+  "name": "TikTok Slider",
+  "settings": [],
   "blocks": [
     {
       "type": "video",
-      "name": "Video",
+      "name": "TikTok Video",
       "settings": [
         {
           "type": "url",
           "id": "video_url",
-          "label": "URL del Video (MP4)"
-        },
-        {
-          "type": "image_picker",
-          "id": "thumbnail",
-          "label": "Miniatura del Video"
+          "label": "Video URL"
         }
       ]
     }
   ],
+  "max_blocks": 7,
   "presets": [
     {
-      "name": "Opiniones de Vitatú",
-      "category": "Secciones Personalizadas"
+      "name": "TikTok Slider",
+      "category": "Custom"
     }
   ]
 }
