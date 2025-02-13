@@ -1,4 +1,4 @@
-<script>
+
         document.addEventListener("DOMContentLoaded", () => {
             const slides = document.querySelectorAll(".slidev8");
 
@@ -56,4 +56,3 @@
                 });
             });
         });
-    </script>
