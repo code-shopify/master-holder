@@ -16,10 +16,7 @@
 </div>
 
 <style>
-   
-    /* Aquí pega todo tu CSS del código proporcionado */
-    {{ 'tiktok-slider.css' | asset_url | stylesheet_tag }}
-   .slider-containerv8 {
+    .slider-containerv8 {
             position: relative;
             width: 100%;
             overflow-x: scroll;
@@ -119,13 +116,12 @@ margin-left: 2px;
     border-radius: 10px;
 background: linear-gradient(0deg, #fe2d52, #28ffff);
   }
+    /* Aquí pega todo tu CSS del código proporcionado */
+    {{ 'tiktok-slider.css' | asset_url | stylesheet_tag }}
 </style>
 
 <script>
    
-    /* Aquí pega todo tu JavaScript del código proporcionado */
-    {{ 'tiktok-slider.js' | asset_url | script_tag }}
-  
         document.addEventListener("DOMContentLoaded", () => {
             const slides = document.querySelectorAll(".slidev8");
 
@@ -183,6 +179,8 @@ background: linear-gradient(0deg, #fe2d52, #28ffff);
                 });
             });
         });
+    /* Aquí pega todo tu JavaScript del código proporcionado */
+    {{ 'tiktok-slider.js' | asset_url | script_tag }}
 </script>
 
 {% schema %}
