@@ -320,85 +320,94 @@
         "collection_item_MUwfLr": {
           "type": "collection_item",
           "settings": {
-            "collection": "",
+            "collection": "portacaguama",
+            "image": "shopify://shop_images/portacaguamon-negro-pc-negro-147523.jpg",
             "icon": "las la-gem",
             "custom_svg": "",
-            "collection_title": "Collection",
+            "collection_title": "",
             "collection_link": ""
           }
         },
         "collection_item_HUtVLL": {
           "type": "collection_item",
           "settings": {
-            "collection": "",
+            "collection": "portalaton-5-en-1",
+            "image": "shopify://shop_images/Portalaton_5en1_Negro.jpg",
             "icon": "las la-gem",
             "custom_svg": "",
-            "collection_title": "Collection",
+            "collection_title": "",
             "collection_link": ""
           }
         },
         "collection_item_nFqtmr": {
           "type": "collection_item",
           "settings": {
-            "collection": "",
+            "collection": "nomada",
+            "image": "shopify://shop_images/nomada-lila-40-n-lila-873010.png",
             "icon": "las la-gem",
             "custom_svg": "",
-            "collection_title": "Collection",
+            "collection_title": "",
             "collection_link": ""
           }
         },
         "collection_item_rnqAMc": {
           "type": "collection_item",
           "settings": {
-            "collection": "",
+            "collection": "venti",
+            "image": "shopify://shop_images/Venti_Lila_Arriba_Popote.png",
             "icon": "las la-gem",
             "custom_svg": "",
-            "collection_title": "Collection",
+            "collection_title": "",
             "collection_link": ""
           }
         },
         "collection_item_PFHGM8": {
           "type": "collection_item",
           "settings": {
-            "collection": "",
+            "collection": "sport",
+            "image": "shopify://shop_images/N3_bed3bc42-81ae-4f7c-bcd2-fa5841a89f3e.png",
             "icon": "las la-gem",
             "custom_svg": "",
-            "collection_title": "Collection",
+            "collection_title": "",
             "collection_link": ""
           }
         },
         "collection_item_ab8qRz": {
           "type": "collection_item",
           "settings": {
-            "collection": "",
+            "collection": "tazas-20-oz",
+            "image": "shopify://shop_images/taza-termica-premium-20oz-aqua-glitter-20-tm-aqua-glitt-568946.jpg",
             "icon": "las la-gem",
             "custom_svg": "",
-            "collection_title": "Collection",
+            "collection_title": "",
             "collection_link": ""
           }
         },
         "collection_item_EWcFi9": {
           "type": "collection_item",
           "settings": {
-            "collection": "",
+            "collection": "20-oz",
+            "image": "shopify://shop_images/vaso-termico-20oz-azul-20-azul-762577.jpg",
             "icon": "las la-gem",
             "custom_svg": "",
-            "collection_title": "Collection",
+            "collection_title": "",
             "collection_link": ""
           }
         },
         "collection_item_hNhRJJ": {
           "type": "collection_item",
           "settings": {
-            "collection": "",
+            "collection": "accesorios",
+            "image": "shopify://shop_images/destapador-automatico-acc-dest-867328.jpg",
             "icon": "las la-gem",
             "custom_svg": "",
-            "collection_title": "Collection",
+            "collection_title": "",
             "collection_link": ""
           }
         },
         "collection_item_td9mHm": {
           "type": "collection_item",
+          "disabled": true,
           "settings": {
             "collection": "",
             "icon": "las la-gem",
