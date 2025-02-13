@@ -1,22 +1,13 @@
-<div class="slider-containerv8">
-    <div class="sliderv8">
-        {% for block in section.blocks %}
-            <div class="slidev8">
-                <div class="with-borderv8">
-                    <video class="tiktok-videov8">
-                        <source src="{{ block.settings.video_url }}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-                <div class="pause-buttonv8 hiddenv8">❚❚</div>
-                <div class="play-buttonv8">▷</div>
-            </div>
-        {% endfor %}
-    </div>
-</div>
+@ -0,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
 
-<style>
-   .slider-containerv8 {
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Video Viewer</title>
+    <style>
+        .slider-containerv8 {
             position: relative;
             width: 100%;
             overflow-x: scroll;
@@ -116,12 +107,9 @@ margin-left: 2px;
     border-radius: 10px;
 background: linear-gradient(0deg, #fe2d52, #28ffff);
   }
-    /* Aquí pega todo tu CSS del código proporcionado */
-    {{ 'tiktok-slider.css' | asset_url | stylesheet_tag }}
-</style>
-
-<script>
-   document.addEventListener("DOMContentLoaded", () => {
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
             const slides = document.querySelectorAll(".slidev8");
 
             slides.forEach(slide => {
@@ -178,33 +166,95 @@ background: linear-gradient(0deg, #fe2d52, #28ffff);
                 });
             });
         });
-    /* Aquí pega todo tu JavaScript del código proporcionado */
-    {{ 'tiktok-slider.js' | asset_url | script_tag }}
-</script>
+    </script>
+</head>
 
-{% schema %}
-{
-  "name": "TikTok Slider",
-  "settings": [],
-  "blocks": [
-    {
-      "type": "video",
-      "name": "TikTok Video",
-      "settings": [
-        {
-          "type": "url",
-          "id": "video_url",
-          "label": "Video URL"
-        }
-      ]
-    }
-  ],
-  "max_blocks": 7,
-  "presets": [
-    {
-      "name": "TikTok Slider",
-      "category": "Custom"
-    }
-  ]
-}
-{% endschema %}
+<body>
+    <div class="slider-containerv8">
+        <div class="sliderv8">
+            <div class="slidev8">
+               <div class = "with-borderv8">
+                <video class = "tiktok-videov8">
+                    <source src="https://cdn.shopify.com/videos/c/o/v/49f49e5ff92f404b89bdedd6fc371077.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                </div>
+                <div class="pause-buttonv8 hiddenv8">❚❚</div>
+                <div class="play-buttonv8">▷</div>
+            </div>
+            <div class="slidev8">
+                <div class = "with-borderv8">
+                <video class = "tiktok-videov8">
+                    <source src= "https://cdn.shopify.com/videos/c/o/v/d4dfdd955f2840b1b63b223ecc77cafd.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                </div>
+                <div class="pause-buttonv8 hiddenv8">❚❚</div>
+                <div class="play-buttonv8">▷</div>
+            </div>
+            <div class="slidev8">
+                <div class = "with-borderv8">
+                <video class = "tiktok-videov8">
+                    
+                    <source src="https://cdn.shopify.com/videos/c/o/v/171162a47d1b44f1a042656ad7f85d02.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                </div>
+                <div class="pause-buttonv8 hiddenv8">❚❚</div>
+                <div class="play-buttonv8">▷</div>
+            </div>
+            <div class="slidev8">
+                <div class = "with-borderv8">
+                <video class = "tiktok-videov8">
+                    <source src="https://cdn.shopify.com/videos/c/o/v/d8d1ca1c53114802a2d840e57fcd7e75.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                </div>
+                <div class="pause-buttonv8 hiddenv8">❚❚</div>
+                <div class="play-buttonv8">▷</div>
+            </div>
+            <div class="slidev8">
+                <div class = "with-borderv8">
+                <video class = "tiktok-videov8">
+                    <source src="https://cdn.shopify.com/videos/c/o/v/354c7787f58b457a90f0f0f8751470d4.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                </div>
+                <div class="pause-buttonv8 hiddenv8">❚❚</div>
+                <div class="play-buttonv8">▷</div>
+            </div>
+            <div class="slidev8">
+                <div class = "with-borderv8">
+                <video class = "tiktok-videov8">
+                    <source src="https://cdn.shopify.com/videos/c/o/v/38d2b924b27e425d939ddba898550c3c.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                </div>
+                <div class="pause-buttonv8 hiddenv8">❚❚</div>
+                <div class="play-buttonv8">▷</div>
+            </div>
+            <div class="slidev8">
+                <div class = "with-borderv8">
+                <video class = "tiktok-videov8">
+                    <source src="https://cdn.shopify.com/videos/c/o/v/f9070d05630d4a73aa7c4c6133e21748.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                </div>
+                <div class="pause-buttonv8 hiddenv8">❚❚</div>
+                <div class="play-buttonv8">▷</div>
+            </div>
+            <div class="slidev8">
+                <div class = "with-borderv8">
+                <video class = "tiktok-videov8">
+                    <source src="https://cdn.shopify.com/videos/c/o/v/7b2f0f5c16c147769a931b8352840c80.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                </div>
+                <div class="pause-buttonv8 hiddenv8">❚❚</div>
+                <div class="play-buttonv8">▷</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
