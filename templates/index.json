@@ -1391,6 +1391,79 @@
         "use_cus_css": false,
         "code_cus_css": ".SectionID {\nbackground-color:red\n}"
       }
+    },
+    "tiktok_slider_B9674h": {
+      "type": "tiktok-slider",
+      "blocks": {
+        "video_mDWrKt": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.tiktok.com/@masterholder/video/7470676535347825926?is_from_webapp=1&sender_device=pc&web_id=7470982141682714118"
+          }
+        },
+        "video_aB4wPH": {
+          "type": "video",
+          "settings": {
+            "video_url": ""
+          }
+        },
+        "video_TGgfh7": {
+          "type": "video",
+          "settings": {
+            "video_url": ""
+          }
+        },
+        "video_KhLzKr": {
+          "type": "video",
+          "settings": {
+            "video_url": ""
+          }
+        },
+        "video_8tCdeD": {
+          "type": "video",
+          "settings": {
+            "video_url": ""
+          }
+        },
+        "video_mHwjiF": {
+          "type": "video",
+          "settings": {
+            "video_url": ""
+          }
+        },
+        "video_7fdQAn": {
+          "type": "video",
+          "settings": {
+            "video_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "video_mDWrKt",
+        "video_aB4wPH",
+        "video_TGgfh7",
+        "video_KhLzKr",
+        "video_8tCdeD",
+        "video_mHwjiF",
+        "video_7fdQAn"
+      ],
+      "settings": {}
+    },
+    "tiktok_videos_3yYyNd": {
+      "type": "tiktok-videos",
+      "blocks": {
+        "video_VBhdqK": {
+          "type": "video",
+          "settings": {
+            "tiktok_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "video_VBhdqK"
+      ],
+      "disabled": true,
+      "settings": {}
     }
   },
   "order": [
@@ -1403,6 +1476,8 @@
     "164603686708691778",
     "164620932069107a3a",
     "1646209857bf69e76a",
-    "16460368750174c54a"
+    "16460368750174c54a",
+    "tiktok_slider_B9674h",
+    "tiktok_videos_3yYyNd"
   ]
 }
