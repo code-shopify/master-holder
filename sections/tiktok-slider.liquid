@@ -134,86 +134,64 @@ background: linear-gradient(0deg, #fe2d52, #28ffff);
 {% endstyle %}
 
 {% javascript %}
-document.addEventListener("DOMContentLoaded", () => {
-  const playButtons = document.querySelectorAll('.play-buttonv8');
-  const videos = document.querySelectorAll('.tiktok-videov8');
-  const slider = document.querySelector('.sliderv8');
-  const slides = document.querySelectorAll('.slidev8');
-  const prevButton = document.querySelector('.prev-button');
-  const nextButton = document.querySelector('.next-button');
-  const dotsContainer = document.querySelector('.dots-container');
 
-  let index = 0;
-  const videosPerView = window.innerWidth < 769 ? 2 : 4;
-  const totalDots = Math.ceil(slides.length / videosPerView);
+        document.addEventListener("DOMContentLoaded", () => {
+            const slides = document.querySelectorAll(".slidev8");
 
-  // Crear los dots dinámicamente
-  for (let i = 0; i < totalDots; i++) {
-    const dot = document.createElement('span');
-    dot.classList.add('dot');
-    if (i === 0) dot.classList.add('active');
-    dotsContainer.appendChild(dot);
+            slides.forEach(slide => {
+                const playButton = slide.querySelector(".play-buttonv8");
+                const pauseButton = slide.querySelector(".pause-buttonv8");
+                const video = slide.querySelector("video");
 
-    dot.addEventListener('click', () => {
-      index = i;
-      updateSlider();
-    });
-  }
+                let hidePauseButtonTimeout;
 
-  const dots = document.querySelectorAll('.dot');
+                const showPauseButton = () => {
+                    pauseButton.classList.remove("hiddenv8");
+                    clearTimeout(hidePauseButtonTimeout);
+                    hidePauseButtonTimeout = setTimeout(() => {
+                        pauseButton.classList.add("hiddenv8");
+                    }, 1000);
+                };
 
-  const updateSlider = () => {
-    const slideWidth = slides[0].offsetWidth + 10; // Considerar el margen
-    slider.style.transform = `translateX(-${index * videosPerView * slideWidth}px)`;
-    updateDots();
-  };
+                playButton.addEventListener("click", () => {
+                    // Pause other videos
+                    document.querySelectorAll("video").forEach(v => {
+                        if (v !== video) {
+                            v.pause();
+                            v.classList.remove("playingv8");
+                        }
+                    });
 
-  const updateDots = () => {
-    dots.forEach(dot => dot.classList.remove('active'));
-    dots[index].classList.add('active');
-  };
+                    // Play selected video
+                    video.play();
+                    video.classList.add("playingv8");
+                    playButton.style.display = "none";
+                    pauseButton.style.display = "flex";
+                    showPauseButton();
+                });
 
-  prevButton.addEventListener('click', () => {
-    index = (index > 0) ? index - 1 : totalDots - 1;
-    updateSlider();
-  });
+                pauseButton.addEventListener("click", () => {
+                    video.pause();
+                    video.classList.remove("playingv8");
+                    playButton.style.display = "flex";
+                    pauseButton.style.display = "none";
+                });
 
-  nextButton.addEventListener('click', () => {
-    index = (index < totalDots - 1) ? index + 1 : 0;
-    updateSlider();
-  });
+                video.addEventListener("mousemove", showPauseButton);
+                video.addEventListener("click", showPauseButton);
 
-  // Reproducir/Pausar videos al hacer clic en el botón de play
-  videos.forEach(video => {
-    const playButton = video.nextElementSibling;
+                video.addEventListener("play", () => {
+                    playButton.style.display = "none";
+                    pauseButton.style.display = "flex";
+                    showPauseButton();
+                });
 
-    video.addEventListener('click', () => {
-      if (video.paused) {
-        videos.forEach(v => { if (v !== video) v.pause(); });
-        video.play();
-        playButton.style.display = 'none';
-      } else {
-        video.pause();
-        playButton.style.display = 'flex';
-      }
-    });
-
-    playButton.addEventListener('click', () => {
-      videos.forEach(v => { if (v !== video) v.pause(); });
-      video.play();
-      playButton.style.display = 'none';
-    });
-
-    video.addEventListener('pause', () => {
-      playButton.style.display = 'flex';
-    });
-
-    video.addEventListener('ended', () => {
-      playButton.style.display = 'flex';
-      video.currentTime = 0; // Reinicia el video después de terminar
-    });
-  });
-});
+                video.addEventListener("pause", () => {
+                    playButton.style.display = "flex";
+                    pauseButton.style.display = "none";
+                });
+            });
+        });
 {% endjavascript %}
 
 {% schema %}
