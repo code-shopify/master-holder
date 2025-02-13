@@ -1,6 +1,53 @@
+<div class="slider-containerv8">
+    <div class="sliderv8">
+        {% for block in section.blocks %}
+            <div class="slidev8">
+                <div class="with-borderv8">
+                    <video class="tiktok-videov8">
+                        <source src="{{ block.settings.video_url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="pause-buttonv8 hiddenv8">❚❚</div>
+                <div class="play-buttonv8">▷</div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    /* Aquí pega todo tu CSS del código proporcionado */
+    {{ 'tiktok-slider.css' | asset_url | stylesheet_tag }}
+</style>
+
+<script>
+    /* Aquí pega todo tu JavaScript del código proporcionado */
+    {{ 'tiktok-slider.js' | asset_url | script_tag }}
+</script>
+
 {% schema %}
-  {
-    "name": "Section name",
-    "settings": []
-  }
+{
+  "name": "TikTok Slider",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "TikTok Video",
+      "settings": [
+        {
+          "type": "url",
+          "id": "video_url",
+          "label": "Video URL"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 7,
+  "presets": [
+    {
+      "name": "TikTok Slider",
+      "category": "Custom"
+    }
+  ]
+}
 {% endschema %}
