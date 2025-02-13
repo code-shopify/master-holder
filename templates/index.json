@@ -15,7 +15,6 @@
         "164602873867eb3815-0": {
           "type": "image_parent",
           "settings": {
-            "image": "shopify://shop_images/Swell-MHP-Valentine_s_Day_Collection-Desktop.jpg",
             "image_position": "8",
             "cl_img": "",
             "link_img1": "",
@@ -58,7 +57,7 @@
             "remove_br_tag": false,
             "tag": "p",
             "fontf": "inherit",
-            "text_cl": "#fff",
+            "text_cl": "#ffffff",
             "text_fs": 35,
             "text_lh": 0,
             "text_fw": 500,
@@ -81,7 +80,7 @@
             "remove_br_tag": false,
             "tag": "p",
             "fontf": "inherit",
-            "text_cl": "#fff",
+            "text_cl": "#ffffff",
             "text_fs": 25,
             "text_lh": 55,
             "text_fw": 600,
@@ -225,12 +224,29 @@
             "btn_cl": "dark",
             "button_effect": "fade"
           }
+        },
+        "text_block_cmhJFP": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "title": "Add a title or tagline",
+            "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+            "button_label": "",
+            "button_link": "",
+            "open_link": "_blank",
+            "btn_icon": false,
+            "button_style": "default",
+            "btn_size": "large",
+            "btn_cl": "dark",
+            "button_effect": "fade"
+          }
         }
       },
       "block_order": [
         "text_block_bYVTXK",
         "text_block_FF69jd",
-        "text_block_mKRagU"
+        "text_block_mKRagU",
+        "text_block_cmhJFP"
       ],
       "settings": {
         "design_heading": "5",
@@ -329,13 +345,68 @@
             "collection_title": "Collection",
             "collection_link": ""
           }
+        },
+        "collection_item_PFHGM8": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "",
+            "icon": "las la-gem",
+            "custom_svg": "",
+            "collection_title": "Collection",
+            "collection_link": ""
+          }
+        },
+        "collection_item_ab8qRz": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "",
+            "icon": "las la-gem",
+            "custom_svg": "",
+            "collection_title": "Collection",
+            "collection_link": ""
+          }
+        },
+        "collection_item_EWcFi9": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "",
+            "icon": "las la-gem",
+            "custom_svg": "",
+            "collection_title": "Collection",
+            "collection_link": ""
+          }
+        },
+        "collection_item_hNhRJJ": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "",
+            "icon": "las la-gem",
+            "custom_svg": "",
+            "collection_title": "Collection",
+            "collection_link": ""
+          }
+        },
+        "collection_item_td9mHm": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "",
+            "icon": "las la-gem",
+            "custom_svg": "",
+            "collection_title": "Collection",
+            "collection_link": ""
+          }
         }
       },
       "block_order": [
         "collection_item_jbnJ8c",
         "collection_item_HUtVLL",
         "collection_item_nFqtmr",
-        "collection_item_rnqAMc"
+        "collection_item_rnqAMc",
+        "collection_item_PFHGM8",
+        "collection_item_ab8qRz",
+        "collection_item_EWcFi9",
+        "collection_item_hNhRJJ",
+        "collection_item_td9mHm"
       ],
       "settings": {
         "design_heading": "2",
@@ -429,9 +500,9 @@
             "ch_pos": 50,
             "cv_pos_mb": 50,
             "ch_pos_mb": 50,
-            "bg_overlay": "#000",
+            "bg_overlay": "#000000",
             "bg_opacity": 0,
-            "bg_content_cl": "#fff",
+            "bg_content_cl": "#ffffff",
             "bg_content_op": 0,
             "content_radius": 0,
             "box_square": false,
@@ -442,8 +513,8 @@
             "content_pd_tb_mb": 10,
             "content_pd_lr_mb": 10,
             "border_bl": false,
-            "br_color": "#222",
-            "br_bg": "#fff",
+            "br_color": "#222222",
+            "br_bg": "#ffffff",
             "br_opacity": 50,
             "br_style": "solid",
             "br_pd": 20,
@@ -459,7 +530,7 @@
             "remove_br_tag": false,
             "tag": "p",
             "fontf": "inherit",
-            "text_cl": "#fff",
+            "text_cl": "#ffffff",
             "text_fs": 16,
             "text_lh": 0,
             "text_fw": 400,
@@ -482,7 +553,7 @@
             "remove_br_tag": false,
             "tag": "p",
             "fontf": "inherit",
-            "text_cl": "#fff",
+            "text_cl": "#ffffff",
             "text_fs": 70,
             "text_lh": 70,
             "text_fw": 300,
@@ -508,10 +579,10 @@
             "button_icon_w": 0,
             "button_style": "default",
             "button_effect": "default",
-            "pri_cl": "#222",
+            "pri_cl": "#222222",
             "second_cl": "",
             "pri_cl_hover": "#56cfe1",
-            "second_cl_hover": "#fff",
+            "second_cl_hover": "#ffffff",
             "fsbutton": 14,
             "fwbutton": 400,
             "button_ls": 0,
@@ -544,9 +615,9 @@
             "ch_pos": 50,
             "cv_pos_mb": 50,
             "ch_pos_mb": 50,
-            "bg_overlay": "#000",
+            "bg_overlay": "#000000",
             "bg_opacity": 0,
-            "bg_content_cl": "#fff",
+            "bg_content_cl": "#ffffff",
             "bg_content_op": 0,
             "content_radius": 0,
             "box_square": false,
@@ -557,8 +628,8 @@
             "content_pd_tb_mb": 10,
             "content_pd_lr_mb": 10,
             "border_bl": false,
-            "br_color": "#222",
-            "br_bg": "#fff",
+            "br_color": "#222222",
+            "br_bg": "#ffffff",
             "br_opacity": 50,
             "br_style": "solid",
             "br_pd": 20,
@@ -574,7 +645,7 @@
             "remove_br_tag": false,
             "tag": "p",
             "fontf": "inherit",
-            "text_cl": "#fff",
+            "text_cl": "#ffffff",
             "text_fs": 16,
             "text_lh": 0,
             "text_fw": 400,
@@ -597,7 +668,7 @@
             "remove_br_tag": false,
             "tag": "p",
             "fontf": "inherit",
-            "text_cl": "#fff",
+            "text_cl": "#ffffff",
             "text_fs": 70,
             "text_lh": 70,
             "text_fw": 300,
@@ -623,10 +694,10 @@
             "button_icon_w": 0,
             "button_style": "default",
             "button_effect": "default",
-            "pri_cl": "#222",
+            "pri_cl": "#222222",
             "second_cl": "",
             "pri_cl_hover": "#56cfe1",
-            "second_cl_hover": "#fff",
+            "second_cl_hover": "#ffffff",
             "fsbutton": 14,
             "fwbutton": 400,
             "button_ls": 0,
