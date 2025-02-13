@@ -16,7 +16,10 @@
 </div>
 
 <style>
-    .slider-containerv8 {
+   
+    /* Aquí pega todo tu CSS del código proporcionado */
+    {{ 'tiktok-slider.css' | asset_url | stylesheet_tag }}
+   .slider-containerv8 {
             position: relative;
             width: 100%;
             overflow-x: scroll;
@@ -116,8 +119,6 @@ margin-left: 2px;
     border-radius: 10px;
 background: linear-gradient(0deg, #fe2d52, #28ffff);
   }
-    /* Aquí pega todo tu CSS del código proporcionado */
-    {{ 'tiktok-slider.css' | asset_url | stylesheet_tag }}
 </style>
 
 <script>
