@@ -432,7 +432,7 @@
       "settings": {
         "design_heading": "2",
         "heading_align": "t4s-text-start",
-        "top_heading": "Collections list",
+        "top_heading": "",
         "icon_heading": "las la-gem",
         "top_subheading": "",
         "tophead_mb": 30,
