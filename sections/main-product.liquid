@@ -745,7 +745,9 @@ endif -%}
                         </span>
                         <span data-soldout-status class="t4s-soldout-status t4s-csecondary t4s-dib{% if isProductAvailable %} t4s-dn{% endif %}">{{ 'products.product.sold_out_status' | t }}</span>
                         </span></div>
+                        
                       {%- endif -%}
+                    {%- render 'custom-product-icons' -%}
 
                       {%- if product.collections.size > 0 and bk_stts.show_category %}{% assign ck_meta = true -%}
                       <div class="t4s-collections-wrapper">{{ 'products.product.product_category' | t }}
@@ -798,7 +800,7 @@ endif -%}
                       {%- unless the_snippet_share contains 'Liquid error' %}{{ the_snippet_share }}{%- endunless -%}
                     {%- endif -%}
                   </div>
-                {%- render 'custom-product-icons' -%}
+                
 
    
                 {%- when 'vendor_img' -%}
