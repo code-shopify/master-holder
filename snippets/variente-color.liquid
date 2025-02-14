@@ -7,47 +7,37 @@
     
     <!-- Mostrar primero el producto activo si está en las recomendaciones -->
     {% for recommended_product in related_products %}
-  {% if recommended_product.handle == current_product_handle %}
-    {% assign active_product_found = true %}
-    <li class="product-item-2 active-product">
-      <a href="{{ recommended_product.url }}" class="product-link" title="{{ recommended_product.title }}">
-        {% assign custom_color = recommended_product.metafields.custom.color_variant %}
-        <div class="product-color" style="background:{{ custom_color }}">
-
-        </div>
-      </a>
-    </li>
-  {% endif %}
-{% endfor %}
-
-
-
+      {% if recommended_product.handle == current_product_handle %}
+        {% assign active_product_found = true %}
+        <li class="product-item-2 active-product">
+          <a href="{{ recommended_product.url }}" class="product-link" title="{{ recommended_product.title }}">
+            {% assign custom_color = recommended_product.selected_or_first_available_variant.metafields.custom.color_variant %}
+            <div class="product-color" data-color="{{ custom_color }}" style="background:{{ custom_color }}"></div>
+          </a>
+        </li>
+      {% endif %}
+    {% endfor %}
 
     <!-- Mostrar los otros productos, excluyendo el producto activo -->
     {% for recommended_product in related_products %}
       {% unless recommended_product.handle == current_product_handle %}
         <li class="product-item-2">
           <a href="{{ recommended_product.url }}" class="product-link" title="{{ recommended_product.title }}">
-            {% assign custom_color = recommended_product.metafields.custom.color_variant %}
-            <div class="product-color" style="background:{{ custom_color }}"></div>
-            
+            {% assign custom_color = recommended_product.selected_or_first_available_variant.metafields.custom.color_variant %}
+            <div class="product-color" data-color="{{ custom_color }}" style="background:{{ custom_color }}"></div>
           </a>
         </li>
       {% endunless %}
     {% endfor %}
   </ol>
 {% endif %}
+
 <style>
-
-
-
-
 .product-link {
   border: 0px !important;
   padding: 0px !important;
 }
 
-  
 .related-products {
   list-style: none;
   padding: 0;
@@ -61,7 +51,6 @@
   overflow: hidden;
   border-radius: 50%;
   border: 1px solid gainsboro;
-  
   text-align: center;
   vertical-align: top;
 }
@@ -81,21 +70,19 @@
   background-repeat: no-repeat;
   border-radius: 50%;
 }
+
 .product-color {
   width: 50px;
   height: 50px;
-  border: 2px ;
+  border: 2px;
   border-radius: 50%;
   display: inline-block;
- 
-  transition: background-color 0.3s ease;   /* Suaviza la transición del color */
+  transition: background-color 0.3s ease;
 }
 
-  
-/* Estilo especial para el producto activo */
 .active-product {
-  border-color: #ff9900; /* Cambia el color del borde al que desees */
-  order: -1; /* Mueve el producto activo al principio */
+  border-color: #ff9900;
+  order: -1;
 }
 
 .product-link:hover::after {
@@ -112,3 +99,21 @@
   z-index: 10;
 }
 </style>
+
+<script>
+  function applyColors() {
+    document.querySelectorAll('.product-color').forEach(function(circle) {
+      const color = circle.getAttribute('data-color');
+      if (color && color !== '') {
+        circle.style.backgroundColor = color;
+      } else {
+        circle.style.backgroundColor = 'transparent';
+      }
+    });
+  }
+
+  document.addEventListener('shopify:section:load', applyColors);
+  document.addEventListener('shopify:section:unload', applyColors);
+  document.addEventListener('variant:change', applyColors);
+  window.addEventListener('DOMContentLoaded', applyColors);
+</script>
