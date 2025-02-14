@@ -325,7 +325,7 @@
         "pd": ",,,800px",
         "mg_tb": "",
         "pd_tb": "",
-        "mg_mb": ",,30px,",
+        "mg_mb": ",,s,800px",
         "pd_mb": "",
         "use_cus_css": false,
         "code_cus_css": ".t4s-tab-wrapper {\n  margin: 0;\n  padding: 0;\n  border: none;\n}\n\n."
