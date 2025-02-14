@@ -1,9 +1,8 @@
 <style>
   .accordion {
     border-top: 1px solid #ccc;
-    text-align: center; /* Centrar el contenido */
-    max-width: 800px; /* Ajusta este valor al tamaño de tu sección */
-    margin: 0 auto; /* Centrar acordeón horizontalmente */
+    max-width: 800px;
+    margin: 0 auto;
   }
 
   .accordion-item {
@@ -11,7 +10,7 @@
   }
 
   .accordion-button {
-    background: none;
+    background-color: #fff; /* Fondo blanco */
     border: none;
     width: 100%;
     text-align: left;
@@ -19,16 +18,33 @@
     font-weight: bold;
     cursor: pointer;
     position: relative;
+    color: #000; /* Texto en color negro siempre */
+  }
+
+  .accordion-button:hover {
+    background-color: #f5f5f5; /* Pequeño fondo al pasar el mouse (opcional) */
+    color: #000; /* Mantener el color negro */
+  }
+
+  .accordion-button::after {
+    content: '\25BE'; /* Flecha hacia abajo */
+    position: absolute;
+    right: 20px;
+    font-size: 16px;
+  }
+
+  .accordion-button.active::after {
+    content: '\25B4'; /* Flecha hacia arriba */
   }
 
   .accordion-content {
-    display: block; /* Mostrar el contenido por defecto */
+    display: none;
     padding: 15px;
     background-color: #f9f9f9;
   }
 
-  .accordion-content p, .accordion-content ul {
-    text-align: left; /* Para mantener la legibilidad */
+  .accordion-content.active {
+    display: block;
   }
 </style>
 
@@ -54,3 +70,13 @@
     </div>
   </div>
 </div>
+
+<script>
+  document.querySelectorAll('.accordion-button').forEach(button => {
+    button.addEventListener('click', () => {
+      button.classList.toggle('active');
+      const content = button.nextElementSibling;
+      content.classList.toggle('active');
+    });
+  });
+</script>
