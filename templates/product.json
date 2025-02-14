@@ -424,7 +424,7 @@
     "product-recommendations": {
       "type": "product-recommendations",
       "custom_css": [
-        "h3 {font-size: 85px;}"
+        "h3 {font-size: 85px; padding-right:20px;}"
       ],
       "settings": {
         "show": true,
@@ -471,7 +471,7 @@
         "cl_bg": "",
         "cl_bg_gradient": "",
         "mg": "75px,,50px,",
-        "pd": ",,,50px",
+        "pd": "",
         "mg_tb": "",
         "pd_tb": "",
         "mg_mb": ",,30px,",
