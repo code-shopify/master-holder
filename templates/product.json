@@ -304,7 +304,7 @@
         "bg_content_cl": "#fff",
         "content_align": "t4s-text-start",
         "auto_active": false,
-        "layout": "t4s-container-wrap",
+        "layout": "t4s-cus-width",
         "custom_width": 1000,
         "cl_bg": "",
         "cl_bg_gradient": "",
