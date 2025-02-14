@@ -16,7 +16,9 @@ element.style {
     float: left;
     display: none;
 }
-
+#EFOLI_CUSTOMIZE_IT_BUTTON {
+  display:none;
+}
 
 /---------------- Custom CSS for only desktop -------------------/
 @media (min-width: 1025px) {
