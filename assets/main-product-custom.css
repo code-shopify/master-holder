@@ -22,6 +22,10 @@ element.style {
 div#SHOW_SIZE_COLOR_DIV {
     display: none;
 }
+
+.t4s-accordion-style-1 {
+    display: none;
+}
 /---------------- Custom CSS for only desktop -------------------/
 @media (min-width: 1025px) {
 .t4s-container{
