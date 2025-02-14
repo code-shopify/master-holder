@@ -305,7 +305,7 @@
         "content_align": "t4s-text-start",
         "auto_active": false,
         "layout": "t4s-cus-width",
-        "custom_width": 1000,
+        "custom_width": 800,
         "cl_bg": "",
         "cl_bg_gradient": "",
         "mg": "50p,,50px,",
