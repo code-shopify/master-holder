@@ -262,16 +262,16 @@
           "type": "accor_item",
           "settings": {
             "icon": "none",
-            "title": "Tab 01",
-            "content": "<p>We love to hear from you on our customer service, merchandise, website or any topics you want to share with us. Your comments and suggestions will be appreciated. Please complete the form below.</p>"
+            "title": "INFORMACIÓN ADICIONAL",
+            "content": "<ul><li><strong>Peso:</strong> 0.400 kg</li><li>Dimensiones: 8.6 × 8.6 × 21 cm</li></ul>"
           }
         },
         "accor_item_xAprR8": {
           "type": "accor_item",
           "settings": {
             "icon": "none",
-            "title": "Tab 02",
-            "content": "<p>We love to hear from you on our customer service, merchandise, website or any topics you want to share with us. Your comments and suggestions will be appreciated. Please complete the form below.</p>"
+            "title": "ENVÍO Y ENTREGA",
+            "content": "<p>Paquete Express es la primera opción de paquetería en envíos nacionales, si prefieres alguna otra opción por favor háznoslo saber en las notas de tu pedido.</p>"
           }
         },
         "accor_item_zYWdc9": {
@@ -291,7 +291,7 @@
       "settings": {
         "design_heading": "1",
         "heading_align": "t4s-text-center",
-        "top_heading": "Accordion",
+        "top_heading": "",
         "icon_heading": "las la-gem",
         "top_subheading": "",
         "tophead_mb": 30,
