@@ -1,12 +1,21 @@
+/* acomoda el tamaño de  los botones del producto para que se vean mas largos */
 .t4s-product-form__buttons{
           width: 100% !important;
         min-width: 160px !important;
         max-width: 100% !important;
     }
 }
+/* desaparece los adicionales que aparecen abajo de los botones de añadir al carrito y de cantidad*/
+.inkybay_size_card_title {
+    display: none;
+}
 
-
-
+element.style {
+    width: 200px;
+    margin-right: 5px;
+    float: left;
+    display: none;
+}
 
 
 /---------------- Custom CSS for only desktop -------------------/
