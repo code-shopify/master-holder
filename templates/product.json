@@ -258,6 +258,14 @@
     "accordion_aEdD6E": {
       "type": "accordion",
       "blocks": {
+        "accor_item_LtEh7q": {
+          "type": "accor_item",
+          "settings": {
+            "icon": "none",
+            "title": "Accordion item",
+            "content": ""
+          }
+        },
         "accor_item_Gn6yQx": {
           "type": "accor_item",
           "settings": {
@@ -284,9 +292,13 @@
         }
       },
       "block_order": [
+        "accor_item_LtEh7q",
         "accor_item_Gn6yQx",
         "accor_item_xAprR8",
         "accor_item_zYWdc9"
+      ],
+      "custom_css": [
+        ".t4s-tab-wrapper {margin: 0; padding: 0; border: solid 1px;}"
       ],
       "settings": {
         "design_heading": "1",
@@ -294,7 +306,7 @@
         "top_heading": "",
         "icon_heading": "las la-gem",
         "top_subheading": "",
-        "tophead_mb": 30,
+        "tophead_mb": 0,
         "accor_des": "1",
         "title_cl": "#222",
         "bg_title_cl": "#f6f6f8",
@@ -308,14 +320,14 @@
         "custom_width": 800,
         "cl_bg": "",
         "cl_bg_gradient": "",
-        "mg": "50p,,50px,",
+        "mg": "",
         "pd": ",,,800px",
         "mg_tb": "",
         "pd_tb": "",
         "mg_mb": ",,30px,",
         "pd_mb": "",
-        "use_cus_css": false,
-        "code_cus_css": ""
+        "use_cus_css": true,
+        "code_cus_css": ".t4s-tab-wrapper {\n  margin: 0;\n  padding: 0;\n  border: none;\n}\n\n."
       }
     },
     "sidebar": {
