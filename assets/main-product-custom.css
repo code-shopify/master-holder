@@ -14,7 +14,11 @@
 .t4s-container{
   padding-left:800px !important;
 }
-
+.t4s-product-form__variants.is-btn-full-width__false .t4s-product-form__buttons, .t4s-product-form__variants.is-btn-full-width__false .t4s-product-form__submit {
+        width: 100% !important;
+        min-width: 160px !important;
+        max-width: 100% !important;
+    }
 
 /* Boton comprar ahora */
 
