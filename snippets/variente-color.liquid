@@ -1,17 +1,39 @@
-{% assign color_variant = product.selected_or_first_available_variant.metafields.custom.color_variant %}
+{% if product.metafields.shopify--discovery--product_recommendation.related_products.value %}
+  <span>Variantes Producto</span>
+  <ol class="related-products">
+    {% assign current_product_handle = product.handle %}
+    {% assign related_products = product.metafields.shopify--discovery--product_recommendation.related_products.value %}
+    {% assign active_product_found = false %}
+    
+    <!-- Mostrar primero el producto activo si está en las recomendaciones -->
+    {% for recommended_product in related_products %}
+  {% if recommended_product.handle == current_product_handle %}
+    {% assign active_product_found = true %}
+    <li class="product-item-2 active-product">
+      <a href="{{ recommended_product.url }}" class="product-link" title="{{ recommended_product.title }}">
+        {% assign custom_color = recommended_product.metafields.custom.color_variant %}
+        <div class="product-color" style="background:{{ custom_color }}">
 
-{% if color_variant != blank %}
-  <div class="product-color" style="background-color: {{ color_variant }}; width: 50px; height: 50px; border-radius: 50%; margin-top: 10px;"></div>
-{% else %}
-  <div class="product-color" style="background-color: #ccc; width: 50px; height: 50px; border-radius: 50%; margin-top: 10px;">No color</div>
+        </div>
+      </a>
+    </li>
+  {% endif %}
+{% endfor %}
+
+
+
+
+    <!-- Mostrar los otros productos, excluyendo el producto activo -->
+    {% for recommended_product in related_products %}
+      {% unless recommended_product.handle == current_product_handle %}
+        <li class="product-item-2">
+          <a href="{{ recommended_product.url }}" class="product-link" title="{{ recommended_product.title }}">
+            {% assign custom_color = recommended_product.metafields.custom.color_variant %}
+            <div class="product-color" style="background:{{ custom_color }}"></div>
+            
+          </a>
+        </li>
+      {% endunless %}
+    {% endfor %}
+  </ol>
 {% endif %}
-
-<style>
-  .product-color {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-top: 10px;
-    transition: background-color 0.3s ease;
-  }
-</style>
