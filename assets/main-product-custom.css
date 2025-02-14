@@ -47,5 +47,7 @@
 
 /---------------- Custom CSS for only mobile -------------------/
 @media (max-width: 767px){
-
+.t4s-container{
+  padding-left:0px !important;
+}
 }
