@@ -10,7 +10,9 @@
 <style>
   .count-hours-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     border-radius: 15px;
     background-color: #fff;
     overflow: hidden;
@@ -18,18 +20,18 @@
   }
 
   .count-hours-item {
-    flex: 1 1 50%;
+    width: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
-    font-size: 20px;
+    font-size: 24px; /* Ajustado para escritorio */
     font-weight: bold;
   }
 
   .cold {
     color: #007BFF; /* Azul */
-    border-right: 2px solid #eee; /* Línea divisoria */
+    border-right: 2px solid #eee;
   }
 
   .hot {
@@ -37,8 +39,12 @@
   }
 
   @media (max-width: 768px) {
+    .count-hours-container {
+      flex-direction: column;
+    }
     .count-hours-item {
-      flex: 1 1 100%;
+      width: 100%;
+      font-size: 18px; /* Tamaño reducido para móvil */
       border-right: none;
       border-bottom: 2px solid #eee;
     }
