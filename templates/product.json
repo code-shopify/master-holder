@@ -423,9 +423,7 @@
     },
     "product-recommendations": {
       "type": "product-recommendations",
-      "custom_css": [
-        "h3 {font-size: 85px;}"
-      ],
+      "custom_css": [],
       "settings": {
         "show": true,
         "design_heading": "1",
