@@ -471,7 +471,7 @@
         "cl_bg": "",
         "cl_bg_gradient": "",
         "mg": "75px,,50px,",
-        "pd": "",
+        "pd": ",,,50px",
         "mg_tb": "",
         "pd_tb": "",
         "mg_mb": ",,30px,",
