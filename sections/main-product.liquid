@@ -747,13 +747,14 @@ endif -%}
                         </span></div>
                         
                       {%- endif -%}
-                    {%- render 'custom-product-icons' -%}
 
                       {%- if product.collections.size > 0 and bk_stts.show_category %}{% assign ck_meta = true -%}
                       <div class="t4s-collections-wrapper">{{ 'products.product.product_category' | t }}
                         {% for collection in product.collections -%}{{ collection.title | link_to: collection.url, class: 't4s-dib' }} {% endfor -%}
                       </div>
                       {%- endif -%}
+                    {%- render 'custom-product-icons' -%}
+                    
 
                       {%- if pr_tags.size > 0 and bk_stts.show_tags and product.collections.size > 0 -%}
 
