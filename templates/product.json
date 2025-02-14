@@ -284,6 +284,7 @@
         },
         "accor_item_zYWdc9": {
           "type": "accor_item",
+          "disabled": true,
           "settings": {
             "icon": "none",
             "title": "Tab 03",
@@ -326,7 +327,7 @@
         "pd_tb": "",
         "mg_mb": ",,30px,",
         "pd_mb": "",
-        "use_cus_css": true,
+        "use_cus_css": false,
         "code_cus_css": ".t4s-tab-wrapper {\n  margin: 0;\n  padding: 0;\n  border: none;\n}\n\n."
       }
     },
