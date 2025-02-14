@@ -66,8 +66,8 @@
             "enable_fit_ratio_img": false,
             "color_size": "medium",
             "show_qty": true,
-            "enable_wishlist": true,
-            "enable_compare": true,
+            "enable_wishlist": false,
+            "enable_compare": false,
             "btn_atc_full": false,
             "pr_btn_round": 40,
             "ani": "t4s-ani-shake",
@@ -75,7 +75,7 @@
             "btn_txt": "3",
             "btn_icon": false,
             "button_style": "default",
-            "button_color": "primary",
+            "button_color": "dark",
             "button_effect": "sweep-to-top",
             "wishlist_color": "#222222",
             "wishlist_color_hover": "#56cfe1",
@@ -394,6 +394,7 @@
     },
     "recently-viewed-products": {
       "type": "recently_viewed",
+      "disabled": true,
       "settings": {
         "show": true,
         "design_heading": "1",
