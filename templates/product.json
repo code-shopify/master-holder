@@ -139,6 +139,7 @@
         },
         "95d4f334-8ea7-4cd2-b609-2373b1e848b8": {
           "type": "tab_des",
+          "disabled": true,
           "settings": {
             "title": "Description"
           }
@@ -159,6 +160,7 @@
         },
         "56e67368-7424-4d73-8f14-dacdda4c59be": {
           "type": "tab_rivui",
+          "disabled": true,
           "settings": {
             "title": "Reviews",
             "review_liquid": ""
@@ -166,6 +168,7 @@
         },
         "94011ade-ec25-4d68-b37a-70660ede49dd": {
           "type": "social",
+          "disabled": true,
           "settings": {
             "socials_align": "start",
             "social_mode": "2",
@@ -183,6 +186,7 @@
         },
         "bded529b-9b8f-4d5c-8f04-5de0b22e627d": {
           "type": "tab_html",
+          "disabled": true,
           "settings": {
             "title": "Collapsible tab",
             "content": "",
@@ -249,6 +253,69 @@
         "enable_select": true,
         "ani": "t4s-ani-shake",
         "time": 3
+      }
+    },
+    "accordion_aEdD6E": {
+      "type": "accordion",
+      "blocks": {
+        "accor_item_Gn6yQx": {
+          "type": "accor_item",
+          "settings": {
+            "icon": "none",
+            "title": "Tab 01",
+            "content": "<p>We love to hear from you on our customer service, merchandise, website or any topics you want to share with us. Your comments and suggestions will be appreciated. Please complete the form below.</p>"
+          }
+        },
+        "accor_item_xAprR8": {
+          "type": "accor_item",
+          "settings": {
+            "icon": "none",
+            "title": "Tab 02",
+            "content": "<p>We love to hear from you on our customer service, merchandise, website or any topics you want to share with us. Your comments and suggestions will be appreciated. Please complete the form below.</p>"
+          }
+        },
+        "accor_item_zYWdc9": {
+          "type": "accor_item",
+          "settings": {
+            "icon": "none",
+            "title": "Tab 03",
+            "content": "<p>We love to hear from you on our customer service, merchandise, website or any topics you want to share with us. Your comments and suggestions will be appreciated. Please complete the form below.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "accor_item_Gn6yQx",
+        "accor_item_xAprR8",
+        "accor_item_zYWdc9"
+      ],
+      "settings": {
+        "design_heading": "1",
+        "heading_align": "t4s-text-center",
+        "top_heading": "Accordion",
+        "icon_heading": "las la-gem",
+        "top_subheading": "",
+        "tophead_mb": 30,
+        "accor_des": "1",
+        "title_cl": "#222",
+        "bg_title_cl": "#f6f6f8",
+        "title_active_cl": "#000",
+        "bg_title_active_cl": "#f6f6f8",
+        "content_cl": "#878787",
+        "bg_content_cl": "#fff",
+        "content_align": "t4s-text-start",
+        "auto_active": true,
+        "layout": "t4s-container-wrap",
+        "custom_width": 1000,
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": ",,50px,",
+        "pd": "",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": ",,30px,",
+        "pd_mb": "",
+        "use_cus_css": false,
+        "code_cus_css": ""
       }
     },
     "sidebar": {
@@ -452,6 +519,7 @@
   "order": [
     "breadcrumb",
     "main",
+    "accordion_aEdD6E",
     "sidebar",
     "product-recommendations",
     "recently-viewed-products"
