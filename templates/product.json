@@ -423,11 +423,13 @@
     },
     "product-recommendations": {
       "type": "product-recommendations",
-      "custom_css": [],
+      "custom_css": [
+        "h3 {font-size: 85px; padding-right: 10px;}"
+      ],
       "settings": {
         "show": true,
         "design_heading": "1",
-        "heading_align": "t4s-text-start",
+        "heading_align": "t4s-text-center",
         "top_heading": "You may also like",
         "icon_heading": "las la-gem",
         "top_subheading": "",
