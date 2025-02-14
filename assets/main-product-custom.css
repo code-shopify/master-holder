@@ -1,9 +1,9 @@
-.productform{
-  width:100%;
+.t4s-product-form__buttons{
+          width: 100%;
+        min-width: 160px;
+        max-width: 100%;
+    }
 }
-
-
-
 
 
 
