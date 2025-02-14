@@ -6,12 +6,17 @@
 
 
 
+
 /---------------- Custom CSS for only desktop -------------------/
 @media (min-width: 1025px) {
 
 }
 
+
+
+
 /---------------- Custom CSS for tablet, mobile -------------------/
+@media (max-width: 1024px) {
 
 }
 
@@ -20,7 +25,10 @@
 
 }
 
+
+
+
 /---------------- Custom CSS for only mobile -------------------/
 @media (max-width: 767px){
- 
+
 }
