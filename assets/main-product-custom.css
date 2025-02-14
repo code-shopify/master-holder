@@ -1,10 +1,14 @@
 
 
+
+
+.t4s-container{background:red !important;}
+
+
+
 /---------------- Custom CSS for only desktop -------------------/
 @media (min-width: 1025px) {
 
-
-  body{background:red !important;}
 }
 
 /---------------- Custom CSS for tablet, mobile -------------------/
