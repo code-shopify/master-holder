@@ -19,7 +19,9 @@ element.style {
 #EFOLI_CUSTOMIZE_IT_BUTTON {
   display:none;
 }
-
+div#SHOW_SIZE_COLOR_DIV {
+    display: none;
+}
 /---------------- Custom CSS for only desktop -------------------/
 @media (min-width: 1025px) {
 .t4s-container{
