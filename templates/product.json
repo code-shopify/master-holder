@@ -322,13 +322,13 @@
         "cl_bg": "",
         "cl_bg_gradient": "",
         "mg": "",
-        "pd": ",,,800px",
+        "pd": "",
         "mg_tb": "",
         "pd_tb": "",
-        "mg_mb": ",,s,800px",
+        "mg_mb": "",
         "pd_mb": "",
         "use_cus_css": false,
-        "code_cus_css": ".t4s-tab-wrapper {\n  margin: 0;\n  padding: 0;\n  border: none;\n}\n\n."
+        "code_cus_css": ".t4s-tab-wrapper {\n  margin: 0;\n  padding: 800px;\n  border: none;\n}\n\n."
       }
     },
     "sidebar": {
