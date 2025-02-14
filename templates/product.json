@@ -424,7 +424,7 @@
     "product-recommendations": {
       "type": "product-recommendations",
       "custom_css": [
-        "h3 {font-size: 85px; padding-right: 10px;}"
+        "h3 {font-size: 85px; padding-right: 200px;}"
       ],
       "settings": {
         "show": true,
