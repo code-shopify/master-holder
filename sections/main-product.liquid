@@ -798,7 +798,9 @@ endif -%}
                       {%- unless the_snippet_share contains 'Liquid error' %}{{ the_snippet_share }}{%- endunless -%}
                     {%- endif -%}
                   </div>
+                {%- render 'custom-product-icons' -%}
 
+   
                 {%- when 'vendor_img' -%}
                   {%- liquid
                     if pr_vendor == blank
