@@ -89,7 +89,7 @@
             "button_color_payment": "dark",
             "show_gift_card_recipient": true,
             "product_list": [],
-            "show_product_current": true,
+            "show_product_current": false,
             "qty_val": "0",
             "advance_label": "Choose style",
             "advance_pr_list": [
