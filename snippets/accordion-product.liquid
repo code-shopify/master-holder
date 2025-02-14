@@ -1,0 +1,74 @@
+<style>
+  .accordion {
+    border-top: 1px solid #ccc;
+  }
+
+  .accordion-item {
+    border-bottom: 1px solid #ccc;
+  }
+
+  .accordion-button {
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .accordion-button::after {
+    content: '\25BE'; /* Flecha hacia abajo */
+    position: absolute;
+    right: 20px;
+    font-size: 16px;
+  }
+
+  .accordion-button.active::after {
+    content: '\25B4'; /* Flecha hacia arriba */
+  }
+
+  .accordion-content {
+    display: none;
+    padding: 15px;
+    background-color: #f9f9f9;
+  }
+
+  .accordion-content.active {
+    display: block;
+  }
+</style>
+
+<div class="accordion">
+  <div class="accordion-item">
+    <button class="accordion-button" type="button">
+      INFORMACIÓN ADICIONAL
+    </button>
+    <div class="accordion-content">
+      <ul>
+        <li>Peso: 0.400 kg</li>
+        <li>Dimensiones: 8.6 × 8.6 × 21 cm</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <button class="accordion-button" type="button">
+      ENVÍO Y ENTREGA
+    </button>
+    <div class="accordion-content">
+      <p>Paquete Express es la primera opción de paquetería en envíos nacionales, si prefieres alguna otra opción por favor háznoslo saber en las notas de tu pedido.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.accordion-button').forEach(button => {
+    button.addEventListener('click', () => {
+      button.classList.toggle('active');
+      const content = button.nextElementSibling;
+      content.classList.toggle('active');
+    });
+  });
+</script>
