@@ -1,6 +1,9 @@
 <style>
   .accordion {
     border-top: 1px solid #ccc;
+    text-align: center; /* Centrar el contenido */
+    max-width: 800px; /* Ajusta este valor al tamaño de tu sección */
+    margin: 0 auto; /* Centrar acordeón horizontalmente */
   }
 
   .accordion-item {
@@ -18,25 +21,14 @@
     position: relative;
   }
 
-  .accordion-button::after {
-    content: '\25BE'; /* Flecha hacia abajo */
-    position: absolute;
-    right: 20px;
-    font-size: 16px;
-  }
-
-  .accordion-button.active::after {
-    content: '\25B4'; /* Flecha hacia arriba */
-  }
-
   .accordion-content {
-    display: none;
+    display: block; /* Mostrar el contenido por defecto */
     padding: 15px;
     background-color: #f9f9f9;
   }
 
-  .accordion-content.active {
-    display: block;
+  .accordion-content p, .accordion-content ul {
+    text-align: left; /* Para mantener la legibilidad */
   }
 </style>
 
@@ -62,13 +54,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  document.querySelectorAll('.accordion-button').forEach(button => {
-    button.addEventListener('click', () => {
-      button.classList.toggle('active');
-      const content = button.nextElementSibling;
-      content.classList.toggle('active');
-    });
-  });
-</script>
