@@ -11,33 +11,10 @@
 
 /---------------- Custom CSS for only desktop -------------------/
 @media (min-width: 1025px) {
-.count-hours-container {
-    display: flex;
-    flex-wrap: wrap;
-    border-radius: 15px;
-    background-color: #fff;
-    overflow: hidden;
-    margin-top: 20px;
-  }
+.t4s-container{
+  padding-left:800px !important;
+}
 
-  .count-hours-item {
-    flex: 1 1 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    font-size: 20px;
-    font-weight: bold;
-  }
-
-  .cold {
-    color: #007BFF; /* Azul */
-    border-right: 2px solid #eee; /* Línea divisoria */
-  }
-
-  .hot {
-    color: #DC3545; /* Rojo */
-  }
 
 /* Boton comprar ahora */
 
@@ -70,31 +47,5 @@
 
 /---------------- Custom CSS for only mobile -------------------/
 @media (max-width: 767px){
-.count-hours-container {
-    display: flex;
-    flex-wrap: wrap;
-    border-radius: 15px;
-    background-color: #fff;
-    overflow: hidden;
-    margin-top: 20px;
-  }
 
-  .count-hours-item {
-    flex: 1 1 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    font-size: 20px;
-    font-weight: bold;
-  }
-
-  .cold {
-    color: #007BFF; /* Azul */
-    border-right: 2px solid #eee; /* Línea divisoria */
-  }
-
-  .hot {
-    color: #DC3545; /* Rojo */
-  }
 }
