@@ -639,7 +639,7 @@ button.t4s-product-form__submit[disabled="disabled"]{
 
   .t4s-product-form__variants.is-btn-full-width__false .t4s-product-form__buttons,
   .t4s-product-form__variants.is-btn-full-width__false .t4s-product-form__submit{
-      width: auto;
+      /*width: auto;*/
       min-width: 160px;
       max-width: 100%;
   }
