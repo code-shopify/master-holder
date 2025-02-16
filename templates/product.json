@@ -449,9 +449,10 @@
           "type": "collection_item",
           "settings": {
             "collection": "",
+            "image": "shopify://shop_images/Tumbler_XL_-_2A.webp",
             "icon": "las la-gem",
             "custom_svg": "",
-            "collection_title": "Collection",
+            "collection_title": "ERGONOMIC HANDLE",
             "collection_link": ""
           }
         },
@@ -503,7 +504,7 @@
         "border": false,
         "icon_width": 50,
         "item_pd": 0,
-        "item_rd": 10,
+        "item_rd": 6,
         "img_effect": "none",
         "b_effect": "none",
         "image_ratio": "rationt",
