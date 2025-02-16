@@ -640,7 +640,7 @@
       "custom_css": [],
       "settings": {
         "show": true,
-        "design_heading": "1",
+        "design_heading": "2",
         "heading_align": "t4s-text-center",
         "top_heading": "You may also like",
         "icon_heading": "las la-gem",
@@ -680,7 +680,7 @@
         "dots_space": 10,
         "dots_hidden_mobile": false,
         "layout": "t4s-container-wrap",
-        "cl_bg": "",
+        "cl_bg": "#f2f2f2",
         "cl_bg_gradient": "",
         "mg": "75px,,50px,",
         "pd": "",
