@@ -640,7 +640,7 @@
       "custom_css": [],
       "settings": {
         "show": true,
-        "design_heading": "2",
+        "design_heading": "1",
         "heading_align": "t4s-text-start",
         "top_heading": "You may also like",
         "icon_heading": "las la-gem",
