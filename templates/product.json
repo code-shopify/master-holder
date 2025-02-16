@@ -321,7 +321,7 @@
         "content_align": "t4s-text-start",
         "auto_active": false,
         "layout": "t4s-cus-width",
-        "custom_width": 800,
+        "custom_width": 830,
         "cl_bg": "",
         "cl_bg_gradient": "",
         "mg": "",
@@ -332,6 +332,219 @@
         "pd_mb": "",
         "use_cus_css": false,
         "code_cus_css": ".t4s-tab-wrapper {\n  margin: 0;\n  padding: 800px;\n  border: none;\n}\n\n."
+      }
+    },
+    "image_gallery_PK7ibx": {
+      "type": "image-gallery",
+      "blocks": {
+        "image_item_zMXD7D": {
+          "type": "image_item",
+          "settings": {
+            "link": ""
+          }
+        },
+        "image_item_MChfFX": {
+          "type": "image_item",
+          "settings": {
+            "link": ""
+          }
+        },
+        "image_item_r8nn7e": {
+          "type": "image_item",
+          "settings": {
+            "link": ""
+          }
+        },
+        "image_item_NCUwDB": {
+          "type": "image_item",
+          "disabled": true,
+          "settings": {
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_item_zMXD7D",
+        "image_item_MChfFX",
+        "image_item_r8nn7e",
+        "image_item_NCUwDB"
+      ],
+      "disabled": true,
+      "settings": {
+        "design_heading": "1",
+        "heading_align": "t4s-text-center",
+        "top_heading": "Gallery",
+        "icon_heading": "las la-gem",
+        "top_subheading": "",
+        "tophead_mb": 30,
+        "layout_des": "1",
+        "click_image": "data-t4s-gallery",
+        "nav_thumbs": true,
+        "open_link": "_blank",
+        "item_rd": 7,
+        "img_effect": "none",
+        "b_effect": "none",
+        "image_ratio": "rationt",
+        "image_size": "cover",
+        "image_position": "8",
+        "col_dk": "3",
+        "col_tb": "2",
+        "col_mb": "2",
+        "space_item": "30",
+        "space_item_mb": "10",
+        "loop": true,
+        "au_time": 0,
+        "au_hover": true,
+        "nav_btn": true,
+        "btn_vi": "hover",
+        "btn_owl": "default",
+        "btn_shape": "none",
+        "btn_cl": "dark",
+        "btn_size": "small",
+        "btn_hidden_mobile": false,
+        "nav_dot": true,
+        "dot_owl": "default",
+        "dots_cl": "dark",
+        "dots_round": false,
+        "dots_space": 10,
+        "layout": "t4s-container-wrap",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": ",,50px,",
+        "pd": "",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": ",,30px,",
+        "pd_mb": "",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
+    "collections_list_63HmLj": {
+      "type": "collections-list",
+      "blocks": {
+        "collection_item_ctTCxp": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/Tumbler_XL_-_3A.webp",
+            "icon": "las la-gem",
+            "custom_svg": "",
+            "collection_title": "TRIPLE LAYER INSULATION",
+            "collection_link": ""
+          }
+        },
+        "collection_item_GiDgjk": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/Tumbler_XL_-_1A.webp",
+            "icon": "las la-gem",
+            "custom_svg": "",
+            "collection_title": "SPLASH-FREE LID                            Protects you from accidental splashes.",
+            "collection_link": ""
+          }
+        },
+        "collection_item_y6mLah": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "",
+            "icon": "las la-gem",
+            "custom_svg": "",
+            "collection_title": "Collection",
+            "collection_link": ""
+          }
+        },
+        "collection_item_edGEmb": {
+          "type": "collection_item",
+          "disabled": true,
+          "settings": {
+            "collection": "",
+            "icon": "las la-gem",
+            "custom_svg": "",
+            "collection_title": "Collection",
+            "collection_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_item_ctTCxp",
+        "collection_item_GiDgjk",
+        "collection_item_y6mLah",
+        "collection_item_edGEmb"
+      ],
+      "settings": {
+        "design_heading": "2",
+        "heading_align": "t4s-text-center",
+        "top_heading": "Collections list",
+        "icon_heading": "las la-gem",
+        "top_subheading": "",
+        "tophead_mb": 30,
+        "head_btn_label": "View All",
+        "head_btn_url": "",
+        "head_btn_icon": false,
+        "head_btn_style": "default",
+        "head_btn_size": "medium",
+        "head_btn_cl": "dark",
+        "head_btn_effect": "default",
+        "head_btn_hidden_mb": false,
+        "collection_des": "7",
+        "title_cl": "#ffffff",
+        "title_cl_hover": "#222222",
+        "subtitle_cl": "#878787",
+        "count_cl": "#222222",
+        "border_cl": "#e5e5e5",
+        "collection_subtitle": "Products",
+        "open_link": "_self",
+        "source": "image",
+        "space_bottom": 8,
+        "space_bottom_tb": 20,
+        "space_bottom_mb": 10,
+        "border": false,
+        "icon_width": 50,
+        "item_pd": 0,
+        "item_rd": 10,
+        "img_effect": "none",
+        "b_effect": "none",
+        "image_ratio": "rationt",
+        "image_size": "cover",
+        "image_position": "8",
+        "layout_des": "1",
+        "col_dk": "3",
+        "col_tb": "2",
+        "col_mb": "2",
+        "space_h_item": "30",
+        "space_v_item": "30",
+        "space_h_item_mb": "10",
+        "space_v_item_mb": "10",
+        "loop": true,
+        "au_time": 0,
+        "au_hover": true,
+        "nav_btn": false,
+        "btn_pos": "default",
+        "btn_vi": "hover",
+        "btn_owl": "default",
+        "btn_shape": "none",
+        "btn_cl": "dark",
+        "btn_size": "small",
+        "btn_hidden_mobile": false,
+        "nav_dot": false,
+        "dot_owl": "default",
+        "dots_cl": "dark",
+        "dots_round": true,
+        "dots_space": 10,
+        "dots_hidden_mobile": false,
+        "layout": "t4s-container-wrap",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": ",,50px,",
+        "pd": "",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": ",,30px,",
+        "pd_mb": "",
+        "use_cus_css": false,
+        "code_cus_css": ""
       }
     },
     "sidebar": {
@@ -537,6 +750,8 @@
     "breadcrumb",
     "main",
     "accordion_aEdD6E",
+    "image_gallery_PK7ibx",
+    "collections_list_63HmLj",
     "sidebar",
     "product-recommendations",
     "recently-viewed-products"
