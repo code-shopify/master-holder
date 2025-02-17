@@ -10,6 +10,12 @@
     display: none;
 }
 
+
+.t4s-product-wrapper {
+  background: white;
+  border-radius: 1rem;
+}
+
 element.style {
     width: 200px;
     margin-right: 5px;
