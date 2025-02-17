@@ -1,0 +1,70 @@
+{% if product.metafields.custom.modelos_mh %}
+  <div class="modelos-selector-container">
+    <p class="modelos-label">Modelos MH:</p>
+
+    <div class="modelos-selector">
+      {% assign modelos = product.metafields.custom.modelos_mh | split: "," %}
+
+      {% for modelo in modelos %}
+        {% assign modelo_slug = modelo | handleize %}
+        {% assign image_key = modelo_slug | append: ".png" %}
+        {% assign product_handle = modelo_slug %} 
+
+        <label class="modelo-option" data-url="/products/{{ product_handle }}">
+          <img src="{{ image_key | file_url }}" alt="{{ modelo }}" class="modelo-image">
+        </label>
+      {% endfor %}
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      let modeloOptions = document.querySelectorAll(".modelo-option");
+
+      modeloOptions.forEach(option => {
+        option.addEventListener("click", function() {
+          let newUrl = this.getAttribute("data-url");
+          if (newUrl) {
+            window.location.href = newUrl;
+          }
+        });
+      });
+    });
+  </script>
+
+  <style>
+    .modelos-selector-container {
+      font-family: Arial, sans-serif;
+      margin-bottom: 15px;
+    }
+
+    .modelos-label {
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .modelos-selector {
+      display: flex;
+      gap: 8px;
+    }
+
+    .modelo-option {
+      cursor: pointer;
+      border: 2px solid transparent;
+      padding: 2px;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .modelo-option:hover {
+      border: 2px solid black;
+      border-radius: 5px;
+    }
+
+    .modelo-image {
+      width: 50px;
+      height: auto;
+      border-radius: 5px;
+    }
+  </style>
+{% endif %}
