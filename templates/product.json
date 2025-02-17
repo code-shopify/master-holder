@@ -683,7 +683,7 @@
         "cl_bg": "#f2f2f2",
         "cl_bg_gradient": "",
         "mg": "75px,,50px,",
-        "pd": "",
+        "pd": "1rem,0rem",
         "mg_tb": "",
         "pd_tb": "",
         "mg_mb": ",,30px,",
