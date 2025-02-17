@@ -224,11 +224,13 @@
 }
 
 </style>
+
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".add-to-cartv8").forEach(button => {
         button.addEventListener("click", () => {
             let productId = button.getAttribute("data-product-id");
+
             fetch('/cart/add.js', {
                 method: 'POST',
                 headers: {
@@ -240,12 +242,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
             }).then(response => response.json())
               .then(data => {
-                  alert("Producto agregado al carrito");
+                  // Abre el carrito deslizante (Drawer Cart) en Shopify
+                  if (window.Shopify && Shopify.Storefront) {
+                      Shopify.Storefront.toggleCart();
+                  } else {
+                      // Alternativa: Redirigir al carrito si no hay carrito deslizante
+                      window.location.href = "/cart";
+                  }
               }).catch(error => console.error("Error:", error));
         });
     });
 });
 </script>
+
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
