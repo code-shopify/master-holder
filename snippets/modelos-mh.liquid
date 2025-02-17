@@ -6,12 +6,42 @@
       {% assign modelos = product.metafields.custom.modelos_mh | split: "," %}
 
       {% for modelo in modelos %}
-        {% assign modelo_slug = modelo | handleize %}
-        {% assign image_key = modelo_slug | append: ".png" %}
-        {% assign product_handle = modelo_slug %} 
+        {% case modelo %}
+          {% when "4 en 1 Anticaída" %}
+            {% assign product_url = "https://www.masterholder.com.mx/products/mh-4en1-anticaida-negro" %}
+            {% assign image_url = "https://cdn.shopify.com/s/files/1/0641/8933/3672/files/4-en-1-anticaida.png?v=1739799709" %}
+          
+          {% when "Portacaguamón" %}
+            {% assign product_url = "https://www.masterholder.com.mx/products/portacaguamon-negro" %}
+            {% assign image_url = "https://cdn.shopify.com/s/files/1/0641/8933/3672/files/portacaguamon.png?v=1739799710" %}
+          
+          {% when "Portalatón 5 en 1" %}
+            {% assign product_url = "https://www.masterholder.com.mx/products/mh-portalaton-5-en-1-negro" %}
+            {% assign image_url = "https://cdn.shopify.com/s/files/1/0641/8933/3672/files/portalaton-5-en-1.webp?v=1739799703" %}
+          
+          {% when "Nomada" %}
+            {% assign product_url = "https://www.masterholder.com.mx/products/nomada-negro" %}
+            {% assign image_url = "https://cdn.shopify.com/s/files/1/0641/8933/3672/files/nomada.png?v=1739803520" %}
+          
+          {% when "Venti" %}
+            {% assign product_url = "https://www.masterholder.com.mx/products/mh-venti" %}
+            {% assign image_url = "https://cdn.shopify.com/s/files/1/0641/8933/3672/files/venti.png?v=1739803552" %}
+          
+          {% when "Sport" %}
+            {% assign product_url = "https://www.masterholder.com.mx/products/master-holder-sport-negro" %}
+            {% assign image_url = "https://cdn.shopify.com/s/files/1/0641/8933/3672/files/sport.png?v=1739803520" %}
+          
+          {% when "Tazas 20 oz" %}
+            {% assign product_url = "https://www.masterholder.com.mx/products/taza-termica-premium-20oz-aqua-glitter" %}
+            {% assign image_url = "https://cdn.shopify.com/s/files/1/0641/8933/3672/files/tazas-20-oz.png?v=1739799710" %}
+          
+          {% when "Vaso 20 oz" %}
+            {% assign product_url = "https://www.masterholder.com.mx/products/vaso-termico-20oz-azul" %}
+            {% assign image_url = "https://cdn.shopify.com/s/files/1/0641/8933/3672/files/vaso-20-oz.png?v=1739799710" %}
+        {% endcase %}
 
-        <label class="modelo-option" data-url="/products/{{ product_handle }}">
-          <img src="{{ image_key | file_url }}" alt="{{ modelo }}" class="modelo-image">
+        <label class="modelo-option" data-url="{{ product_url }}">
+          <img src="{{ image_url }}" alt="{{ modelo }}" class="modelo-image">
         </label>
       {% endfor %}
     </div>
