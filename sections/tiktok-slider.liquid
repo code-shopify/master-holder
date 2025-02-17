@@ -127,7 +127,27 @@
     border-radius: 10px;
     background: linear-gradient(0deg, #fe2d52, #28ffff);
 }
-  .product-boxv8 {
+  .slidev8 {
+    flex: 0 0 100%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column; /* Asegura que el video esté arriba y el producto abajo */
+    align-items: center;
+    text-align: center;
+    gap: 10px; /* Espacio entre el video y el producto */
+}
+
+/* Ajuste del video */
+.tiktok-videov8 {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 9 / 16;
+    border-radius: 10px;
+    display: block;
+}
+
+/* Contenedor del producto */
+.product-boxv8 {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -136,9 +156,12 @@
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     width: 100%;
+    max-width: 280px;
     margin-top: 10px;
+    text-align: left; /* Alinea el texto correctamente */
 }
 
+/* Enlace del producto */
 .product-linkv8 {
     display: flex;
     align-items: center;
@@ -147,6 +170,7 @@
     flex-grow: 1;
 }
 
+/* Imagen del producto */
 .product-linkv8 img {
     width: 50px;
     height: 50px;
@@ -154,23 +178,29 @@
     margin-right: 10px;
 }
 
+/* Información del producto */
 .product-info {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
 }
 
+/* Título del producto */
 .product-title {
     font-size: 14px;
     font-weight: bold;
     color: #333;
+    line-height: 1.2;
 }
 
+/* Precio del producto */
 .product-price {
     font-size: 14px;
     font-weight: bold;
     color: #f05454;
 }
 
+/* Precio tachado */
 .product-old-price {
     font-size: 12px;
     text-decoration: line-through;
@@ -178,6 +208,7 @@
     margin-left: 5px;
 }
 
+/* Botón de agregar al carrito */
 .add-to-cartv8 {
     background: black;
     color: white;
