@@ -6,7 +6,9 @@
       {% assign modelos = product.metafields.custom.modelos_mh | split: "," %}
 
       {% for modelo in modelos %}
-        {% case modelo %}
+        {% assign modelo_limpio = modelo | strip | remove: '[' | remove: ']' | remove: '"' | remove: "'" %}
+        
+        {% case modelo_limpio %}
           {% when "4 en 1 Anticaída" %}
             {% assign product_url = "https://www.masterholder.com.mx/products/mh-4en1-anticaida-negro" %}
             {% assign image_url = "https://cdn.shopify.com/s/files/1/0641/8933/3672/files/4-en-1-anticaida.png?v=1739799709" %}
@@ -41,7 +43,7 @@
         {% endcase %}
 
         <label class="modelo-option" data-url="{{ product_url }}">
-          <img src="{{ image_url }}" alt="{{ modelo | escape }}" class="modelo-image">
+          <img src="{{ image_url }}" alt="{{ modelo_limpio }}" class="modelo-image">
         </label>
       {% endfor %}
     </div>
