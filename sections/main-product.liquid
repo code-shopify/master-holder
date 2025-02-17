@@ -426,10 +426,12 @@ endif -%}
                     </a>
                     {%- endif -%}
                   </div>
-                {% render 'modelos-mh' %}
+                
                 {% if product.metafields.shopify--discovery--product_recommendation.related_products.value %}
 
-                  
+        {% render 'modelos-mh' %}    
+                  <p>Este es un texto en mi archivo Liquid.</p>
+
   <span>Variantes Producto</span>
   <ol class="related-products">
     {% assign current_product_handle = product.handle %}
@@ -461,7 +463,8 @@ endif -%}
       {% endunless %}
     {% endfor %}
   </ol>
-                  
+                  <p>Este es un texto en mi archivo Liquid.</p>
+
   
 
 {% endif %}
