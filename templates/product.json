@@ -260,68 +260,12 @@
     },
     "accordion_aEdD6E": {
       "type": "accordion",
-      "blocks": {
-        "accor_item_LtEh7q": {
-          "type": "accor_item",
-          "settings": {
-            "icon": "none",
-            "title": "Accordion item",
-            "content": ""
-          }
-        },
-        "accor_item_Gn6yQx": {
-          "type": "accor_item",
-          "settings": {
-            "icon": "none",
-            "title": "INFORMACIÓN ADICIONAL",
-            "content": "<ul><li><strong>Peso:</strong> 0.400 kg</li><li>Dimensiones: 8.6 × 8.6 × 21 cm</li></ul>"
-          }
-        },
-        "accor_item_xAprR8": {
-          "type": "accor_item",
-          "settings": {
-            "icon": "none",
-            "title": "ENVÍO Y ENTREGA",
-            "content": "<p>Paquete Express es la primera opción de paquetería en envíos nacionales, si prefieres alguna otra opción por favor háznoslo saber en las notas de tu pedido.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "accor_item_LtEh7q",
-        "accor_item_Gn6yQx",
-        "accor_item_xAprR8"
-      ],
       "custom_css": [
         ".t4s-tab-wrapper {margin: 0; padding: 0; border-bottom: solid 1px;}"
       ],
       "settings": {
-        "design_heading": "1",
-        "heading_align": "t4s-text-center",
-        "top_heading": "",
-        "icon_heading": "las la-gem",
-        "top_subheading": "",
-        "tophead_mb": 0,
-        "accor_des": "1",
-        "title_cl": "#222222",
-        "bg_title_cl": "#ffffff",
-        "title_active_cl": "#000000",
-        "bg_title_active_cl": "#ffffff",
-        "content_cl": "#222222",
-        "bg_content_cl": "#ffffff",
-        "content_align": "t4s-text-start",
-        "auto_active": false,
-        "layout": "t4s-cus-width",
-        "custom_width": 830,
-        "cl_bg": "",
-        "cl_bg_gradient": "",
-        "mg": "",
-        "pd": ",,,800px",
-        "mg_tb": "",
-        "pd_tb": ",,,0px",
-        "mg_mb": "",
-        "pd_mb": "",
-        "use_cus_css": false,
-        "code_cus_css": ".t4s-tab-wrapper {\n  margin: 0;\n  padding: 800px;\n  border: none;\n}\n\n."
+        "cold_hours": 50,
+        "hot_hours": 10
       }
     },
     "image_gallery_PK7ibx": {
@@ -735,19 +679,11 @@
         "mg_mb": ",,30px,",
         "pd_mb": ""
       }
-    },
-    "countdown_timer_grQhCg": {
-      "type": "countdown-timer",
-      "settings": {
-        "cold_hours": 50,
-        "hot_hours": 10
-      }
     }
   },
   "order": [
     "breadcrumb",
     "main",
-    "countdown_timer_grQhCg",
     "accordion_aEdD6E",
     "image_gallery_PK7ibx",
     "collections_list_63HmLj",
