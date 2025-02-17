@@ -427,6 +427,9 @@ endif -%}
                     {%- endif -%}
                   </div>
                 {% if product.metafields.shopify--discovery--product_recommendation.related_products.value %}
+
+                 {% render 'modelos-mh' %}
+ 
   <span>Variantes Producto</span>
   <ol class="related-products">
     {% assign current_product_handle = product.handle %}
