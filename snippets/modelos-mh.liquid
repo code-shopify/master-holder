@@ -41,7 +41,7 @@
         {% endcase %}
 
         <label class="modelo-option" data-url="{{ product_url }}">
-          <img src="{{ image_url }}" alt="{{ modelo }}" class="modelo-image">
+          <img src="{{ image_url }}" alt="{{ modelo | escape }}" class="modelo-image">
         </label>
       {% endfor %}
     </div>
