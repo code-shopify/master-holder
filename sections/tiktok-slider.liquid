@@ -3,10 +3,11 @@
         {% for block in section.blocks %}
             <div class="slidev8">
                 <div class="with-borderv8">
-                    {% if block.settings.video_url contains "tiktok.com" %}
-                        <iframe class="tiktok-embedv8" src="{{ block.settings.video_url | replace: 'https://www.tiktok.com/', 'https://www.tiktok.com/embed/' }}" frameborder="0" allowfullscreen scrolling="no"></iframe>
+                    {% if block.settings.video_url contains "/video/" %}
+                        {% assign video_id = block.settings.video_url | split: "/video/" | last | split: "?" | first %}
+                        <iframe class="tiktok-embedv8" src="https://www.tiktok.com/embed/{{ video_id }}" frameborder="0" allowfullscreen scrolling="no"></iframe>
                     {% else %}
-                        <p>URL no válida. Asegúrate de ingresar una URL de TikTok.</p>
+                        <p>URL no válida. Asegúrate de ingresar una URL de TikTok con formato correcto.</p>
                     {% endif %}
                 </div>
 
@@ -30,6 +31,7 @@
         {% endfor %}
     </div>
 </div>
+
 
 
 
