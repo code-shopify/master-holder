@@ -284,22 +284,12 @@
             "title": "ENVÍO Y ENTREGA",
             "content": "<p>Paquete Express es la primera opción de paquetería en envíos nacionales, si prefieres alguna otra opción por favor háznoslo saber en las notas de tu pedido.</p>"
           }
-        },
-        "accor_item_zYWdc9": {
-          "type": "accor_item",
-          "disabled": true,
-          "settings": {
-            "icon": "none",
-            "title": "Tab 03",
-            "content": "<p>We love to hear from you on our customer service, merchandise, website or any topics you want to share with us. Your comments and suggestions will be appreciated. Please complete the form below.</p>"
-          }
         }
       },
       "block_order": [
         "accor_item_LtEh7q",
         "accor_item_Gn6yQx",
-        "accor_item_xAprR8",
-        "accor_item_zYWdc9"
+        "accor_item_xAprR8"
       ],
       "custom_css": [
         ".t4s-tab-wrapper {margin: 0; padding: 0; border-bottom: solid 1px;}"
