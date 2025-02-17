@@ -30,7 +30,10 @@
 }
 {% endschema %}
 
-<section class="count-hours-section">
+<section class="count-hours-section" 
+  data-cold-hours="{{ section.settings.cold_hours }}" 
+  data-hot-hours="{{ section.settings.hot_hours }}">
+  
   <div class="count-hours-container">
     <div class="count-hours-item cold">
       <strong><span id="cold-counter">0</span> HOURS COLD</strong>
@@ -110,19 +113,25 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     let section = document.querySelector(".count-hours-section");
-    let observer = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            startCounter("cold-counter", {{ section.settings.cold_hours }}, 2000);
-            startCounter("hot-counter", {{ section.settings.hot_hours }}, 2000);
-            observer.disconnect(); // Evita que el contador se reinicie al hacer scroll
-          }
-        });
-      },
-      { threshold: 0.5 } 
-    );
 
-    observer.observe(section);
+    if (section) {
+      let coldHours = parseInt(section.getAttribute("data-cold-hours"), 10);
+      let hotHours = parseInt(section.getAttribute("data-hot-hours"), 10);
+
+      let observer = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              startCounter("cold-counter", coldHours, 2000);
+              startCounter("hot-counter", hotHours, 2000);
+              observer.disconnect(); // Evita que el contador se reinicie
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+
+      observer.observe(section);
+    }
   });
 {% endjavascript %}
