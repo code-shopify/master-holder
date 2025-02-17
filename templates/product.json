@@ -260,9 +260,7 @@
     },
     "accordion_aEdD6E": {
       "type": "accordion",
-      "custom_css": [
-        ".t4s-tab-wrapper {margin: 0; padding: 0; border-bottom: solid 1px;}"
-      ],
+      "custom_css": [],
       "settings": {
         "cold_hours": 50,
         "hot_hours": 10
