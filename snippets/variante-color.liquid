@@ -11,8 +11,13 @@
         {% assign active_product_found = true %}
         <li class="product-item-2 active-product">
           <a href="{{ recommended_product.url }}" class="product-link" title="{{ recommended_product.title }}">
-            {% assign custom_color = recommended_product.selected_or_first_available_variant.metafields.custom.color_variant %}
-            <div class="product-color" data-color="{{ custom_color }}" style="background:{{ custom_color }}"></div>
+
+            {% assign custom_color = recommended_product.metafields.custom.color_variant.value | default: '' %}
+
+            <div class="product-color" data-color="{{ custom_color }}" 
+                 style="background-color: {% if custom_color != blank %}{{ custom_color }}{% else %}transparent{% endif %};">
+            </div>
+
           </a>
         </li>
       {% endif %}
@@ -23,8 +28,13 @@
       {% unless recommended_product.handle == current_product_handle %}
         <li class="product-item-2">
           <a href="{{ recommended_product.url }}" class="product-link" title="{{ recommended_product.title }}">
-            {% assign custom_color = recommended_product.selected_or_first_available_variant.metafields.custom.color_variant %}
-            <div class="product-color" data-color="{{ custom_color }}" style="background:{{ custom_color }}"></div>
+
+            {% assign custom_color = recommended_product.metafields.custom.color_variant.value | default: '' %}
+
+            <div class="product-color" data-color="{{ custom_color }}" 
+                 style="background-color: {% if custom_color != blank %}{{ custom_color }}{% else %}transparent{% endif %};">
+            </div>
+
           </a>
         </li>
       {% endunless %}
