@@ -426,6 +426,7 @@ endif -%}
                     </a>
                     {%- endif -%}
                   </div>
+                {% render 'modelos-mh' %}
                 {% if product.metafields.shopify--discovery--product_recommendation.related_products.value %}
 
                   
@@ -461,7 +462,7 @@ endif -%}
     {% endfor %}
   </ol>
                   
-  {% render 'modelos-mh' %}
+  
 
 {% endif %}
 
