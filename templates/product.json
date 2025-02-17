@@ -735,11 +735,19 @@
         "mg_mb": ",,30px,",
         "pd_mb": ""
       }
+    },
+    "countdown_timer_grQhCg": {
+      "type": "countdown-timer",
+      "settings": {
+        "cold_hours": 50,
+        "hot_hours": 10
+      }
     }
   },
   "order": [
     "breadcrumb",
     "main",
+    "countdown_timer_grQhCg",
     "accordion_aEdD6E",
     "image_gallery_PK7ibx",
     "collections_list_63HmLj",
