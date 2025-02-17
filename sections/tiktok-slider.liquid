@@ -3,7 +3,11 @@
         {% for block in section.blocks %}
             <div class="slidev8">
                 <div class="with-borderv8">
-                    <iframe class="tiktok-embedv8" src="https://www.tiktok.com/embed/{{ block.settings.video_id }}" frameborder="0" allowfullscreen scrolling="no"></iframe>
+                    {% if block.settings.video_url contains "tiktok.com" %}
+                        <iframe class="tiktok-embedv8" src="{{ block.settings.video_url | replace: 'https://www.tiktok.com/', 'https://www.tiktok.com/embed/' }}" frameborder="0" allowfullscreen scrolling="no"></iframe>
+                    {% else %}
+                        <p>URL no válida. Asegúrate de ingresar una URL de TikTok.</p>
+                    {% endif %}
                 </div>
 
                 {% if block.settings.featured_product != blank %}
@@ -326,10 +330,10 @@ document.addEventListener("DOMContentLoaded", () => {
       "name": "TikTok Video",
       "settings": [
         {
-          "type": "text",
-          "id": "video_id",
-          "label": "TikTok Video ID",
-          "info": "Inserta solo el ID del video de TikTok. Ejemplo: 727935874935..."
+          "type": "url",
+          "id": "video_url",
+          "label": "TikTok Video URL",
+          "info": "Ingresa la URL completa del video de TikTok. Ejemplo: https://www.tiktok.com/@username/video/727935874935..."
         },
         {
           "type": "product",
@@ -347,6 +351,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   ]
 }
+
 
 
 {% endschema %}
