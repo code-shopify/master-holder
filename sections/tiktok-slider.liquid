@@ -10,10 +10,29 @@
                 </div>
                 <div class="pause-buttonv8 hiddenv8">❚❚</div>
                 <div class="play-buttonv8">▷</div>
+
+                {% if block.settings.featured_product != blank %}
+                <div class="product-boxv8">
+                    <a href="{{ block.settings.featured_product.url }}" class="product-linkv8">
+                        <img src="{{ block.settings.featured_product.featured_image | img_url: '150x150' }}" alt="{{ block.settings.featured_product.title }}">
+                        <div class="product-info">
+                            <span class="product-title">{{ block.settings.featured_product.title }}</span>
+                            <span class="product-price">
+                                {{ block.settings.featured_product.price | money }}
+                                {% if block.settings.featured_product.compare_at_price > block.settings.featured_product.price %}
+                                    <span class="product-old-price">{{ block.settings.featured_product.compare_at_price | money }}</span>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </a>
+                    <button class="add-to-cartv8" data-product-id="{{ block.settings.featured_product.id }}">+</button>
+                </div>
+                {% endif %}
             </div>
         {% endfor %}
     </div>
 </div>
+
 
 <style>
 .slider-containerv8 {
