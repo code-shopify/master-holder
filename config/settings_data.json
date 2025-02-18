@@ -2464,7 +2464,7 @@
           "base_x3fe7t": {
             "type": "base",
             "settings": {
-              "title": "base",
+              "title": "TECNOLOGÍA",
               "url": "/",
               "open_link": "_self",
               "icon": "",
@@ -2477,7 +2477,7 @@
           "base_PkXRCJ": {
             "type": "base",
             "settings": {
-              "title": "base",
+              "title": "UNETE Y EMPRENDE",
               "url": "/",
               "open_link": "_self",
               "icon": "",
@@ -2490,7 +2490,7 @@
           "base_NLy9bH": {
             "type": "base",
             "settings": {
-              "title": "base",
+              "title": "PUNTOS DE VENTA",
               "url": "/",
               "open_link": "_self",
               "icon": "",
@@ -2503,8 +2503,8 @@
           "base_ehmGc6": {
             "type": "base",
             "settings": {
-              "title": "base",
-              "url": "/",
+              "title": "BLOG",
+              "url": "shopify://blogs/news",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
@@ -2516,8 +2516,8 @@
           "drop_AJtgX9": {
             "type": "drop",
             "settings": {
-              "title": "Dropdown",
-              "url": "",
+              "title": "TIENDA",
+              "url": "shopify://collections/all",
               "open_link": "_self",
               "menu": "",
               "icon": "",
