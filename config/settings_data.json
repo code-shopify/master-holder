@@ -230,7 +230,7 @@
               "col_tb": "6",
               "col_mb": "12",
               "content_align": "t4s-text-lg-center",
-              "padding_inner": "5px,0,0,0",
+              "padding_inner": "",
               "content_align_tb": "t4s-text-md-start",
               "padding_inner_tb": "",
               "col_heading_mobile": "",
