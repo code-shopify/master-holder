@@ -13,10 +13,10 @@
       "type": "custom-html",
       "settings": {
         "code": "<div class=\"t4s-text-center\" style=\"padding: 15px 0;background-color: #000;color: #fff;\">Como lo viste en Shark Tank México </div>",
-        "layout": "t4s-container-wrap",
+        "layout": "t4s-container-fluid",
         "cl_bg": "",
         "cl_bg_gradient": "",
-        "mg": ",,50px,",
+        "mg": "",
         "pd": "",
         "mg_tb": "",
         "pd_tb": "",
