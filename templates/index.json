@@ -538,6 +538,65 @@
         "code_cus_css": ""
       }
     },
+    "image_gallery_packery_9DY8Rp": {
+      "type": "image-gallery-packery",
+      "blocks": {
+        "image_item_7Njfzf": {
+          "type": "image_item",
+          "settings": {
+            "image": "shopify://shop_images/Master_Holder_Sport_800x800_2f2163f4-6b71-4264-b182-1df1d2612a4d.jpg",
+            "link": "shopify://collections/sport",
+            "col_dk": "6",
+            "col_tb": "6",
+            "col_mb": "12"
+          }
+        },
+        "image_item_HRPFTk": {
+          "type": "image_item",
+          "settings": {
+            "image": "shopify://shop_images/S1_31-Feed.jpg",
+            "link": "shopify://collections/4-en-1-anticaida",
+            "col_dk": "6",
+            "col_tb": "6",
+            "col_mb": "12"
+          }
+        }
+      },
+      "block_order": [
+        "image_item_7Njfzf",
+        "image_item_HRPFTk"
+      ],
+      "settings": {
+        "design_heading": "1",
+        "heading_align": "t4s-text-center",
+        "top_heading": "Packery gallery",
+        "icon_heading": "las la-gem",
+        "top_subheading": "",
+        "tophead_mb": 30,
+        "click_image": "data-goto",
+        "nav_thumbs": true,
+        "open_link": "_blank",
+        "item_rd": 0,
+        "img_effect": "none",
+        "b_effect": "none",
+        "image_ratio": "rationt",
+        "image_size": "contain",
+        "image_position": "8",
+        "space_item": "30",
+        "space_item_mb": "10",
+        "layout": "t4s-container-wrap",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": ",,50px,",
+        "pd": "",
+        "mg_tb": ",,50px,",
+        "pd_tb": "",
+        "mg_mb": ",,30px,",
+        "pd_mb": "",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
     "feature_columns_4XHcGJ": {
       "type": "feature_columns",
       "blocks": {
@@ -562,38 +621,7 @@
           "type": "text_block",
           "settings": {
             "enable_image": true,
-            "title": "Add a title or tagline",
-            "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
-            "button_label": "",
-            "button_link": "",
-            "open_link": "_blank",
-            "btn_icon": false,
-            "button_style": "default",
-            "btn_size": "large",
-            "btn_cl": "dark",
-            "button_effect": "fade"
-          }
-        },
-        "text_block_mKRagU": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "title": "Add a title or tagline",
-            "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
-            "button_label": "",
-            "button_link": "",
-            "open_link": "_blank",
-            "btn_icon": false,
-            "button_style": "default",
-            "btn_size": "large",
-            "btn_cl": "dark",
-            "button_effect": "fade"
-          }
-        },
-        "text_block_cmhJFP": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
+            "image": "shopify://shop_images/S1_31-Feed.jpg",
             "title": "Add a title or tagline",
             "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
             "button_label": "",
@@ -609,9 +637,7 @@
       },
       "block_order": [
         "text_block_bYVTXK",
-        "text_block_FF69jd",
-        "text_block_mKRagU",
-        "text_block_cmhJFP"
+        "text_block_FF69jd"
       ],
       "settings": {
         "design_heading": "1",
@@ -628,10 +654,10 @@
         "fs_text_mb": 12,
         "image_ratio": "rationt",
         "image_size": "contain",
-        "image_position": "8",
+        "image_position": "default",
         "img_effect": "none",
         "b_effect": "none",
-        "layout_des": "2",
+        "layout_des": "1",
         "space_h_item": "30",
         "space_v_item": "30",
         "space_h_item_mb": "10",
@@ -1358,6 +1384,7 @@
   "order": [
     "1646028739ae283905",
     "collections_list_gKdhCU",
+    "image_gallery_packery_9DY8Rp",
     "feature_columns_4XHcGJ",
     "164603504020ce33da",
     "scrolling_text_PpjRrY",
