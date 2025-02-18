@@ -2465,7 +2465,7 @@
             "type": "base",
             "settings": {
               "title": "TECNOLOGÍA",
-              "url": "/",
+              "url": "shopify://pages/tecnologia",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
@@ -2478,7 +2478,7 @@
             "type": "base",
             "settings": {
               "title": "UNETE Y EMPRENDE",
-              "url": "/",
+              "url": "shopify://pages/emprede",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
@@ -2491,7 +2491,7 @@
             "type": "base",
             "settings": {
               "title": "PUNTOS DE VENTA",
-              "url": "/",
+              "url": "shopify://pages/puntos-de-venta",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
@@ -2533,8 +2533,8 @@
           "header-bottom-2": {
             "type": "base",
             "settings": {
-              "title": "base",
-              "url": "/",
+              "title": "CONTACTO",
+              "url": "shopify://pages/contact",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
