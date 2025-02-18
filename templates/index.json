@@ -9,6 +9,23 @@
  */
 {
   "sections": {
+    "custom_html_pFhhMB": {
+      "type": "custom-html",
+      "settings": {
+        "code": "<div class=\"t4s-text-center\" style=\"padding: 15px 0;background-color: #000;color: #fff;\">Como lo viste en Shark Tank México </div>",
+        "layout": "t4s-container-wrap",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": ",,50px,",
+        "pd": "",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": ",,30px,",
+        "pd_mb": "",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
     "scrolling_text_PpjRrY": {
       "type": "scrolling-text",
       "blocks": {
@@ -1383,6 +1400,7 @@
     }
   },
   "order": [
+    "custom_html_pFhhMB",
     "scrolling_text_PpjRrY",
     "1646028739ae283905",
     "collections_list_gKdhCU",
