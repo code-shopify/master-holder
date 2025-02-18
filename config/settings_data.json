@@ -56,6 +56,7 @@
     "round_currency": false,
     "notify_currency": true,
     "hover_currency": false,
+    "share_facebook": false,
     "share_twitter": false,
     "share_pinterest": false,
     "share_tumblr": false,
