@@ -370,7 +370,7 @@
           "heading_cl": "#222222",
           "text_cl": "#222222",
           "link_cl": "#222222",
-          "link_hover_cl": "#222222",
+          "link_hover_cl": "#878787",
           "link_active_cl": "#222222",
           "border_cl": "#222222",
           "layout": "t4s-container-wrap",
