@@ -31,7 +31,7 @@
   {%- unless follow_social -%}  
     {%- if settings.share_facebook -%}
     <div class="t4s-col-item t4s-col-auto">
-     <a title='{{ 'socials.share_fb' | t | escape }}' data-no-instant rel="noopener noreferrer nofollow" href="https://www.facebook.com/portacaguamon" target="{{ target }}" class="facebook" data-tooltip="{{ class_tooltip }}">
+     <a title='Síguenos en Facebook' data-no-instant rel="noopener noreferrer nofollow" href="https://www.facebook.com/portacaguamon" target="{{ target }}" class="facebook" data-tooltip="{{ class_tooltip }}">
         {%- render 'icon_socials', icon_name: 'facebook' -%} 
      </a>
     </div>
@@ -41,7 +41,7 @@
     
     {%- if settings.share_twitter -%}
       <div class="t4s-col-item t4s-col-auto">
-        <a title='Instagram' data-no-instant rel="noopener noreferrer nofollow" href="https://www.instagram.com/masterholderportacaguamon/#" target="{{ target }}" class="twitter" data-tooltip="{{ class_tooltip }}">
+        <a title='Síguenos en Instagram' data-no-instant rel="noopener noreferrer nofollow" href="https://www.instagram.com/masterholderportacaguamon/#" target="{{ target }}" class="twitter" data-tooltip="{{ class_tooltip }}">
             {%- render 'icon_socials', icon_name: 'instagram' -%} 
         </a>
       </div>
@@ -49,14 +49,14 @@
     {%- if permaImage != blank -%}
       {%- if settings.share_pinterest -%}
         <div class="t4s-col-item t4s-col-auto">
-          <a title='{{ 'socials.share_tik' | t | escape }}' data-no-instant rel="noopener noreferrer nofollow" href="https://www.tiktok.com/@masterholder" target="{{ target }}" class="pinterest" data-tooltip="{{ class_tooltip }}">
+          <a title='Síguenos en tiktok' data-no-instant rel="noopener noreferrer nofollow" href="https://www.tiktok.com/@masterholder" target="{{ target }}" class="pinterest" data-tooltip="{{ class_tooltip }}">
             {%- render 'icon_socials', icon_name: 'tiktok' -%} 
           </a>
         </div>
       {%- endif -%}        
       {%- if settings.share_tumblr -%}
         <div class="t4s-col-item t4s-col-auto">
-          <a title='{{ 'socials.share_yt' | t | escape }}' data-no-instant rel="noopener noreferrer nofollow" data-content="http:{{ permaImage }}" href="https://www.youtube.com/channel/UCJF3fckKDONx-uDgouPJ7gA" target="{{ target }}" class="tumblr" data-tooltip="{{ class_tooltip }}">
+          <a title='Síguenos en youtube' data-no-instant rel="noopener noreferrer nofollow" data-content="http:{{ permaImage }}" href="https://www.youtube.com/channel/UCJF3fckKDONx-uDgouPJ7gA" target="{{ target }}" class="tumblr" data-tooltip="{{ class_tooltip }}">
             {%- render 'icon_socials', icon_name: 'youtube' -%} 
           </a>
         </div>
