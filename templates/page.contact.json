@@ -88,7 +88,7 @@
           "type": "bl_info",
           "settings": {
             "heading": "CONTACT INFORMATION",
-            "text": "<p>We love to hear from you on our customer service, merchandise, website or any topics you want to share with us. Your comments and suggestions will be appreciated. Please complete the form below.</p>\n\n<p><i class=\"las la-phone fs__16\"></i> 1800-123-222 / 1900-1570-230</p>\n<p><i class=\"las la-envelope fs__16\"></i> contact@company.com</p>\n<p><i class=\"las la-clock fs__16\"></i> Everyday 9:00-17:00</p>\n\n<p>\n  <a href=\"https://www.mercadolibre.com.ar/perfil/TU_USUARIO\" target=\"_blank\" style=\"text-decoration: none; color: inherit;\">\n    <i class=\"fab fa-mercadolibre fs__16\"></i> Visita nuestro perfil en Mercado Libre\n  </a>\n</p>"
+            "text": "<p>We love to hear from you on our customer service, merchandise, website or any topics you want to share with us. Your comments and suggestions will be appreciated. Please complete the form below.</p>\n\n<p><i class=\"las la-phone fs__16\"></i> 1800-123-222 / 1900-1570-230</p>\n<p><i class=\"las la-envelope fs__16\"></i> contact@company.com</p>\n<p><i class=\"las la-clock fs__16\"></i> Everyday 9:00-17:00</p>\n\n<p>\n  <a href=\"https://www.mercadolibre.com.ar/perfil/TU_USUARIO\" target=\"_blank\" style=\"text-decoration: none; color: inherit; display: flex; align-items: center;\">\n    <img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Logo_Mercado_Libre.svg/30px-Logo_Mercado_Libre.svg.png\" alt=\"Mercado Libre\" width=\"30\" style=\"margin-right: 5px;\">\n    Visita nuestro perfil en Mercado Libre\n  </a>\n</p>"
           }
         }
       },
