@@ -37,15 +37,7 @@
     </div>
    {%- endif -%}
     
-     {%- if settings.share_instagram -%}
-    <div class="t4s-col-item t4s-col-auto">
-      <a title="{{ 'socials.share_ins' | t | escape }}" data-no-instant rel="noopener noreferrer nofollow" href="https://www.instagram.com/TU_USUARIO" target="{{ target }}" class="instagram" data-tooltip="{{ class_tooltip }}">
-
-     
-        {%- render 'icon_socials', icon_name: 'instagram' -%} 
-     </a>
-    </div>
-   {%- endif -%}
+    
     
     {%- if settings.share_twitter -%}
       <div class="t4s-col-item t4s-col-auto">
@@ -57,15 +49,15 @@
     {%- if permaImage != blank -%}
       {%- if settings.share_pinterest -%}
         <div class="t4s-col-item t4s-col-auto">
-          <a title='{{ 'socials.share_pr' | t | escape }}' data-no-instant rel="noopener noreferrer nofollow" href="http://pinterest.com/pin/create/button/?url={{ permalinkURL }}&amp;media=http:{{ permaImage }}&amp;description={{ permaTitle }}" target="{{ target }}" class="pinterest" data-tooltip="{{ class_tooltip }}">
-            {%- render 'icon_socials', icon_name: 'pinterest' -%} 
+          <a title='{{ 'socials.share_tik' | t | escape }}' data-no-instant rel="noopener noreferrer nofollow" href="http://pinterest.com/pin/create/button/?url={{ permalinkURL }}&amp;media=http:{{ permaImage }}&amp;description={{ permaTitle }}" target="{{ target }}" class="pinterest" data-tooltip="{{ class_tooltip }}">
+            {%- render 'icon_socials', icon_name: 'tiktok' -%} 
           </a>
         </div>
       {%- endif -%}        
       {%- if settings.share_tumblr -%}
         <div class="t4s-col-item t4s-col-auto">
-          <a title='{{ 'socials.share_tu' | t | escape }}' data-no-instant rel="noopener noreferrer nofollow" data-content="http:{{ permaImage }}" href="//tumblr.com/widgets/share/tool?canonicalUrl={{ permalinkURL }}" target="{{ target }}" class="tumblr" data-tooltip="{{ class_tooltip }}">
-            {%- render 'icon_socials', icon_name: 'tumblr' -%} 
+          <a title='{{ 'socials.share_yt' | t | escape }}' data-no-instant rel="noopener noreferrer nofollow" data-content="http:{{ permaImage }}" href="//tumblr.com/widgets/share/tool?canonicalUrl={{ permalinkURL }}" target="{{ target }}" class="tumblr" data-tooltip="{{ class_tooltip }}">
+            {%- render 'icon_socials', icon_name: 'youtube' -%} 
           </a>
         </div>
       {%- endif -%}
