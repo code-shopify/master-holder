@@ -202,7 +202,7 @@
           "footer-2": {
             "type": "html",
             "settings": {
-              "html_content": "Master Holder es una marca mexicana de vasos térmicos ogullosamente diseñados en Monterrey, NL.\n\n<br>\nTelefono: +52 (81) 2872-3060\nMail: ventas@masterholder.com.mx",
+              "html_content": "Master Holder es una marca mexicana de vasos térmicos ogullosamente diseñados en Monterrey, NL.\n\n<br>\nTelefono: +52 (81) 2872-3060<br>\nMail: ventas@masterholder.com.mx",
               "hidden_mobile": false
             }
           },
