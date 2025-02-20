@@ -334,16 +334,15 @@ endif -%}
     
     <!-- Si es la última imagen, renderizar el snippet en lugar de la imagen estática -->
     {%- if forloop.last -%}
+      <div class="t4s-col-item t4s-product__thumb-item last-image-container">
+        {% render 'before-after' %}
+      </div>
+    {%- else -%}
+      <!-- Renderizar imágenes normales del carrusel -->
       <div class="t4s-col-item t4s-product__thumb-item">
         <div class="t4s_ratio t4s-product__thumb" {{ imgatt }} style="--aspect-ratioapt:{{ image.aspect_ratio }};">
           <img src="{{ image | img_url: 'medium' }}" alt="Imagen de variante">
         </div>
-      </div>
-      
-    {%- else -%}
-      <!-- Renderizar imágenes normales del carrusel -->
-      <div class="t4s-col-item t4s-product__thumb-item last-image-container">
-        {% render 'before-after' %}
       </div>
     {%- endif -%}
 
