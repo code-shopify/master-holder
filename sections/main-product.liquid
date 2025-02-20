@@ -328,7 +328,7 @@ endif -%}
 
       {%- assign fixed_image = product.media | last %}
 
-      <!-- Imágenes que Cambian con la Variante (Excluyendo la Última) -->
+      <!-- Imágenes que Cambian con la Variante (Todas menos la última) -->
       {%- for media in product.media limit: total_images -%}
         <div class="t4s-col-item t4s-product__thumb-item changing-image">
           <div class="t4s_ratio t4s-product__thumb" {{ imgatt }} style="--aspect-ratioapt:{{ media.aspect_ratio }}">
@@ -340,7 +340,7 @@ endif -%}
       <!-- Imagen Fija (No cambia con la variante) -->
       <div class="t4s-col-item t4s-product__thumb-item fixed-image">
         <div class="t4s_ratio t4s-product__thumb" {{ imgatt }} style="--aspect-ratioapt:{{ fixed_image.aspect_ratio }}">
-          <img src="{{ fixed_image | img_url: 'medium' }}" alt="Imagen fija" id="fixed-image">
+          <img src="{{ fixed_image | img_url: 'medium' }}" alt="Imagen fija" id="fixed-image" data-fixed-image="true">
         </div>
       </div>
 
