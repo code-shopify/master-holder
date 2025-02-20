@@ -340,10 +340,6 @@ endif -%}
 
 
 
-              <button class="btnDiv2">Mostrar Div 2</button>
-  <button class="btnDiv1">Mostrar Div 1</button>
-            
-
             <script>
     // Seleccionamos los botones y los divs
     const btnDiv1 = document.querySelector('.btnDiv1');
@@ -1076,6 +1072,17 @@ endif -%}
   </div>
 </template>
 {%- endif -%}
+
+
+
+        
+
+              <button class="btnDiv2">Mostrar Div 2</button>
+  <button class="btnDiv1">Mostrar Div 1</button>
+
+
+
+        
 
 {%- liquid
     assign current_variant = product.selected_or_first_available_variant | default: product.variants.first
