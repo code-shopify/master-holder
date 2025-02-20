@@ -320,26 +320,27 @@ endif -%}
             </div>
 
             {%- if media_layout != 'without_thumbnails' -%}
-            <div class="{{ class_thumb }} t4s-col-12 t4s-col-item t4s-col-thumb t4s-pr t4s-oh">
+            {%- assign total_images = product.media.size | minus: 1 -%}
+
+<div class="{{ class_thumb }} t4s-col-12 t4s-col-item t4s-col-thumb t4s-pr t4s-oh">
   <div data-thumb__scroller="{{ se_id }}" class="t4s-carousel__nav-scroller is__position-{{ media_layout | remove: 'thumbnails_' }}">
     <div class="t4s-row t4s-row-mt t4s-row-cols-4 t4s_{{ image_ratio }} t4s_position_{{ se_stts.image_position }} t4s_{{ se_stts.image_size }} {{ class_gx_lg }} t4s-g-5 t4s-carousel__nav carousel__nav--{{ se_id }} carousel__nav-hover1">
 
-      {%- assign variant_images = product.media | slice: 0, product.media.size | minus: 1 %} 
       {%- assign fixed_image = product.media | last %}
 
-      <!-- Imágenes que Cambian con la Variante -->
-      {%- for image in variant_images -%}
+      <!-- Imágenes que Cambian con la Variante (Excluyendo la Última) -->
+      {%- for media in product.media limit: total_images -%}
         <div class="t4s-col-item t4s-product__thumb-item changing-image">
-          <div class="t4s_ratio t4s-product__thumb" {{ imgatt }} style="--aspect-ratioapt:{{ image.aspect_ratio }}">
-            <img src="{{ image | img_url: 'medium' }}" alt="Imagen de variante">
+          <div class="t4s_ratio t4s-product__thumb" {{ imgatt }} style="--aspect-ratioapt:{{ media.aspect_ratio }}">
+            <img src="{{ media | img_url: 'medium' }}" alt="Imagen de variante" data-variant-image="{{ media.id }}">
           </div>
         </div>
       {%- endfor -%}
 
-      <!-- Imagen Fija -->
+      <!-- Imagen Fija (No cambia con la variante) -->
       <div class="t4s-col-item t4s-product__thumb-item fixed-image">
         <div class="t4s_ratio t4s-product__thumb" {{ imgatt }} style="--aspect-ratioapt:{{ fixed_image.aspect_ratio }}">
-          <img src="{{ fixed_image | img_url: 'medium' }}" alt="Imagen fija">
+          <img src="{{ fixed_image | img_url: 'medium' }}" alt="Imagen fija" id="fixed-image">
         </div>
       </div>
 
