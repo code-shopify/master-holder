@@ -3309,6 +3309,15 @@ border-radius: 50% !important;
     -webkit-transform: translate3d(-104%,0,0);
     transform: translate3d(-104%,0,0);
 }
+.fixed-image {
+  opacity: 1;
+  pointer-events: none; /* Evita que sean afectadas por interacciones */
+}
+
+.active-image {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
 
 /* ==========================================================================
    21. PRODUCT ITEM HOVER
