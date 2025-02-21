@@ -355,8 +355,11 @@ endif -%}
 
                
               </div>
-              
+
+
+              {% if product.metafields.custom.imagen_fija %}
                <a class="imagen-fija" >{% render "imagen-galeria-fix" %}</a>
+              {% endif %}
 
 
 
