@@ -33,13 +33,11 @@
   
   .nonstop-banner__container {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 50% 50%; /* Izquierda y derecha ocupan 50% */
     max-width: 1500px;
     width: 100%;
     align-items: center;
     position: relative;
-    min-height: 280px; /* Altura ajustada */
-    overflow: visible; /* Permite que la imagen del centro sobresalga */
   }
 
   /* Sección Izquierda (Texto y Botón) */
@@ -51,6 +49,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    height: 100%;
   }
 
   .nonstop-banner__left h2 {
@@ -84,17 +83,13 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    overflow: hidden;
-    aspect-ratio: 16/9;
+    height: 100%;
   }
 
   .nonstop-banner__background-image {
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
   }
 
   /* Imagen Central (Flotante sobre ambas secciones) */
@@ -102,22 +97,22 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -65%); /* Ajusta la imagen para que sobresalga más */
+    transform: translate(-50%, -50%);
     z-index: 3;
-    width: 450px;
-    height: 450px;
+    width: 300px; /* Tamaño fijo del contenedor */
+    height: 300px; /* Tamaño fijo del contenedor */
     display: flex;
     justify-content: center;
     align-items: center;
     background: white;
-    border-radius: 10px;
+    border-radius: 10px; /* Opcional: Bordes redondeados */
     box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
   }
 
   .nonstop-banner__main-image {
-    width: 100%;
+    width: 100%; /* La imagen se adapta al contenedor */
     height: 100%;
-    object-fit: contain;
+    object-fit: contain; /* Mantiene la proporción sin recortarse */
   }
 
   /* Responsive para Pantallas Pequeñas */
@@ -125,7 +120,6 @@
     .nonstop-banner__container {
       grid-template-columns: 1fr;
       text-align: center;
-      min-height: 180px;
     }
 
     .nonstop-banner__left, .nonstop-banner__right {
@@ -136,14 +130,9 @@
       padding: 20px;
     }
 
-    .nonstop-banner__right {
-      aspect-ratio: 16/9;
-    }
-
     .nonstop-banner__center {
-      width: 300px;
-      height: 300px;
-      transform: translate(-50%, -50%);
+      width: 200px;
+      height: 200px;
     }
 
     .nonstop-banner__main-image {
