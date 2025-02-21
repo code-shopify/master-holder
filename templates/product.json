@@ -126,75 +126,6 @@
             "ask": true,
             "phone": true
           }
-        },
-        "meta": {
-          "type": "meta",
-          "settings": {
-            "show_options": false,
-            "show_vendor": false,
-            "show_type": false,
-            "show_sku": false,
-            "show_barcode": false,
-            "show_available": false,
-            "show_category": false,
-            "show_tags": false
-          }
-        },
-        "95d4f334-8ea7-4cd2-b609-2373b1e848b8": {
-          "type": "tab_des",
-          "disabled": true,
-          "settings": {
-            "title": "Description"
-          }
-        },
-        "e36839f5-0847-44e2-97d3-2885597bd1ff": {
-          "type": "tab_add",
-          "settings": {
-            "title": "Additional Information"
-          }
-        },
-        "754ad4a0-7308-4a3e-b325-e2f2c0b85d4c": {
-          "type": "tab_html",
-          "settings": {
-            "title": "Custom tab",
-            "content": "",
-            "page": "wash-care"
-          }
-        },
-        "56e67368-7424-4d73-8f14-dacdda4c59be": {
-          "type": "tab_rivui",
-          "disabled": true,
-          "settings": {
-            "title": "Reviews",
-            "review_liquid": ""
-          }
-        },
-        "94011ade-ec25-4d68-b37a-70660ede49dd": {
-          "type": "social",
-          "disabled": true,
-          "settings": {
-            "socials_align": "start",
-            "social_mode": "2",
-            "social_style": "1",
-            "social_size": "extra_small",
-            "bd_radius": 0,
-            "use_color_set": true,
-            "icon_cl": "#222222",
-            "bg_cl": "#00badb",
-            "space_h_item": "20",
-            "space_v_item": "5",
-            "space_h_item_mb": "20",
-            "space_v_item_mb": "4"
-          }
-        },
-        "bded529b-9b8f-4d5c-8f04-5de0b22e627d": {
-          "type": "tab_html",
-          "disabled": true,
-          "settings": {
-            "title": "Collapsible tab",
-            "content": "",
-            "page": ""
-          }
         }
       },
       "block_order": [
@@ -203,14 +134,7 @@
         "description",
         "form",
         "23551ebc-3be1-40d6-81b2-30f03478cccb",
-        "size_delivery_ask",
-        "meta",
-        "95d4f334-8ea7-4cd2-b609-2373b1e848b8",
-        "e36839f5-0847-44e2-97d3-2885597bd1ff",
-        "754ad4a0-7308-4a3e-b325-e2f2c0b85d4c",
-        "56e67368-7424-4d73-8f14-dacdda4c59be",
-        "94011ade-ec25-4d68-b37a-70660ede49dd",
-        "bded529b-9b8f-4d5c-8f04-5de0b22e627d"
+        "size_delivery_ask"
       ],
       "settings": {
         "pr_layout": "default",
