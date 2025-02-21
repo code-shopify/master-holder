@@ -2560,7 +2560,7 @@
           "header-bottom-2"
         ],
         "settings": {
-          "full_header": false,
+          "full_header": true,
           "height": 90,
           "height2": 50,
           "arrow": false,
