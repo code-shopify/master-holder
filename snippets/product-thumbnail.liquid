@@ -48,7 +48,7 @@ assign img_alt = img_alt | escape
 {%- if media_type == 'image' -%}
 
   
-{{ product.variants  }}
+{{ product.variants.first  }}
 
     
 <div data-product-single-media-wrapper data-main-slide class="{{ class_col }}t4s-col-12 t4s-col-item t4s-product__media-item {{ isMediaHidden }}{% if variant_images contains media.src %} t4s-product__media-item--variant{% endif %}" data-media-id="{{ media.id }}" data-nt-media-id="{{ se_id }}-{{ media.id }}" data-media-type="{{ media.media_type }}" data-grname="{{ grname | escape }}" data-grpvl="{{ grpvl | escape }}">
