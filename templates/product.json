@@ -18,6 +18,24 @@
         "cl_link": "#222222"
       }
     },
+    "1740165716b9eb0884": {
+      "type": "apps",
+      "blocks": {
+        "zepto_product_personalizer_product_personalizer_page_pqrAGj": {
+          "type": "shopify://apps/zepto-product-personalizer/blocks/product_personalizer_page/7411210d-7b32-4c09-9455-e129e3be4729",
+          "settings": {
+            "product": "{{product}}"
+          }
+        }
+      },
+      "block_order": [
+        "zepto_product_personalizer_product_personalizer_page_pqrAGj"
+      ],
+      "disabled": true,
+      "settings": {
+        "include_margins": true
+      }
+    },
     "main": {
       "type": "main-product",
       "blocks": {
@@ -600,23 +618,6 @@
         "pd_tb": "",
         "mg_mb": ",,30px,",
         "pd_mb": ""
-      }
-    },
-    "1740165716b9eb0884": {
-      "type": "apps",
-      "blocks": {
-        "zepto_product_personalizer_product_personalizer_page_pqrAGj": {
-          "type": "shopify://apps/zepto-product-personalizer/blocks/product_personalizer_page/7411210d-7b32-4c09-9455-e129e3be4729",
-          "settings": {
-            "product": "{{product}}"
-          }
-        }
-      },
-      "block_order": [
-        "zepto_product_personalizer_product_personalizer_page_pqrAGj"
-      ],
-      "settings": {
-        "include_margins": true
       }
     }
   },
