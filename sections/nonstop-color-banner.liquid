@@ -28,7 +28,7 @@
     align-items: center;
     padding: 50px 0;
     width: 100%;
-    position: relative; /* Importante para la imagen flotante */
+    position: relative;
   }
   
   .nonstop-banner__container {
@@ -99,13 +99,20 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 3;
+    width: 300px; /* Tamaño fijo del contenedor */
+    height: 300px; /* Tamaño fijo del contenedor */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    border-radius: 10px; /* Opcional: Bordes redondeados */
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
   }
 
   .nonstop-banner__main-image {
-    max-width: 260px;
-    height: auto;
-    object-fit: contain;
-    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
+    width: 100%; /* La imagen se adapta al contenedor */
+    height: 100%;
+    object-fit: contain; /* Mantiene la proporción sin recortarse */
   }
 
   /* Responsive para Pantallas Pequeñas */
@@ -123,9 +130,14 @@
       padding: 20px;
     }
 
+    .nonstop-banner__center {
+      width: 200px;
+      height: 200px;
+    }
+
     .nonstop-banner__main-image {
-      max-width: 180px;
-      transform: translate(-50%, -30%);
+      width: 100%;
+      height: 100%;
     }
   }
 
