@@ -401,14 +401,8 @@ endif -%}
 
 
                    
-                  for media in product_media
-                    if media.preview_image and media.preview_image.alt contains 'break--360'
-                      break
-                    endif
-                               endfor
-                  if has_media_360
-                    render 'product-comparative', product: product, se_id: se_id, class_col: class_col
-                  endif
+                  
+                 
                 -%}
               </div>
               <link href="{{ 'single-pr-badge.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all'">
