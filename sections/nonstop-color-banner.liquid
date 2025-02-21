@@ -32,46 +32,48 @@
   
   .nonstop-banner__container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 35% 30% 35%; /* Ajustamos los anchos */
     max-width: 1200px;
     width: 100%;
     align-items: center;
     position: relative;
   }
 
-  /* Estilos de la Sección Izquierda */
+  /* Estilos de la Sección Izquierda (Texto y Botón) */
   .nonstop-banner__left {
     padding: 40px;
     text-align: left;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: flex-start; /* Alinea mejor el contenido */
   }
 
   .nonstop-banner__left h2 {
-    font-size: 2em;
+    font-size: 2.4em;
     font-weight: bold;
     margin-bottom: 10px;
   }
 
   .nonstop-banner__left p {
-    font-size: 1.2em;
+    font-size: 1.4em;
     margin-bottom: 20px;
   }
 
   .nonstop-banner__button {
     display: inline-block;
-    padding: 12px 24px;
+    padding: 14px 26px;
     text-decoration: none;
     font-weight: bold;
     border-radius: 5px;
     text-align: center;
     border: 2px solid black;
+    font-size: 1.2em;
   }
 
   /* Sección Centro (Imagen Principal) */
   .nonstop-banner__center {
-    position: relative; /* Necesario para hacer que la imagen sobresalga */
+    position: relative; /* Necesario para que la imagen sobresalga */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -79,12 +81,12 @@
   }
 
   .nonstop-banner__main-image {
-    max-width: 250px;
+    max-width: 300px;
     height: auto;
     object-fit: contain;
     position: absolute;
     left: 50%;
-    transform: translate(-50%, 10px); /* Ajusta la posición */
+    transform: translate(-50%, 20px); /* Ajustamos posición */
     box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2); /* Efecto de sombra */
   }
 
@@ -92,12 +94,14 @@
   .nonstop-banner__right {
     position: relative;
     width: 100%;
-    overflow: hidden;
+    display: flex;
+    justify-content: flex-end; /* Alinea la imagen más a la derecha */
+    align-items: center;
   }
 
   .nonstop-banner__background-image {
-    width: 100%;
-    object-fit: cover;
+    width: 80%; /* Reducimos tamaño */
+    object-fit: contain;
   }
 
   /* Responsive para Pantallas Pequeñas */
@@ -109,11 +113,17 @@
 
     .nonstop-banner__left, .nonstop-banner__center, .nonstop-banner__right {
       width: 100%;
+      justify-content: center;
+      align-items: center;
     }
 
     .nonstop-banner__main-image {
-      max-width: 150px;
+      max-width: 200px;
       transform: translate(-50%, 5px);
+    }
+
+    .nonstop-banner__background-image {
+      width: 60%;
     }
   }
 
