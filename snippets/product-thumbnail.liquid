@@ -55,7 +55,7 @@ assign img_alt = img_alt | escape
       <img data-master="{{ image | image_url }}" class="lazyloadt4s t4s-lz--fadeIn" data-src="{{ image | image_url: width: 1 }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg', w: image.width, h: image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ img_alt }}">
 <h1>{{ img_alt }}</h1>
 
-       {{ variant.title }}
+    
       
 
 	</div>
