@@ -370,40 +370,59 @@ endif -%}
 
 
             
-            {%- if media_layout != 'without_thumbnails' -%}
-            <div class="{{ class_thumb }}t4s-col-12 t4s-col-item t4s-col-thumb t4s-pr t4s-oh">
+             {% comment %}
+              Código Original
+              {%- if media_layout != 'without_thumbnails' -%}
+              <div class="{{ class_thumb }}t4s-col-12 t4s-col-item t4s-col-thumb t4s-pr t4s-oh">
+                <div data-thumb__scroller="{{ se_id }}" class="t4s-carousel__nav-scroller is__position-{{ media_layout | remove: 'thumbnails_' }}">
+                  <div class="t4s-row t4s-row-mt t4s-row-cols-4 t4s_{{ image_ratio }} t4s_position_{{ se_stts.image_position }} t4s_{{ se_stts.image_size }} {{ class_gx_lg }}t4s-g-5 t4s-carousel__nav carousel__nav--{{ se_id }} carousel__nav-hover1">
+                    {%- for media in product_media limit: 4 %}{% assign image = media.preview_image -%}
+                      <div class="t4s-col-item t4s-product__thumb-item"><div class="t4s_ratio t4s-product__thumb" {{ imgatt }}style="--aspect-ratioapt:{{ image.aspect_ratio }}"></div></div>
+                    {%- endfor -%}
+                  </div>
+                </div>
+                <button type="button" data-thumb-btn__prev="{{ se_id }}" aria-label="Previous" class="btn_pnav_prev t4s-pa t4s-pe-none t4s-op-0"></button>
+                <button type="button" data-thumb-btn__next="{{ se_id }}" aria-label="Next" class="btn_pnav_next t4s-pa t4s-pe-none t4s-op-0"></button>
+              </div>
+              {%- endif -%}
+            {% endcomment %}
 
+            {% comment %}
+              Nuevo contenido
+            {% endcomment %}
+              {%- if media_layout != 'without_thumbnails' -%}
+                <div class="{{ class_thumb }}t4s-col-12 t4s-col-item t4s-col-thumb t4s-pr t4s-oh">
+                  <div data-thumb__scroller="{{ se_id }}" class="t4s-carousel__nav-scroller is__position-{{ media_layout | remove: 'thumbnails_' }}">
+                    <div class="t4s-row t4s-row-mt t4s-row-cols-4 t4s_{{ image_ratio }} t4s_position_{{ se_stts.image_position }} t4s_{{ se_stts.image_size }} {{ class_gx_lg }}t4s-g-5 t4s-carousel__nav carousel__nav--{{ se_id }} carousel__nav-hover1">
+                      
+                      {%- for media in product_media limit: 4 -%}
+                        {%- assign image = media.preview_image -%}
+                        {%- assign media_color = media.preview_image.alt | downcase -%}
               
-              <div data-thumb__scroller="{{ se_id }}" class="t4s-carousel__nav-scroller is__position-{{ media_layout | remove: 'thumbnails_' }}">
-               
-               {% comment %} bucle del carrusel {% endcomment %}
-                
-                <div class="t4s-row t4s-row-mt t4s-row-cols-5 t4s_{{ image_ratio }} t4s_position_{{ se_stts.image_position }} t4s_{{ se_stts.image_size }} {{ class_gx_lg }}t4s-g-5 t4s-carousel__nav carousel__nav--{{ se_id }} carousel__nav-hover1">
-                  {%- for media in product_media limit:4  %}{% assign image = media.preview_image -%}
-                    <div class="t4s-col-item t4s-product__thumb-item"><div class="t4s_ratio t4s-product__thumb" {{ imgatt }}style="--aspect-ratioapt:{{ image.aspect_ratio }}"></div></div>
-                   
-                  {%- endfor -%}
+                        <div class="t4s-col-item t4s-product__thumb-item" data-media-color="{{ media_color }}">
+                          <div class="t4s_ratio t4s-product__thumb" {{ imgatt }} style="--aspect-ratioapt:{{ image.aspect_ratio }}">
+                            <img alt="{{ media.preview_image.alt }}" class="lazyautosizes lazyloaded lazyloadt4sed" data-src="{{ image | img_url: '100x' }}">
+                          </div>
+                        </div>
+                      {%- endfor -%}
+              
+                    </div>
+                  </div>
+                  <button type="button" data-thumb-btn__prev="{{ se_id }}" aria-label="Previous" class="btn_pnav_prev t4s-pa t4s-pe-none t4s-op-0"></button>
+                  <button type="button" data-thumb-btn__next="{{ se_id }}" aria-label="Next" class="btn_pnav_next t4s-pa t4s-pe-none t4s-op-0"></button>
                 </div>
 
-
-
-               
-              </div>
-
-
-              {% if product.metafields.custom.imagen_fija %}
+                {% if product.metafields.custom.imagen_fija %}
                <a class="imagen-fija" >{% render "imagen-galeria-fix" %}</a>
               {% endif %}
-
-
-
-              
-              <button type="button" data-thumb-btn__prev="{{ se_id }}" aria-label="Previous" class="btn_pnav_prev t4s-pa t4s-pe-none t4s-op-0"></button>
-              <button type="button" data-thumb-btn__next="{{ se_id }}" aria-label="Next" class="btn_pnav_next t4s-pa t4s-pe-none t4s-op-0"></button>
-            </div>
-            {%- endif -%}
-
+              {%- endif -%}
+            {% comment %}
+              Fin Nuevo contenido
+            {% endcomment %}
           </div>
+
+
+            
 
           {%- when 'one_column' or 'two_columns' or 'combined_grid' -%}
 
