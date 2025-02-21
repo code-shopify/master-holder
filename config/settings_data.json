@@ -627,6 +627,9 @@
           "mega_fwXmtY",
           "base_PqxPKw"
         ],
+        "custom_css": [
+          ".header {box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);}"
+        ],
         "settings": {
           "layout": "logo_left",
           "full_header": true,
