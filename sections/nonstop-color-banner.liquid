@@ -33,7 +33,7 @@
   
   .nonstop-banner__container {
     display: grid;
-    grid-template-columns: 50% 50%; /* Secciones de tamaño fijo */
+    grid-template-columns: 50% 50%; /* Secciones divididas en 50% */
     max-width: 1500px;
     width: 100%;
     align-items: center;
@@ -80,17 +80,18 @@
   .nonstop-banner__right {
     position: relative;
     width: 100%;
-    height: 100%;
+    height: auto;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    overflow: hidden; /* Evita que la imagen se desborde */
+    overflow: hidden;
+    aspect-ratio: 16/9; /* Mantiene la proporción de ASOS */
   }
 
   .nonstop-banner__background-image {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Hace que la imagen se adapte al contenedor */
+    object-fit: cover; /* Ajusta la imagen sin distorsión */
     position: absolute;
     top: 0;
     left: 0;
@@ -103,13 +104,13 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 3;
-    width: 300px; /* Tamaño fijo del contenedor */
-    height: 300px; /* Tamaño fijo del contenedor */
+    width: 300px;
+    height: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
     background: white;
-    border-radius: 10px; /* Opcional: Bordes redondeados */
+    border-radius: 10px;
     box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
   }
 
@@ -135,7 +136,7 @@
     }
 
     .nonstop-banner__right {
-      height: 300px; /* Ajusta la altura en móviles */
+      aspect-ratio: 16/9; /* Mantiene proporción en móviles */
     }
 
     .nonstop-banner__center {
