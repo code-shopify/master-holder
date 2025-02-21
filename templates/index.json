@@ -68,6 +68,7 @@
         "item_gRQbfb",
         "item_4T86EG"
       ],
+      "disabled": true,
       "settings": {
         "speed": 18,
         "direction": "rtl",
@@ -1524,135 +1525,6 @@
         "code_cus_css": ""
       }
     },
-    "collections_list_carousel_TjQqRL": {
-      "type": "collections-list-carousel",
-      "blocks": {
-        "collection_item_HiLWiD": {
-          "type": "collection_item",
-          "settings": {
-            "collection": "accesorios",
-            "collection_title": "",
-            "collection_link": ""
-          }
-        },
-        "collection_item_CRgpMh": {
-          "type": "collection_item",
-          "settings": {
-            "collection": "",
-            "collection_title": "Collection name",
-            "collection_link": ""
-          }
-        },
-        "collection_item_rmCPQY": {
-          "type": "collection_item",
-          "settings": {
-            "collection": "",
-            "collection_title": "Collection name",
-            "collection_link": ""
-          }
-        },
-        "collection_item_MR4Jzi": {
-          "type": "collection_item",
-          "settings": {
-            "collection": "",
-            "collection_title": "Collection name",
-            "collection_link": ""
-          }
-        },
-        "collection_item_kta47g": {
-          "type": "collection_item",
-          "settings": {
-            "collection": "",
-            "collection_title": "Collection name",
-            "collection_link": ""
-          }
-        },
-        "collection_item_JtjjjK": {
-          "type": "collection_item",
-          "settings": {
-            "collection": "",
-            "collection_title": "Collection name",
-            "collection_link": ""
-          }
-        },
-        "collection_item_zTKx6x": {
-          "type": "collection_item",
-          "settings": {
-            "collection": "",
-            "collection_title": "Collection name",
-            "collection_link": ""
-          }
-        },
-        "collection_item_AhP4cn": {
-          "type": "collection_item",
-          "settings": {
-            "collection": "",
-            "collection_title": "Collection name",
-            "collection_link": ""
-          }
-        }
-      },
-      "block_order": [
-        "collection_item_HiLWiD",
-        "collection_item_CRgpMh",
-        "collection_item_rmCPQY",
-        "collection_item_MR4Jzi",
-        "collection_item_kta47g",
-        "collection_item_JtjjjK",
-        "collection_item_zTKx6x",
-        "collection_item_AhP4cn"
-      ],
-      "settings": {
-        "show_on": "show_all",
-        "design_heading": "1",
-        "heading_align": "t4s-text-start",
-        "top_heading": "Complementa tu compra",
-        "icon_heading": "las la-gem",
-        "top_subheading": "",
-        "tophead_mb": 30,
-        "title_fs": 16,
-        "title_fw": 500,
-        "title_cl": "#222222",
-        "title_cl_hover": "#56cfe1",
-        "open_link": "_self",
-        "image_rd": true,
-        "img_effect": "none",
-        "col_dk": "3",
-        "col_tb": "5",
-        "col_mb": "4",
-        "space_h_item": "30",
-        "space_h_item_mb": "10",
-        "loop": false,
-        "au_time": 0,
-        "au_hover": true,
-        "scrollbar": false,
-        "nav_btn": false,
-        "btn_pos": "default",
-        "btn_vi": "hover",
-        "btn_owl": "default",
-        "btn_shape": "none",
-        "btn_cl": "dark",
-        "btn_size": "small",
-        "btn_hidden_mobile": false,
-        "nav_dot": false,
-        "dot_owl": "default",
-        "dots_cl": "dark",
-        "dots_round": true,
-        "dots_space": 10,
-        "dots_hidden_mobile": false,
-        "layout": "t4s-container-wrap",
-        "cl_bg": "#f1f1f1",
-        "cl_bg_gradient": "",
-        "mg": ",,50px,",
-        "pd": "",
-        "mg_tb": "",
-        "pd_tb": "",
-        "mg_mb": ",,30px,",
-        "pd_mb": "",
-        "use_cus_css": false,
-        "code_cus_css": ""
-      }
-    },
     "tiktok_slider_B9674h": {
       "type": "tiktok-slider",
       "blocks": {
@@ -1748,7 +1620,6 @@
     "1646209857bf69e76a",
     "16460368750174c54a",
     "featured_collection_RRwxDd",
-    "collections_list_carousel_TjQqRL",
     "tiktok_slider_B9674h",
     "tiktok_videos_3yYyNd"
   ]
