@@ -1,4 +1,14 @@
+/*borde radius de las imagenes de la galeria */
+.img-carrou {
+  border: 1px solid #cdcdcd;
+  border-radius: .7rem;
+}
+
+
+
 /* acomoda el tamaño de  los botones del producto para que se vean mas largos */
+
+
 .t4s-product-form__buttons{
           width: 100% !important;
         min-width: 160px !important;
