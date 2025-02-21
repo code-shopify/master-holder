@@ -393,29 +393,7 @@ endif -%}
             
           <div class="t4s-row t4s-g-0" timeline hdt-reveal="slide-in">
             <div data-product-single-media-group class="{{ class_main }}t4s-col-12 t4s-col-item t4s-pr">
-              <div data-media-sizes="{{ product_media.size }}" data-t4s-gallery data-t4s-thumb-true data-main-media class="t4s-row t4s-g-{{ row_g }} t4s-slide-eff-{{ se_stts.eff }} flickityt4s isotopet4s isotopet4s-later carousel-disable-md t4s_{{ image_ratio }} t4s_position_{{ se_stts.image_position }} t4s_{{ se_stts.image_size }}{% if se_stts.nav_btn %} t4s-flicky-slider t4s-slider-btn-{{ se_stts.nav_btn }} t4s-slider-btn-style-{{ se_stts.btn_owl }} t4s-slider-btn-{{ se_stts.btn_shape }} t4s-slider-btn-{{ se_stts.btn_size }} t4s-slider-btn-cl-{{ se_stts.btn_cl }} t4s-slider-btn-vi-{{ se_stts.btn_vi }} t4s-slider-btn-hidden-mobile-{{ se_stts.btn_hidden_mobile }} {% endif %}"
-                data-isotopet4s-js='{"transitionDuration": 0,"itemSelector-":"[data-main-slide]:not(.is--media-hide)","filter": "[data-main-slide]:not(.is--media-hide)", "layoutMode":"packery" }'
-                data-flickityt4s-js='{"cellSelector": "[data-main-slide]:not(.is--media-hide)","isFilter":{{ canMedia_group }},"watchCSS": true,"imagesLoaded": 0,"adaptiveHeight": 1, "contain": 1, "groupCells": "100%", "dragThreshold" : {% if se_stts.eff == 'fade' %}6{% else %}5{% endif %}, "cellAlign": "left","wrapAround": true,"prevNextButtons": {{ se_stts.nav_btn }},"percentPosition": 1,"pageDots": false, "autoPlay" : 0, "pauseAutoPlayOnHover" : true , "t4sid": "{{ se_id }}", "thumbNav": false, "thumbVertical": false, "isMedia": true }'>
-               
-                
-                
-                {%- liquid
-
-
-
-                   
-                  for media in product_media
-                    if media.preview_image and media.preview_image.alt contains 'break--360'
-                      break
-                    endif
-                   
-                    render 'product-thumbnail', media: media, imgatt: imgatt, variant_images: variant_images, loop: enable_video_looping, mute: enable_video_muting, autoplay: false, height: height, se_id: se_id, isMediaHidden: isMediaHidden, current_option1: current_option1, current_option2: current_option2, current_option3: current_option3, class_col: class_col, ops_name: ops_name, ops_name_1: ops_name_1, ops_name_2: ops_name_2, ops_name_3: ops_name_3, class_pswp_disable: class_pswp_disable, variants_size: variants_size
-                  endfor
-                 
-                -%}
-
-                
-              </div>
+            
               <link href="{{ 'single-pr-badge.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all'">
               <div data-product-single-badge data-sort="sale,new,soldout,preOrder,custom" class="t4s-single-product-badge t4s-pa t4s-pe-none t4s-op-0"></div>
               {%- render 'product-btns', se_stts: se_stts, product: product -%}
