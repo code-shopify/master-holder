@@ -311,17 +311,11 @@ endif -%}
             
             <div data-product-single-media-group class="{{ class_main }}t4s-col-12 t4s-col-item t4s-pr">
               <div data-t4s-gallery data-main-media data-t4s-thumb-true class="t4s-row t4s-g-0 t4s-slide-eff-{{ se_stts.eff }} flickityt4s t4s_{{ image_ratio }} t4s_position_{{ se_stts.image_position }} t4s_{{ se_stts.image_size }} t4s-flicky-slider {% if se_stts.nav_btn %} t4s-slider-btn-{{ se_stts.nav_btn }} t4s-slider-btn-style-{{ se_stts.btn_owl }} t4s-slider-btn-{{ se_stts.btn_shape }} t4s-slider-btn-{{ se_stts.btn_size }} t4s-slider-btn-cl-{{ se_stts.btn_cl }} t4s-slider-btn-vi-{{ se_stts.btn_vi }} t4s-slider-btn-hidden-mobile-{{ se_stts.btn_hidden_mobile }} {% endif %} {% if se_stts.nav_dot %} t4s-dots-style-{{ se_stts.dot_owl }} t4s-dots-cl-{{ se_stts.dots_cl }} t4s-dots-round-{{ se_stts.dots_round }} t4s-dots-hidden-mobile-{{ se_stts.dots_hidden_mobile }} {% endif %}" data-flickityt4s-js='{"t4sid": "{{ se_id }}", "status": true, "checkVisibility": false, "cellSelector": "[data-main-slide]:not(.is--media-hide)","isFilter":{{ canMedia_group }},"imagesLoaded": 0,"adaptiveHeight": 1, "contain": 1, "groupCells": "100%", "dragThreshold" : {% if se_stts.eff == 'fade' %}6{% else %}5{% endif %}, "cellAlign": "left","wrapAround": true,"prevNextButtons": {{ se_stts.nav_btn }},"percentPosition": 1,"pageDots": {{ se_stts.nav_dot }}, "autoPlay" : 0, "pauseAutoPlayOnHover" : true , "thumbNav": {% if media_layout != 'without_thumbnails' %}true{% else %}false{% endif %}, "thumbVertical": {% if media_layout != 'thumbnails_bottom' %}true{% else %}false{% endif %}, "isMedia": true }' style="--flickity-btn-pos: 0px;--flickity-btn-pos-mb: 0px;--space-dots: {{ se_stts.dots_space }}px;">
-                {%- liquid
-                  for media in product_media
-                    if media.preview_image and media.preview_image.alt contains 'break--360'
-                      break
-                    endif
-                    render 'product-thumbnail', media: media, imgatt: imgatt, variant_images: variant_images, loop: enable_video_looping, mute: enable_video_muting, autoplay: enable_video_autoplaying, height: height, se_id: se_id, isMediaHidden: isMediaHidden, current_option1: current_option1, current_option2: current_option2, current_option3: current_option3, ops_name: ops_name, ops_name_1: ops_name_1, ops_name_2: ops_name_2, ops_name_3: ops_name_3, class_pswp_disable: class_pswp_disable, variants_size: variants_size
-                  endfor
-                  if has_media_360
-                    render 'product-360', product: product, se_id: se_id
-                  endif
-                -%}
+                
+                
+                
+                
+               
                 {%- if se_stts.nav_dot and se_stts.dot_owl == 'number' -%}
                   <div class="flickityt4s-page-dots t4s-dots-list carousel--status{{ se_id }}"><span data-current-slide></span> / <span data-total-number></span></div>
                 {%- endif -%}
@@ -346,8 +340,8 @@ endif -%}
                 
                 <div class="t4s-row t4s-row-mt t4s-row-cols-5 t4s_{{ image_ratio }} t4s_position_{{ se_stts.image_position }} t4s_{{ se_stts.image_size }} {{ class_gx_lg }}t4s-g-5 t4s-carousel__nav carousel__nav--{{ se_id }} carousel__nav-hover1">
                   {%- for media in product_media limit:4  %}{% assign image = media.preview_image -%}
-                    <div class="t4s-col-item t4s-prod
-                      
+                    <div class="t4s-col-item t4s-product__thumb-item"><div class="t4s_ratio t4s-product__thumb" {{ imgatt }}style="--aspect-ratioapt:{{ image.aspect_ratio }}"></div></div>
+                   
                   {%- endfor -%}
                 </div>
 
@@ -386,28 +380,44 @@ endif -%}
             endif
           -%}
 
+
+
+
+            
           <div class="t4s-row t4s-g-0" timeline hdt-reveal="slide-in">
             <div data-product-single-media-group class="{{ class_main }}t4s-col-12 t4s-col-item t4s-pr">
+              <div data-media-sizes="{{ product_media.size }}" data-t4s-gallery data-t4s-thumb-true data-main-media class="t4s-row t4s-g-{{ row_g }} t4s-slide-eff-{{ se_stts.eff }} flickityt4s isotopet4s isotopet4s-later carousel-disable-md t4s_{{ image_ratio }} t4s_position_{{ se_stts.image_position }} t4s_{{ se_stts.image_size }}{% if se_stts.nav_btn %} t4s-flicky-slider t4s-slider-btn-{{ se_stts.nav_btn }} t4s-slider-btn-style-{{ se_stts.btn_owl }} t4s-slider-btn-{{ se_stts.btn_shape }} t4s-slider-btn-{{ se_stts.btn_size }} t4s-slider-btn-cl-{{ se_stts.btn_cl }} t4s-slider-btn-vi-{{ se_stts.btn_vi }} t4s-slider-btn-hidden-mobile-{{ se_stts.btn_hidden_mobile }} {% endif %}"
                 data-isotopet4s-js='{"transitionDuration": 0,"itemSelector-":"[data-main-slide]:not(.is--media-hide)","filter": "[data-main-slide]:not(.is--media-hide)", "layoutMode":"packery" }'
                 data-flickityt4s-js='{"cellSelector": "[data-main-slide]:not(.is--media-hide)","isFilter":{{ canMedia_group }},"watchCSS": true,"imagesLoaded": 0,"adaptiveHeight": 1, "contain": 1, "groupCells": "100%", "dragThreshold" : {% if se_stts.eff == 'fade' %}6{% else %}5{% endif %}, "cellAlign": "left","wrapAround": true,"prevNextButtons": {{ se_stts.nav_btn }},"percentPosition": 1,"pageDots": false, "autoPlay" : 0, "pauseAutoPlayOnHover" : true , "t4sid": "{{ se_id }}", "thumbNav": false, "thumbVertical": false, "isMedia": true }'>
+               
+                
+                
                 {%- liquid
+
                   for media in product_media
                     if media.preview_image and media.preview_image.alt contains 'break--360'
                       break
                     endif
+                   
                     render 'product-thumbnail', media: media, imgatt: imgatt, variant_images: variant_images, loop: enable_video_looping, mute: enable_video_muting, autoplay: false, height: height, se_id: se_id, isMediaHidden: isMediaHidden, current_option1: current_option1, current_option2: current_option2, current_option3: current_option3, class_col: class_col, ops_name: ops_name, ops_name_1: ops_name_1, ops_name_2: ops_name_2, ops_name_3: ops_name_3, class_pswp_disable: class_pswp_disable, variants_size: variants_size
                   endfor
-                  if has_media_360
-                    render 'product-360', product: product, se_id: se_id, class_col: class_col
-                  endif
+                 
                 -%}
+
+      
               </div>
+              
               <link href="{{ 'single-pr-badge.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all'">
               <div data-product-single-badge data-sort="sale,new,soldout,preOrder,custom" class="t4s-single-product-badge t4s-pa t4s-pe-none t4s-op-0"></div>
               {%- render 'product-btns', se_stts: se_stts, product: product -%}
             </div>
           </div>
 
+
+
+
+
+            
           {%- endcase -%}
         </div>
         <div data-t4s-zoom-info class="t4s-{{ class_info }} t4s-col-12 t4s-col-item t4s-product__info-wrapper t4s-pr">
