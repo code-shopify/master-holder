@@ -27,64 +27,6 @@
         "code_cus_css": ""
       }
     },
-    "scrolling_text_PpjRrY": {
-      "type": "scrolling-text",
-      "blocks": {
-        "item_CBAE4y": {
-          "type": "item",
-          "settings": {
-            "content": "<p>Personalizado disponible </p>"
-          }
-        },
-        "item_wXRXD7": {
-          "type": "item",
-          "settings": {
-            "content": "<p>Perzonalizado disponible </p>"
-          }
-        },
-        "item_TRV7kj": {
-          "type": "item",
-          "settings": {
-            "content": "<p>Personalizado disponible</p>"
-          }
-        },
-        "item_gRQbfb": {
-          "type": "item",
-          "settings": {
-            "content": "<p>Personalizado disponible </p>"
-          }
-        },
-        "item_4T86EG": {
-          "type": "item",
-          "settings": {
-            "content": "<p>Personalizado disponible </p>"
-          }
-        }
-      },
-      "block_order": [
-        "item_CBAE4y",
-        "item_wXRXD7",
-        "item_TRV7kj",
-        "item_gRQbfb",
-        "item_4T86EG"
-      ],
-      "disabled": true,
-      "settings": {
-        "speed": 18,
-        "direction": "rtl",
-        "pause_when_hover": false,
-        "adding_border": false,
-        "cl": "#222222",
-        "cl_bg": "#ffffff",
-        "cl_bg_gradient": "",
-        "mg": "",
-        "pd": "20px,,20px,",
-        "mg_tb": ",,50px,",
-        "pd_tb": "",
-        "mg_mb": ",,30px,",
-        "pd_mb": ""
-      }
-    },
     "1646028739ae283905": {
       "type": "slideshow",
       "blocks": {
@@ -1608,7 +1550,6 @@
   },
   "order": [
     "custom_html_pFhhMB",
-    "scrolling_text_PpjRrY",
     "1646028739ae283905",
     "collection_products_banner_7LDnUp",
     "nonstop_color_banner_qk6gDR",
