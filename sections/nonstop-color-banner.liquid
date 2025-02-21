@@ -28,25 +28,28 @@
     align-items: center;
     padding: 50px 0;
     width: 100%;
+    position: relative; /* Importante para la imagen flotante */
   }
   
   .nonstop-banner__container {
     display: grid;
-    grid-template-columns: 35% 30% 35%; /* Ajustamos los anchos */
+    grid-template-columns: 50% 50%; /* Izquierda y derecha ocupan 50% */
     max-width: 1200px;
     width: 100%;
     align-items: center;
     position: relative;
   }
 
-  /* Estilos de la Sección Izquierda (Texto y Botón) */
+  /* Sección Izquierda (Texto y Botón) */
   .nonstop-banner__left {
+    background-color: #f0f0f0;
     padding: 40px;
     text-align: left;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start; /* Alinea mejor el contenido */
+    align-items: flex-start;
+    height: 100%;
   }
 
   .nonstop-banner__left h2 {
@@ -69,25 +72,8 @@
     text-align: center;
     border: 2px solid black;
     font-size: 1.2em;
-  }
-
-  /* Sección Centro (Imagen Principal) */
-  .nonstop-banner__center {
-    position: relative; /* Necesario para que la imagen sobresalga */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2; /* Para que esté sobre la imagen de fondo */
-  }
-
-  .nonstop-banner__main-image {
-    max-width: 300px;
-    height: auto;
-    object-fit: contain;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 20px); /* Ajustamos posición */
-    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2); /* Efecto de sombra */
+    background: black;
+    color: white;
   }
 
   /* Sección Derecha (Imagen de Fondo) */
@@ -95,13 +81,31 @@
     position: relative;
     width: 100%;
     display: flex;
-    justify-content: flex-end; /* Alinea la imagen más a la derecha */
+    justify-content: flex-end;
     align-items: center;
+    height: 100%;
   }
 
   .nonstop-banner__background-image {
-    width: 80%; /* Reducimos tamaño */
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  /* Imagen Central (Flotante sobre ambas secciones) */
+  .nonstop-banner__center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+  }
+
+  .nonstop-banner__main-image {
+    max-width: 260px;
+    height: auto;
     object-fit: contain;
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
   }
 
   /* Responsive para Pantallas Pequeñas */
@@ -111,19 +115,17 @@
       text-align: center;
     }
 
-    .nonstop-banner__left, .nonstop-banner__center, .nonstop-banner__right {
+    .nonstop-banner__left, .nonstop-banner__right {
       width: 100%;
       justify-content: center;
       align-items: center;
+      text-align: center;
+      padding: 20px;
     }
 
     .nonstop-banner__main-image {
-      max-width: 200px;
-      transform: translate(-50%, 5px);
-    }
-
-    .nonstop-banner__background-image {
-      width: 60%;
+      max-width: 180px;
+      transform: translate(-50%, -30%);
     }
   }
 
