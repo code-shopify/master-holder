@@ -497,12 +497,44 @@
             "text_mgb_mobile": 10,
             "animation": "none"
           }
+        },
+        "custom_button_8GHyF9": {
+          "type": "custom_button",
+          "settings": {
+            "button_text": "Comprar ahora",
+            "button_link": "shopify://collections/4-en-1-anticaida",
+            "target_link": "_self",
+            "fontf": "inherit",
+            "button_icon_w": 0,
+            "button_style": "default",
+            "button_effect": "default",
+            "pri_cl": "#222",
+            "second_cl": "",
+            "pri_cl_hover": "#56cfe1",
+            "second_cl_hover": "#fff",
+            "fsbutton": 14,
+            "fwbutton": 400,
+            "button_ls": 0,
+            "button_mh": 42,
+            "button_bdr": 14,
+            "button_pd_lr": 30,
+            "button_mgb": -14,
+            "hidden_mobile": false,
+            "button_icon_w_mb": 0,
+            "fsbutton_mb": 12,
+            "button_mh_mb": 36,
+            "button_pd_lr_mb": 15,
+            "text_ls_mb": 0,
+            "button_mgb_mb": 0,
+            "animation": "none"
+          }
         }
       },
       "block_order": [
         "b_item_nz6fh6",
         "custom_text_wjBrQY",
-        "custom_text_bAHD9V"
+        "custom_text_bAHD9V",
+        "custom_button_8GHyF9"
       ],
       "settings": {
         "coll_pos": "right",
