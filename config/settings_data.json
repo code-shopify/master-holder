@@ -637,7 +637,7 @@
         ],
         "settings": {
           "layout": "logo_left",
-          "full_header": true,
+          "full_header": false,
           "height": 91,
           "arrow": false,
           "align": "center",
