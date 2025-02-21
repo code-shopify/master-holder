@@ -22,8 +22,7 @@
 </section>
 
 <style>
-     
-    .nonstop-banner {
+   .nonstop-banner {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,13 +33,13 @@
   
   .nonstop-banner__container {
     display: grid;
-    grid-template-columns: 50% 50%; /* Secciones divididas en 50% */
+    grid-template-columns: 50% 50%;
     max-width: 1500px;
     width: 100%;
     align-items: center;
     position: relative;
-    min-height: 100px; /* Reduce la altura del contenedor */
-    overflow: hidden; /* Evita que se expanda con la imagen */
+    min-height: 200px; /* Reduce la altura del contenedor */
+    overflow: visible; /* Permite que la imagen sobresalga */
   }
 
   /* Sección Izquierda (Texto y Botón) */
@@ -52,7 +51,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    height: 100%;
   }
 
   .nonstop-banner__left h2 {
@@ -83,18 +81,17 @@
   .nonstop-banner__right {
     position: relative;
     width: 100%;
-    height: 100%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     overflow: hidden;
-    aspect-ratio: 16/9; /* Mantiene la proporción de ASOS */
+    aspect-ratio: 16/9;
   }
 
   .nonstop-banner__background-image {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ajusta la imagen sin distorsión */
+    object-fit: cover;
     position: absolute;
     top: 0;
     left: 0;
@@ -103,9 +100,9 @@
   /* Imagen Central (Flotante sobre ambas secciones) */
   .nonstop-banner__center {
     position: absolute;
-    top: 50%;
+    top: 0;
     left: 50%;
-    transform: translate(-50%, -55%); /* Elevar la imagen sobre el banner */
+    transform: translate(-50%, -30%); /* La imagen sobresale más del contenedor */
     z-index: 3;
     width: 400px;
     height: 400px;
@@ -128,7 +125,7 @@
     .nonstop-banner__container {
       grid-template-columns: 1fr;
       text-align: center;
-      min-height: 200px;
+      min-height: 180px;
     }
 
     .nonstop-banner__left, .nonstop-banner__right {
@@ -139,14 +136,10 @@
       padding: 20px;
     }
 
-    .nonstop-banner__right {
-      aspect-ratio: 16/9; /* Mantiene proporción en móviles */
-    }
-
     .nonstop-banner__center {
       width: 200px;
       height: 200px;
-      transform: translate(-50%, -40%); /* Ajuste para móviles */
+      transform: translate(-50%, -40%);
     }
 
     .nonstop-banner__main-image {
@@ -154,8 +147,6 @@
       height: 100%;
     }
   }
-
-
 
 </style>
 
