@@ -1,46 +1,110 @@
 <section class="nonstop-banner">
-  <div class="nonstop-banner__content" style="background-color: {{ section.settings.bg_color }}">
-    <h2 style="color: {{ section.settings.text_color }}">{{ section.settings.title }}</h2>
-    <p style="color: {{ section.settings.text_color }}">{{ section.settings.subtitle }}</p>
-    <a href="{{ section.settings.button_link }}" class="nonstop-banner__button" style="background-color: {{ section.settings.button_bg_color }}; color: {{ section.settings.button_text_color }}">
-      {{ section.settings.button_text }}
-    </a>
-  </div>
-  <div class="nonstop-banner__images">
-    <img src="{{ section.settings.main_image | img_url: 'master' }}" alt="Main Image" class="nonstop-banner__main-image">
-    <img src="{{ section.settings.background_image | img_url: 'master' }}" alt="Background Image" class="nonstop-banner__background-image">
+  <div class="nonstop-banner__container">
+    <!-- Sección Izquierda: Texto y Botón -->
+    <div class="nonstop-banner__left" style="background-color: {{ section.settings.bg_color }}">
+      <h2 style="color: {{ section.settings.text_color }}">{{ section.settings.title }}</h2>
+      <p style="color: {{ section.settings.text_color }}">{{ section.settings.subtitle }}</p>
+      <a href="{{ section.settings.button_link }}" class="nonstop-banner__button" style="background-color: {{ section.settings.button_bg_color }}; color: {{ section.settings.button_text_color }}">
+        {{ section.settings.button_text }}
+      </a>
+    </div>
+
+    <!-- Sección Centro: Imagen Principal -->
+    <div class="nonstop-banner__center">
+      <img src="{{ section.settings.main_image | img_url: 'master' }}" alt="Main Product" class="nonstop-banner__main-image">
+    </div>
+
+    <!-- Sección Derecha: Imagen de Fondo -->
+    <div class="nonstop-banner__right">
+      <img src="{{ section.settings.background_image | img_url: 'master' }}" alt="Background Image" class="nonstop-banner__background-image">
+    </div>
   </div>
 </section>
 
 <style>
   .nonstop-banner {
     display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
-    padding: 50px;
+    padding: 50px 0;
+    width: 100%;
   }
-  .nonstop-banner__content {
-    max-width: 40%;
+  
+  .nonstop-banner__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* Se divide en 3 partes */
+    max-width: 1200px;
+    width: 100%;
+    align-items: center;
   }
+
+  /* Estilos de la Sección Izquierda */
+  .nonstop-banner__left {
+    padding: 40px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .nonstop-banner__left h2 {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .nonstop-banner__left p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+  }
+
   .nonstop-banner__button {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 12px 24px;
     text-decoration: none;
-    border-radius: 5px;
     font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
   }
-  .nonstop-banner__images {
-    position: relative;
-    max-width: 60%;
+
+  /* Sección Centro (Imagen Principal) */
+  .nonstop-banner__center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
+
   .nonstop-banner__main-image {
-    width: 50%;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    max-width: 80%;
+    height: auto;
+    object-fit: contain;
   }
+
+  /* Sección Derecha (Imagen de Fondo) */
+  .nonstop-banner__right {
+    position: relative;
+    width: 100%;
+  }
+
   .nonstop-banner__background-image {
     width: 100%;
+    object-fit: cover;
+  }
+
+  /* Responsive para Pantallas Pequeñas */
+  @media (max-width: 768px) {
+    .nonstop-banner__container {
+      grid-template-columns: 1fr; /* Cambia a una sola columna */
+      text-align: center;
+    }
+
+    .nonstop-banner__left, .nonstop-banner__center, .nonstop-banner__right {
+      width: 100%;
+    }
+
+    .nonstop-banner__main-image {
+      max-width: 50%;
+    }
   }
 </style>
 
