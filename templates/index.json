@@ -83,6 +83,21 @@
         "pd_mb": ""
       }
     },
+    "nonstop_color_banner_qk6gDR": {
+      "type": "nonstop-color-banner",
+      "settings": {
+        "bg_color": "#f0f0f0",
+        "title": "NONSTOP COLOR",
+        "subtitle": "NEW color-matched caps and lids.",
+        "text_color": "#000000",
+        "main_image": "shopify://shop_images/174009925994.jpg",
+        "background_image": "shopify://shop_images/Master_Holder_Envios_cartoon_banner.webp",
+        "button_text": "Shop New Colors",
+        "button_link": "",
+        "button_bg_color": "#000000",
+        "button_text_color": "#ffffff"
+      }
+    },
     "1646028739ae283905": {
       "type": "slideshow",
       "blocks": {
@@ -1596,7 +1611,7 @@
         "title_fs": 16,
         "title_fw": 500,
         "title_cl": "#222222",
-        "title_cl_hover": "#56CFE1",
+        "title_cl_hover": "#56cfe1",
         "open_link": "_self",
         "image_rd": true,
         "img_effect": "none",
@@ -1720,6 +1735,7 @@
   "order": [
     "custom_html_pFhhMB",
     "scrolling_text_PpjRrY",
+    "nonstop_color_banner_qk6gDR",
     "1646028739ae283905",
     "collection_products_banner_7LDnUp",
     "collections_list_gKdhCU",
