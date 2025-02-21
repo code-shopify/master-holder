@@ -418,7 +418,8 @@
         "b_item_nz6fh6": {
           "type": "b_item",
           "settings": {
-            "b_link": "",
+            "image": "shopify://shop_images/Tumbler_XL_-_3A.webp",
+            "b_link": "shopify://collections/4-en-1-anticaida",
             "open_link": "_self",
             "img_effect": "none",
             "b_effect": "none",
@@ -451,6 +452,7 @@
         },
         "custom_text_wjBrQY": {
           "type": "custom_text",
+          "disabled": true,
           "settings": {
             "text": "LOOKBOOK 2023",
             "remove_br_tag": false,
@@ -474,6 +476,7 @@
         },
         "custom_text_bAHD9V": {
           "type": "custom_text",
+          "disabled": true,
           "settings": {
             "text": "MAKE LOVE THIS LOOK",
             "remove_br_tag": false,
@@ -503,7 +506,7 @@
       ],
       "settings": {
         "coll_pos": "right",
-        "collection": "",
+        "collection": "4-en-1-anticaida",
         "product_des": "1",
         "show_vendor": false,
         "use_cdt": false,
