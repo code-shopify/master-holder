@@ -38,8 +38,8 @@
     width: 100%;
     align-items: center;
     position: relative;
-    min-height: 200px; /* Reduce la altura del contenedor */
-    overflow: visible; /* Permite que la imagen sobresalga */
+    min-height: 280px; /* Ajustamos altura del contenedor */
+    overflow: visible; /* Permite que la imagen del centro sobresalga */
   }
 
   /* Sección Izquierda (Texto y Botón) */
@@ -51,6 +51,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    height: 100%;
   }
 
   .nonstop-banner__left h2 {
@@ -100,12 +101,12 @@
   /* Imagen Central (Flotante sobre ambas secciones) */
   .nonstop-banner__center {
     position: absolute;
-    top: 0;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%, -30%); /* La imagen sobresale más del contenedor */
+    transform: translate(-50%, -60%); /* Mejor ajuste para centrar sobre el banner */
     z-index: 3;
-    width: 400px;
-    height: 400px;
+    width: 320px;
+    height: 320px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -136,10 +137,14 @@
       padding: 20px;
     }
 
+    .nonstop-banner__right {
+      aspect-ratio: 16/9; /* Mantiene proporción en móviles */
+    }
+
     .nonstop-banner__center {
       width: 200px;
       height: 200px;
-      transform: translate(-50%, -40%);
+      transform: translate(-50%, -50%);
     }
 
     .nonstop-banner__main-image {
