@@ -326,7 +326,8 @@ endif -%}
                       
                         <div class="t4s-col-item t4s-carousel_nav-item" data-media-color="{{ media_color }}">
                           {%- render 'product-thumbnail', 
-                             product:product,
+                             product: product,
+                             media_color: media_color,
                               media: media, 
                               imgatt: imgatt, 
                               variant_images: variant_images, 
