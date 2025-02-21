@@ -22,7 +22,7 @@
 </section>
 
 <style>
-   .nonstop-banner {
+     .nonstop-banner {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,7 +33,7 @@
   
   .nonstop-banner__container {
     display: grid;
-    grid-template-columns: 50% 50%; /* Izquierda y derecha ocupan 50% */
+    grid-template-columns: 50% 50%; /* Secciones de tamaño fijo */
     max-width: 1200px;
     width: 100%;
     align-items: center;
@@ -80,16 +80,20 @@
   .nonstop-banner__right {
     position: relative;
     width: 100%;
+    height: 100%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    height: 100%;
+    overflow: hidden; /* Evita que la imagen se desborde */
   }
 
   .nonstop-banner__background-image {
     width: 100%;
-    height: auto;
-    object-fit: cover;
+    height: 100%;
+    object-fit: cover; /* Hace que la imagen se adapte al contenedor */
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
   /* Imagen Central (Flotante sobre ambas secciones) */
@@ -110,9 +114,9 @@
   }
 
   .nonstop-banner__main-image {
-    width: 100%; /* La imagen se adapta al contenedor */
+    width: 100%;
     height: 100%;
-    object-fit: contain; /* Mantiene la proporción sin recortarse */
+    object-fit: contain;
   }
 
   /* Responsive para Pantallas Pequeñas */
@@ -130,6 +134,10 @@
       padding: 20px;
     }
 
+    .nonstop-banner__right {
+      height: 300px; /* Ajusta la altura en móviles */
+    }
+
     .nonstop-banner__center {
       width: 200px;
       height: 200px;
@@ -140,6 +148,7 @@
       height: 100%;
     }
   }
+
 
 </style>
 
