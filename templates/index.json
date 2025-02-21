@@ -83,21 +83,6 @@
         "pd_mb": ""
       }
     },
-    "nonstop_color_banner_qk6gDR": {
-      "type": "nonstop-color-banner",
-      "settings": {
-        "bg_color": "#f0f0f0",
-        "title": "NONSTOP COLOR",
-        "subtitle": "NEW color-matched caps and lids.",
-        "text_color": "#000000",
-        "main_image": "shopify://shop_images/174009925994.jpg",
-        "background_image": "shopify://shop_images/Master_Holder_TikTok_Banner.png",
-        "button_text": "Shop New Colors",
-        "button_link": "",
-        "button_bg_color": "#000000",
-        "button_text_color": "#ffffff"
-      }
-    },
     "1646028739ae283905": {
       "type": "slideshow",
       "blocks": {
@@ -515,6 +500,7 @@
         },
         "custom_button_8GHyF9": {
           "type": "custom_button",
+          "disabled": true,
           "settings": {
             "button_text": "Comprar ahora",
             "button_link": "shopify://collections/4-en-1-anticaida",
@@ -597,6 +583,21 @@
         "pd_mb": "",
         "use_cus_css": false,
         "code_cus_css": ""
+      }
+    },
+    "nonstop_color_banner_qk6gDR": {
+      "type": "nonstop-color-banner",
+      "settings": {
+        "bg_color": "#f0f0f0",
+        "title": "NONSTOP COLOR",
+        "subtitle": "NEW color-matched caps and lids.",
+        "text_color": "#000000",
+        "main_image": "shopify://shop_images/174009925994.jpg",
+        "background_image": "shopify://shop_images/Master_Holder_TikTok_Banner.png",
+        "button_text": "Shop New Colors",
+        "button_link": "",
+        "button_bg_color": "#000000",
+        "button_text_color": "#ffffff"
       }
     },
     "collections_list_gKdhCU": {
@@ -1735,9 +1736,9 @@
   "order": [
     "custom_html_pFhhMB",
     "scrolling_text_PpjRrY",
-    "nonstop_color_banner_qk6gDR",
     "1646028739ae283905",
     "collection_products_banner_7LDnUp",
+    "nonstop_color_banner_qk6gDR",
     "collections_list_gKdhCU",
     "image_gallery_packery_9DY8Rp",
     "feature_columns_3jfRdU",
