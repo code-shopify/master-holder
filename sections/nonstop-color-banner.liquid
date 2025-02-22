@@ -86,12 +86,12 @@
   /* Imagen Flotante (Botella) */
   .nonstop-banner__center {
     position: absolute;
-    top: -60px; /* Subir la imagen sobre el texto y fondo */
+    top: -60px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 5;
-    width: 340px; /* Tamaño en escritorio */
-    height: 585px;
+    width: 340px;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -122,7 +122,7 @@
     object-fit: cover;
   }
 
-  /* Responsive para Pantallas Pequeñas */
+  /* 📱 Responsive: Móvil */
   @media (max-width: 767px) {
     .nonstop-banner__container {
       grid-template-columns: 1fr;
@@ -138,10 +138,31 @@
     }
 
     .nonstop-banner__center {
-      width: 154px; /* Tamaño en móvil */
-      height: 350px;
-      top: 50px;
-      left: 50%;
+      width: 180px;
+      height: auto;
+      top: 80%;
+      left: auto;
+      right: 10px;
+      transform: rotate(15deg);
+    }
+
+    .nonstop-banner__main-image {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  /* 📱 Responsive: Tablet */
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .nonstop-banner__container {
+      grid-template-columns: 45% 55%;
+    }
+
+    .nonstop-banner__center {
+      width: 280px;
+      height: auto;
+      top: -40px;
+      left: 55%;
       transform: translateX(-50%);
     }
   }
