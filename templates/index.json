@@ -484,7 +484,7 @@
         "enable_bar_lm": true,
         "btn_icon": true,
         "button_style": "default",
-        "btns_size": "medium",
+        "btns_size": "extra-large",
         "btns_cl": "dark",
         "button_effect": "default",
         "btn_pos": "t4s-text-center",
