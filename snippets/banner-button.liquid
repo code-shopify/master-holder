@@ -1,33 +1,39 @@
 <style>
-  .custom-banner-content {
-  text-align: left; /* O center si lo quieres centrado */
-  padding: 20px; /* Ajusta según necesidad */
-}
+  .banner-content-container {
+    text-align: left;
+    margin-top: 20px;
+    max-width: 400px; /* Ajusta según necesites */
+  }
 
-.custom-banner-content h2 {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
+  .banner-text {
+    font-size: 14px;
+    color: #000;
+    font-weight: normal;
+    margin-bottom: 10px;
+  }
 
-.custom-button {
-  display: inline-block;
-  background: #ffffff;
-  color: #000;
-  border: 2px solid black;
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
+  .banner-text strong {
+    font-weight: bold;
+  }
 
-.custom-button:hover {
-  background: black;
-  color: white;
-}
+  .banner-button {
+    display: inline-block;
+    background-color: transparent;
+    color: #000;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    border: 2px solid #000;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
 
+  .banner-button:hover {
+    background-color: #000;
+    color: #fff;
+  }
+</style>
 
 <div class="banner-content-container">
   <p class="banner-text">
