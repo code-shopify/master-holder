@@ -352,15 +352,15 @@
             "content_align": "center",
             "content_align_mobile": "center",
             "custom_height": 0,
-            "cv_pos": 50,
+            "cv_pos": 100,
             "ch_pos": 50,
-            "cv_pos_mb": 50,
+            "cv_pos_mb": 100,
             "ch_pos_mb": 50,
             "bg_overlay": "#000000",
             "bg_opacity": 0,
-            "bg_content_bl": false,
+            "bg_content_bl": true,
             "bg_content_cl": "#ffffff",
-            "bg_content_op": 50,
+            "bg_content_op": 100,
             "content_pd_tb": 20,
             "content_pd_lr": 20,
             "content_pd_tb_mb": 10,
@@ -379,7 +379,7 @@
         "html_rHC4W7": {
           "type": "html",
           "settings": {
-            "html_content": "<h1>jdkjas<h1></h1>\n</h1>",
+            "html_content": "<h1>jdkjas</h1><h1></h1>",
             "hidden_mobile": false,
             "animation": "none"
           }
