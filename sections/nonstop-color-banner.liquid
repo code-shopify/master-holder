@@ -1,33 +1,34 @@
-<div class="t4s-section-inner  t4s-container-wrap">
+<div class="t4s-section-inner t4s-container-wrap">
   <div class="t4s-container"> 
-<div class="nonstop-banner">
+    <div class="nonstop-banner">
+      <div class="nonstop-banner__container">
 
-  <div class="nonstop-banner__container">
-    <!-- Sección Izquierda: Texto y Botón -->
-    <div class="nonstop-banner__left" style="background-color: {{ section.settings.bg_color }}">
-      <h2 style="color: {{ section.settings.text_color }}">{{ section.settings.title }}</h2>
-      <p style="color: {{ section.settings.text_color }}">{{ section.settings.subtitle }}</p>
-      <a href="{{ section.settings.button_link }}" class="nonstop-banner__button" style="background-color: {{ section.settings.button_bg_color }}; color: {{ section.settings.button_text_color }}">
-        {{ section.settings.button_text }}
-      </a>
-    </div>
+        <!-- Sección Izquierda: Texto y Botón -->
+        <div class="nonstop-banner__left" style="background-color: {{ section.settings.bg_color }}">
+          <h2 style="color: {{ section.settings.text_color }}">{{ section.settings.title }}</h2>
+          <p style="color: {{ section.settings.text_color }}">{{ section.settings.subtitle }}</p>
+          <a href="{{ section.settings.button_link }}" class="nonstop-banner__button" style="background-color: {{ section.settings.button_bg_color }}; color: {{ section.settings.button_text_color }}">
+            {{ section.settings.button_text }}
+          </a>
+        </div>
 
-    <!-- Sección Centro: Imagen Principal -->
-    <div class="nonstop-banner__center">
-      <img src="{{ section.settings.main_image | img_url: 'master' }}" alt="Main Product" class="nonstop-banner__main-image">
-    </div>
+        <!-- Sección Centro: Imagen Flotante -->
+        <div class="nonstop-banner__center">
+          <img src="{{ section.settings.main_image | img_url: 'master' }}" alt="Main Product" class="nonstop-banner__main-image">
+        </div>
 
-    <!-- Sección Derecha: Imagen de Fondo -->
-    <div class="nonstop-banner__right">
-      <img src="{{ section.settings.background_image | img_url: 'master' }}" alt="Background Image" class="nonstop-banner__background-image">
+        <!-- Sección Derecha: Imagen de Fondo -->
+        <div class="nonstop-banner__right">
+          <img src="{{ section.settings.background_image | img_url: 'master' }}" alt="Background Image" class="nonstop-banner__background-image">
+        </div>
+
+      </div>
     </div>
   </div>
 </div>
-</div>
-  </div>
 
 <style>
-   .nonstop-banner {
+  .nonstop-banner {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -35,21 +36,21 @@
     width: 100%;
     position: relative;
   }
-  
+
   .nonstop-banner__container {
     display: grid;
-    grid-template-columns: 50% 50%; /* Izquierda y derecha ocupan 50% */
+    grid-template-columns: 50% 50%;
     max-width: 1500px;
     width: 100%;
     align-items: center;
     position: relative;
-    border-radius:1rem;
+    border-radius: 1rem;
   }
 
   /* Sección Izquierda (Texto y Botón) */
   .nonstop-banner__left {
     background-color: #f0f0f0;
-    padding: 18rem 7 rem;
+    padding: 18rem 7rem;
     text-align: left;
     display: flex;
     flex-direction: column;
@@ -82,6 +83,31 @@
     color: white;
   }
 
+  /* Imagen Flotante en el Centro */
+  .nonstop-banner__center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    width: 250px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    border-radius: 1rem;
+    box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .nonstop-banner__main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transform: rotate(10deg);
+    filter: drop-shadow(10px 10px 30px rgba(0, 0, 0, 0.3));
+  }
+
   /* Sección Derecha (Imagen de Fondo) */
   .nonstop-banner__right {
     position: relative;
@@ -96,30 +122,6 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-
-  /* Imagen Central (Flotante sobre ambas secciones) */
-  .nonstop-banner__center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 3;
-    width: 200px; /* Tamaño fijo del contenedor */
-    height: 200px; /* Tamaño fijo del contenedor */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: white;
-    border-radius: 1rem; /* Opcional: Bordes redondeados */
-    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
-  }
-
-  .nonstop-banner__main-image {
-    width: 100%; /* La imagen se adapta al contenedor */
-    height: 100%;
-    object-fit: cover; /* Mantiene la proporción sin recortarse */
-    border-radius:1rem;
   }
 
   /* Responsive para Pantallas Pequeñas */
@@ -148,7 +150,6 @@
       height: 185px !important;
     }
   }
-
 </style>
 
 {% schema %}
