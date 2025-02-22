@@ -289,6 +289,10 @@
       slidesPerView: 1,
       spaceBetween: 5,
       loop: true,
+      loopAdditionalSlides: 4,
+      watchSlidesProgress: true,
+      observer: true,
+      observeParents: true,
       navigation: {
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",
@@ -313,6 +317,11 @@
             video.pause();
             video.muted = true;
             video.parentElement.querySelector('.video-overlayv8').classList.remove('playing');
+          });
+        },
+        beforeDestroy: function () {
+          videos.forEach(video => {
+            video.pause();
           });
         }
       }
