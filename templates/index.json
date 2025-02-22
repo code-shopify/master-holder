@@ -1038,20 +1038,6 @@
             "video_url": "https://cdn.shopify.com/videos/c/o/v/0196336f65c24216a0c7277258ed9441.mp4",
             "featured_product": "master-holder-sport-morado"
           }
-        },
-        "video_mHwjiF": {
-          "type": "video",
-          "settings": {
-            "video_url": "https://cdn.shopify.com/videos/c/o/v/0196336f65c24216a0c7277258ed9441.mp4",
-            "featured_product": "master-holder-sport-morado-11"
-          }
-        },
-        "video_7fdQAn": {
-          "type": "video",
-          "settings": {
-            "video_url": "https://cdn.shopify.com/videos/c/o/v/0196336f65c24216a0c7277258ed9441.mp4",
-            "featured_product": "master-holder-sport-negro"
-          }
         }
       },
       "block_order": [
@@ -1059,9 +1045,7 @@
         "video_aB4wPH",
         "video_TGgfh7",
         "video_KhLzKr",
-        "video_8tCdeD",
-        "video_mHwjiF",
-        "video_7fdQAn"
+        "video_8tCdeD"
       ],
       "settings": {}
     },
