@@ -83,6 +83,40 @@
     height: 100%;
     cursor: pointer;
     z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3); /* Máscara oscura */
+    transition: background 0.3s ease;
+  }
+
+  .video-overlayv8.playing {
+    background: rgba(0, 0, 0, 0); /* Máscara transparente cuando se reproduce */
+  }
+
+  .play-iconv8 {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+  }
+
+  .play-iconv8::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 0 10px 20px;
+    border-color: transparent transparent transparent #000;
+    margin-left: 4px;
+  }
+
+  .video-overlayv8.playing .play-iconv8 {
+    opacity: 0;
   }
 
   .with-borderv8 {
@@ -190,28 +224,38 @@
     const videos = document.querySelectorAll('.shopify-videov8');
     
     videos.forEach(video => {
-      // Añadir overlay para click
       const overlay = document.createElement('div');
       overlay.className = 'video-overlayv8';
+      
+      const playIcon = document.createElement('div');
+      playIcon.className = 'play-iconv8';
+      overlay.appendChild(playIcon);
+      
       video.parentElement.appendChild(overlay);
       
-      // Manejar clicks en el overlay
       overlay.addEventListener('click', () => {
-        // Pausar todos los videos
-        videos.forEach(v => v.pause());
+        videos.forEach(v => {
+          if (v !== video) {
+            v.pause();
+            v.muted = true;
+            v.parentElement.querySelector('.video-overlayv8').classList.remove('playing');
+          }
+        });
         
         if (video.paused) {
           video.play();
-          video.muted = false; // Activar sonido
+          video.muted = false;
+          overlay.classList.add('playing');
         } else {
           video.pause();
+          overlay.classList.remove('playing');
         }
       });
     });
 
     new Swiper(".swiper", {
       slidesPerView: 1,
-      spaceBetween: 10,
+      spaceBetween: 5, // Reducido el espacio entre slides
       loop: true,
       navigation: {
         nextEl: ".swiper-button-next",
@@ -224,19 +268,19 @@
       breakpoints: {
         768: {
           slidesPerView: 2,
-          spaceBetween: 10,
+          spaceBetween: 5,
         },
         1024: {
-          slidesPerView: 4,
-          spaceBetween: 10,
+          slidesPerView: 5, // Aumentado a 5 slides en desktop
+          spaceBetween: 5,
         }
       },
       on: {
         slideChange: function () {
-          // Pausar todos los videos cuando cambia el slide
           videos.forEach(video => {
             video.pause();
             video.muted = true;
+            video.parentElement.querySelector('.video-overlayv8').classList.remove('playing');
           });
         }
       }
