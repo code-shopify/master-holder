@@ -492,7 +492,7 @@
         "cl_bg": "#f1f1f1",
         "cl_bg_gradient": "",
         "mg": ",,,,",
-        "pd": "2rem,0rem,2rem,0rem",
+        "pd": "4rem,0rem,4rem,0rem",
         "mg_tb": ",,,,",
         "pd_tb": ",,,,",
         "mg_mb": ",,,,",
@@ -514,121 +514,6 @@
         "button_link": "",
         "button_bg_color": "#000000",
         "button_text_color": "#ffffff"
-      }
-    },
-    "feature_columns_3jfRdU": {
-      "type": "feature_columns",
-      "blocks": {
-        "text_block_RYEUzU": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image": "shopify://shop_images/Master_holder_BANNER_Amazon_USA.png",
-            "title": "Ordenar en Estados Unidos",
-            "text": "<p>Amazon USA</p><p>¡Master Holder está en Amazon USA!</p>",
-            "button_label": "Amazon USA",
-            "button_link": "https://www.amazon.com/s?me=A2O1S0AUNU2I2M&language=es&marketplaceID=ATVPDKIKX0DER",
-            "open_link": "_blank",
-            "btn_icon": false,
-            "button_style": "outline",
-            "btn_size": "extra-small",
-            "btn_cl": "dark",
-            "button_effect": "default"
-          }
-        },
-        "text_block_b7YU6K": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image": "shopify://shop_images/Master_Holder_banner_catalogo.png",
-            "title": "CATÁLOGO 2025",
-            "text": "<p>¡Inicia tu nuevo negocio!<br/>distribuye productos Master Holder.</p>",
-            "button_label": "¡SOLICITARLO AHORA!",
-            "button_link": "shopify://pages/emprede",
-            "open_link": "_blank",
-            "btn_icon": false,
-            "button_style": "outline",
-            "btn_size": "extra-small",
-            "btn_cl": "dark",
-            "button_effect": "fade"
-          }
-        },
-        "text_block_K9q7BR": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image": "shopify://shop_images/Master_Holder_banner_mercado_libre.png",
-            "title": "MERCADO LÍDER PLATINUM",
-            "text": "<p>ENVÍOS MÁS RÁPIDOS<br/>Más de 30 mil ventas nos respaldan<br/>recibe tu producto rápido y seguro aquí.</p>",
-            "button_label": "¡PEDIR POR MERCADO LIBRE!",
-            "button_link": "https://listado.mercadolibre.com.mx/tienda/master-holder/",
-            "open_link": "_blank",
-            "btn_icon": false,
-            "button_style": "outline",
-            "btn_size": "extra-small",
-            "btn_cl": "dark",
-            "button_effect": "fade"
-          }
-        }
-      },
-      "block_order": [
-        "text_block_RYEUzU",
-        "text_block_b7YU6K",
-        "text_block_K9q7BR"
-      ],
-      "settings": {
-        "design_heading": "1",
-        "heading_align": "t4s-text-center",
-        "top_heading": "",
-        "icon_heading": "las la-gem",
-        "top_subheading": "",
-        "tophead_mb": 30,
-        "text_align": "center",
-        "pos_text": "default",
-        "fs_title": 22,
-        "fs_text": 14,
-        "fs_title_mb": 22,
-        "fs_text_mb": 12,
-        "image_ratio": "ratio16_9",
-        "image_size": "cover",
-        "image_position": "8",
-        "img_effect": "none",
-        "b_effect": "none",
-        "layout_des": "1",
-        "space_h_item": "30",
-        "space_v_item": "30",
-        "space_h_item_mb": "10",
-        "space_v_item_mb": "10",
-        "col_dk": "3",
-        "col_tb": "2",
-        "col_mb": "1",
-        "loop": true,
-        "au_time": 0,
-        "au_hover": true,
-        "nav_btn": false,
-        "btn_vi": "hover",
-        "btn_owl": "default",
-        "btn_shape": "none",
-        "btn_cl": "dark",
-        "btn_size": "small",
-        "btn_hidden_mobile": true,
-        "nav_dot": false,
-        "dot_owl": "default",
-        "dots_cl": "dark",
-        "dots_round": true,
-        "dots_space": 10,
-        "dots_hidden_mobile": false,
-        "layout": "t4s-container-wrap",
-        "cl_bg": "",
-        "cl_bg_gradient": "",
-        "mg": ",,50px,",
-        "pd": "",
-        "mg_tb": "",
-        "pd_tb": "",
-        "mg_mb": ",,30px,",
-        "pd_mb": "",
-        "use_cus_css": false,
-        "code_cus_css": ""
       }
     },
     "164620932069107a3a": {
@@ -848,21 +733,120 @@
       ],
       "settings": {}
     },
-    "tiktok_videos_3yYyNd": {
-      "type": "tiktok-videos",
+    "feature_columns_3jfRdU": {
+      "type": "feature_columns",
       "blocks": {
-        "video_VBhdqK": {
-          "type": "video",
+        "text_block_RYEUzU": {
+          "type": "text_block",
           "settings": {
-            "tiktok_url": ""
+            "enable_image": true,
+            "image": "shopify://shop_images/Master_holder_BANNER_Amazon_USA.png",
+            "title": "Ordenar en Estados Unidos",
+            "text": "<p>Amazon USA</p><p>¡Master Holder está en Amazon USA!</p>",
+            "button_label": "Amazon USA",
+            "button_link": "https://www.amazon.com/s?me=A2O1S0AUNU2I2M&language=es&marketplaceID=ATVPDKIKX0DER",
+            "open_link": "_blank",
+            "btn_icon": false,
+            "button_style": "outline",
+            "btn_size": "extra-small",
+            "btn_cl": "dark",
+            "button_effect": "default"
+          }
+        },
+        "text_block_b7YU6K": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/Master_Holder_banner_catalogo.png",
+            "title": "CATÁLOGO 2025",
+            "text": "<p>¡Inicia tu nuevo negocio!<br/>distribuye productos Master Holder.</p>",
+            "button_label": "¡SOLICITARLO AHORA!",
+            "button_link": "shopify://pages/emprede",
+            "open_link": "_blank",
+            "btn_icon": false,
+            "button_style": "outline",
+            "btn_size": "extra-small",
+            "btn_cl": "dark",
+            "button_effect": "fade"
+          }
+        },
+        "text_block_K9q7BR": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/Master_Holder_banner_mercado_libre.png",
+            "title": "MERCADO LÍDER PLATINUM",
+            "text": "<p>ENVÍOS MÁS RÁPIDOS<br/>Más de 30 mil ventas nos respaldan<br/>recibe tu producto rápido y seguro aquí.</p>",
+            "button_label": "¡PEDIR POR MERCADO LIBRE!",
+            "button_link": "https://listado.mercadolibre.com.mx/tienda/master-holder/",
+            "open_link": "_blank",
+            "btn_icon": false,
+            "button_style": "outline",
+            "btn_size": "extra-small",
+            "btn_cl": "dark",
+            "button_effect": "fade"
           }
         }
       },
       "block_order": [
-        "video_VBhdqK"
+        "text_block_RYEUzU",
+        "text_block_b7YU6K",
+        "text_block_K9q7BR"
       ],
-      "disabled": true,
-      "settings": {}
+      "settings": {
+        "design_heading": "1",
+        "heading_align": "t4s-text-center",
+        "top_heading": "",
+        "icon_heading": "las la-gem",
+        "top_subheading": "",
+        "tophead_mb": 30,
+        "text_align": "center",
+        "pos_text": "default",
+        "fs_title": 22,
+        "fs_text": 14,
+        "fs_title_mb": 22,
+        "fs_text_mb": 12,
+        "image_ratio": "ratio16_9",
+        "image_size": "cover",
+        "image_position": "8",
+        "img_effect": "none",
+        "b_effect": "none",
+        "layout_des": "1",
+        "space_h_item": "30",
+        "space_v_item": "30",
+        "space_h_item_mb": "10",
+        "space_v_item_mb": "10",
+        "col_dk": "3",
+        "col_tb": "2",
+        "col_mb": "1",
+        "loop": true,
+        "au_time": 0,
+        "au_hover": true,
+        "nav_btn": false,
+        "btn_vi": "hover",
+        "btn_owl": "default",
+        "btn_shape": "none",
+        "btn_cl": "dark",
+        "btn_size": "small",
+        "btn_hidden_mobile": true,
+        "nav_dot": false,
+        "dot_owl": "default",
+        "dots_cl": "dark",
+        "dots_round": true,
+        "dots_space": 10,
+        "dots_hidden_mobile": false,
+        "layout": "t4s-container-wrap",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": ",,50px,",
+        "pd": "4rem,0rem,4rem,0rem",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": ",,30px,",
+        "pd_mb": "",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
     }
   },
   "order": [
@@ -873,7 +857,6 @@
     "164620932069107a3a",
     "16460368750174c54a",
     "tiktok_slider_B9674h",
-    "feature_columns_3jfRdU",
-    "tiktok_videos_3yYyNd"
+    "feature_columns_3jfRdU"
   ]
 }
