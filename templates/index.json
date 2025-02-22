@@ -492,7 +492,7 @@
         "cl_bg": "#f1f1f1",
         "cl_bg_gradient": "",
         "mg": ",,,,",
-        "pd": ",,,,",
+        "pd": "2rem,0rem,2rem,0rem",
         "mg_tb": ",,,,",
         "pd_tb": ",,,,",
         "mg_mb": ",,,,",
