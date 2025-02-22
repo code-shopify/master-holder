@@ -12,7 +12,7 @@
           </a>
         </div>
 
-        <!-- Imagen Flotante (Botella) -->
+        <!-- Sección Centro: Imagen Flotante -->
         <div class="nonstop-banner__center">
           <img src="{{ section.settings.main_image | img_url: 'master' }}" alt="Main Product" class="nonstop-banner__main-image">
         </div>
@@ -50,7 +50,7 @@
   /* Sección Izquierda (Texto y Botón) */
   .nonstop-banner__left {
     background-color: #f0f0f0;
-    padding: 4rem;
+    padding: 4rem 7rem;
     text-align: left;
     display: flex;
     flex-direction: column;
@@ -83,15 +83,15 @@
     color: white;
   }
 
-  /* Imagen Flotante (Botella) */
+  /* Imagen Flotante en el Centro */
   .nonstop-banner__center {
     position: absolute;
-    top: -40px; /* Ajuste para no estar demasiado arriba */
-    left: 52%;
-    transform: translateX(-50%);
-    z-index: 5;
-    width: 260px; /* Ajuste de tamaño para escritorio */
-    height: auto;
+    top: 40%; /* Ajustado para sobresalir más */
+    left: 50%;
+    transform: translate(-50%, -40%);
+    z-index: 5; /* Asegura que esté encima de los otros elementos */
+    width: 300px; /* Ajusta el tamaño de la imagen */
+    height: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -100,10 +100,18 @@
 
   .nonstop-banner__main-image {
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: contain;
-    transform: rotate(12deg);
-    filter: drop-shadow(12px 12px 35px rgba(0, 0, 0, 0.5)); /* Sombra más visible */
+    transform: rotate(10deg);
+    filter: drop-shadow(15px 15px 40px rgba(0, 0, 0, 0.4));
+    animation: float 3s ease-in-out infinite;
+  }
+
+  /* Animación de Flotación */
+  @keyframes float {
+    0% { transform: translateY(0px) rotate(10deg); }
+    50% { transform: translateY(-10px) rotate(12deg); }
+    100% { transform: translateY(0px) rotate(10deg); }
   }
 
   /* Sección Derecha (Imagen de Fondo) */
@@ -122,7 +130,7 @@
     object-fit: cover;
   }
 
-  /* 📱 Responsive: Móvil */
+  /* Responsive para Pantallas Pequeñas */
   @media (max-width: 767px) {
     .nonstop-banner__container {
       grid-template-columns: 1fr;
@@ -138,31 +146,16 @@
     }
 
     .nonstop-banner__center {
-      width: 140px; /* Tamaño más pequeño en móvil */
-      height: auto;
-      top: 85%;
-      left: auto;
-      right: 5%;
-      transform: rotate(15deg);
+      width: 250px;
+      height: 250px;
+      top: 35%;
+      left: 50%;
+      transform: translate(-50%, -35%);
     }
 
     .nonstop-banner__main-image {
-      filter: drop-shadow(10px 10px 25px rgba(0, 0, 0, 0.5));
-    }
-  }
-
-  /* 📱 Responsive: Tablet */
-  @media (min-width: 768px) and (max-width: 1024px) {
-    .nonstop-banner__container {
-      grid-template-columns: 45% 55%;
-    }
-
-    .nonstop-banner__center {
-      width: 220px; /* Tamaño medio para tablet */
-      height: auto;
-      top: -30px;
-      left: 55%;
-      transform: translateX(-50%);
+      width: 100%;
+      height: 100%;
     }
   }
 </style>
