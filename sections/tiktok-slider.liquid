@@ -43,9 +43,6 @@
       <!-- Botones de navegación -->
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
-
-      <!-- Paginación -->
-      <div class="swiper-pagination"></div>
     </div>
   </div>
 </div>
@@ -214,10 +211,6 @@
     left: 0;
   }
 
-  .swiper-pagination-bullet-active {
-    background: #000;
-  }
-
   /* Responsive */
   @media (max-width: 767px) {
     .slider-containerv8 {
@@ -293,13 +286,14 @@
       watchSlidesProgress: true,
       observer: true,
       observeParents: true,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true
+      },
       navigation: {
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
       },
       breakpoints: {
         768: {
@@ -307,7 +301,7 @@
           spaceBetween: 5,
         },
         1024: {
-          slidesPerView: 4.5,
+          slidesPerView: 4,
           spaceBetween: 5,
         }
       },
