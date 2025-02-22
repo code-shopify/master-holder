@@ -1007,49 +1007,49 @@
         "video_mDWrKt": {
           "type": "video",
           "settings": {
-            "shopify_video": "https://cdn.shopify.com/videos/c/o/v/0196336f65c24216a0c7277258ed9441.mp4",
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/0196336f65c24216a0c7277258ed9441.mp4",
             "featured_product": "adaptadores"
           }
         },
         "video_aB4wPH": {
           "type": "video",
           "settings": {
-            "shopify_video": "https://cdn.shopify.com/videos/c/o/v/61188a0ffd614b7fa8674681c569b8f3.mp4",
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/0196336f65c24216a0c7277258ed9441.mp4",
             "featured_product": "destapador"
           }
         },
         "video_TGgfh7": {
           "type": "video",
           "settings": {
-            "shopify_video": "",
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/0196336f65c24216a0c7277258ed9441.mp4",
             "featured_product": "master-holder-sport"
           }
         },
         "video_KhLzKr": {
           "type": "video",
           "settings": {
-            "shopify_video": "",
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/0196336f65c24216a0c7277258ed9441.mp4",
             "featured_product": "master-holder-sport-azul-blanco"
           }
         },
         "video_8tCdeD": {
           "type": "video",
           "settings": {
-            "shopify_video": "",
+            "video_url": "",
             "featured_product": "master-holder-sport-morado"
           }
         },
         "video_mHwjiF": {
           "type": "video",
           "settings": {
-            "shopify_video": "",
+            "video_url": "",
             "featured_product": "master-holder-sport-morado-11"
           }
         },
         "video_7fdQAn": {
           "type": "video",
           "settings": {
-            "shopify_video": "",
+            "video_url": "",
             "featured_product": "master-holder-sport-negro"
           }
         }
