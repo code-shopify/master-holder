@@ -4,11 +4,8 @@
 /*---------------- Global Custom CSS -------------------*/
 {{ settings.global_css }}
 
-
-.custom-pr{background:white; 
-  border-radius: 1rem !important;
-        }
-        
+  .t4s-col-12.t4s-col-item.t4s-col-thumb.t4s-pr.t4s-oh {
+    display: flex !important;
     
 }
 .t4s-header__wrapper.t4s-pr.t4s-header-layout_logo_left {
@@ -18,13 +15,19 @@
 
 .img-fija { margin-top:10px;}
 /*Ajusta los botones del slider mas abajo*/
-.t4s-slider-btn-pos-ontop.t4s-flicky-slider:not(:hover) .flickityt4s-button.previous, .t4s-slider-btn-pos-ontop.t4s-flicky-slider:not(:hover) .flickityt4s-button.next {
-   
-    
-    
+.t4s-slider-btn-pos-ontop.t4s-flicky-slider .flickityt4s-button.previous,
+.t4s-slider-btn-pos-ontop.t4s-flicky-slider .flickityt4s-button.next {
+    transform: none !important;
+    transition: none !important;
     margin-bottom: -5rem !important;
-    
 }
+
+.t4s-slider-btn-pos-ontop.t4s-flicky-slider .flickityt4s-button.previous:hover,
+.t4s-slider-btn-pos-ontop.t4s-flicky-slider .flickityt4s-button.next:hover {
+    transform: none !important;
+    transition: none !important;
+}
+
 
 /*---------------- Custom CSS for only desktop -------------------*/
 @media (min-width: 1025px) {
