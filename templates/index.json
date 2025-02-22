@@ -384,6 +384,20 @@
             "animation": "none"
           }
         },
+        "space_html_976cmp": {
+          "type": "space_html",
+          "settings": {
+            "color": "#fff",
+            "width": 40,
+            "height": 2,
+            "mgb": 20,
+            "width_mb": 40,
+            "height_mb": 2,
+            "hidden_mobile": false,
+            "mgb_mb": 20,
+            "animation": "none"
+          }
+        },
         "custom_text_pz77mg": {
           "type": "custom_text",
           "settings": {
@@ -391,7 +405,7 @@
             "remove_br_tag": false,
             "tag": "p",
             "fontf": "inherit",
-            "text_cl": "#fff",
+            "text_cl": "#ffffff",
             "text_fs": 16,
             "text_lh": 0,
             "text_fw": 400,
@@ -411,6 +425,7 @@
       "block_order": [
         "b_item_nz6fh6",
         "html_rHC4W7",
+        "space_html_976cmp",
         "custom_text_pz77mg"
       ],
       "settings": {
