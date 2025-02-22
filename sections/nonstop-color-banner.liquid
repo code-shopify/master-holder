@@ -50,7 +50,7 @@
   /* Sección Izquierda (Texto y Botón) */
   .nonstop-banner__left {
     background-color: #f0f0f0;
-    padding: 5rem;
+    padding: 4rem;
     text-align: left;
     display: flex;
     flex-direction: column;
@@ -86,11 +86,11 @@
   /* Imagen Flotante (Botella) */
   .nonstop-banner__center {
     position: absolute;
-    top: -60px;
-    left: 50%;
+    top: -40px; /* Ajuste para no estar demasiado arriba */
+    left: 52%;
     transform: translateX(-50%);
     z-index: 5;
-    width: 340px;
+    width: 260px; /* Ajuste de tamaño para escritorio */
     height: auto;
     display: flex;
     justify-content: center;
@@ -102,8 +102,8 @@
     width: 100%;
     height: auto;
     object-fit: contain;
-    transform: rotate(10deg);
-    filter: drop-shadow(15px 15px 40px rgba(0, 0, 0, 0.4));
+    transform: rotate(12deg);
+    filter: drop-shadow(12px 12px 35px rgba(0, 0, 0, 0.5)); /* Sombra más visible */
   }
 
   /* Sección Derecha (Imagen de Fondo) */
@@ -138,17 +138,16 @@
     }
 
     .nonstop-banner__center {
-      width: 180px;
+      width: 140px; /* Tamaño más pequeño en móvil */
       height: auto;
-      top: 80%;
+      top: 85%;
       left: auto;
-      right: 10px;
+      right: 5%;
       transform: rotate(15deg);
     }
 
     .nonstop-banner__main-image {
-      width: 100%;
-      height: auto;
+      filter: drop-shadow(10px 10px 25px rgba(0, 0, 0, 0.5));
     }
   }
 
@@ -159,9 +158,9 @@
     }
 
     .nonstop-banner__center {
-      width: 280px;
+      width: 220px; /* Tamaño medio para tablet */
       height: auto;
-      top: -40px;
+      top: -30px;
       left: 55%;
       transform: translateX(-50%);
     }
