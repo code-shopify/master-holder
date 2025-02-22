@@ -351,7 +351,7 @@
             "b_effect": "none",
             "content_align": "center",
             "content_align_mobile": "center",
-            "custom_height": 250,
+            "custom_height": 0,
             "cv_pos": 50,
             "ch_pos": 50,
             "cv_pos_mb": 50,
@@ -375,10 +375,34 @@
             "time_animation": 1,
             "animation_delay": 40
           }
+        },
+        "custom_text_pz77mg": {
+          "type": "custom_text",
+          "settings": {
+            "text": "Textasdasdasdsd",
+            "remove_br_tag": false,
+            "tag": "p",
+            "fontf": "inherit",
+            "text_cl": "#fff",
+            "text_fs": 16,
+            "text_lh": 0,
+            "text_fw": 400,
+            "text_ls": 0,
+            "font_italic": false,
+            "text_shadow": false,
+            "text_mgb": 15,
+            "hidden_mobile": false,
+            "text_fs_mb": 16,
+            "text_lh_mb": 0,
+            "text_ls_mb": 0,
+            "text_mgb_mobile": 10,
+            "animation": "none"
+          }
         }
       },
       "block_order": [
-        "b_item_nz6fh6"
+        "b_item_nz6fh6",
+        "custom_text_pz77mg"
       ],
       "settings": {
         "coll_pos": "right",
