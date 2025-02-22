@@ -2618,6 +2618,11 @@
         "type": "shopify://apps/zepto-product-personalizer/blocks/product_personalizer_main/7411210d-7b32-4c09-9455-e129e3be4729",
         "disabled": false,
         "settings": {}
+      },
+      "442549160356511856": {
+        "type": "shopify://apps/ck-whatsapp-chat-abandoned/blocks/app-embed-block/ce4c5d89-06d5-4502-b18d-35d424a3f693",
+        "disabled": false,
+        "settings": {}
       }
     }
   }
