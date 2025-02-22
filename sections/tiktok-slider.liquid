@@ -8,7 +8,7 @@
               <div class="with-borderv8">
                 {% if block.settings.shopify_video != blank %}
                   <video class="tiktok-videov8 lazy-video" data-src="{{ block.settings.shopify_video }}" preload="none" playsinline muted loop>
-                    <source src="" type="video/mp4">
+                    <source src="{{ block.settings.shopify_video }}" type="video/mp4">
                     Tu navegador no soporta el video.
                   </video>
                   <button class="play-buttonv8">▶</button>
@@ -176,7 +176,10 @@
     videos.forEach(video => {
         video.addEventListener("click", () => {
             if (video.paused) {
-                video.src = video.dataset.src; // Cargar el video solo cuando se reproduce
+                if (!video.src) {
+                    video.src = video.getAttribute("data-src");
+                    video.load();
+                }
                 video.play();
             } else {
                 video.pause();
@@ -189,7 +192,10 @@
         button.addEventListener("click", function () {
             let video = this.previousElementSibling;
             if (video.paused) {
-                video.src = video.dataset.src;
+                if (!video.src) {
+                    video.src = video.getAttribute("data-src");
+                    video.load();
+                }
                 video.play();
                 this.style.display = "none";
                 video.nextElementSibling.style.display = "flex";
