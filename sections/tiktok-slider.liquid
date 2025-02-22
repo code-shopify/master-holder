@@ -281,11 +281,12 @@
     new Swiper(".swiper", {
       slidesPerView: 1,
       spaceBetween: 5,
+      speed: 500,
       loop: true,
-      loopAdditionalSlides: 4,
-      watchSlidesProgress: true,
-      observer: true,
-      observeParents: true,
+      loopedSlides: 8,
+      watchOverflow: true,
+      allowTouchMove: true,
+      preventInteractionOnTransition: false,
       autoplay: {
         delay: 3000,
         disableOnInteraction: false,
@@ -294,6 +295,7 @@
       navigation: {
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",
+        hideOnClick: false,
       },
       breakpoints: {
         768: {
@@ -306,6 +308,9 @@
         }
       },
       on: {
+        init: function() {
+          this.update();
+        },
         slideChange: function () {
           videos.forEach(video => {
             video.pause();
