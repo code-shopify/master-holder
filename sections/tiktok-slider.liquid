@@ -6,11 +6,15 @@
           <div class="swiper-slide">
             <div class="slidev8">
               <div class="with-borderv8">
-                {% if block.settings.video_url contains "/video/" %}
-                  {% assign video_id = block.settings.video_url | split: "/video/" | last | split: "?" | first %}
-                  <iframe class="tiktok-embedv8" src="https://www.tiktok.com/embed/{{ video_id }}" frameborder="0" allowfullscreen scrolling="no"></iframe>
+                {% if block.settings.shopify_video != blank %}
+                  <video class="tiktok-videov8 lazy-video" data-src="{{ block.settings.shopify_video }}" preload="none" playsinline muted loop>
+                    <source src="" type="video/mp4">
+                    Tu navegador no soporta el video.
+                  </video>
+                  <button class="play-buttonv8">▶</button>
+                  <button class="pause-buttonv8 hiddenv8">⏸</button>
                 {% else %}
-                  <p>URL no válida. Asegúrate de ingresar una URL de TikTok con formato correcto.</p>
+                  <p>No hay video disponible.</p>
                 {% endif %}
               </div>
 
@@ -46,154 +50,83 @@
 </div>
 
 <style>
-  .slider-containerv8 {
-    position: relative;
+  .tiktok-videov8 {
     width: 100%;
-    margin: auto;
-    overflow: hidden;
-    padding: 20px 0;
+    height: auto;
+    aspect-ratio: 9 / 16;
+    border-radius: 10px;
+    display: block;
+    background: black;
   }
 
-  .swiper-slide {
+  .play-buttonv8, .pause-buttonv8 {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 10;
   }
 
-  .slidev8 {
-    flex: 0 0 100%;
-    max-width: 300px;
+  .play-buttonv8 {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 10px;
+    margin-left: 2px;
   }
 
-  .tiktok-embedv8 {
-    width: 100%;
-    height: 500px;
-    border-radius: 10px;
+  .pause-buttonv8 {
+    display: none;
+    opacity: 1;
+    transition: opacity 0.5s ease;
   }
 
-  .with-borderv8 {
-    padding: 4px;
-    border-radius: 10px;
-    background: linear-gradient(0deg, #fe2d52, #28ffff);
-  }
-
-  .product-boxv8 {
-    display: flex;
-    align-items: center;
-    background: #fff;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 280px;
-    text-align: left;
-  }
-
-  .product-linkv8 {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: #333;
-    flex-grow: 1;
-  }
-
-  .product-linkv8 img {
-    width: 50px;
-    height: 50px;
-    border-radius: 5px;
-    margin-right: 10px;
-  }
-
-  .product-info {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-  }
-
-  .product-title {
-    font-size: 12px;
-    color: #333;
-    line-height: 1.2;
-  }
-
-  .product-price {
-    font-size: 12px;
-    font-weight: bold;
-    color: #f05454;
-  }
-
-  .product-old-price {
-    font-size: 12px;
-    text-decoration: line-through;
-    color: #888;
-    margin-left: 5px;
-  }
-
-  /* Swiper styles */
-  .swiper-button-next,
-  .swiper-button-prev {
-    color: #000;
-  }
-
-  .swiper-pagination-bullet-active {
-    background: #000;
-  }
-
-  /* Responsive */
-  @media (max-width: 767px) {
-    .slider-containerv8 {
-      padding: 10px;
-    }
-
-    .swiper-slide {
-      display: flex;
-      justify-content: center;
-    }
-
-    .slidev8 {
-      max-width: 250px;
-    }
-
-    .tiktok-embedv8 {
-      height: 400px;
-    }
+  .pause-buttonv8.hiddenv8 {
+    opacity: 0;
   }
 </style>
 
-<!-- Swiper JS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    new Swiper(".swiper", {
-      slidesPerView: 1,
-      spaceBetween: 10,
-      loop: true,
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-      breakpoints: {
-        768: {
-          slidesPerView: 2,
-          spaceBetween: 10,
-        },
-        1024: {
-          slidesPerView: 4,
-          spaceBetween: 10,
-        }
-      }
+document.addEventListener("DOMContentLoaded", () => {
+    const videos = document.querySelectorAll(".lazy-video");
+
+    videos.forEach(video => {
+        video.addEventListener("click", () => {
+            if (video.paused) {
+                video.src = video.dataset.src; // Cargar el video solo cuando se reproduce
+                video.play();
+            } else {
+                video.pause();
+            }
+        });
     });
-  });
+
+    // Reemplaza el src solo cuando se haga clic en el video
+    document.querySelectorAll(".play-buttonv8").forEach(button => {
+        button.addEventListener("click", function () {
+            let video = this.previousElementSibling;
+            if (video.paused) {
+                video.src = video.dataset.src;
+                video.play();
+                this.style.display = "none";
+                video.nextElementSibling.style.display = "flex";
+            }
+        });
+    });
+
+    document.querySelectorAll(".pause-buttonv8").forEach(button => {
+        button.addEventListener("click", function () {
+            let video = this.previousElementSibling;
+            video.pause();
+            this.style.display = "none";
+            video.previousElementSibling.style.display = "flex";
+        });
+    });
+});
 </script>
 
 {% schema %}
@@ -203,13 +136,13 @@
   "blocks": [
     {
       "type": "video",
-      "name": "TikTok Video",
+      "name": "Video de Shopify",
       "settings": [
         {
-          "type": "url",
-          "id": "video_url",
-          "label": "TikTok Video URL",
-          "info": "Ingresa la URL completa del video de TikTok. Ejemplo: https://www.tiktok.com/@username/video/727935874935..."
+          "type": "text",
+          "id": "shopify_video",
+          "label": "URL del video en Shopify",
+          "info": "Sube el video a Shopify y copia la URL."
         },
         {
           "type": "product",
