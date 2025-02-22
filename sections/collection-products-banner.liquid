@@ -115,7 +115,6 @@
                     {{ 'image' | placeholder_svg_tag: 't4s-placeholder-svg t4s-svg-bg2 t4s-obj-eff' }}
                   {%- endif -%}
                 </{{ ARRhtml[0] }}>
-                   {%- render 'banner-button' -%}
                 <div class="t4s-banner-content t4s-content-position t4s-pa t4s-pe-none t4s-text-md-{{ bk_stts.content_align }} t4s-text-{{ bk_stts.content_align_mobile }} t4s-bg-content-{{ bk_stts.bg_content_bl }} t4s-br-content-{{ bk_stts.border_bl }} t4s-br-style-{{ bk_stts.br_style }}" style="--time-animation:{{ bk_stts.time_animation }}s; {%- render 'position_content', ch_pos: bk_stts.ch_pos, cv_pos: bk_stts.cv_pos, ch_pos_mb: bk_stts.ch_pos_mb, cv_pos_mb: bk_stts.cv_pos_mb, append_bg_content_style: append_bg_content_style, append_bg_border_style: append_bg_border_style -%}">
                 {%- assign ani_delay = 0 -%}  
                 {%- for block in se_blocks offset: index -%}
