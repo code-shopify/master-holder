@@ -145,6 +145,7 @@
                           <img data-maxw="{{ bk_stts.img_width_mb }}" data-maxw-md="{{ bk_stts.img_width }}" data-maxw-lg="{{ bk_stts.img_width }}" class="lazyloadt4s t4s-lz--fadeIn" data-src="{{ image | image_url: width: 1 }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg', w: image.width, h: image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
                           <span class="lazyloadt4s-loader"></span>
                       </div>
+                      {%- render 'banner-button' -%}
                     {%- endif -%}
                   {%- when "countdown" -%}
                     {%- if bk_stts.date != blank -%}
