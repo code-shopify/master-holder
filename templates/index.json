@@ -574,12 +574,12 @@
         "layout": "t4s-container-wrap",
         "cl_bg": "#f1f1f1",
         "cl_bg_gradient": "",
-        "mg": ",,50px,",
-        "pd": "",
-        "mg_tb": "",
-        "pd_tb": "",
-        "mg_mb": ",,30px,",
-        "pd_mb": "",
+        "mg": ",,,,",
+        "pd": ",,,,",
+        "mg_tb": ",,,,",
+        "pd_tb": ",,,,",
+        "mg_mb": ",,,,",
+        "pd_mb": ",,,,",
         "use_cus_css": false,
         "code_cus_css": ""
       }
