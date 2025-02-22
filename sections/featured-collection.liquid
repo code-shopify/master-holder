@@ -139,7 +139,7 @@
           endcase -%}
     {%- else -%}
       {%- for i in (1..18) limit: limit -%} 
-        <div class="t4s-col-item t4s-product t4s-pr-grid card-pr t4s-pr-style{{ product_des }} t4s-pr-item t4s-pr-des-{{ product_des }}">
+        <div class="t4s-col-item t4s-product t4s-pr-grid card-prod t4s-pr-style{{ product_des }} t4s-pr-item t4s-pr-des-{{ product_des }}">
           <div class="t4s-product-wrapper" data-cacl-slide >
             <div class="t4s-product-inner">
               <a class="t4s-d-block" data-cacl-slide href="/admin/products">{%- capture current -%}{%- cycle 1, 2, 3, 4, 5, 6 -%}{%- endcapture -%} 
