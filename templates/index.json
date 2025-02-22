@@ -501,6 +501,79 @@
         "code_cus_css": ""
       }
     },
+    "featured_collection_3UjCB9": {
+      "type": "featured-collection",
+      "settings": {
+        "design_heading": "1",
+        "heading_align": "t4s-text-center",
+        "top_heading": "Featured collection",
+        "icon_heading": "las la-gem",
+        "top_subheading": "",
+        "tophead_mb": 30,
+        "head_btn_label": "View All",
+        "head_btn_url": "",
+        "head_btn_icon": false,
+        "head_btn_style": "default",
+        "head_btn_size": "medium",
+        "head_btn_cl": "dark",
+        "head_btn_effect": "default",
+        "head_btn_hidden_mb": false,
+        "collection": "accesorios",
+        "product_des": "1",
+        "show_vendor": false,
+        "use_cdt": false,
+        "image_ratio": "rationt",
+        "image_size": "cover",
+        "image_position": "8",
+        "content_align": "default",
+        "limit": 8,
+        "col_dk": "4",
+        "col_tb": "2",
+        "col_mb": "2",
+        "space_h_item": "30",
+        "space_v_item": "30",
+        "space_h_item_mb": "10",
+        "space_v_item_mb": "10",
+        "layout_des": "2",
+        "loop": true,
+        "au_time": 0,
+        "au_hover": true,
+        "center_slide": false,
+        "nav_btn": false,
+        "btns_pos": "default",
+        "btn_vi": "hover",
+        "btn_owl": "default",
+        "btn_shape": "none",
+        "btn_cl": "dark",
+        "btn_size": "small",
+        "btn_hidden_mobile": true,
+        "nav_dot": false,
+        "dot_owl": "default",
+        "dots_cl": "dark",
+        "dots_round": true,
+        "dots_space": 10,
+        "dots_hidden_mobile": false,
+        "use_pagination": "none",
+        "enable_bar_lm": true,
+        "btn_icon": false,
+        "button_style": "default",
+        "btns_size": "large",
+        "btns_cl": "dark",
+        "button_effect": "default",
+        "btn_pos": "t4s-text-center",
+        "layout": "t4s-container-wrap",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": ",,50px,",
+        "pd": "",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": ",,30px,",
+        "pd_mb": "",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
     "nonstop_color_banner_qk6gDR": {
       "type": "nonstop-color-banner",
       "settings": {
@@ -514,207 +587,6 @@
         "button_link": "",
         "button_bg_color": "#000000",
         "button_text_color": "#ffffff"
-      }
-    },
-    "collections_list_gKdhCU": {
-      "type": "collections-list",
-      "blocks": {
-        "collection_item_jbnJ8c": {
-          "type": "collection_item",
-          "settings": {
-            "collection": "4-en-1-anticaida",
-            "image": "shopify://shop_images/mh-4en1-anticaida-negro-16-negro-357203.jpg",
-            "icon": "las la-gem",
-            "custom_svg": "",
-            "collection_title": "",
-            "collection_link": ""
-          }
-        },
-        "collection_item_MUwfLr": {
-          "type": "collection_item",
-          "settings": {
-            "collection": "portacaguama",
-            "image": "shopify://shop_images/portacaguamon-negro-pc-negro-147523.jpg",
-            "icon": "las la-gem",
-            "custom_svg": "",
-            "collection_title": "",
-            "collection_link": ""
-          }
-        },
-        "collection_item_HUtVLL": {
-          "type": "collection_item",
-          "settings": {
-            "collection": "portalaton-5-en-1",
-            "image": "shopify://shop_images/Portalaton_5en1_Negro.jpg",
-            "icon": "las la-gem",
-            "custom_svg": "",
-            "collection_title": "",
-            "collection_link": ""
-          }
-        },
-        "collection_item_nFqtmr": {
-          "type": "collection_item",
-          "settings": {
-            "collection": "nomada",
-            "image": "shopify://shop_images/nomada-lila-40-n-lila-873010.png",
-            "icon": "las la-gem",
-            "custom_svg": "",
-            "collection_title": "",
-            "collection_link": ""
-          }
-        },
-        "collection_item_rnqAMc": {
-          "type": "collection_item",
-          "settings": {
-            "collection": "venti",
-            "image": "shopify://shop_images/Venti_Lila_Arriba_Popote.png",
-            "icon": "las la-gem",
-            "custom_svg": "",
-            "collection_title": "",
-            "collection_link": ""
-          }
-        },
-        "collection_item_PFHGM8": {
-          "type": "collection_item",
-          "settings": {
-            "collection": "sport",
-            "image": "shopify://shop_images/N3_bed3bc42-81ae-4f7c-bcd2-fa5841a89f3e.png",
-            "icon": "las la-gem",
-            "custom_svg": "",
-            "collection_title": "",
-            "collection_link": ""
-          }
-        },
-        "collection_item_ab8qRz": {
-          "type": "collection_item",
-          "settings": {
-            "collection": "tazas-20-oz",
-            "image": "shopify://shop_images/taza-termica-premium-20oz-aqua-glitter-20-tm-aqua-glitt-568946.jpg",
-            "icon": "las la-gem",
-            "custom_svg": "",
-            "collection_title": "",
-            "collection_link": ""
-          }
-        },
-        "collection_item_EWcFi9": {
-          "type": "collection_item",
-          "settings": {
-            "collection": "20-oz",
-            "image": "shopify://shop_images/vaso-termico-20oz-azul-20-azul-762577.jpg",
-            "icon": "las la-gem",
-            "custom_svg": "",
-            "collection_title": "",
-            "collection_link": ""
-          }
-        },
-        "collection_item_hNhRJJ": {
-          "type": "collection_item",
-          "settings": {
-            "collection": "accesorios",
-            "image": "shopify://shop_images/destapador-automatico-acc-dest-867328.jpg",
-            "icon": "las la-gem",
-            "custom_svg": "",
-            "collection_title": "",
-            "collection_link": ""
-          }
-        },
-        "collection_item_td9mHm": {
-          "type": "collection_item",
-          "disabled": true,
-          "settings": {
-            "collection": "",
-            "icon": "las la-gem",
-            "custom_svg": "",
-            "collection_title": "Collection",
-            "collection_link": ""
-          }
-        }
-      },
-      "block_order": [
-        "collection_item_jbnJ8c",
-        "collection_item_MUwfLr",
-        "collection_item_HUtVLL",
-        "collection_item_nFqtmr",
-        "collection_item_rnqAMc",
-        "collection_item_PFHGM8",
-        "collection_item_ab8qRz",
-        "collection_item_EWcFi9",
-        "collection_item_hNhRJJ",
-        "collection_item_td9mHm"
-      ],
-      "disabled": true,
-      "settings": {
-        "design_heading": "2",
-        "heading_align": "t4s-text-start",
-        "top_heading": "",
-        "icon_heading": "las la-gem",
-        "top_subheading": "",
-        "tophead_mb": 30,
-        "head_btn_label": "View All",
-        "head_btn_url": "",
-        "head_btn_icon": false,
-        "head_btn_style": "default",
-        "head_btn_size": "medium",
-        "head_btn_cl": "dark",
-        "head_btn_effect": "default",
-        "head_btn_hidden_mb": false,
-        "collection_des": "7",
-        "title_cl": "#ffffff",
-        "title_cl_hover": "#222222",
-        "subtitle_cl": "#878787",
-        "count_cl": "#222222",
-        "border_cl": "#e5e5e5",
-        "collection_subtitle": "Products",
-        "open_link": "_self",
-        "source": "image",
-        "space_bottom": 20,
-        "space_bottom_tb": 20,
-        "space_bottom_mb": 10,
-        "border": false,
-        "icon_width": 50,
-        "item_pd": 0,
-        "item_rd": 0,
-        "img_effect": "none",
-        "b_effect": "none",
-        "image_ratio": "ratio1_1",
-        "image_size": "cover",
-        "image_position": "8",
-        "layout_des": "1",
-        "col_dk": "3",
-        "col_tb": "2",
-        "col_mb": "2",
-        "space_h_item": "30",
-        "space_v_item": "30",
-        "space_h_item_mb": "10",
-        "space_v_item_mb": "10",
-        "loop": true,
-        "au_time": 0,
-        "au_hover": true,
-        "nav_btn": false,
-        "btn_pos": "default",
-        "btn_vi": "hover",
-        "btn_owl": "default",
-        "btn_shape": "none",
-        "btn_cl": "dark",
-        "btn_size": "small",
-        "btn_hidden_mobile": false,
-        "nav_dot": false,
-        "dot_owl": "default",
-        "dots_cl": "dark",
-        "dots_round": true,
-        "dots_space": 10,
-        "dots_hidden_mobile": false,
-        "layout": "t4s-container-wrap",
-        "cl_bg": "",
-        "cl_bg_gradient": "",
-        "mg": ",,50px,",
-        "pd": "",
-        "mg_tb": "",
-        "pd_tb": "",
-        "mg_mb": ",,30px,",
-        "pd_mb": "",
-        "use_cus_css": false,
-        "code_cus_css": ""
       }
     },
     "feature_columns_3jfRdU": {
@@ -927,80 +799,6 @@
         "code_cus_css": ".SectionID {\nbackground-color:red\n}"
       }
     },
-    "16460368750174c54a": {
-      "type": "blog-post",
-      "disabled": true,
-      "settings": {
-        "design_heading": "2",
-        "heading_align": "t4s-text-center",
-        "top_heading": "LATES FROM BLOG",
-        "bt_lb": "Button label",
-        "icon_heading": "gem",
-        "top_subheading": "The freshest and most exciting news",
-        "tophead_mb": 30,
-        "blog": "fashion",
-        "post_des": "1",
-        "show_cate": false,
-        "show_tags": false,
-        "show_cnt": true,
-        "show_au": true,
-        "show_dt": true,
-        "show_cm": false,
-        "show_rm": false,
-        "show_irm": false,
-        "date": "date",
-        "content_align": "t4s-text-start",
-        "limit": 3,
-        "img_effect": "translateToTop",
-        "b_effect": "border-run",
-        "image_ratio": "ratio4_3",
-        "image_size": "cover",
-        "image_position": "8",
-        "col_dk": "3",
-        "col_tb": "2",
-        "col_mb": "1",
-        "space_h_item": "30",
-        "space_v_item": "30",
-        "space_h_item_mb": "10",
-        "space_v_item_mb": "10",
-        "layout_des": "2",
-        "loop": false,
-        "au_time": 0,
-        "au_hover": true,
-        "nav_btn": true,
-        "btn_vi": "always",
-        "btn_owl": "outline",
-        "btn_shape": "round",
-        "btn_cl": "dark",
-        "btn_size": "small",
-        "btn_hidden_mobile": false,
-        "nav_dot": false,
-        "dot_owl": "default",
-        "dots_cl": "dark",
-        "dots_round": false,
-        "dots_space": 10,
-        "dots_hidden_mobile": false,
-        "use_pagination": "none",
-        "enable_bar_lm": true,
-        "btn_icon": true,
-        "button_style": "outline",
-        "btns_size": "medium",
-        "btns_cl": "dark",
-        "button_effect": "fade",
-        "btn_pos": "t4s-text-center",
-        "layout": "t4s-container-wrap",
-        "cl_bg": "",
-        "cl_bg_gradient": "",
-        "mg": ",,105px,",
-        "pd": "",
-        "mg_tb": "",
-        "pd_tb": "",
-        "mg_mb": ",,30px,",
-        "pd_mb": "",
-        "use_cus_css": false,
-        "code_cus_css": ".SectionID {\nbackground-color:red\n}"
-      }
-    },
     "tiktok_slider_B9674h": {
       "type": "tiktok-slider",
       "blocks": {
@@ -1064,34 +862,16 @@
         "video_7fdQAn"
       ],
       "settings": {}
-    },
-    "tiktok_videos_3yYyNd": {
-      "type": "tiktok-videos",
-      "blocks": {
-        "video_VBhdqK": {
-          "type": "video",
-          "settings": {
-            "tiktok_url": ""
-          }
-        }
-      },
-      "block_order": [
-        "video_VBhdqK"
-      ],
-      "disabled": true,
-      "settings": {}
     }
   },
   "order": [
     "1646028739ae283905",
     "collection_products_banner_7LDnUp",
     "featured_collection_RRwxDd",
+    "featured_collection_3UjCB9",
     "nonstop_color_banner_qk6gDR",
-    "collections_list_gKdhCU",
     "feature_columns_3jfRdU",
     "164620932069107a3a",
-    "16460368750174c54a",
-    "tiktok_slider_B9674h",
-    "tiktok_videos_3yYyNd"
+    "tiktok_slider_B9674h"
   ]
 }
