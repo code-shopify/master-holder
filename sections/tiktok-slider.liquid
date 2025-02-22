@@ -9,10 +9,8 @@
                 {% if block.settings.video_url contains "cdn.shopify.com" %}
                   <video 
                     class="shopify-videov8"
-                    controls
                     loop
                     playsinline
-                    muted
                     preload="auto">
                     <source src="{{ block.settings.video_url }}" type="video/mp4">
                   </video>
@@ -77,17 +75,28 @@
     gap: 10px;
   }
 
+  .video-overlayv8 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  .with-borderv8 {
+    position: relative;
+    padding: 4px;
+    border-radius: 10px;
+    background: linear-gradient(0deg, #fe2d52, #28ffff);
+  }
+
   .shopify-videov8 {
     width: 100%;
     height: 500px;
     border-radius: 10px;
     object-fit: cover;
-  }
-
-  .with-borderv8 {
-    padding: 4px;
-    border-radius: 10px;
-    background: linear-gradient(0deg, #fe2d52, #28ffff);
   }
 
   .product-boxv8 {
@@ -178,6 +187,28 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
+    const videos = document.querySelectorAll('.shopify-videov8');
+    
+    videos.forEach(video => {
+      // Añadir overlay para click
+      const overlay = document.createElement('div');
+      overlay.className = 'video-overlayv8';
+      video.parentElement.appendChild(overlay);
+      
+      // Manejar clicks en el overlay
+      overlay.addEventListener('click', () => {
+        // Pausar todos los videos
+        videos.forEach(v => v.pause());
+        
+        if (video.paused) {
+          video.play();
+          video.muted = false; // Activar sonido
+        } else {
+          video.pause();
+        }
+      });
+    });
+
     new Swiper(".swiper", {
       slidesPerView: 1,
       spaceBetween: 10,
@@ -198,6 +229,15 @@
         1024: {
           slidesPerView: 4,
           spaceBetween: 10,
+        }
+      },
+      on: {
+        slideChange: function () {
+          // Pausar todos los videos cuando cambia el slide
+          videos.forEach(video => {
+            video.pause();
+            video.muted = true;
+          });
         }
       }
     });
