@@ -376,18 +376,10 @@
             "animation_delay": 40
           }
         },
-        "html_rHC4W7": {
-          "type": "html",
-          "settings": {
-            "html_content": "<h1>jdkjas</h1><h1></h1>",
-            "hidden_mobile": false,
-            "animation": "none"
-          }
-        },
         "space_html_976cmp": {
           "type": "space_html",
           "settings": {
-            "color": "#fff",
+            "color": "#ffffff",
             "width": 40,
             "height": 2,
             "mgb": 20,
@@ -401,7 +393,7 @@
         "custom_text_pz77mg": {
           "type": "custom_text",
           "settings": {
-            "text": "Textasdasdasdsd",
+            "text": "",
             "remove_br_tag": false,
             "tag": "p",
             "fontf": "inherit",
@@ -424,7 +416,6 @@
       },
       "block_order": [
         "b_item_nz6fh6",
-        "html_rHC4W7",
         "space_html_976cmp",
         "custom_text_pz77mg"
       ],
