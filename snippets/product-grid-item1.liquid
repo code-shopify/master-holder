@@ -103,7 +103,14 @@ endif -%}
          {%- else -%}
             {% render 'product-img', image: image, imgatt: imgatt %}
          {%- endif -%}
-      <div data-product-badge data-sort="sale,new,soldout,preOrder,custom" class="t4s-product-badge"></div>
+      <div data-product-badge data-sort="sale,new,soldout,preOrder,custom" class="t4s-product-badge">
+        {% if product.compare_at_price > product.price %}
+          {% assign savings = product.compare_at_price | minus: product.price %}
+          <span class="t4s-badge t4s-badge-sale">
+            Ahorra {{ savings | money }}
+          </span>
+        {% endif %}
+      </div>
       <div class="t4s-product-btns">
          <div data-replace-quickview></div>
          <div data-replace-atc data-has-qty></div>
@@ -145,3 +152,15 @@ endif -%}
   </div>
   {{- append_stock -}}
 </div>
+
+<style>
+.t4s-badge-sale {
+  background-color: #ff4e4e;
+  color: #ffffff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
+}
+</style>
