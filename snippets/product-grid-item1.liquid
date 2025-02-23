@@ -111,6 +111,19 @@ endif -%}
           </span>
         {% endif %}
       </div>
+
+
+      <div data-product-badge class="t4s-product-badge">
+         {% if product.compare_at_price > product.price %}
+           {% assign savings = product.compare_at_price | minus: product.price %}
+           <span class="t4s-badge t4s-badge-sale">
+             Ahorra {{ savings | money }}
+           </span>
+         {% endif %}
+       </div>
+
+
+
       <div class="t4s-product-btns">
          <div data-replace-quickview></div>
          <div data-replace-atc data-has-qty></div>
