@@ -113,7 +113,7 @@ endif -%}
       </div>
 
 
-      <div data-product-badge class="t4s-product-badge">
+      <div class="t4s-product-badge">
          {% if product.compare_at_price > product.price %}
            {% assign savings = product.compare_at_price | minus: product.price %}
            <span class="t4s-badge t4s-badge-sale">
