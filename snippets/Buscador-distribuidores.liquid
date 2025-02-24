@@ -124,20 +124,22 @@
             console.log("Mapa inicializado correctamente");
 
             // Cargar distribuidores desde Shopify
-            var distribuidores = {{ shop.metaobjects.distribuidor.values | json }};
+            var distribuidores = {{ shop.metaobjects.distribuidor.values | default: "[]" | json }};
             var markers = [];
             var listaDistribuidores = document.getElementById("lista-distribuidores");
             var buscadorContainer = document.getElementById("buscador-container");
 
             function filtrarDistribuidores() {
                 var filtro = document.getElementById("buscador").value.toLowerCase();
-                listaDistribuidores.innerHTML = ""; // Limpiar lista antes de mostrar resultados
+                listaDistribuidores.innerHTML = ""; // Limpiar la lista antes de mostrar resultados
 
                 // Limpiar marcadores antes de agregar nuevos
                 markers.forEach(marker => map.removeLayer(marker));
                 markers = [];
 
                 var resultados = distribuidores.filter(d => d.ciudad.toLowerCase().includes(filtro));
+
+                console.log("Resultados encontrados:", resultados);
 
                 if (resultados.length === 0 || filtro === "") {
                     buscadorContainer.style.display = "none"; // Ocultar lista si no hay resultados
@@ -150,7 +152,7 @@
                     var listItem = document.createElement("li");
                     listItem.className = "distribuidor-card";
                     listItem.innerHTML = `
-                        <img src="${d.logo}" alt="${d.nombre}">
+                        <img src="${d.logo ? d.logo : ''}" alt="${d.nombre}">
                         <strong>${d.nombre}</strong>
                         <span><b>Ciudad:</b> ${d.ciudad}</span>
                         <span><b>Dirección:</b> ${d.direccion}</span>
@@ -162,7 +164,7 @@
                     });
 
                     listaDistribuidores.appendChild(listItem);
-                    listItem.style.display = "block"; // Hacer visible el distribuidor filtrado
+                    listItem.style.display = "block";
 
                     // Agregar marcador en el mapa
                     var marker = L.marker([d.latitud || 19.4326, d.longitud || -99.1332]).addTo(map)
