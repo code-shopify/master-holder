@@ -113,3 +113,33 @@ assign img_alt = img_alt | escape
 }
 
 </style>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("[data-product-single-media-wrapper]").forEach(function (mediaWrapper) {
+        mediaWrapper.classList.add("t4s-hidden");
+    });
+
+    function updateProductImages(selectedVariant) {
+        document.querySelectorAll("[data-product-single-media-wrapper]").forEach(function (mediaWrapper) {
+            let grname = mediaWrapper.getAttribute("data-grname");
+            let grpvl = mediaWrapper.getAttribute("data-grpvl");
+
+            if (selectedVariant && selectedVariant.options.includes(grpvl)) {
+                mediaWrapper.classList.remove("t4s-hidden");
+            } else {
+                mediaWrapper.classList.add("t4s-hidden");
+            }
+        });
+    }
+
+    // Detecta el cambio de variante
+    document.querySelectorAll("[name='id']").forEach(function (variantSelector) {
+        variantSelector.addEventListener("change", function () {
+            let selectedVariant = JSON.parse(this.getAttribute("data-variant"));
+            updateProductImages(selectedVariant);
+        });
+    });
+});
+
+<script>
+  
+</script>
