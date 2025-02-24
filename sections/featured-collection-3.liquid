@@ -108,7 +108,18 @@
     
     <img src="{{ producto.featured_image | img_url: 'large' }}" alt="{{ producto.title }}">
     <a>{{ producto.title }}</a>
-    <p> {{ producto.price | money }}</p>
+    {% if producto.compare_at_price > producto.price %}
+        <p>
+            <span style="text-decoration: line-through; color: #999;">
+                {{ producto.compare_at_price | money }}
+            </span>
+            <span style="color: red; font-weight: bold;">
+                {{ producto.price | money }}
+            </span>
+        </p>
+    {% else %}
+        <p>{{ producto.price | money }}</p>
+    {% endif %}
 
 
   </div>
