@@ -469,6 +469,7 @@
     },
     "featured_collection_RRwxDd": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
         "design_heading": "1",
         "heading_align": "t4s-text-start",
