@@ -1,3 +1,7 @@
+<!-- Agregar Leaflet.js -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 <style>
     /* Centrar el buscador */
     .contenedor-buscador {
@@ -11,11 +15,11 @@
         font-size: 16px;
         text-align: center;
         border: 1px solid #ccc;
-        border-radius: 2rem;
+        border-radius: 5px;
         outline: none;
     }
 
-    /* Contenedor en cuadrícula de 4 columnas */
+    /* Diseño en columnas para distribuidores */
     .resultados {
         display: grid;
         grid-template-columns: repeat(4, 1fr); /* 4 columnas */
@@ -27,7 +31,7 @@
     }
 
     .distribuidor {
-        display: none; /* Ocultar distribuidores al inicio */
+        display: none;
         padding: 15px;
         border: 1px solid #eee;
         border-radius: 8px;
@@ -56,25 +60,39 @@
     /* Diseño adaptable: 2 columnas en tablets y 1 en móviles */
     @media screen and (max-width: 1024px) {
         .resultados {
-            grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablets */
+            grid-template-columns: repeat(2, 1fr);
         }
     }
 
     @media screen and (max-width: 600px) {
         .resultados {
-            grid-template-columns: repeat(1, 1fr); /* 1 columna en móviles */
+            grid-template-columns: repeat(1, 1fr);
         }
+    }
+
+    /* Estilos para el mapa */
+    .map-container {
+        width: 100%;
+        height: 500px;
+        margin-top: 30px;
+        border-radius: 8px;
+    }
+
+    #map {
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
     }
 </style>
 
 <div class="contenedor-buscador">
-    <input type="text" id="buscador" placeholder="Distribuidores" onkeyup="filtrarDistribuidores()">
+    <input type="text" id="buscador" placeholder="Buscar distribuidores por ciudad..." onkeyup="filtrarDistribuidores()">
 </div>
 
 <ul id="lista-distribuidores" class="resultados">
     {% for distribuidor in shop.metaobjects.distribuidor.values %}
         {% assign ciudad = distribuidor.ciudad | downcase %}
-        <li class="distribuidor" data-ciudad="{{ ciudad }}">
+        <li class="distribuidor" data-ciudad="{{ ciudad }}" data-lat="{{ distribuidor.latitud | default: 19.4326 }}" data-lng="{{ distribuidor.longitud | default: -99.1332 }}">
             <img src="{{ distribuidor.logo | image_url }}" alt="{{ distribuidor.nombre }}"><br>
             <strong>{{ distribuidor.nombre }}</strong>
             <span><b>Ciudad:</b> {{ distribuidor.ciudad }}</span>
@@ -85,15 +103,61 @@
     {% endfor %}
 </ul>
 
+<div class="map-container">
+    <div id="map"></div>
+</div>
+
 <script>
-    function filtrarDistribuidores() {
-        var input = document.getElementById("buscador");
-        var filtro = input.value.toLowerCase();
+    document.addEventListener("DOMContentLoaded", function() {
+        var map = L.map('map').setView([19.4326, -99.1332], 6); // Centrado en México
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        var markers = [];
         var items = document.getElementsByClassName("distribuidor");
 
-        for (var i = 0; i < items.length; i++) {
-            var ciudad = items[i].getAttribute("data-ciudad");
-            items[i].style.display = (ciudad.includes(filtro) && filtro !== "") ? "block" : "none";
+        function cargarDistribuidores() {
+            for (var i = 0; i < items.length; i++) {
+                var item = items[i];
+                var nombre = item.querySelector("strong").textContent;
+                var ciudad = item.getAttribute("data-ciudad");
+                var direccion = item.querySelector("span:nth-child(3)").textContent;
+                var lat = parseFloat(item.getAttribute("data-lat"));
+                var lng = parseFloat(item.getAttribute("data-lng"));
+
+                var marker = L.marker([lat, lng]).addTo(map)
+                    .bindPopup(`<strong>${nombre}</strong><br>${ciudad}<br>${direccion}`);
+
+                markers.push(marker);
+            }
         }
-    }
+
+        function filtrarDistribuidores() {
+            var filtro = document.getElementById("buscador").value.toLowerCase();
+            markers.forEach(marker => map.removeLayer(marker));
+            markers = [];
+
+            for (var i = 0; i < items.length; i++) {
+                var ciudad = items[i].getAttribute("data-ciudad");
+                if (ciudad.includes(filtro) || filtro === "") {
+                    items[i].style.display = "block";
+
+                    var lat = parseFloat(items[i].getAttribute("data-lat"));
+                    var lng = parseFloat(items[i].getAttribute("data-lng"));
+                    var nombre = items[i].querySelector("strong").textContent;
+                    var direccion = items[i].querySelector("span:nth-child(3)").textContent;
+
+                    var marker = L.marker([lat, lng]).addTo(map)
+                        .bindPopup(`<strong>${nombre}</strong><br>${ciudad}<br>${direccion}`);
+
+                    markers.push(marker);
+                } else {
+                    items[i].style.display = "none";
+                }
+            }
+        }
+
+        cargarDistribuidores();
+    });
 </script>
