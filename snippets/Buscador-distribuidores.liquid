@@ -11,7 +11,7 @@
         padding: 20px;
     }
 
-    /* Estilo de la barra de búsqueda y lista */
+    /* Estilo del buscador y lista */
     .buscador-container {
         width: 30%;
         min-width: 300px;
@@ -21,7 +21,6 @@
         border: 1px solid #ddd;
         border-radius: 8px;
         background: #fff;
-        display: none; /* Ocultar lista por defecto */
     }
 
     #buscador {
@@ -41,24 +40,29 @@
         padding: 0;
     }
 
-    .distribuidor-card {
-        padding: 10px;
-        border-bottom: 1px solid #ddd;
+    .distribuidor {
+        display: none; /* Ocultar distribuidores al inicio */
+        padding: 15px;
+        border-bottom: 1px solid #eee;
         cursor: pointer;
-        display: none; /* Ocultar cada distribuidor al inicio */
     }
 
-    .distribuidor-card img {
-        width: 60px;
+    .distribuidor img {
+        width: 80px;
         border-radius: 5px;
-        display: block;
-        margin-bottom: 5px;
+        margin-bottom: 10px;
     }
 
-    .distribuidor-card strong {
-        font-size: 16px;
+    .distribuidor strong {
         display: block;
+        font-size: 18px;
         margin-top: 5px;
+    }
+
+    .distribuidor span {
+        display: block;
+        font-size: 14px;
+        color: #666;
     }
 
     /* Mapa */
@@ -91,14 +95,22 @@
 </style>
 
 <div class="contenedor">
-    <!-- Buscador -->
-    <div style="width: 30%; min-width: 300px;">
+    <!-- Buscador y lista de distribuidores -->
+    <div class="buscador-container">
         <input type="text" id="buscador" placeholder="Buscar distribuidores por ciudad..." onkeyup="filtrarDistribuidores()">
-        <div id="buscador-container" class="buscador-container">
-            <ul id="lista-distribuidores" class="lista-distribuidores">
-                <!-- Distribuidores filtrados aparecerán aquí -->
-            </ul>
-        </div>
+        <ul id="lista-distribuidores" class="lista-distribuidores">
+            {% for distribuidor in shop.metaobjects.distribuidor.values %}
+                {% assign ciudad = distribuidor.ciudad | downcase %}
+                <li class="distribuidor" data-ciudad="{{ ciudad }}" data-lat="{{ distribuidor.latitud | default: 19.4326 }}" data-lng="{{ distribuidor.longitud | default: -99.1332 }}">
+                    <img src="{{ distribuidor.logo | image_url }}" alt="{{ distribuidor.nombre }}"><br>
+                    <strong>{{ distribuidor.nombre }}</strong>
+                    <span><b>Ciudad:</b> {{ distribuidor.ciudad }}</span>
+                    <span><b>Dirección:</b> {{ distribuidor.direccion }}</span>
+                    <span><b>Teléfono:</b> {{ distribuidor.telefono }}</span>
+                    <span><b>Horario:</b> {{ distribuidor.horario }}</span>
+                </li>
+            {% endfor %}
+        </ul>
     </div>
 
     <!-- Mapa -->
@@ -123,69 +135,54 @@
 
             console.log("Mapa inicializado correctamente");
 
-            // Cargar distribuidores desde Shopify
-            var distribuidores = {{ shop.metaobjects.distribuidor.values | default: "[]" | json }};
             var markers = [];
             var listaDistribuidores = document.getElementById("lista-distribuidores");
-            var buscadorContainer = document.getElementById("buscador-container");
+            var items = document.getElementsByClassName("distribuidor");
 
             function filtrarDistribuidores() {
                 var filtro = document.getElementById("buscador").value.toLowerCase();
-                listaDistribuidores.innerHTML = ""; // Limpiar la lista antes de mostrar resultados
 
                 // Limpiar marcadores antes de agregar nuevos
                 markers.forEach(marker => map.removeLayer(marker));
                 markers = [];
 
-                var resultados = distribuidores.filter(d => d.ciudad.toLowerCase().includes(filtro));
+                var hayResultados = false;
 
-                console.log("Resultados encontrados:", resultados);
+                for (var i = 0; i < items.length; i++) {
+                    var ciudad = items[i].getAttribute("data-ciudad");
+                    var lat = parseFloat(items[i].getAttribute("data-lat"));
+                    var lng = parseFloat(items[i].getAttribute("data-lng"));
 
-                if (resultados.length === 0 || filtro === "") {
-                    buscadorContainer.style.display = "none"; // Ocultar lista si no hay resultados
-                    return;
+                    if (ciudad.includes(filtro) && filtro !== "") {
+                        items[i].style.display = "block";
+                        hayResultados = true;
+
+                        // Agregar marcador en el mapa
+                        var marker = L.marker([lat, lng]).addTo(map)
+                            .bindPopup(`
+                                <div style='text-align: center;'>
+                                    <img src="${items[i].querySelector("img").src}" width="60" style="border-radius:5px;"><br>
+                                    <strong>${items[i].querySelector("strong").textContent}</strong><br>
+                                    ${items[i].querySelector("span:nth-child(3)").textContent}<br>
+                                    <b>Dirección:</b> ${items[i].querySelector("span:nth-child(4)").textContent}<br>
+                                    <b>Teléfono:</b> ${items[i].querySelector("span:nth-child(5)").textContent}<br>
+                                    <b>Horario:</b> ${items[i].querySelector("span:nth-child(6)").textContent}
+                                </div>
+                            `);
+                        markers.push(marker);
+                    } else {
+                        items[i].style.display = "none";
+                    }
                 }
 
-                buscadorContainer.style.display = "block"; // Mostrar la lista si hay resultados
-
-                resultados.forEach(function(d) {
-                    var listItem = document.createElement("li");
-                    listItem.className = "distribuidor-card";
-                    listItem.innerHTML = `
-                        <img src="${d.logo ? d.logo : ''}" alt="${d.nombre}">
-                        <strong>${d.nombre}</strong>
-                        <span><b>Ciudad:</b> ${d.ciudad}</span>
-                        <span><b>Dirección:</b> ${d.direccion}</span>
-                        <span><b>Teléfono:</b> ${d.telefono}</span>
-                        <span><b>Horario:</b> ${d.horario}</span>
-                    `;
-                    listItem.addEventListener("click", function() {
-                        map.setView([d.latitud || 19.4326, d.longitud || -99.1332], 14);
-                    });
-
-                    listaDistribuidores.appendChild(listItem);
-                    listItem.style.display = "block";
-
-                    // Agregar marcador en el mapa
-                    var marker = L.marker([d.latitud || 19.4326, d.longitud || -99.1332]).addTo(map)
-                        .bindPopup(`
-                            <div style='text-align: center;'>
-                                <img src="${d.logo}" width="60" style="border-radius:5px;"><br>
-                                <strong>${d.nombre}</strong><br>
-                                ${d.ciudad}<br>
-                                <b>Dirección:</b> ${d.direccion}<br>
-                                <b>Teléfono:</b> ${d.telefono}<br>
-                                <b>Horario:</b> ${d.horario}
-                            </div>
-                        `);
-                    markers.push(marker);
-                });
-
                 // Ajustar zoom si hay resultados
-                var group = new L.featureGroup(markers);
-                map.fitBounds(group.getBounds(), { padding: [50, 50] });
+                if (hayResultados) {
+                    var group = new L.featureGroup(markers);
+                    map.fitBounds(group.getBounds(), { padding: [50, 50] });
+                } else {
+                    map.setView([19.4326, -99.1332], 6); // Resetear vista si no hay resultados
+                }
             }
-
         }, 1000);
     });
 </script>
