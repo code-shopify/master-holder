@@ -198,7 +198,8 @@
 
                         li.addEventListener("click", function() {
                             var direccion = distribuidor.direccion;
-                            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion)}`)
+fetch(`https://cors-anywhere.herokuapp.com/https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion)}`)
+
                                 .then(response => response.json())
                                 .then(data => {
                                     if (data.length > 0) {
