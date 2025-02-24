@@ -126,24 +126,21 @@
                     var tarjeta = document.createElement("div");
                     tarjeta.className = "tarjeta";
 
-                  var tarjeta = document.createElement("div");
-tarjeta.className = "tarjeta";
+                    // Convertir URL del logo correctamente
+                    var logoUrl = distribuidor.logo ? `${distribuidor.logo}` : "https://via.placeholder.com/80";
 
-// Usar `image_url` de Shopify para cargar correctamente el logo
-var logoUrl = "{{ distribuidor.logo | image_url: width: 100 }}";
+                    // URL de Google Maps desde el campo `ubicacion`
+                    var ubicacionUrl = distribuidor.ubicacion ? distribuidor.ubicacion : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(distribuidor.direccion)}`;
 
-tarjeta.innerHTML = `
-    <img src="${logoUrl}" alt="${distribuidor.nombre}">
-    <h3>${distribuidor.nombre}</h3>
-    <p><strong>Ciudad:</strong> ${distribuidor.ciudad}</p>
-    <p><strong>Dirección:</strong> ${distribuidor.direccion}</p>
-    <p><strong>Teléfono:</strong> ${distribuidor.telefono}</p>
-    <p><strong>Horario:</strong> ${distribuidor.horario}</p>
-    <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(distribuidor.direccion)}" target="_blank" class="btn-como-llegar">Cómo llegar</a>
-`;
-
-gridDistribuidores.appendChild(tarjeta);
-
+                    tarjeta.innerHTML = `
+                        <img src="${logoUrl}" alt="${distribuidor.nombre}">
+                        <h3>${distribuidor.nombre}</h3>
+                        <p><strong>Ciudad:</strong> ${ciudad}</p>
+                        <p><strong>Dirección:</strong> ${distribuidor.direccion}</p>
+                        <p><strong>Teléfono:</strong> ${distribuidor.telefono}</p>
+                        <p><strong>Horario:</strong> ${distribuidor.horario}</p>
+                        <a href="${ubicacionUrl}" target="_blank" class="btn-como-llegar">Cómo llegar</a>
+                    `;
 
                     gridDistribuidores.appendChild(tarjeta);
                 }
