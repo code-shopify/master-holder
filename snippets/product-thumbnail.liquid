@@ -39,17 +39,9 @@ if variants_size > 1 and img_alt contains '_'
 	  assign currentValue = current_option3f
 	endcase
 
-   if variants_size == 0
-    assign isMediaHidden = ''
-  elsif currentValue != blank and grpvl != blank and currentValue == grpvl
-    assign isMediaHidden = ''
-  elsif img_alt != blank and currentValue != blank and img_alt contains currentValue
-    assign isMediaHidden = ''
-  elsif img_alt != blank and product.selected_or_first_available_variant.title contains img_alt
-    assign isMediaHidden = '' 
-  else
-    assign isMediaHidden = 't4s-hidden'
-  endif
+   if currentValue == grpvl and currentValue != blank
+	  assign isMediaHidden = ''
+	endif
 
 
 
