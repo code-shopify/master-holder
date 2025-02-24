@@ -122,7 +122,7 @@
 <div class="contenedor">
     <!-- Buscador y lista de distribuidores -->
     <div class="buscador-container">
-        <input type="text" id="buscador" placeholder="Buscar distribuidores por ciudad..." onkeyup="filtrarDistribuidores()">
+        <input type="text" id="buscador" placeholder="Buscar distribuidores por ciudad...">
         <ul id="lista-distribuidores" class="lista-distribuidores"></ul>
         <p id="no-resultados" class="no-resultados">No hay distribuidores disponibles.</p>
     </div>
@@ -148,6 +148,7 @@
 
             console.log("Mapa inicializado correctamente");
 
+            // Obtener los distribuidores de Shopify
             var distribuidores = {{ shop.metaobjects.distribuidor.values | json }};
             console.log("Distribuidores cargados:", distribuidores);
 
@@ -178,12 +179,10 @@
                         hayResultados = true;
                         listaDistribuidores.style.display = "block";
 
-                        // Obtener la URL del logo correctamente
+                        // Corregir URL de la imagen en Shopify
                         var logoUrl = "";
-                        if (distribuidor.logo && typeof distribuidor.logo === "object" && distribuidor.logo.src) {
-                            logoUrl = distribuidor.logo.src;
-                        } else {
-                            logoUrl = distribuidor.logo;
+                        if (distribuidor.logo) {
+                            logoUrl = "{{ distribuidor.logo | image_url }}";
                         }
 
                         var li = document.createElement("li");
@@ -234,6 +233,7 @@
                 noResultados.style.display = hayResultados ? "none" : "block";
             }
 
+            // Asegurar que la función está definida antes de asignarla
             document.getElementById("buscador").addEventListener("keyup", filtrarDistribuidores);
 
         }, 1000);
