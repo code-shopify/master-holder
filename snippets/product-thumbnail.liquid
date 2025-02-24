@@ -108,5 +108,56 @@ assign img_alt = img_alt | escape
 {%- endif -%}
 
 <script>
-  
+  document.addEventListener("DOMContentLoaded", function () {
+    const variantSelectors = document.querySelectorAll("[name='id']"); // Selector de variantes
+    const mediaWrappers = document.querySelectorAll("[data-product-single-media-wrapper]");
+
+    if (variantSelectors.length > 0) {
+        variantSelectors.forEach((selector) => {
+            selector.addEventListener("change", function () {
+                const selectedVariantId = this.value;
+                
+                fetch(window.location.pathname + `.js`) // Obtiene los datos del producto en formato JSON
+                    .then(response => response.json())
+                    .then(product => {
+                        const variant = product.variants.find(v => v.id == selectedVariantId);
+                        if (variant) {
+                            const variantImage = variant.featured_image ? variant.featured_image.src : null;
+                            
+                            // Oculta todas las imágenes y muestra solo las de la variante seleccionada
+                            mediaWrappers.forEach(wrapper => {
+                                const mediaId = wrapper.getAttribute("data-media-id");
+                                if (variantImage && wrapper.innerHTML.includes(variantImage)) {
+                                    wrapper.style.display = "block";
+                                } else {
+                                    wrapper.style.display = "none";
+                                }
+                            });
+                        }
+                    })
+                    .catch(error => console.error("Error al obtener datos del producto:", error));
+            });
+        });
+    }
+});
+document.addEventListener('DOMContentLoaded', function () {
+    var variantSelectors = document.querySelectorAll('.variant-selector input, .variant-selector button'); // Asegúrate de seleccionar los botones de variante correctos
+    var flickityContainer = document.querySelector('.flickity4s-viewport');
+
+    if (!variantSelectors || !flickityContainer) return;
+
+    variantSelectors.forEach(selector => {
+        selector.addEventListener('click', function () {
+            setTimeout(() => {
+                var flickityInstance = Flickity.data(flickityContainer);
+                if (flickityInstance) {
+                    flickityInstance.reloadCells();
+                    flickityInstance.resize();
+                    flickityInstance.select(0); // Opcional: puede seleccionar la primera imagen de la nueva variante
+                }
+            }, 500); // Le da tiempo a Shopify de actualizar las imágenes
+        });
+    });
+});
+
 </script>
