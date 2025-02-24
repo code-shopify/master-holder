@@ -113,7 +113,9 @@ assign img_alt = img_alt | escape
 }
 
 </style>
-document.addEventListener("DOMContentLoaded", function () {
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll("[data-product-single-media-wrapper]").forEach(function (mediaWrapper) {
         mediaWrapper.classList.add("t4s-hidden");
     });
@@ -140,6 +142,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-<script>
-  
 </script>
