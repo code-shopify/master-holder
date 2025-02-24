@@ -87,7 +87,12 @@ assign img_alt = img_alt | escape
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     function updateProductImages(selectedVariant) {
-        let selectedColor = selectedVariant.options[0].toLowerCase();
+        if (!selectedVariant || !selectedVariant.options || selectedVariant.options.length === 0) {
+            console.warn("No se pudo obtener la variante seleccionada.");
+            return;
+        }
+
+        let selectedColor = selectedVariant.options[0]?.toLowerCase() || "";
 
         document.querySelectorAll("[data-product-single-media-wrapper], .t4s-carousel__nav-item").forEach(function (mediaWrapper) {
             let img = mediaWrapper.querySelector("img");
@@ -103,11 +108,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.querySelectorAll("[name='id']").forEach(function (variantSelector) {
         variantSelector.addEventListener("change", function () {
-            let selectedVariant = JSON.parse(this.getAttribute("data-variant"));
+            let variantData = this.getAttribute("data-variant");
+
+            if (!variantData) {
+                console.warn("No se encontró información de la variante en el atributo data-variant.");
+                return;
+            }
+
+            let selectedVariant;
+            try {
+                selectedVariant = JSON.parse(variantData);
+            } catch (error) {
+                console.error("Error al parsear la variante:", error);
+                return;
+            }
+
             updateProductImages(selectedVariant);
         });
     });
 });
+
 </script>
 
 <style>
