@@ -121,13 +121,13 @@ assign img_alt = img_alt | escape
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     function updateProductImages(selectedVariant) {
-        let selectedColor = selectedVariant.options[0].toLowerCase(); // Extrae el color seleccionado
+        let selectedColor = selectedVariant.options[0].toLowerCase(); // Obtiene el color seleccionado
 
         document.querySelectorAll("[data-product-single-media-wrapper]").forEach(function (mediaWrapper) {
             let grpvl = mediaWrapper.getAttribute("data-grpvl");
             let imgAlt = mediaWrapper.querySelector("img")?.getAttribute("alt") || "";
 
-            if (grpvl && grpvl.toLowerCase() === selectedColor || imgAlt.toLowerCase().includes(selectedColor)) {
+            if ((grpvl && grpvl.toLowerCase() === selectedColor) || (imgAlt.toLowerCase().includes(selectedColor))) {
                 mediaWrapper.classList.remove("t4s-hidden");
             } else {
                 mediaWrapper.classList.add("t4s-hidden");
@@ -142,4 +142,5 @@ assign img_alt = img_alt | escape
         });
     });
 });
+
 </script>
