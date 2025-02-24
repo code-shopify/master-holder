@@ -382,7 +382,7 @@
             "color": "#ffffff",
             "width": 40,
             "height": 2,
-            "mgb": 20,
+            "mgb": 0,
             "width_mb": 40,
             "height_mb": 2,
             "hidden_mobile": false,
