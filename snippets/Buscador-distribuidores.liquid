@@ -19,62 +19,11 @@
         outline: none;
     }
 
-    /* Diseño en columnas para distribuidores */
-    .resultados {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr); /* 4 columnas */
-        gap: 20px;
-        padding: 0;
-        margin-top: 20px;
-        list-style: none;
-        justify-content: center;
-    }
-
-    .distribuidor {
-        display: none;
-        padding: 15px;
-        border: 1px solid #eee;
-        border-radius: 8px;
-        text-align: center;
-        background-color: #f9f9f9;
-    }
-
-    .distribuidor img {
-        width: 80px;
-        border-radius: 5px;
-        margin-bottom: 10px;
-    }
-
-    .distribuidor strong {
-        display: block;
-        font-size: 18px;
-        margin-top: 5px;
-    }
-
-    .distribuidor span {
-        display: block;
-        font-size: 14px;
-        color: #666;
-    }
-
-    /* Diseño adaptable: 2 columnas en tablets y 1 en móviles */
-    @media screen and (max-width: 1024px) {
-        .resultados {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-
-    @media screen and (max-width: 600px) {
-        .resultados {
-            grid-template-columns: repeat(1, 1fr);
-        }
-    }
-
-    /* Estilos para el mapa */
+    /* Contenedor del mapa */
     .map-container {
         width: 100%;
         height: 500px;
-        margin-top: 30px;
+        margin-top: 20px;
         border-radius: 8px;
     }
 
@@ -89,75 +38,58 @@
     <input type="text" id="buscador" placeholder="Buscar distribuidores por ciudad..." onkeyup="filtrarDistribuidores()">
 </div>
 
-<ul id="lista-distribuidores" class="resultados">
-    {% for distribuidor in shop.metaobjects.distribuidor.values %}
-        {% assign ciudad = distribuidor.ciudad | downcase %}
-        <li class="distribuidor" data-ciudad="{{ ciudad }}" data-lat="{{ distribuidor.latitud | default: 19.4326 }}" data-lng="{{ distribuidor.longitud | default: -99.1332 }}">
-            <img src="{{ distribuidor.logo | image_url }}" alt="{{ distribuidor.nombre }}"><br>
-            <strong>{{ distribuidor.nombre }}</strong>
-            <span><b>Ciudad:</b> {{ distribuidor.ciudad }}</span>
-            <span><b>Dirección:</b> {{ distribuidor.direccion }}</span>
-            <span><b>Teléfono:</b> {{ distribuidor.telefono }}</span>
-            <span><b>Horario:</b> {{ distribuidor.horario }}</span>
-        </li>
-    {% endfor %}
-</ul>
-
 <div class="map-container">
     <div id="map"></div>
 </div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        var map = L.map('map').setView([19.4326, -99.1332], 6); // Centrado en México
+        var map = L.map('map').setView([19.4326, -99.1332], 6); // Centrar en México
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
+        var distribuidores = [
+            {% for distribuidor in shop.metaobjects.distribuidor.values %}
+                {
+                    nombre: "{{ distribuidor.nombre }}",
+                    ciudad: "{{ distribuidor.ciudad | escape }}",
+                    direccion: "{{ distribuidor.direccion | escape }}",
+                    telefono: "{{ distribuidor.telefono }}",
+                    horario: "{{ distribuidor.horario }}",
+                    logo: "{{ distribuidor.logo | image_url }}",
+                    lat: {{ distribuidor.latitud | default: 19.4326 }},
+                    lng: {{ distribuidor.longitud | default: -99.1332 }}
+                }{% unless forloop.last %},{% endunless %}
+            {% endfor %}
+        ];
+
         var markers = [];
-        var items = document.getElementsByClassName("distribuidor");
-
-        function cargarDistribuidores() {
-            for (var i = 0; i < items.length; i++) {
-                var item = items[i];
-                var nombre = item.querySelector("strong").textContent;
-                var ciudad = item.getAttribute("data-ciudad");
-                var direccion = item.querySelector("span:nth-child(3)").textContent;
-                var lat = parseFloat(item.getAttribute("data-lat"));
-                var lng = parseFloat(item.getAttribute("data-lng"));
-
-                var marker = L.marker([lat, lng]).addTo(map)
-                    .bindPopup(`<strong>${nombre}</strong><br>${ciudad}<br>${direccion}`);
-
-                markers.push(marker);
-            }
-        }
 
         function filtrarDistribuidores() {
             var filtro = document.getElementById("buscador").value.toLowerCase();
+            
+            // Eliminar todos los marcadores antes de agregar los nuevos
             markers.forEach(marker => map.removeLayer(marker));
             markers = [];
 
-            for (var i = 0; i < items.length; i++) {
-                var ciudad = items[i].getAttribute("data-ciudad");
-                if (ciudad.includes(filtro) || filtro === "") {
-                    items[i].style.display = "block";
-
-                    var lat = parseFloat(items[i].getAttribute("data-lat"));
-                    var lng = parseFloat(items[i].getAttribute("data-lng"));
-                    var nombre = items[i].querySelector("strong").textContent;
-                    var direccion = items[i].querySelector("span:nth-child(3)").textContent;
-
-                    var marker = L.marker([lat, lng]).addTo(map)
-                        .bindPopup(`<strong>${nombre}</strong><br>${ciudad}<br>${direccion}`);
-
+            // Filtrar distribuidores por ciudad y agregarlos al mapa
+            distribuidores.forEach(function(d) {
+                if (d.ciudad.toLowerCase().includes(filtro) && filtro !== "") {
+                    var marker = L.marker([d.lat, d.lng]).addTo(map)
+                        .bindPopup(`
+                            <div style='text-align: center;'>
+                                <img src="${d.logo}" width="60" style="border-radius:5px;"><br>
+                                <strong>${d.nombre}</strong><br>
+                                ${d.ciudad}<br>
+                                <b>Dirección:</b> ${d.direccion}<br>
+                                <b>Teléfono:</b> ${d.telefono}<br>
+                                <b>Horario:</b> ${d.horario}
+                            </div>
+                        `);
                     markers.push(marker);
-                } else {
-                    items[i].style.display = "none";
                 }
-            }
+            });
         }
-
-        cargarDistribuidores();
     });
 </script>
