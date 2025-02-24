@@ -99,17 +99,22 @@
     <div class="buscador-container">
         <input type="text" id="buscador" placeholder="Buscar distribuidores por ciudad..." onkeyup="filtrarDistribuidores()">
         <ul id="lista-distribuidores" class="lista-distribuidores">
-            {% for distribuidor in shop.metaobjects.distribuidor.values %}
-                {% assign ciudad = distribuidor.ciudad | downcase %}
-                <li class="distribuidor" data-ciudad="{{ ciudad }}" data-direccion="{{ distribuidor.direccion }}">
-                    <img src="{{ distribuidor.logo | image_url }}" alt="{{ distribuidor.nombre }}"><br>
-                    <strong>{{ distribuidor.nombre }}</strong>
-                    <span><b>Ciudad:</b> {{ distribuidor.ciudad }}</span>
-                    <span><b>Dirección:</b> {{ distribuidor.direccion }}</span>
-                    <span><b>Teléfono:</b> {{ distribuidor.telefono }}</span>
-                    <span><b>Horario:</b> {{ distribuidor.horario }}</span>
-                </li>
-            {% endfor %}
+            {% assign distribuidores = shop.metaobjects.distribuidor.values %}
+            {% if distribuidores.size > 0 %}
+                {% for distribuidor in distribuidores %}
+                    {% assign ciudad = distribuidor.ciudad | downcase %}
+                    <li class="distribuidor" data-ciudad="{{ ciudad }}" data-direccion="{{ distribuidor.direccion }}">
+                        <img src="{{ distribuidor.logo | image_url }}" alt="{{ distribuidor.nombre }}"><br>
+                        <strong>{{ distribuidor.nombre }}</strong>
+                        <span><b>Ciudad:</b> {{ distribuidor.ciudad }}</span>
+                        <span><b>Dirección:</b> {{ distribuidor.direccion }}</span>
+                        <span><b>Teléfono:</b> {{ distribuidor.telefono }}</span>
+                        <span><b>Horario:</b> {{ distribuidor.horario }}</span>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <p>No hay distribuidores disponibles.</p>
+            {% endif %}
         </ul>
     </div>
 
@@ -156,7 +161,7 @@
                         items[i].style.display = "block";
                         hayResultados = true;
 
-                        // **Obtener coordenadas desde Google Maps**
+                        // **Obtener coordenadas desde OpenStreetMap**
                         fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion)}`)
                             .then(response => response.json())
                             .then(data => {
