@@ -12,6 +12,8 @@
     "heading": {
       "type": "heading-template",
       "settings": {
+        "heading_fullwidth": false,
+        "use_specify_image": true,
         "parallax": false,
         "color": "#000000",
         "overlay": 54,
@@ -35,6 +37,8 @@
         "cl_bg_gradient": "",
         "mg": "60px,,60px,",
         "pd": "",
+        "mg_tb": "",
+        "pd_tb": "",
         "mg_mb": ",,30px,",
         "pd_mb": ""
       }
@@ -64,11 +68,27 @@
         "sidebar_bdr": 5,
         "sidebar_pd": 10
       }
+    },
+    "custom_liquid_CX46ap": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<div>\n    <input type=\"text\" id=\"buscador\" placeholder=\"Buscar por ciudad...\" onkeyup=\"filtrarDistribuidores()\">\n</div>\n\n<ul id=\"lista-distribuidores\">\n    {% for distribuidor in shop.metaobjects.distribuidor.values %}\n        {% assign ciudad = distribuidor.ciudad | downcase %}\n        <li class=\"distribuidor\" data-ciudad=\"{{ ciudad }}\">\n            <img src=\"{{ distribuidor.logo | image_url }}\" alt=\"{{ distribuidor.nombre }}\" width=\"100\"><br>\n            <strong>{{ distribuidor.nombre }}</strong><br>\n            <span><b>Ciudad:</b> {{ distribuidor.ciudad }}</span><br>\n            <span><b>Dirección:</b> {{ distribuidor.direccion }}</span><br>\n            <span><b>Teléfono:</b> {{ distribuidor.telefono }}</span><br>\n            <span><b>Horario:</b> {{ distribuidor.horario }}</span><br>\n            <hr>\n        </li>\n    {% endfor %}\n</ul>\n\n<script>\n    function filtrarDistribuidores() {\n        var input, filtro, lista, items, ciudad, i;\n        input = document.getElementById(\"buscador\");\n        filtro = input.value.toLowerCase();\n        lista = document.getElementById(\"lista-distribuidores\");\n        items = lista.getElementsByClassName(\"distribuidor\");\n\n        for (i = 0; i < items.length; i++) {\n            ciudad = items[i].getAttribute(\"data-ciudad\");\n            if (ciudad.includes(filtro) || filtro === \"\") {\n                items[i].style.display = \"\";\n            } else {\n                items[i].style.display = \"none\";\n            }\n        }\n    }\n</script>",
+        "layout": "t4s-container-wrap",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": ",,50px,",
+        "pd": "",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": ",,30px,",
+        "pd_mb": ""
+      }
     }
   },
   "order": [
     "heading",
     "main",
-    "sidebar-page"
+    "sidebar-page",
+    "custom_liquid_CX46ap"
   ]
 }
