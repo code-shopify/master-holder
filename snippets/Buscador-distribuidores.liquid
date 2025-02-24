@@ -178,23 +178,24 @@
                         hayResultados = true;
                         listaDistribuidores.style.display = "block";
 
-                        // Convertir URL de la imagen correctamente para Shopify
-                        var logoUrl = "{{ distribuidor.logo | image_url }}";
+                        var tarjeta = document.createElement("div");
+tarjeta.className = "tarjeta";
 
-                        var li = document.createElement("li");
-                        li.className = "distribuidor";
-                        li.setAttribute("data-direccion", distribuidor.direccion);
+// Convertir URL del logo correctamente para Shopify
+var logoUrl = "{{ distribuidor.logo | image_url }}";
+if (!logoUrl.includes("cdn.shopify.com")) {
+    logoUrl = "{{ distribuidor.logo | file_img_url: '300x300' }}";
+}
 
-                        li.innerHTML = `
-                            <img src="${logoUrl}" alt="${distribuidor.nombre}">
-                            <div class="info">
-                                <strong>${distribuidor.nombre}</strong>
-                                <span><b>Ciudad:</b> ${distribuidor.ciudad}</span>
-                                <span><b>Dirección:</b> ${distribuidor.direccion}</span>
-                                <span><b>Teléfono:</b> ${distribuidor.telefono}</span>
-                                <span><b>Horario:</b> ${distribuidor.horario}</span>
-                            </div>
-                        `;
+tarjeta.innerHTML = `
+    <img src="${logoUrl}" alt="${distribuidor.nombre}">
+    <h3>${distribuidor.nombre}</h3>
+    <p><strong>Ciudad:</strong> ${distribuidor.ciudad}</p>
+    <p><strong>Dirección:</strong> ${distribuidor.direccion}</p>
+    <p><strong>Teléfono:</strong> ${distribuidor.telefono}</p>
+    <p><strong>Horario:</strong> ${distribuidor.horario}</p>
+    <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(distribuidor.direccion)}" target="_blank" class="btn-como-llegar">Cómo llegar</a>
+`;
 
                         li.addEventListener("click", function() {
                             var direccion = distribuidor.direccion;
