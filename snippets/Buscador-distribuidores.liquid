@@ -3,27 +3,66 @@
 <script src="{{ 'leaflet.js' | asset_url }}" defer></script>
 
 <style>
-    /* Centrar el buscador */
-    .contenedor-buscador {
-        text-align: center;
-        margin-top: 50px;
+    /* Contenedor general */
+    .contenedor {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    /* Estilo de la barra de búsqueda y lista */
+    .buscador-container {
+        width: 30%;
+        min-width: 300px;
+        max-height: 500px;
+        overflow-y: auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background: #fff;
     }
 
     #buscador {
-        width: 50%;
+        width: 100%;
         padding: 10px;
         font-size: 16px;
         text-align: center;
         border: 1px solid #ccc;
         border-radius: 5px;
         outline: none;
+        margin-bottom: 15px;
     }
 
-    /* Contenedor del mapa */
+    /* Lista de distribuidores */
+    .lista-distribuidores {
+        list-style: none;
+        padding: 0;
+    }
+
+    .distribuidor-card {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        cursor: pointer;
+    }
+
+    .distribuidor-card img {
+        width: 60px;
+        border-radius: 5px;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .distribuidor-card strong {
+        font-size: 16px;
+        display: block;
+        margin-top: 5px;
+    }
+
+    /* Mapa */
     .map-container {
-        width: 100%;
+        flex-grow: 1;
         height: 500px;
-        margin-top: 20px;
         border-radius: 8px;
         position: relative;
     }
@@ -31,18 +70,37 @@
     #map {
         width: 100%;
         height: 100%;
-        min-height: 500px;
         border-radius: 8px;
-        background: #f3f3f3; /* Fondo para ver si el contenedor está cargando */
+        background: #f3f3f3;
+    }
+
+    /* Responsive */
+    @media screen and (max-width: 768px) {
+        .contenedor {
+            flex-direction: column;
+        }
+        .buscador-container {
+            width: 100%;
+        }
+        .map-container {
+            height: 400px;
+        }
     }
 </style>
 
-<div class="contenedor-buscador">
-    <input type="text" id="buscador" placeholder="Buscar distribuidores por ciudad..." onkeyup="filtrarDistribuidores()">
-</div>
+<div class="contenedor">
+    <!-- Buscador y lista de distribuidores -->
+    <div class="buscador-container">
+        <input type="text" id="buscador" placeholder="Buscar distribuidores por ciudad..." onkeyup="filtrarDistribuidores()">
+        <ul id="lista-distribuidores" class="lista-distribuidores">
+            <!-- Aquí se agregarán los distribuidores dinámicamente -->
+        </ul>
+    </div>
 
-<div class="map-container">
-    <div id="map"></div>
+    <!-- Mapa -->
+    <div class="map-container">
+        <div id="map"></div>
+    </div>
 </div>
 
 <script>
@@ -64,18 +122,59 @@
             // Cargar distribuidores desde Shopify
             var distribuidores = {{ shop.metaobjects.distribuidor.values | json }};
             var markers = [];
+            var listaDistribuidores = document.getElementById("lista-distribuidores");
+
+            function cargarDistribuidores() {
+                listaDistribuidores.innerHTML = ""; // Limpiar lista antes de mostrar resultados
+
+                distribuidores.forEach(function(d, index) {
+                    var ciudad = d.ciudad ? d.ciudad.toLowerCase() : "";
+                    var listItem = document.createElement("li");
+                    listItem.className = "distribuidor-card";
+                    listItem.setAttribute("data-ciudad", ciudad);
+                    listItem.innerHTML = `
+                        <img src="${d.logo}" alt="${d.nombre}">
+                        <strong>${d.nombre}</strong>
+                        <span><b>Ciudad:</b> ${d.ciudad || 'No disponible'}</span>
+                        <span><b>Dirección:</b> ${d.direccion || 'No disponible'}</span>
+                        <span><b>Teléfono:</b> ${d.telefono || 'No disponible'}</span>
+                        <span><b>Horario:</b> ${d.horario || 'No disponible'}</span>
+                    `;
+
+                    // Agregar evento al hacer clic en un distribuidor
+                    listItem.addEventListener("click", function() {
+                        var lat = d.latitud || 19.4326;
+                        var lng = d.longitud || -99.1332;
+                        map.setView([lat, lng], 14);
+                    });
+
+                    listaDistribuidores.appendChild(listItem);
+                });
+            }
 
             function filtrarDistribuidores() {
                 var filtro = document.getElementById("buscador").value.toLowerCase();
+                var items = document.getElementsByClassName("distribuidor-card");
 
-                // Eliminar marcadores antes de agregar nuevos
+                // Limpiar marcadores antes de agregar los nuevos
                 markers.forEach(marker => map.removeLayer(marker));
                 markers = [];
 
-                // Filtrar distribuidores y agregarlos al mapa
+                Array.from(items).forEach(function(item) {
+                    var ciudad = item.getAttribute("data-ciudad");
+                    if (ciudad.includes(filtro) || filtro === "") {
+                        item.style.display = "block";
+                    } else {
+                        item.style.display = "none";
+                    }
+                });
+
+                // Filtrar distribuidores y agregar marcadores
                 distribuidores.forEach(function(d) {
                     if (d.ciudad.toLowerCase().includes(filtro) && filtro !== "") {
-                        var marker = L.marker([d.latitud || 19.4326, d.longitud || -99.1332]).addTo(map)
+                        var lat = d.latitud || 19.4326;
+                        var lng = d.longitud || -99.1332;
+                        var marker = L.marker([lat, lng]).addTo(map)
                             .bindPopup(`
                                 <div style='text-align: center;'>
                                     <img src="${d.logo}" width="60" style="border-radius:5px;"><br>
@@ -90,15 +189,17 @@
                     }
                 });
 
-                // Ajustar el zoom si hay resultados
+                // Ajustar zoom si hay resultados
                 if (markers.length > 0) {
                     var group = new L.featureGroup(markers);
                     map.fitBounds(group.getBounds(), { padding: [50, 50] });
                 } else {
-                    map.setView([19.4326, -99.1332], 6); // Resetear si no hay resultados
+                    map.setView([19.4326, -99.1332], 6);
                 }
             }
 
-        }, 1000); // Espera 1 segundo para evitar errores de carga en Shopify
+            cargarDistribuidores(); // Cargar lista inicial
+
+        }, 1000);
     });
 </script>
