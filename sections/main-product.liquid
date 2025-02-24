@@ -4470,3 +4470,31 @@ endif -%}
   }
 }
 {% endschema %}
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Seleccionamos el formulario de variantes
+    const variantForm = document.querySelector('form[action*="/cart/add"]');
+
+    if (!variantForm) return;
+
+    // Agregar evento para detectar cambios en variantes
+    variantForm.addEventListener("change", function (event) {
+        const selectedVariant = variantForm.querySelector("[name='id']").value;
+
+        // Buscar la imagen correspondiente a la variante
+        const targetImage = document.querySelector(`[data-media-id="${selectedVariant}"]`);
+
+        if (targetImage) {
+            // Ocultar todas las imágenes de variante
+            document.querySelectorAll("[data-product-single-media-wrapper]").forEach(img => {
+                img.classList.add("t4s-dn");
+            });
+
+            // Mostrar la imagen de la variante seleccionada
+            targetImage.classList.remove("t4s-dn");
+        }
+    });
+});
+
+</script>
