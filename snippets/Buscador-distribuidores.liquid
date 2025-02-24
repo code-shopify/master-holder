@@ -198,7 +198,13 @@
 
                         li.addEventListener("click", function() {
                             var direccion = distribuidor.direccion;
-fetch(`https://cors-anywhere.herokuapp.com/https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion)}`)
+                           fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion)}`, {
+    method: "GET",
+    mode: "cors",
+    headers: {
+        "Access-Control-Allow-Origin": "*"
+    }
+})
 
                                 .then(response => response.json())
                                 .then(data => {
