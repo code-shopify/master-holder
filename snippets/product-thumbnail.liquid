@@ -36,11 +36,14 @@ if variants_size > 1 and img_alt contains '_'
 	 when 2
 	  assign currentValue = current_option2
 	 when 3
-	  assign currentValue = current_option3
+	  assign currentValue = current_option3f
 	endcase
-	if currentValue == grpvl and currentValue != blank
-	  assign isMediaHidden = ''
-	endif
+  	if variants_size == 0
+      assign isMediaHidden = ''
+    elsif currentValue == grpvl and currentValue != blank
+      assign isMediaHidden = ''
+    endif
+
 endif
 assign img_alt = img_alt | escape
  -%}
