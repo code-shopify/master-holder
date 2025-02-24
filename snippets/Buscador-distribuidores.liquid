@@ -42,7 +42,8 @@
     }
 
     .distribuidor {
-        display: none;
+        display: flex;
+        align-items: center;
         padding: 10px;
         border-bottom: 1px solid #ddd;
         cursor: pointer;
@@ -167,17 +168,12 @@
 
             console.log("Mapa inicializado correctamente");
 
-            var markers = [];
-            var listaDistribuidores = document.getElementById("lista-distribuidores");
+            var markers = {};
             var items = document.getElementsByClassName("distribuidor");
-            var noResultados = document.getElementById("no-resultados");
 
             function filtrarDistribuidores() {
                 var filtro = document.getElementById("buscador").value.toLowerCase();
                 console.log("Buscando:", filtro);
-
-                markers.forEach(marker => map.removeLayer(marker));
-                markers = [];
 
                 var hayResultados = false;
 
@@ -185,43 +181,41 @@
                     var ciudad = items[i].getAttribute("data-ciudad");
                     var direccion = items[i].getAttribute("data-direccion");
 
-                    if (ciudad.includes(filtro)) {
+                    if (ciudad.includes(filtro) || filtro === "") {
                         items[i].style.display = "block";
                         hayResultados = true;
 
-                        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion)}`)
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.length > 0) {
-                                    var lat = parseFloat(data[0].lat);
-                                    var lng = parseFloat(data[0].lon);
+                        if (!markers[direccion]) {
+                            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion)}`)
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.length > 0) {
+                                        var lat = parseFloat(data[0].lat);
+                                        var lng = parseFloat(data[0].lon);
 
-                                    var marker = L.marker([lat, lng]).addTo(map)
-                                        .bindPopup(`
-                                            <div style='text-align: center;'>
-                                                <img src="${items[i].getAttribute("data-logo")}" width="60" style="border-radius:5px;"><br>
-                                                <strong>${items[i].getAttribute("data-nombre")}</strong><br>
-                                                <b>Ciudad:</b> ${ciudad}<br>
-                                                <b>Dirección:</b> ${direccion}<br>
-                                                <b>Teléfono:</b> ${items[i].getAttribute("data-telefono")}<br>
-                                                <b>Horario:</b> ${items[i].getAttribute("data-horario")}
-                                            </div>
-                                        `);
-                                    markers.push(marker);
-
-                                    if (hayResultados) {
-                                        var group = new L.featureGroup(markers);
-                                        map.fitBounds(group.getBounds(), { padding: [50, 50] });
+                                        markers[direccion] = L.marker([lat, lng]).addTo(map)
+                                            .bindPopup(`<b>${items[i].getAttribute("data-nombre")}</b><br>${direccion}`);
                                     }
-                                }
-                            });
+                                });
+                        }
                     } else {
                         items[i].style.display = "none";
                     }
                 }
 
-                noResultados.style.display = hayResultados ? "none" : "block";
+                document.getElementById("no-resultados").style.display = hayResultados ? "none" : "block";
             }
+
+            document.querySelectorAll(".distribuidor").forEach(function(item) {
+                item.addEventListener("click", function() {
+                    var direccion = this.getAttribute("data-direccion");
+                    if (markers[direccion]) {
+                        map.setView(markers[direccion].getLatLng(), 15);
+                        markers[direccion].openPopup();
+                    }
+                });
+            });
+
         }, 1000);
     });
 </script>
