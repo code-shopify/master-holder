@@ -39,12 +39,13 @@ if variants_size > 1 and img_alt contains '_'
 	  assign currentValue = current_option3f
 	endcase
   	if variants_size == 0
-      assign isMediaHidden = ''
-    elsif currentValue == grpvl and currentValue != blank
-      assign isMediaHidden = ''
-    else
-      assign isMediaHidden = 't4s-hidden' 
-    endif
+  assign isMediaHidden = ''
+elsif currentValue == grpvl and currentValue != blank
+  assign isMediaHidden = ''
+else
+  assign isMediaHidden = 't4s-hidden'
+endif
+
 
 endif
 assign img_alt = img_alt | escape
