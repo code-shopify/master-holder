@@ -338,6 +338,134 @@
         "code_cus_css": ".SectionID {\nbackground-color:red\n}"
       }
     },
+    "collections_list_tiMExk": {
+      "type": "collections-list",
+      "blocks": {
+        "collection_item_eQWDd7": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "venti",
+            "image": "shopify://shop_images/Venti_Rosa_Frente_0adedabe-5140-48aa-a869-77c558fecb89.png",
+            "icon": "las la-gem",
+            "custom_svg": "",
+            "collection_title": "Collection",
+            "collection_link": ""
+          }
+        },
+        "collection_item_HfHFGC": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "sport",
+            "image": "shopify://shop_images/sport.png",
+            "icon": "las la-gem",
+            "custom_svg": "",
+            "collection_title": "Collection",
+            "collection_link": ""
+          }
+        },
+        "collection_item_kCHa38": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "tazas-20-oz",
+            "image": "shopify://shop_images/tazas-20-oz.png",
+            "icon": "las la-gem",
+            "custom_svg": "",
+            "collection_title": "Collection",
+            "collection_link": ""
+          }
+        },
+        "collection_item_6e4qMc": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "20-oz",
+            "image": "shopify://shop_images/vaso-20-oz.png",
+            "icon": "las la-gem",
+            "custom_svg": "",
+            "collection_title": "Collection",
+            "collection_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_item_eQWDd7",
+        "collection_item_HfHFGC",
+        "collection_item_kCHa38",
+        "collection_item_6e4qMc"
+      ],
+      "settings": {
+        "design_heading": "1",
+        "heading_align": "t4s-text-center",
+        "top_heading": "Collections list",
+        "icon_heading": "las la-gem",
+        "top_subheading": "",
+        "tophead_mb": 30,
+        "head_btn_label": "View All",
+        "head_btn_url": "",
+        "head_btn_icon": false,
+        "head_btn_style": "default",
+        "head_btn_size": "medium",
+        "head_btn_cl": "dark",
+        "head_btn_effect": "default",
+        "head_btn_hidden_mb": false,
+        "collection_des": "1",
+        "title_cl": "#ffffff",
+        "title_cl_hover": "#222222",
+        "subtitle_cl": "#878787",
+        "count_cl": "#222222",
+        "border_cl": "#e5e5e5",
+        "collection_subtitle": "Products",
+        "open_link": "_self",
+        "source": "image",
+        "space_bottom": 20,
+        "space_bottom_tb": 20,
+        "space_bottom_mb": 10,
+        "border": false,
+        "icon_width": 50,
+        "item_pd": 0,
+        "item_rd": 0,
+        "img_effect": "none",
+        "b_effect": "none",
+        "image_ratio": "ratio1_1",
+        "image_size": "cover",
+        "image_position": "8",
+        "layout_des": "1",
+        "col_dk": "4",
+        "col_tb": "2",
+        "col_mb": "2",
+        "space_h_item": "30",
+        "space_v_item": "30",
+        "space_h_item_mb": "10",
+        "space_v_item_mb": "10",
+        "loop": true,
+        "au_time": 0,
+        "au_hover": true,
+        "nav_btn": false,
+        "btn_pos": "default",
+        "btn_vi": "hover",
+        "btn_owl": "default",
+        "btn_shape": "none",
+        "btn_cl": "dark",
+        "btn_size": "small",
+        "btn_hidden_mobile": false,
+        "nav_dot": false,
+        "dot_owl": "default",
+        "dots_cl": "dark",
+        "dots_round": true,
+        "dots_space": 10,
+        "dots_hidden_mobile": false,
+        "layout": "t4s-container-wrap",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": ",,50px,",
+        "pd": "",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": ",,30px,",
+        "pd_mb": "",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
     "collection_products_banner_7LDnUp": {
       "type": "collection-products-banner",
       "blocks": {
@@ -965,6 +1093,7 @@
   },
   "order": [
     "1646028739ae283905",
+    "collections_list_tiMExk",
     "collection_products_banner_7LDnUp",
     "featured_collection_RRwxDd",
     "featured_collection_3_HifAhx",
