@@ -581,7 +581,7 @@
         "nav_btn": true,
         "btns_pos": "ontop",
         "btn_vi": "always",
-        "btn_owl": "default",
+        "btn_owl": "simple",
         "btn_shape": "none",
         "btn_cl": "dark",
         "btn_size": "small",
