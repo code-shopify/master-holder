@@ -3,6 +3,7 @@ assign media_type    = media.media_type
 assign image         = media.preview_image
 assign img_alt       = image.alt
 if variants_size > 1 and img_alt contains '_'
+
 	assign arr_alt = img_alt | replace: ' | ', ' |' | replace: ' | ', ' |' | replace: ' |', ' |' | split: '|'
 	assign img_alt = arr_alt[1] | default: product.title
 
@@ -45,10 +46,9 @@ assign img_alt = img_alt | escape
  -%}
 {%- capture image_size %}{{ height }}x{{ height }}{% endcapture -%}
 
-{%- if media_type == 'image' -%}
+{% if media_type == 'image' %}
+  {% if variants_size == 0 or variant_images contains media.src or img_alt == product.selected_or_first_available_variant.title %}
 
-  
-{% if variant_images contains media.src or img_alt == product.selected_or_first_available_variant.title %}
 
 
     
