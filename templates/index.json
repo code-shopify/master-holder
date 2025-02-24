@@ -359,7 +359,7 @@
             "image": "shopify://shop_images/sport.png",
             "icon": "las la-gem",
             "custom_svg": "",
-            "collection_title": "Collection",
+            "collection_title": "SPORT",
             "collection_link": ""
           }
         },
@@ -370,7 +370,7 @@
             "image": "shopify://shop_images/tazas-20-oz.png",
             "icon": "las la-gem",
             "custom_svg": "",
-            "collection_title": "Collection",
+            "collection_title": "TAZAS 20 OZ",
             "collection_link": ""
           }
         },
@@ -381,7 +381,7 @@
             "image": "shopify://shop_images/vaso-20-oz.png",
             "icon": "las la-gem",
             "custom_svg": "",
-            "collection_title": "Collection",
+            "collection_title": "VASOS 20 OZ",
             "collection_link": ""
           }
         }
