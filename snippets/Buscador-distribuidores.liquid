@@ -21,6 +21,7 @@
         border: 1px solid #ddd;
         border-radius: 8px;
         background: #fff;
+        display: none; /* Ocultar lista por defecto */
     }
 
     #buscador {
@@ -44,6 +45,7 @@
         padding: 10px;
         border-bottom: 1px solid #ddd;
         cursor: pointer;
+        display: none; /* Ocultar cada distribuidor al inicio */
     }
 
     .distribuidor-card img {
@@ -89,12 +91,14 @@
 </style>
 
 <div class="contenedor">
-    <!-- Buscador y lista de distribuidores -->
-    <div class="buscador-container">
+    <!-- Buscador -->
+    <div style="width: 30%; min-width: 300px;">
         <input type="text" id="buscador" placeholder="Buscar distribuidores por ciudad..." onkeyup="filtrarDistribuidores()">
-        <ul id="lista-distribuidores" class="lista-distribuidores">
-            <!-- Aquí se agregarán los distribuidores dinámicamente -->
-        </ul>
+        <div id="buscador-container" class="buscador-container">
+            <ul id="lista-distribuidores" class="lista-distribuidores">
+                <!-- Distribuidores filtrados aparecerán aquí -->
+            </ul>
+        </div>
     </div>
 
     <!-- Mapa -->
@@ -123,82 +127,62 @@
             var distribuidores = {{ shop.metaobjects.distribuidor.values | json }};
             var markers = [];
             var listaDistribuidores = document.getElementById("lista-distribuidores");
-
-            function cargarDistribuidores() {
-                listaDistribuidores.innerHTML = ""; // Limpiar lista antes de mostrar resultados
-
-                distribuidores.forEach(function(d, index) {
-                    var ciudad = d.ciudad ? d.ciudad.toLowerCase() : "";
-                    var listItem = document.createElement("li");
-                    listItem.className = "distribuidor-card";
-                    listItem.setAttribute("data-ciudad", ciudad);
-                    listItem.innerHTML = `
-                        <img src="${d.logo}" alt="${d.nombre}">
-                        <strong>${d.nombre}</strong>
-                        <span><b>Ciudad:</b> ${d.ciudad || 'No disponible'}</span>
-                        <span><b>Dirección:</b> ${d.direccion || 'No disponible'}</span>
-                        <span><b>Teléfono:</b> ${d.telefono || 'No disponible'}</span>
-                        <span><b>Horario:</b> ${d.horario || 'No disponible'}</span>
-                    `;
-
-                    // Agregar evento al hacer clic en un distribuidor
-                    listItem.addEventListener("click", function() {
-                        var lat = d.latitud || 19.4326;
-                        var lng = d.longitud || -99.1332;
-                        map.setView([lat, lng], 14);
-                    });
-
-                    listaDistribuidores.appendChild(listItem);
-                });
-            }
+            var buscadorContainer = document.getElementById("buscador-container");
 
             function filtrarDistribuidores() {
                 var filtro = document.getElementById("buscador").value.toLowerCase();
-                var items = document.getElementsByClassName("distribuidor-card");
+                listaDistribuidores.innerHTML = ""; // Limpiar lista antes de mostrar resultados
 
-                // Limpiar marcadores antes de agregar los nuevos
+                // Limpiar marcadores antes de agregar nuevos
                 markers.forEach(marker => map.removeLayer(marker));
                 markers = [];
 
-                Array.from(items).forEach(function(item) {
-                    var ciudad = item.getAttribute("data-ciudad");
-                    if (ciudad.includes(filtro) || filtro === "") {
-                        item.style.display = "block";
-                    } else {
-                        item.style.display = "none";
-                    }
-                });
+                var resultados = distribuidores.filter(d => d.ciudad.toLowerCase().includes(filtro));
 
-                // Filtrar distribuidores y agregar marcadores
-                distribuidores.forEach(function(d) {
-                    if (d.ciudad.toLowerCase().includes(filtro) && filtro !== "") {
-                        var lat = d.latitud || 19.4326;
-                        var lng = d.longitud || -99.1332;
-                        var marker = L.marker([lat, lng]).addTo(map)
-                            .bindPopup(`
-                                <div style='text-align: center;'>
-                                    <img src="${d.logo}" width="60" style="border-radius:5px;"><br>
-                                    <strong>${d.nombre}</strong><br>
-                                    ${d.ciudad}<br>
-                                    <b>Dirección:</b> ${d.direccion}<br>
-                                    <b>Teléfono:</b> ${d.telefono}<br>
-                                    <b>Horario:</b> ${d.horario}
-                                </div>
-                            `);
-                        markers.push(marker);
-                    }
+                if (resultados.length === 0 || filtro === "") {
+                    buscadorContainer.style.display = "none"; // Ocultar lista si no hay resultados
+                    return;
+                }
+
+                buscadorContainer.style.display = "block"; // Mostrar la lista si hay resultados
+
+                resultados.forEach(function(d) {
+                    var listItem = document.createElement("li");
+                    listItem.className = "distribuidor-card";
+                    listItem.innerHTML = `
+                        <img src="${d.logo}" alt="${d.nombre}">
+                        <strong>${d.nombre}</strong>
+                        <span><b>Ciudad:</b> ${d.ciudad}</span>
+                        <span><b>Dirección:</b> ${d.direccion}</span>
+                        <span><b>Teléfono:</b> ${d.telefono}</span>
+                        <span><b>Horario:</b> ${d.horario}</span>
+                    `;
+                    listItem.addEventListener("click", function() {
+                        map.setView([d.latitud || 19.4326, d.longitud || -99.1332], 14);
+                    });
+
+                    listaDistribuidores.appendChild(listItem);
+                    listItem.style.display = "block"; // Hacer visible el distribuidor filtrado
+
+                    // Agregar marcador en el mapa
+                    var marker = L.marker([d.latitud || 19.4326, d.longitud || -99.1332]).addTo(map)
+                        .bindPopup(`
+                            <div style='text-align: center;'>
+                                <img src="${d.logo}" width="60" style="border-radius:5px;"><br>
+                                <strong>${d.nombre}</strong><br>
+                                ${d.ciudad}<br>
+                                <b>Dirección:</b> ${d.direccion}<br>
+                                <b>Teléfono:</b> ${d.telefono}<br>
+                                <b>Horario:</b> ${d.horario}
+                            </div>
+                        `);
+                    markers.push(marker);
                 });
 
                 // Ajustar zoom si hay resultados
-                if (markers.length > 0) {
-                    var group = new L.featureGroup(markers);
-                    map.fitBounds(group.getBounds(), { padding: [50, 50] });
-                } else {
-                    map.setView([19.4326, -99.1332], 6);
-                }
+                var group = new L.featureGroup(markers);
+                map.fitBounds(group.getBounds(), { padding: [50, 50] });
             }
-
-            cargarDistribuidores(); // Cargar lista inicial
 
         }, 1000);
     });
