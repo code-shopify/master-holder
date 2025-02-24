@@ -40,13 +40,15 @@ if variants_size > 1 and img_alt contains '_'
 	endcase
   	if variants_size == 0
   assign isMediaHidden = ''
-elsif currentValue == grpvl and currentValue != blank
+elsif currentValue != blank and grpvl != blank and currentValue == grpvl
   assign isMediaHidden = ''
-elsif img_alt contains currentValue
-  assign isMediaHidden = ''  # Muestra todas las imágenes que contienen el nombre de la variante en el ALT
+elsif img_alt != blank and currentValue != blank and img_alt contains currentValue
+  assign isMediaHidden = '' # Muestra todas las imágenes que contengan el valor de la variante en el ALT
 else
   assign isMediaHidden = 't4s-hidden'
 endif
+
+
 
 
 endif
