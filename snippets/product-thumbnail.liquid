@@ -2,6 +2,7 @@
 assign media_type    = media.media_type
 assign image         = media.preview_image
 assign img_alt       = image.alt
+
 if img_alt contains '_' and variants_size > 1
 	assign arr_alt = img_alt | replace: ' | ', ' |' | replace: ' | ', ' |' | replace: ' |', ' |' | split: '|'
 	assign img_alt = arr_alt[1] | default: product.title
@@ -10,7 +11,8 @@ if img_alt contains '_' and variants_size > 1
 		assign arr_alt_index   = arr_alt[0] | remove: 't4option' | split: '_'
 		assign index_alt_first = arr_alt_index | first | plus: 0
 		assign index_alt_last  = arr_alt_index | last | plus: 0
-	    if index_alt_first == 0
+	    
+        if index_alt_first == 0
 			assign ops_name_arr = ops_name_1
 			assign index        = 1
 	    elsif index_alt_first == 1
@@ -20,29 +22,36 @@ if img_alt contains '_' and variants_size > 1
          	assign ops_name_arr = ops_name_3
 			assign index        = 3
         endif
+
 	    assign grname  = ops_name[index_alt_first] | strip | downcase
 	    assign grpvl   = ops_name_arr[index_alt_last] | strip | downcase
     else
 	    assign var_alt = arr_alt[0] | split: '_'
-			assign grname  = var_alt | first | strip | downcase
-			assign grpvl   = var_alt | last | strip | downcase
+	    assign grname  = var_alt | first | strip | downcase
+	    assign grpvl   = var_alt | last | strip | downcase
 	    assign index   = product.options_by_name[grname].position | default: 0
     endif
 
-	case index
-	 when 1
-	  assign currentValue = current_option1
-	 when 2
-	  assign currentValue = current_option2
-	 when 3
-	  assign currentValue = current_option3
-	endcase
+	# 🔴 Aquí corregimos el uso de case/when a if/elsif
+	assign currentValue = ""
+
+	if index == 1
+		assign currentValue = current_option1
+	elsif index == 2
+		assign currentValue = current_option2
+	elsif index == 3
+		assign currentValue = current_option3
+	endif
+
+	# Validación final
 	if currentValue == grpvl and currentValue != blank
 	  assign isMediaHidden = ''
 	endif
 endif
+
 assign img_alt = img_alt | escape
- -%}
+-%}
+
 {%- capture image_size %}{{ height }}x{{ height }}{% endcapture -%}
 
 {%- if media_type == 'image' -%}
