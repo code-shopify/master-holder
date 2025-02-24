@@ -100,7 +100,25 @@
   {%- if stt_layout == 't4s-se-container' -%}<div class="t4s-container-inner {% if stt_image_bg != blank %} t4s-has-imgbg lazyloadt4s {% endif %}"  {% if stt_image_bg != blank %}  data-bgset="{{ stt_image_bg | image_url: width: 1 }}" data-sizes="auto"  data-optimumx="2" {% endif %} > {%- endif -%}
   {%- render 'section_tophead', se_stts: se_stts -%}
 <div style="display:flex;">
-  <div class="img-fijo">Hola</div>  
+  <div class="img-fijo">
+  {% assign producto = settings.producto_fijo %}
+
+{% if producto %}
+  <div class="product-fixed">
+    <h2>{{ producto.title }}</h2>
+    <img src="{{ producto.featured_image | img_url: 'large' }}" alt="{{ producto.title }}">
+    <p>{{ producto.description }}</p>
+    <p>Precio: {{ producto.price | money }}</p>
+
+    <form method="post" action="/cart/add">
+      <input type="hidden" name="id" value="{{ producto.variants.first.id }}">
+      <button type="submit">Agregar al carrito</button>
+    </form>
+  </div>
+{% else %}
+  <p>No hay un producto seleccionado en los ajustes.</p>
+{% endif %}
+  </div>  
 
   {%- if layout_des == "1" -%} 
     {{ 'button-style.css' | asset_url | stylesheet_tag }}
