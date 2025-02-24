@@ -1,8 +1,6 @@
-<!-- Agregar Leaflet.js -->
+<!-- Agregar Leaflet desde Shopify Assets -->
 <link rel="stylesheet" href="{{ 'leaflet.css' | asset_url }}">
 <script src="{{ 'leaflet.js' | asset_url }}" defer></script>
-
-
 
 <style>
     /* Centrar el buscador */
@@ -35,6 +33,7 @@
         height: 100%;
         min-height: 500px;
         border-radius: 8px;
+        background: #f3f3f3; /* Fondo para ver si el contenedor está cargando */
     }
 </style>
 
@@ -48,73 +47,58 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Verificar que el mapa exista antes de inicializarlo
-        var mapElement = document.getElementById('map');
-        if (!mapElement) {
-            console.error("No se encontró el contenedor del mapa");
-            return;
-        }
-
-        var map = L.map('map').setView([19.4326, -99.1332], 6); // Centrar en México
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
-
-        var distribuidores = [
-            {% for distribuidor in shop.metaobjects.distribuidor.values %}
-                {
-                    nombre: "{{ distribuidor.nombre }}",
-                    ciudad: "{{ distribuidor.ciudad | escape }}",
-                    direccion: "{{ distribuidor.direccion | escape }}",
-                    telefono: "{{ distribuidor.telefono }}",
-                    horario: "{{ distribuidor.horario }}",
-                    logo: "{{ distribuidor.logo | image_url }}",
-                    lat: {{ distribuidor.latitud | default: 19.4326 }},
-                    lng: {{ distribuidor.longitud | default: -99.1332 }}
-                }{% unless forloop.last %},{% endunless %}
-            {% endfor %}
-        ];
-
-        var markers = [];
-
-        function filtrarDistribuidores() {
-            var filtro = document.getElementById("buscador").value.toLowerCase();
-
-            // Eliminar todos los marcadores antes de agregar los nuevos
-            markers.forEach(marker => map.removeLayer(marker));
-            markers = [];
-
-            // Filtrar distribuidores por ciudad y agregarlos al mapa
-            distribuidores.forEach(function(d) {
-                if (d.ciudad.toLowerCase().includes(filtro) && filtro !== "") {
-                    var marker = L.marker([d.lat, d.lng]).addTo(map)
-                        .bindPopup(`
-                            <div style='text-align: center;'>
-                                <img src="${d.logo}" width="60" style="border-radius:5px;"><br>
-                                <strong>${d.nombre}</strong><br>
-                                ${d.ciudad}<br>
-                                <b>Dirección:</b> ${d.direccion}<br>
-                                <b>Teléfono:</b> ${d.telefono}<br>
-                                <b>Horario:</b> ${d.horario}
-                            </div>
-                        `);
-                    markers.push(marker);
-                }
-            });
-
-            // Si hay resultados, ajustar el zoom al primer marcador
-            if (markers.length > 0) {
-                var group = new L.featureGroup(markers);
-                map.fitBounds(group.getBounds(), { padding: [50, 50] });
-            } else {
-                map.setView([19.4326, -99.1332], 6); // Resetear vista si no hay resultados
+        setTimeout(function() { 
+            if (typeof L === 'undefined') {
+                console.error("Leaflet.js no se ha cargado correctamente.");
+                return;
             }
-        }
 
-        // Esperar a que el mapa esté completamente cargado antes de renderizar
-        setTimeout(() => {
-            map.invalidateSize();
-        }, 500);
+            // Inicializar el mapa centrado en México
+            var map = L.map('map').setView([19.4326, -99.1332], 6);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+
+            console.log("Mapa inicializado correctamente");
+
+            // Cargar distribuidores desde Shopify
+            var distribuidores = {{ shop.metaobjects.distribuidor.values | json }};
+            var markers = [];
+
+            function filtrarDistribuidores() {
+                var filtro = document.getElementById("buscador").value.toLowerCase();
+
+                // Eliminar marcadores antes de agregar nuevos
+                markers.forEach(marker => map.removeLayer(marker));
+                markers = [];
+
+                // Filtrar distribuidores y agregarlos al mapa
+                distribuidores.forEach(function(d) {
+                    if (d.ciudad.toLowerCase().includes(filtro) && filtro !== "") {
+                        var marker = L.marker([d.latitud || 19.4326, d.longitud || -99.1332]).addTo(map)
+                            .bindPopup(`
+                                <div style='text-align: center;'>
+                                    <img src="${d.logo}" width="60" style="border-radius:5px;"><br>
+                                    <strong>${d.nombre}</strong><br>
+                                    ${d.ciudad}<br>
+                                    <b>Dirección:</b> ${d.direccion}<br>
+                                    <b>Teléfono:</b> ${d.telefono}<br>
+                                    <b>Horario:</b> ${d.horario}
+                                </div>
+                            `);
+                        markers.push(marker);
+                    }
+                });
+
+                // Ajustar el zoom si hay resultados
+                if (markers.length > 0) {
+                    var group = new L.featureGroup(markers);
+                    map.fitBounds(group.getBounds(), { padding: [50, 50] });
+                } else {
+                    map.setView([19.4326, -99.1332], 6); // Resetear si no hay resultados
+                }
+            }
+
+        }, 1000); // Espera 1 segundo para evitar errores de carga en Shopify
     });
 </script>
