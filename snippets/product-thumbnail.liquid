@@ -109,28 +109,32 @@ assign img_alt = img_alt | escape
 </div>
 {%- endif -%}
 
-</style>
-
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll("[data-product-single-media-wrapper]").forEach(function (mediaWrapper) {
-        mediaWrapper.classList.add("t4s-hidden");
-    });
-
     function updateProductImages(selectedVariant) {
+        let found = false;
+        let selectedValue = selectedVariant.options[0].toLowerCase(); // Extrae el valor de la variante seleccionada
+
         document.querySelectorAll("[data-product-single-media-wrapper]").forEach(function (mediaWrapper) {
-            let grname = mediaWrapper.getAttribute("data-grname");
             let grpvl = mediaWrapper.getAttribute("data-grpvl");
 
-            if (selectedVariant && selectedVariant.options.includes(grpvl)) {
+            if (selectedVariant && grpvl && grpvl.toLowerCase() === selectedValue) {
                 mediaWrapper.classList.remove("t4s-hidden");
+                found = true;
             } else {
                 mediaWrapper.classList.add("t4s-hidden");
             }
         });
+
+        // Si no se encontró ninguna imagen, mostrar la primera disponible
+        if (!found) {
+            let firstImage = document.querySelector("[data-product-single-media-wrapper]:not(.t4s-hidden)");
+            if (firstImage) {
+                firstImage.classList.remove("t4s-hidden");
+            }
+        }
     }
 
-    // Detecta el cambio de variante
     document.querySelectorAll("[name='id']").forEach(function (variantSelector) {
         variantSelector.addEventListener("change", function () {
             let selectedVariant = JSON.parse(this.getAttribute("data-variant"));
@@ -138,5 +142,6 @@ assign img_alt = img_alt | escape
         });
     });
 });
+
 
 </script>
