@@ -51,7 +51,17 @@ assign img_alt = img_alt | escape
   {% if img_alt  == product.selected_or_first_available_variant.title  %} 
 
     
-<div data-product-single-media-wrapper data-main-slide class="{{ class_col }}t4s-col-12 t4s-col-item t4s-product__media-item {{ isMediaHidden }}{% if variant_images contains media.src %} t4s-product__media-item--variant{% endif %}" data-media-id="{{ media.id }}" data-nt-media-id="{{ se_id }}-{{ media.id }}" data-media-type="{{ media.media_type }}" data-grname="{{ grname | escape }}" data-grpvl="{{ grpvl | escape }}">
+<div 
+    data-product-single-media-wrapper 
+    data-main-slide 
+    class="{{ class_col }} t4s-col-12 t4s-col-item t4s-product__media-item {{ isMediaHidden }}{% if variant_images contains media.src %} t4s-product__media-item--variant{% endif %}" 
+    data-media-id="{{ media.id }}" 
+    data-nt-media-id="{{ se_id }}-{{ media.id }}" 
+    data-media-type="{{ media.media_type }}" 
+    data-grname="{{ grname | escape }}" 
+    data-grpvl="{{ grpvl | escape }}"
+    data-variant-id="{% if product.selected_or_first_available_variant.image.id == media.id %}{{ product.selected_or_first_available_variant.id }}{% endif %}"
+  >
 	<div data-t4s-gallery--open class="t4s_ratio t4s-product__media{{ class_pswp_disable }}" {{ imgatt }}style="--aspect-ratioapt:{{ image.aspect_ratio }};--mw-media:{{ image.width }}px">
 		<noscript>{{ image | image_url: width: image_size | image_tag: widths: '288, 576, 750, 1100, 1500', alt: img_alt, class: 't4s-img-noscript', loading: 'lazy', sizes: '(min-width: 1500px) 1500px, (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw - 4rem)' }}</noscript>
 	  
@@ -108,51 +118,5 @@ assign img_alt = img_alt | escape
 {%- endif -%}
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    function updateGallery() {
-        var selectedVariantId = document.querySelector('[name="id"]').value;
-        var selectedVariant = ShopifyAnalytics.meta.product.variants.find(variant => variant.id == selectedVariantId);
-
-        if (selectedVariant && selectedVariant.featured_image) {
-            var newImageUrl = selectedVariant.featured_image.src;
-
-            // Actualizar la imagen principal
-            var mainImage = document.querySelector('.t4s-product__media img');
-            if (mainImage) {
-                mainImage.src = newImageUrl;
-            }
-
-            // Actualizar el atributo `data-media-id` en la galería
-            var galleryItems = document.querySelectorAll('.t4s-product__media-item');
-            galleryItems.forEach(item => {
-                if (item.getAttribute('data-media-id') === selectedVariant.featured_image.id.toString()) {
-                    item.classList.remove('isMediaHidden'); // Asegura que se muestre
-                } else {
-                    item.classList.add('isMediaHidden'); // Oculta otras imágenes
-                }
-            });
-
-            // Forzar actualización de Flickity
-            var flickityContainer = document.querySelector('.flickity4s-viewport');
-            if (flickityContainer) {
-                var flickityInstance = Flickity.data(flickityContainer);
-                if (flickityInstance) {
-                    flickityInstance.reloadCells();
-                    flickityInstance.resize();
-                    flickityInstance.select(0); // Opcional: muestra la primera imagen de la variante seleccionada
-                }
-            }
-        }
-    }
-
-    // Agregar evento a los botones de selección de variante
-    var variantSelectors = document.querySelectorAll('.variant-selector input, .variant-selector button');
-    variantSelectors.forEach(selector => {
-        selector.addEventListener('click', function () {
-            setTimeout(updateGallery, 300); // Permite que Shopify actualice el `selectedVariant`
-        });
-    });
-});
-
-
+  
 </script>
