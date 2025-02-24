@@ -386,7 +386,7 @@
             "width_mb": 40,
             "height_mb": 2,
             "hidden_mobile": false,
-            "mgb_mb": 20,
+            "mgb_mb": 0,
             "animation": "none"
           }
         },
