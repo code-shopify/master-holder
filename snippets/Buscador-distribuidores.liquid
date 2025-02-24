@@ -25,7 +25,7 @@
 
     #buscador {
         width: 100%;
-        padding: 10px;
+        padding: 12px;
         font-size: 16px;
         text-align: center;
         border: 1px solid #ccc;
@@ -38,25 +38,37 @@
     .lista-distribuidores {
         list-style: none;
         padding: 0;
+        margin: 0;
     }
 
     .distribuidor {
-        display: none;
-        padding: 15px;
-        border-bottom: 1px solid #eee;
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
         cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .distribuidor:hover {
+        background: #f9f9f9;
     }
 
     .distribuidor img {
-        width: 80px;
+        width: 60px;
+        height: 60px;
         border-radius: 5px;
-        margin-bottom: 10px;
+        margin-right: 10px;
+    }
+
+    .distribuidor .info {
+        flex-grow: 1;
     }
 
     .distribuidor strong {
         display: block;
-        font-size: 18px;
-        margin-top: 5px;
+        font-size: 16px;
+        margin-bottom: 3px;
     }
 
     .distribuidor span {
@@ -80,6 +92,15 @@
         background: #f3f3f3;
     }
 
+    /* Mensaje de no resultados */
+    .no-resultados {
+        text-align: center;
+        font-size: 16px;
+        color: #666;
+        padding: 20px;
+        display: none;
+    }
+
     /* Responsive */
     @media screen and (max-width: 768px) {
         .contenedor {
@@ -99,6 +120,7 @@
     <div class="buscador-container">
         <input type="text" id="buscador" placeholder="Buscar distribuidores por ciudad..." onkeyup="filtrarDistribuidores()">
         <ul id="lista-distribuidores" class="lista-distribuidores">
+            <p id="no-resultados" class="no-resultados">No hay distribuidores disponibles.</p>
             {% assign distribuidores = shop.metaobjects.distribuidor.values %}
             {% for distribuidor in distribuidores %}
                 {% assign ciudad = distribuidor.ciudad | downcase %}
@@ -109,12 +131,14 @@
                     data-telefono="{{ distribuidor.telefono }}"
                     data-horario="{{ distribuidor.horario }}"
                     data-logo="{{ distribuidor.logo | image_url }}">
-                    <img src="{{ distribuidor.logo | image_url }}" alt="{{ distribuidor.nombre }}"><br>
-                    <strong>{{ distribuidor.nombre }}</strong>
-                    <span><b>Ciudad:</b> {{ distribuidor.ciudad }}</span>
-                    <span><b>Dirección:</b> {{ distribuidor.direccion }}</span>
-                    <span><b>Teléfono:</b> {{ distribuidor.telefono }}</span>
-                    <span><b>Horario:</b> {{ distribuidor.horario }}</span>
+                    <img src="{{ distribuidor.logo | image_url }}" alt="{{ distribuidor.nombre }}">
+                    <div class="info">
+                        <strong>{{ distribuidor.nombre }}</strong>
+                        <span><b>Ciudad:</b> {{ distribuidor.ciudad }}</span>
+                        <span><b>Dirección:</b> {{ distribuidor.direccion }}</span>
+                        <span><b>Teléfono:</b> {{ distribuidor.telefono }}</span>
+                        <span><b>Horario:</b> {{ distribuidor.horario }}</span>
+                    </div>
                 </li>
             {% endfor %}
         </ul>
@@ -134,7 +158,6 @@
                 return;
             }
 
-            // Inicializar el mapa centrado en México
             var map = L.map('map').setView([19.4326, -99.1332], 6);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; OpenStreetMap contributors'
@@ -145,6 +168,7 @@
             var markers = [];
             var listaDistribuidores = document.getElementById("lista-distribuidores");
             var items = document.getElementsByClassName("distribuidor");
+            var noResultados = document.getElementById("no-resultados");
 
             function filtrarDistribuidores() {
                 var filtro = document.getElementById("buscador").value.toLowerCase();
@@ -160,10 +184,9 @@
                     var direccion = items[i].getAttribute("data-direccion");
 
                     if (ciudad.includes(filtro) && filtro !== "") {
-                        items[i].style.display = "block";
+                        items[i].style.display = "flex";
                         hayResultados = true;
 
-                        // Obtener coordenadas desde OpenStreetMap
                         fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion)}`)
                             .then(response => response.json())
                             .then(data => {
@@ -194,6 +217,8 @@
                         items[i].style.display = "none";
                     }
                 }
+
+                noResultados.style.display = hayResultados ? "none" : "block";
             }
         }, 1000);
     });
