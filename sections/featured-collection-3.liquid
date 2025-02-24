@@ -100,7 +100,7 @@
   {%- if stt_layout == 't4s-se-container' -%}<div class="t4s-container-inner {% if stt_image_bg != blank %} t4s-has-imgbg lazyloadt4s {% endif %}"  {% if stt_image_bg != blank %}  data-bgset="{{ stt_image_bg | image_url: width: 1 }}" data-sizes="auto"  data-optimumx="2" {% endif %} > {%- endif -%}
   {%- render 'section_tophead', se_stts: se_stts -%}
 <div style="display:flex;">
-  <div>Hola</div>  
+  <div class="img-fijo">Hola</div>  
 
   {%- if layout_des == "1" -%} 
     {{ 'button-style.css' | asset_url | stylesheet_tag }}
