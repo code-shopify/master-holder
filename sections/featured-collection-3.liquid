@@ -101,7 +101,7 @@
   {%- render 'section_tophead', se_stts: se_stts -%}
 <div style="display:flex;">
   <div class="img-fijo">
-  {% assign producto = settings.producto_fijo %}
+  {% assign producto = se_stts.producto_fijo %}
 
 {% if producto %}
   <div class="product-fixed">
