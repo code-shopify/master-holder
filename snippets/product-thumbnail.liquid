@@ -46,7 +46,7 @@ if variants_size > 1 and img_alt contains '_'
   elsif img_alt != blank and currentValue != blank and img_alt contains currentValue
     assign isMediaHidden = ''
   elsif img_alt != blank and product.selected_or_first_available_variant.title contains img_alt
-    assign isMediaHidden = ''  # Asegura que imágenes asociadas a la variante también se muestren
+    assign isMediaHidden = '' 
   else
     assign isMediaHidden = 't4s-hidden'
   endif
