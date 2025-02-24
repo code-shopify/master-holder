@@ -105,8 +105,9 @@
 
 {% if producto %}
   <div class="product-fixed">
-    <h2>{{ producto.title }}</h2>
+    
     <img src="{{ producto.featured_image | img_url: 'large' }}" alt="{{ producto.title }}">
+    <h6>{{ producto.title }}</h6>
     <p>{{ producto.description }}</p>
     <p>Precio: {{ producto.price | money }}</p>
 
