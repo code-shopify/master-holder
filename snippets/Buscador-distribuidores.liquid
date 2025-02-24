@@ -11,7 +11,7 @@
         padding: 20px;
     }
 
-    /* Estilo del buscador y lista */
+    /* Buscador y lista */
     .buscador-container {
         width: 30%;
         min-width: 300px;
@@ -41,7 +41,7 @@
     }
 
     .distribuidor {
-        display: none; /* Ocultar distribuidores al inicio */
+        display: none;
         padding: 15px;
         border-bottom: 1px solid #eee;
         cursor: pointer;
@@ -101,7 +101,7 @@
         <ul id="lista-distribuidores" class="lista-distribuidores">
             {% for distribuidor in shop.metaobjects.distribuidor.values %}
                 {% assign ciudad = distribuidor.ciudad | downcase %}
-                <li class="distribuidor" data-ciudad="{{ ciudad }}" data-lat="{{ distribuidor.latitud | default: 19.4326 }}" data-lng="{{ distribuidor.longitud | default: -99.1332 }}">
+                <li class="distribuidor" data-ciudad="{{ ciudad }}" data-direccion="{{ distribuidor.direccion }}">
                     <img src="{{ distribuidor.logo | image_url }}" alt="{{ distribuidor.nombre }}"><br>
                     <strong>{{ distribuidor.nombre }}</strong>
                     <span><b>Ciudad:</b> {{ distribuidor.ciudad }}</span>
@@ -141,8 +141,8 @@
 
             function filtrarDistribuidores() {
                 var filtro = document.getElementById("buscador").value.toLowerCase();
+                console.log("Buscando:", filtro);
 
-                // Limpiar marcadores antes de agregar nuevos
                 markers.forEach(marker => map.removeLayer(marker));
                 markers = [];
 
@@ -150,37 +150,44 @@
 
                 for (var i = 0; i < items.length; i++) {
                     var ciudad = items[i].getAttribute("data-ciudad");
-                    var lat = parseFloat(items[i].getAttribute("data-lat"));
-                    var lng = parseFloat(items[i].getAttribute("data-lng"));
+                    var direccion = items[i].getAttribute("data-direccion");
 
                     if (ciudad.includes(filtro) && filtro !== "") {
                         items[i].style.display = "block";
                         hayResultados = true;
 
-                        // Agregar marcador en el mapa
-                        var marker = L.marker([lat, lng]).addTo(map)
-                            .bindPopup(`
-                                <div style='text-align: center;'>
-                                    <img src="${items[i].querySelector("img").src}" width="60" style="border-radius:5px;"><br>
-                                    <strong>${items[i].querySelector("strong").textContent}</strong><br>
-                                    ${items[i].querySelector("span:nth-child(3)").textContent}<br>
-                                    <b>Dirección:</b> ${items[i].querySelector("span:nth-child(4)").textContent}<br>
-                                    <b>Teléfono:</b> ${items[i].querySelector("span:nth-child(5)").textContent}<br>
-                                    <b>Horario:</b> ${items[i].querySelector("span:nth-child(6)").textContent}
-                                </div>
-                            `);
-                        markers.push(marker);
+                        // **Obtener coordenadas desde Google Maps**
+                        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion)}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.length > 0) {
+                                    var lat = parseFloat(data[0].lat);
+                                    var lng = parseFloat(data[0].lon);
+
+                                    // Agregar marcador al mapa
+                                    var marker = L.marker([lat, lng]).addTo(map)
+                                        .bindPopup(`
+                                            <div style='text-align: center;'>
+                                                <img src="${items[i].querySelector("img").src}" width="60" style="border-radius:5px;"><br>
+                                                <strong>${items[i].querySelector("strong").textContent}</strong><br>
+                                                ${items[i].querySelector("span:nth-child(3)").textContent}<br>
+                                                <b>Dirección:</b> ${items[i].querySelector("span:nth-child(4)").textContent}<br>
+                                                <b>Teléfono:</b> ${items[i].querySelector("span:nth-child(5)").textContent}<br>
+                                                <b>Horario:</b> ${items[i].querySelector("span:nth-child(6)").textContent}
+                                            </div>
+                                        `);
+                                    markers.push(marker);
+
+                                    // Ajustar zoom
+                                    if (hayResultados) {
+                                        var group = new L.featureGroup(markers);
+                                        map.fitBounds(group.getBounds(), { padding: [50, 50] });
+                                    }
+                                }
+                            });
                     } else {
                         items[i].style.display = "none";
                     }
-                }
-
-                // Ajustar zoom si hay resultados
-                if (hayResultados) {
-                    var group = new L.featureGroup(markers);
-                    map.fitBounds(group.getBounds(), { padding: [50, 50] });
-                } else {
-                    map.setView([19.4326, -99.1332], 6); // Resetear vista si no hay resultados
                 }
             }
         }, 1000);
