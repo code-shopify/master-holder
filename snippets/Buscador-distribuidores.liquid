@@ -39,7 +39,7 @@
         list-style: none;
         padding: 0;
         margin: 0;
-        display: none; /* Se oculta hasta que se escriba en el buscador */
+        display: none;
     }
 
     .distribuidor {
@@ -148,7 +148,6 @@
 
             console.log("Mapa inicializado correctamente");
 
-            // Asegurar que los distribuidores se definan correctamente
             var distribuidores = {{ shop.metaobjects.distribuidor.values | json }};
             console.log("Distribuidores cargados:", distribuidores);
 
@@ -179,12 +178,20 @@
                         hayResultados = true;
                         listaDistribuidores.style.display = "block";
 
+                        // Obtener la URL del logo correctamente
+                        var logoUrl = "";
+                        if (distribuidor.logo && typeof distribuidor.logo === "object" && distribuidor.logo.src) {
+                            logoUrl = distribuidor.logo.src;
+                        } else {
+                            logoUrl = distribuidor.logo;
+                        }
+
                         var li = document.createElement("li");
                         li.className = "distribuidor";
                         li.setAttribute("data-direccion", distribuidor.direccion);
 
                         li.innerHTML = `
-                            <img src="${distribuidor.logo}" alt="${distribuidor.nombre}">
+                            <img src="${logoUrl}" alt="${distribuidor.nombre}">
                             <div class="info">
                                 <strong>${distribuidor.nombre}</strong>
                                 <span><b>Ciudad:</b> ${distribuidor.ciudad}</span>
@@ -196,25 +203,28 @@
 
                         li.addEventListener("click", function() {
                             var direccion = distribuidor.direccion;
-                            if (!markers[direccion]) {
-                                fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion)}`)
-                                    .then(response => response.json())
-                                    .then(data => {
-                                        if (data.length > 0) {
-                                            var lat = parseFloat(data[0].lat);
-                                            var lng = parseFloat(data[0].lon);
+                            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion)}`)
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.length > 0) {
+                                        var lat = parseFloat(data[0].lat);
+                                        var lng = parseFloat(data[0].lon);
 
-                                            markers[direccion] = L.marker([lat, lng]).addTo(map)
-                                                .bindPopup(`<b>${distribuidor.nombre}</b><br>${direccion}`)
-                                                .openPopup();
+                                        var marker = L.marker([lat, lng]).addTo(map)
+                                            .bindPopup(`
+                                                <div style='text-align: center;'>
+                                                    <img src="${logoUrl}" width="60" style="border-radius:5px;"><br>
+                                                    <strong>${distribuidor.nombre}</strong><br>
+                                                    <b>Ciudad:</b> ${distribuidor.ciudad}<br>
+                                                    <b>Dirección:</b> ${direccion}<br>
+                                                    <b>Teléfono:</b> ${distribuidor.telefono}<br>
+                                                    <b>Horario:</b> ${distribuidor.horario}
+                                                </div>
+                                            `).openPopup();
 
-                                            map.setView([lat, lng], 15);
-                                        }
-                                    });
-                            } else {
-                                map.setView(markers[direccion].getLatLng(), 15);
-                                markers[direccion].openPopup();
-                            }
+                                        map.setView([lat, lng], 15);
+                                    }
+                                });
                         });
 
                         listaDistribuidores.appendChild(li);
@@ -224,7 +234,6 @@
                 noResultados.style.display = hayResultados ? "none" : "block";
             }
 
-            // Asignar evento al input de búsqueda
             document.getElementById("buscador").addEventListener("keyup", filtrarDistribuidores);
 
         }, 1000);
