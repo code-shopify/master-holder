@@ -148,7 +148,6 @@
 
             console.log("Mapa inicializado correctamente");
 
-            // Obtener los distribuidores de Shopify
             var distribuidores = {{ shop.metaobjects.distribuidor.values | json }};
             console.log("Distribuidores cargados:", distribuidores);
 
@@ -159,7 +158,7 @@
 
             var listaDistribuidores = document.getElementById("lista-distribuidores");
             var noResultados = document.getElementById("no-resultados");
-            var markers = {};
+            var currentMarker = null;
 
             function filtrarDistribuidores() {
                 var filtro = document.getElementById("buscador").value.toLowerCase();
@@ -180,10 +179,7 @@
                         listaDistribuidores.style.display = "block";
 
                         // Corregir URL de la imagen en Shopify
-                        var logoUrl = "";
-                        if (distribuidor.logo) {
-                            logoUrl = "{{ distribuidor.logo | image_url }}";
-                        }
+                        var logoUrl = "{{ distribuidor.logo | image_url }}";
 
                         var li = document.createElement("li");
                         li.className = "distribuidor";
@@ -209,7 +205,11 @@
                                         var lat = parseFloat(data[0].lat);
                                         var lng = parseFloat(data[0].lon);
 
-                                        var marker = L.marker([lat, lng]).addTo(map)
+                                        if (currentMarker) {
+                                            map.removeLayer(currentMarker);
+                                        }
+
+                                        currentMarker = L.marker([lat, lng]).addTo(map)
                                             .bindPopup(`
                                                 <div style='text-align: center;'>
                                                     <img src="${logoUrl}" width="60" style="border-radius:5px;"><br>
@@ -233,7 +233,6 @@
                 noResultados.style.display = hayResultados ? "none" : "block";
             }
 
-            // Asegurar que la función está definida antes de asignarla
             document.getElementById("buscador").addEventListener("keyup", filtrarDistribuidores);
 
         }, 1000);
