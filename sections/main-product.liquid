@@ -316,7 +316,7 @@ endif -%}
                 
                 {% comment %}
                   Nuevo contenido
-                {% endcomment %}
+                
                     {%- for media in product_media -%}
                         {%- if media.preview_image and media.preview_image.alt contains 'break--360' -%}
                           {%- break -%}
@@ -353,6 +353,7 @@ endif -%}
                       {%- if has_media_360 -%}
                         {%- render 'product-360', product: product, se_id: se_id -%}
                       {%- endif -%}
+                {% endcomment %}
                 {% comment %}
                   Fin Nuevo contenido
                 {% endcomment %}
