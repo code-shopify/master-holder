@@ -42,12 +42,14 @@
     }
 
     .distribuidor {
-        display: flex;
-        align-items: center;
+        display: none;
         padding: 10px;
         border-bottom: 1px solid #ddd;
         cursor: pointer;
         transition: background 0.2s;
+        background: #fff;
+        border-radius: 5px;
+        margin-bottom: 5px;
     }
 
     .distribuidor:hover {
@@ -183,8 +185,8 @@
                     var ciudad = items[i].getAttribute("data-ciudad");
                     var direccion = items[i].getAttribute("data-direccion");
 
-                    if (ciudad.includes(filtro) && filtro !== "") {
-                        items[i].style.display = "flex";
+                    if (ciudad.includes(filtro)) {
+                        items[i].style.display = "block";
                         hayResultados = true;
 
                         fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion)}`)
