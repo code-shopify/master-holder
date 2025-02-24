@@ -146,18 +146,7 @@
     {%- else -%}
       {%- for i in (1..18) limit: limit -%} 
         <div class="t4s-col-item t4s-product t4s-pr-grid card-prod t4s-pr-style{{ product_des }} t4s-pr-item t4s-pr-des-{{ product_des }}">
-          <div class="t4s-product-wrapper" data-cacl-slide >
-            <div class="t4s-product-inner">
-              <a class="t4s-d-block" data-cacl-slide href="/admin/products">{%- capture current -%}{%- cycle 1, 2, 3, 4, 5, 6 -%}{%- endcapture -%} 
-              {{ 'product-' | append: current | placeholder_svg_tag: 't4s-placeholder-svg' }}</a>
-            </div>
-            <div class="t4s-product-info">
-              <div class="t4s-product-info__inner">
-                <h3 class="t4s-product-title"><a href="/admin/products">{{ 'onboarding.product_title' | t }}</a></h3>
-                <span class="t4s-product-price"><del>$59.00</del><ins>$39.00</ins></span>
-              </div>
-            </div>
-          </div>
+        
         </div>
       {%- endfor -%}
     {%- endif -%} 
