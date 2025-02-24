@@ -316,14 +316,6 @@ endif -%}
                       render 'product-360', product: product, se_id: se_id
                     endif
                   -%}
-                
-                {% comment %}
-                  Nuevo contenido
-                    
-                  Fin Nuevo contenido
-                {% endcomment %}
-
-                
                 {%- if se_stts.nav_dot and se_stts.dot_owl == 'number' -%}
                   <div class="flickityt4s-page-dots t4s-dots-list carousel--status{{ se_id }}"><span data-current-slide></span> / <span data-total-number></span></div>
                 {%- endif -%}
@@ -345,12 +337,6 @@ endif -%}
                 <button type="button" data-thumb-btn__next="{{ se_id }}" aria-label="Next" class="btn_pnav_next t4s-pa t4s-pe-none t4s-op-0"></button>
               </div>
               {%- endif -%}
-            
-
-            {% comment %}
-              Nuevo contenido
-              Fin Nuevo contenido
-            {% endcomment %}
           </div>
 
           {%- when 'one_column' or 'two_columns' or 'combined_grid' -%}
