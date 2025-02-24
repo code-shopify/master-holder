@@ -110,11 +110,7 @@
     <h6>{{ producto.title }}</h6>
     <p>Precio: {{ producto.price | money }}</p>
 
-    <form method="post" action="/cart/add">
-      <input type="hidden" name="id" value="{{ producto.variants.first.id }}">
-      <button type="submit">Agregar al carrito</button>
-    </form>
-  </div>
+  
 {% else %}
   <p>No hay un producto seleccionado en los ajustes.</p>
 {% endif %}
