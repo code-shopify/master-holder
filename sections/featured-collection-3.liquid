@@ -117,9 +117,10 @@
       {%- else -%} 
     {{ 'button-style.css' | asset_url | stylesheet_tag }}
     <link href="{{ 'custom-effect.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all'">
+      <div>Hola</div>
     <div data-collection-url="{{ collection.url }}" data-t4s-resizeobserver data-contentlm-replace class="isotopet4s t4s_box_pr_masonry t4s-products t4s-text-{{ se_stts.content_align }} t4s_{{ image_ratio }} t4s_position_{{ se_stts.image_position }} t4s_{{ se_stts.image_size }} t4s-row t4s-row-cols-lg-{{ se_stts.col_dk }} t4s-row-cols-md-{{ se_stts.col_tb }} t4s-row-cols-{{ se_stts.col_mb }} t4s-gx-md-{{ se_stts.space_h_item }} t4s-gy-md-{{ se_stts.space_v_item }} t4s-gx-{{ se_stts.space_h_item_mb }} t4s-gy-{{ se_stts.space_v_item_mb }}" data-isotopet4s-js='{ "itemSelector": ".t4s-product", "layoutMode": "masonry" }'>
   {%- endif -%} 
-       <div>Hola</div>
+       
     {%- if collection != blank -%}
       {% comment %}
       {%- liquid 
