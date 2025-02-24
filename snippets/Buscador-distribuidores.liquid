@@ -39,6 +39,7 @@
         list-style: none;
         padding: 0;
         margin: 0;
+        display: none; /* Se oculta hasta que se escriba en el buscador */
     }
 
     .distribuidor {
@@ -122,29 +123,8 @@
     <!-- Buscador y lista de distribuidores -->
     <div class="buscador-container">
         <input type="text" id="buscador" placeholder="Buscar distribuidores por ciudad..." onkeyup="filtrarDistribuidores()">
-        <ul id="lista-distribuidores" class="lista-distribuidores">
-            <p id="no-resultados" class="no-resultados">No hay distribuidores disponibles.</p>
-            {% assign distribuidores = shop.metaobjects.distribuidor.values %}
-            {% for distribuidor in distribuidores %}
-                {% assign ciudad = distribuidor.ciudad | downcase %}
-                <li class="distribuidor" 
-                    data-ciudad="{{ ciudad }}" 
-                    data-direccion="{{ distribuidor.direccion }}"
-                    data-nombre="{{ distribuidor.nombre }}"
-                    data-telefono="{{ distribuidor.telefono }}"
-                    data-horario="{{ distribuidor.horario }}"
-                    data-logo="{{ distribuidor.logo | image_url }}">
-                    <img src="{{ distribuidor.logo | image_url }}" alt="{{ distribuidor.nombre }}">
-                    <div class="info">
-                        <strong>{{ distribuidor.nombre }}</strong>
-                        <span><b>Ciudad:</b> {{ distribuidor.ciudad }}</span>
-                        <span><b>Dirección:</b> {{ distribuidor.direccion }}</span>
-                        <span><b>Teléfono:</b> {{ distribuidor.telefono }}</span>
-                        <span><b>Horario:</b> {{ distribuidor.horario }}</span>
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
+        <ul id="lista-distribuidores" class="lista-distribuidores"></ul>
+        <p id="no-resultados" class="no-resultados">No hay distribuidores disponibles.</p>
     </div>
 
     <!-- Mapa -->
@@ -169,53 +149,74 @@
             console.log("Mapa inicializado correctamente");
 
             var markers = {};
-            var items = document.getElementsByClassName("distribuidor");
+            var listaDistribuidores = document.getElementById("lista-distribuidores");
+            var noResultados = document.getElementById("no-resultados");
+
+            var distribuidores = {{ shop.metaobjects.distribuidor.values | json }};
+            console.log("Distribuidores cargados:", distribuidores);
 
             function filtrarDistribuidores() {
                 var filtro = document.getElementById("buscador").value.toLowerCase();
-                console.log("Buscando:", filtro);
+                listaDistribuidores.innerHTML = "";
+                listaDistribuidores.style.display = "none";
+
+                if (filtro.length < 1) {
+                    noResultados.style.display = "none";
+                    return;
+                }
 
                 var hayResultados = false;
 
-                for (var i = 0; i < items.length; i++) {
-                    var ciudad = items[i].getAttribute("data-ciudad");
-                    var direccion = items[i].getAttribute("data-direccion");
-
-                    if (ciudad.includes(filtro) || filtro === "") {
-                        items[i].style.display = "block";
+                distribuidores.forEach(function(distribuidor) {
+                    var ciudad = distribuidor.ciudad.toLowerCase();
+                    if (ciudad.includes(filtro)) {
                         hayResultados = true;
+                        listaDistribuidores.style.display = "block";
 
-                        if (!markers[direccion]) {
-                            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion)}`)
-                                .then(response => response.json())
-                                .then(data => {
-                                    if (data.length > 0) {
-                                        var lat = parseFloat(data[0].lat);
-                                        var lng = parseFloat(data[0].lon);
+                        var li = document.createElement("li");
+                        li.className = "distribuidor";
+                        li.setAttribute("data-direccion", distribuidor.direccion);
 
-                                        markers[direccion] = L.marker([lat, lng]).addTo(map)
-                                            .bindPopup(`<b>${items[i].getAttribute("data-nombre")}</b><br>${direccion}`);
-                                    }
-                                });
-                        }
-                    } else {
-                        items[i].style.display = "none";
-                    }
-                }
+                        li.innerHTML = `
+                            <img src="${distribuidor.logo}" alt="${distribuidor.nombre}">
+                            <div class="info">
+                                <strong>${distribuidor.nombre}</strong>
+                                <span><b>Ciudad:</b> ${distribuidor.ciudad}</span>
+                                <span><b>Dirección:</b> ${distribuidor.direccion}</span>
+                                <span><b>Teléfono:</b> ${distribuidor.telefono}</span>
+                                <span><b>Horario:</b> ${distribuidor.horario}</span>
+                            </div>
+                        `;
 
-                document.getElementById("no-resultados").style.display = hayResultados ? "none" : "block";
-            }
+                        li.addEventListener("click", function() {
+                            var direccion = distribuidor.direccion;
+                            if (!markers[direccion]) {
+                                fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion)}`)
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.length > 0) {
+                                            var lat = parseFloat(data[0].lat);
+                                            var lng = parseFloat(data[0].lon);
 
-            document.querySelectorAll(".distribuidor").forEach(function(item) {
-                item.addEventListener("click", function() {
-                    var direccion = this.getAttribute("data-direccion");
-                    if (markers[direccion]) {
-                        map.setView(markers[direccion].getLatLng(), 15);
-                        markers[direccion].openPopup();
+                                            markers[direccion] = L.marker([lat, lng]).addTo(map)
+                                                .bindPopup(`<b>${distribuidor.nombre}</b><br>${direccion}`)
+                                                .openPopup();
+
+                                            map.setView([lat, lng], 15);
+                                        }
+                                    });
+                            } else {
+                                map.setView(markers[direccion].getLatLng(), 15);
+                                markers[direccion].openPopup();
+                            }
+                        });
+
+                        listaDistribuidores.appendChild(li);
                     }
                 });
-            });
 
+                noResultados.style.display = hayResultados ? "none" : "block";
+            }
         }, 1000);
     });
 </script>
