@@ -1,0 +1,86 @@
+<style>
+    /* Centrar el buscador */
+    .contenedor-buscador {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    #buscador {
+        width: 50%;
+        padding: 10px;
+        font-size: 16px;
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        outline: none;
+    }
+
+    /* Estilos de la lista de resultados */
+    .resultados {
+        list-style: none;
+        padding: 0;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .distribuidor {
+        display: none; /* Ocultar distribuidores al inicio */
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .distribuidor img {
+        width: 80px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .distribuidor strong {
+        display: block;
+        font-size: 18px;
+        margin-top: 5px;
+    }
+
+    .distribuidor span {
+        display: block;
+        font-size: 14px;
+        color: #666;
+    }
+</style>
+
+<div class="contenedor-buscador">
+    <input type="text" id="buscador" placeholder="Buscar distribuidores por ciudad..." onkeyup="filtrarDistribuidores()">
+</div>
+
+<ul id="lista-distribuidores" class="resultados">
+    {% for distribuidor in shop.metaobjects.distribuidor.values %}
+        {% assign ciudad = distribuidor.ciudad | downcase %}
+        <li class="distribuidor" data-ciudad="{{ ciudad }}">
+            <img src="{{ distribuidor.logo | image_url }}" alt="{{ distribuidor.nombre }}"><br>
+            <strong>{{ distribuidor.nombre }}</strong>
+            <span><b>Ciudad:</b> {{ distribuidor.ciudad }}</span>
+            <span><b>Dirección:</b> {{ distribuidor.direccion }}</span>
+            <span><b>Teléfono:</b> {{ distribuidor.telefono }}</span>
+            <span><b>Horario:</b> {{ distribuidor.horario }}</span>
+        </li>
+    {% endfor %}
+</ul>
+
+<script>
+    function filtrarDistribuidores() {
+        var input = document.getElementById("buscador");
+        var filtro = input.value.toLowerCase();
+        var items = document.getElementsByClassName("distribuidor");
+        var resultadosVisibles = 0;
+
+        for (var i = 0; i < items.length; i++) {
+            var ciudad = items[i].getAttribute("data-ciudad");
+            if (ciudad.includes(filtro) && filtro !== "") {
+                items[i].style.display = "block";
+                resultadosVisibles++;
+            } else {
+                items[i].style.display = "none";
+            }
+        }
+    }
+</script>
