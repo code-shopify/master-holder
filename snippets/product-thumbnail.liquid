@@ -2,7 +2,7 @@
 assign media_type    = media.media_type
 assign image         = media.preview_image
 assign img_alt       = image.alt
-if img_alt contains '_' and variants_size > 1
+if variants_size > 1 and img_alt contains '_'
 	assign arr_alt = img_alt | replace: ' | ', ' |' | replace: ' | ', ' |' | replace: ' |', ' |' | split: '|'
 	assign img_alt = arr_alt[1] | default: product.title
 
@@ -48,7 +48,8 @@ assign img_alt = img_alt | escape
 {%- if media_type == 'image' -%}
 
   
-  {% if img_alt  == product.selected_or_first_available_variant.title  %} 
+{% if variant_images contains media.src or img_alt == product.selected_or_first_available_variant.title %}
+
 
     
 <div data-product-single-media-wrapper data-main-slide class="{{ class_col }}t4s-col-12 t4s-col-item t4s-product__media-item {{ isMediaHidden }}{% if variant_images contains media.src %} t4s-product__media-item--variant{% endif %}" data-media-id="{{ media.id }}" data-nt-media-id="{{ se_id }}-{{ media.id }}" data-media-type="{{ media.media_type }}" data-grname="{{ grname | escape }}" data-grpvl="{{ grpvl | escape }}">
@@ -59,14 +60,7 @@ assign img_alt = img_alt | escape
       <img data-master="{{ image | image_url }}" class="lazyloadt4s t4s-lz--fadeIn" data-src="{{ image | image_url: width: 1 }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg', w: image.width, h: image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ img_alt }}">
 
        <h1>{{ img_alt }}</h1>
-
-    
-      
-
 	</div>
-
-
-  
 </div>
 {% endif %}
   
