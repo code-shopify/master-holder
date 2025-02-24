@@ -42,6 +42,8 @@ if variants_size > 1 and img_alt contains '_'
       assign isMediaHidden = ''
     elsif currentValue == grpvl and currentValue != blank
       assign isMediaHidden = ''
+    else
+      assign isMediaHidden = 't4s-hidden' 
     endif
 
 endif
