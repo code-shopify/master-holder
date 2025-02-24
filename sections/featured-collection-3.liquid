@@ -108,7 +108,6 @@
     
     <img src="{{ producto.featured_image | img_url: 'large' }}" alt="{{ producto.title }}">
     <h6>{{ producto.title }}</h6>
-    <p>{{ producto.description }}</p>
     <p>Precio: {{ producto.price | money }}</p>
 
     <form method="post" action="/cart/add">
