@@ -115,27 +115,18 @@ assign img_alt = img_alt | escape
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     function updateProductImages(selectedVariant) {
-        let found = false;
-        let selectedValue = selectedVariant.options[0].toLowerCase(); // Extrae el valor de la variante seleccionada
+        let selectedColor = selectedVariant.options[0].toLowerCase(); // Extrae el color seleccionado
 
         document.querySelectorAll("[data-product-single-media-wrapper]").forEach(function (mediaWrapper) {
             let grpvl = mediaWrapper.getAttribute("data-grpvl");
+            let imgAlt = mediaWrapper.querySelector("img")?.getAttribute("alt") || "";
 
-            if (selectedVariant && grpvl && grpvl.toLowerCase() === selectedValue) {
+            if (grpvl && grpvl.toLowerCase() === selectedColor || imgAlt.toLowerCase().includes(selectedColor)) {
                 mediaWrapper.classList.remove("t4s-hidden");
-                found = true;
             } else {
                 mediaWrapper.classList.add("t4s-hidden");
             }
         });
-
-        // Si no se encontró ninguna imagen, mostrar la primera disponible
-        if (!found) {
-            let firstImage = document.querySelector("[data-product-single-media-wrapper]:not(.t4s-hidden)");
-            if (firstImage) {
-                firstImage.classList.remove("t4s-hidden");
-            }
-        }
     }
 
     document.querySelectorAll("[name='id']").forEach(function (variantSelector) {
@@ -145,5 +136,4 @@ assign img_alt = img_alt | escape
         });
     });
 });
-
 </script>
