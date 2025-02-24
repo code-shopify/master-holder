@@ -3,7 +3,6 @@
     .contenedor-buscador {
         text-align: center;
         margin-top: 50px;
-    
     }
 
     #buscador {
@@ -12,22 +11,30 @@
         font-size: 16px;
         text-align: center;
         border: 1px solid #ccc;
-        border-radius: 2rems;
+        border-radius: 5px;
         outline: none;
     }
 
-    /* Estilos de la lista de resultados */
+    /* Contenedor de distribuidores en columnas */
     .resultados {
-        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
         padding: 0;
         margin-top: 20px;
-        text-align: center;
+        list-style: none;
     }
 
     .distribuidor {
         display: none; /* Ocultar distribuidores al inicio */
+        width: 45%; /* Dos columnas en pantallas grandes */
+        max-width: 400px;
         padding: 15px;
-        border-bottom: 1px solid #eee;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        text-align: center;
+        background-color: #f9f9f9;
     }
 
     .distribuidor img {
@@ -46,6 +53,13 @@
         display: block;
         font-size: 14px;
         color: #666;
+    }
+
+    /* Diseño adaptable a móviles (1 columna en pantallas pequeñas) */
+    @media screen and (max-width: 768px) {
+        .distribuidor {
+            width: 90%; /* Solo una columna en móviles */
+        }
     }
 </style>
 
@@ -72,16 +86,10 @@
         var input = document.getElementById("buscador");
         var filtro = input.value.toLowerCase();
         var items = document.getElementsByClassName("distribuidor");
-        var resultadosVisibles = 0;
 
         for (var i = 0; i < items.length; i++) {
             var ciudad = items[i].getAttribute("data-ciudad");
-            if (ciudad.includes(filtro) && filtro !== "") {
-                items[i].style.display = "block";
-                resultadosVisibles++;
-            } else {
-                items[i].style.display = "none";
-            }
+            items[i].style.display = (ciudad.includes(filtro) && filtro !== "") ? "block" : "none";
         }
     }
 </script>
