@@ -572,7 +572,7 @@
             "type": "base",
             "settings": {
               "title": "PUNTOS DE VENTA",
-              "url": "/",
+              "url": "shopify://pages/nuestro-distribuidores",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
