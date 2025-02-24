@@ -15,21 +15,19 @@
         outline: none;
     }
 
-    /* Contenedor de distribuidores en columnas */
+    /* Contenedor en cuadrícula de 4 columnas */
     .resultados {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* 4 columnas */
         gap: 20px;
         padding: 0;
         margin-top: 20px;
         list-style: none;
+        justify-content: center;
     }
 
     .distribuidor {
         display: none; /* Ocultar distribuidores al inicio */
-        width: 45%; /* Dos columnas en pantallas grandes */
-        max-width: 400px;
         padding: 15px;
         border: 1px solid #eee;
         border-radius: 8px;
@@ -55,10 +53,16 @@
         color: #666;
     }
 
-    /* Diseño adaptable a móviles (1 columna en pantallas pequeñas) */
-    @media screen and (max-width: 768px) {
-        .distribuidor {
-            width: 90%; /* Solo una columna en móviles */
+    /* Diseño adaptable: 2 columnas en tablets y 1 en móviles */
+    @media screen and (max-width: 1024px) {
+        .resultados {
+            grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablets */
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        .resultados {
+            grid-template-columns: repeat(1, 1fr); /* 1 columna en móviles */
         }
     }
 </style>
