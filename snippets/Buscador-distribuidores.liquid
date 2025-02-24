@@ -1,191 +1,136 @@
-<!-- Agregar Leaflet desde Shopify Assets -->
-<link rel="stylesheet" href="{{ 'leaflet.css' | asset_url }}">
-<script src="{{ 'leaflet.js' | asset_url }}" defer></script>
-
 <style>
     /* Contenedor general */
     .contenedor {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
         gap: 20px;
         padding: 20px;
     }
 
-    /* Buscador y lista */
-    .buscador-container {
-        width: 30%;
-        min-width: 300px;
-        max-height: 500px;
-        overflow-y: auto;
-        padding: 20px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        background: #fff;
-    }
-
-    #buscador {
-        width: 100%;
-        padding: 12px;
-        font-size: 16px;
-        text-align: center;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        outline: none;
-        margin-bottom: 15px;
-    }
-
-    /* Lista de distribuidores */
-    .lista-distribuidores {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: none;
-    }
-
-    .distribuidor {
+    /* Contenedor de filtros */
+    .filtro-container {
         display: flex;
-        align-items: center;
-        padding: 10px;
-        border-bottom: 1px solid #ddd;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    /* Botones de filtro */
+    .btn-filtro {
+        padding: 10px 15px;
+        font-size: 14px;
+        border: none;
+        border-radius: 5px;
         cursor: pointer;
+        background: #007bff;
+        color: white;
         transition: background 0.2s;
-        background: #fff;
-        border-radius: 5px;
-        margin-bottom: 5px;
     }
 
-    .distribuidor:hover {
-        background: #f9f9f9;
+    .btn-filtro:hover, .btn-filtro.active {
+        background: #0056b3;
     }
 
-    .distribuidor img {
-        width: 60px;
-        height: 60px;
-        border-radius: 5px;
-        margin-right: 10px;
+    /* Grid de tarjetas */
+    .grid-distribuidores {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        width: 100%;
+        max-width: 1200px;
     }
 
-    .distribuidor .info {
-        flex-grow: 1;
+    /* Tarjetas */
+    .tarjeta {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+        text-align: center;
     }
 
-    .distribuidor strong {
-        display: block;
-        font-size: 16px;
-        margin-bottom: 3px;
+    .tarjeta:hover {
+        transform: scale(1.03);
     }
 
-    .distribuidor span {
-        display: block;
+    .tarjeta img {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+
+    .tarjeta h3 {
+        font-size: 18px;
+        margin: 5px 0;
+    }
+
+    .tarjeta p {
         font-size: 14px;
         color: #666;
+        margin: 3px 0;
     }
 
-    /* Mapa */
-    .map-container {
-        flex-grow: 1;
-        height: 500px;
-        border-radius: 8px;
-        position: relative;
-    }
-
-    #map {
-        width: 100%;
-        height: 100%;
-        border-radius: 8px;
-        background: #f3f3f3;
-    }
-
-    /* Mensaje de no resultados */
-    .no-resultados {
+    .btn-como-llegar {
+        display: inline-block;
         text-align: center;
-        font-size: 16px;
-        color: #666;
-        padding: 20px;
-        display: none;
+        background: #28a745;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-top: 10px;
     }
 
-    /* Responsive */
-    @media screen and (max-width: 768px) {
-        .contenedor {
-            flex-direction: column;
-        }
-        .buscador-container {
-            width: 100%;
-        }
-        .map-container {
-            height: 400px;
-        }
+    .btn-como-llegar:hover {
+        background: #1e7e34;
     }
+
 </style>
 
 <div class="contenedor">
-    <!-- Buscador y lista de distribuidores -->
-    <div class="buscador-container">
-        <input type="text" id="buscador" placeholder="Buscar distribuidores por ciudad...">
-        <ul id="lista-distribuidores" class="lista-distribuidores"></ul>
-        <p id="no-resultados" class="no-resultados">No hay distribuidores disponibles.</p>
+    <!-- Filtro de ciudades con botones -->
+    <div id="filtro-container" class="filtro-container">
+        <button class="btn-filtro active" data-ciudad="todas" onclick="filtrarPorCiudad('todas')">Todas</button>
     </div>
 
-    <!-- Mapa -->
-    <div class="map-container">
-        <div id="map"></div>
-    </div>
+    <!-- Grid de tarjetas -->
+    <div id="grid-distribuidores" class="grid-distribuidores"></div>
 </div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        setTimeout(function() { 
-            if (typeof L === 'undefined') {
-                console.error("Leaflet.js no se ha cargado correctamente.");
-                return;
-            }
+        var distribuidores = {{ shop.metaobjects.distribuidor.values | json }};
+        var gridDistribuidores = document.getElementById("grid-distribuidores");
+        var filtroContainer = document.getElementById("filtro-container");
 
-            var map = L.map('map').setView([19.4326, -99.1332], 6);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors'
-            }).addTo(map);
+        if (!distribuidores || distribuidores.length === 0) {
+            console.error("No se encontraron distribuidores en Shopify.");
+            return;
+        }
 
-            console.log("Mapa inicializado correctamente");
+        var ciudadesUnicas = new Set();
 
-            var distribuidores = {{ shop.metaobjects.distribuidor.values | json }};
-            console.log("Distribuidores cargados:", distribuidores);
+        function renderizarDistribuidores(ciudadFiltro = "todas") {
+            gridDistribuidores.innerHTML = "";
 
-            if (!distribuidores || distribuidores.length === 0) {
-                console.error("No se encontraron distribuidores en Shopify.");
-                return;
-            }
+            distribuidores.forEach(function(distribuidor) {
+                var ciudad = distribuidor.ciudad;
+                ciudadesUnicas.add(ciudad);
 
-            var listaDistribuidores = document.getElementById("lista-distribuidores");
-            var noResultados = document.getElementById("no-resultados");
-            var currentMarker = null;
+                if (ciudadFiltro === "todas" || ciudad === ciudadFiltro) {
+                    var tarjeta = document.createElement("div");
+                    tarjeta.className = "tarjeta";
 
-            function filtrarDistribuidores() {
-                var filtro = document.getElementById("buscador").value.toLowerCase();
-                listaDistribuidores.innerHTML = "";
-                listaDistribuidores.style.display = "none";
-
-                if (filtro.length < 1) {
-                    noResultados.style.display = "none";
-                    return;
-                }
-
-                var hayResultados = false;
-
-                distribuidores.forEach(function(distribuidor) {
-                    var ciudad = distribuidor.ciudad.toLowerCase();
-                    if (ciudad.includes(filtro)) {
-                        hayResultados = true;
-                        listaDistribuidores.style.display = "block";
-
-                        var tarjeta = document.createElement("div");
+                  var tarjeta = document.createElement("div");
 tarjeta.className = "tarjeta";
 
-// Convertir URL del logo correctamente para Shopify
-var logoUrl = "{{ distribuidor.logo | image_url }}";
-if (!logoUrl.includes("cdn.shopify.com")) {
-    logoUrl = "{{ distribuidor.logo | file_img_url: '300x300' }}";
-}
+// Usar `image_url` de Shopify para cargar correctamente el logo
+var logoUrl = "{{ distribuidor.logo | image_url: width: 100 }}";
 
 tarjeta.innerHTML = `
     <img src="${logoUrl}" alt="${distribuidor.nombre}">
@@ -197,52 +142,35 @@ tarjeta.innerHTML = `
     <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(distribuidor.direccion)}" target="_blank" class="btn-como-llegar">Cómo llegar</a>
 `;
 
-                        li.addEventListener("click", function() {
-                            var direccion = distribuidor.direccion;
-                           fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion)}`, {
-    method: "GET",
-    mode: "cors",
-    headers: {
-        "Access-Control-Allow-Origin": "*"
-    }
-})
+gridDistribuidores.appendChild(tarjeta);
 
-                                .then(response => response.json())
-                                .then(data => {
-                                    if (data.length > 0) {
-                                        var lat = parseFloat(data[0].lat);
-                                        var lng = parseFloat(data[0].lon);
 
-                                        if (currentMarker) {
-                                            map.removeLayer(currentMarker);
-                                        }
+                    gridDistribuidores.appendChild(tarjeta);
+                }
+            });
 
-                                        currentMarker = L.marker([lat, lng]).addTo(map)
-                                            .bindPopup(`
-                                                <div style='text-align: center;'>
-                                                    <img src="${logoUrl}" width="60" style="border-radius:5px;"><br>
-                                                    <strong>${distribuidor.nombre}</strong><br>
-                                                    <b>Ciudad:</b> ${distribuidor.ciudad}<br>
-                                                    <b>Dirección:</b> ${direccion}<br>
-                                                    <b>Teléfono:</b> ${distribuidor.telefono}<br>
-                                                    <b>Horario:</b> ${distribuidor.horario}
-                                                </div>
-                                            `).openPopup();
-
-                                        map.setView([lat, lng], 15);
-                                    }
-                                });
-                        });
-
-                        listaDistribuidores.appendChild(li);
-                    }
+            // Crear botones de filtro una sola vez
+            if (filtroContainer.childElementCount === 1) {
+                ciudadesUnicas.forEach(function(ciudad) {
+                    var btn = document.createElement("button");
+                    btn.className = "btn-filtro";
+                    btn.textContent = ciudad;
+                    btn.setAttribute("data-ciudad", ciudad);
+                    btn.onclick = function() {
+                        filtrarPorCiudad(ciudad);
+                    };
+                    filtroContainer.appendChild(btn);
                 });
-
-                noResultados.style.display = hayResultados ? "none" : "block";
             }
+        }
 
-            document.getElementById("buscador").addEventListener("keyup", filtrarDistribuidores);
+        function filtrarPorCiudad(ciudadSeleccionada) {
+            document.querySelectorAll(".btn-filtro").forEach(btn => btn.classList.remove("active"));
+            document.querySelector(`[data-ciudad="${ciudadSeleccionada}"]`).classList.add("active");
 
-        }, 1000);
+            renderizarDistribuidores(ciudadSeleccionada);
+        }
+
+        renderizarDistribuidores();
     });
 </script>
