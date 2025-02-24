@@ -148,12 +148,18 @@
 
             console.log("Mapa inicializado correctamente");
 
-            var markers = {};
-            var listaDistribuidores = document.getElementById("lista-distribuidores");
-            var noResultados = document.getElementById("no-resultados");
-
+            // Asegurar que los distribuidores se definan correctamente
             var distribuidores = {{ shop.metaobjects.distribuidor.values | json }};
             console.log("Distribuidores cargados:", distribuidores);
+
+            if (!distribuidores || distribuidores.length === 0) {
+                console.error("No se encontraron distribuidores en Shopify.");
+                return;
+            }
+
+            var listaDistribuidores = document.getElementById("lista-distribuidores");
+            var noResultados = document.getElementById("no-resultados");
+            var markers = {};
 
             function filtrarDistribuidores() {
                 var filtro = document.getElementById("buscador").value.toLowerCase();
@@ -217,6 +223,10 @@
 
                 noResultados.style.display = hayResultados ? "none" : "block";
             }
+
+            // Asignar evento al input de búsqueda
+            document.getElementById("buscador").addEventListener("keyup", filtrarDistribuidores);
+
         }, 1000);
     });
 </script>
