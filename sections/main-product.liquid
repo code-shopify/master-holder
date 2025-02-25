@@ -4636,6 +4636,63 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 //Nuevo Script
+  function updateProductGallery(variantId) {
+    let productUrl = window.location.pathname + `?variant=${variantId}&section_id=main-product`;
+
+    fetch(productUrl)
+        .then(response => response.text())
+        .then(html => {
+            let parser = new DOMParser();
+            let doc = parser.parseFromString(html, "text/html");
+
+            // 📌 Seleccionar la nueva galería de imágenes y los thumbnails desde la respuesta AJAX
+            let newGallery = doc.querySelector("[data-t4s-gallery]");
+            let newThumbnails = doc.querySelector(".t4s-carousel__nav");
+
+            // 📌 Seleccionar la galería actual en la página
+            let currentGallery = document.querySelector("[data-t4s-gallery]");
+            let currentThumbnails = document.querySelector(".t4s-carousel__nav");
+
+            if (newGallery && currentGallery) {
+                // 🔥 ELIMINAR EVENTOS VIEJOS Y REEMPLAZAR LA GALERÍA
+                currentGallery.replaceWith(newGallery.cloneNode(true));
+                console.log("✅ Galería actualizada correctamente.");
+            } else {
+                console.warn("⚠️ No se encontró la nueva galería.");
+            }
+
+            if (newThumbnails && currentThumbnails) {
+                currentThumbnails.replaceWith(newThumbnails.cloneNode(true));
+                console.log("✅ Thumbnails actualizados.");
+            } else {
+                console.warn("⚠️ No se encontraron nuevos thumbnails.");
+            }
+
+            // 🔄 REINICIALIZAR FLICKITY PARA QUE EL SLIDER FUNCIONE BIEN
+            setTimeout(() => reinitializeGallery(), 500);
+        })
+        .catch(error => console.error("❌ Error al actualizar la galería:", error));
+  }
+
+  // 🛠️ Reinicializar Flickity para que el slider funcione correctamente
+  function reinitializeGallery() {
+      let mainMedia = document.querySelector("[data-t4s-gallery]");
+      if (!mainMedia) return;
+  
+      // 🔄 Si Flickity está presente, actualizarlo
+      if (mainMedia.classList.contains("flickityt4s-enabled")) {
+          mainMedia.dispatchEvent(new Event("update.flickityt4s"));
+          console.log("🔄 Flickity actualizado.");
+      }
+  
+      console.log("📸 Galería re-inicializada.");
+  }
+  
+  // 📌 Detectar cambio de variante y actualizar la galería
+  document.querySelector("[name='id']").addEventListener("change", function () {
+      let variantId = this.value;
+      updateProductGallery(variantId);
+});
 
 //Fin Nuevo Script
 
