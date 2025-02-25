@@ -4639,66 +4639,36 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 <script>
-  // Detectar clic en los swatches de color
-  document.querySelectorAll("[data-swatch-item]").forEach((swatch) => {
-      swatch.addEventListener("click", function () {
-          let selectedColor = this.getAttribute("data-value");
-          console.log("🎨 Color seleccionado:", selectedColor);
+ function updateProductGallery(variantId) {
+    let productUrl = window.location.pathname + `?variant=${variantId}&section_id=main-product`; 
 
-          // Obtener los datos del producto desde el JSON
-          let productData = JSON.parse(document.querySelector('script[type="application/json"][data-product-json]')?.textContent || "{}");
+    fetch(productUrl)
+        .then(response => response.text())
+        .then(html => {
+            // Crear un elemento temporal para extraer la galería
+            let parser = new DOMParser();
+            let doc = parser.parseFromString(html, "text/html");
+            
+            // Seleccionar la nueva galería desde la respuesta AJAX
+            let newGallery = doc.querySelector("[data-main-media]"); // Ajusta el selector según tu estructura
 
-          // Buscar la variante correspondiente
-          let selectedVariant = productData.variants.find(v => v.option1 === selectedColor);
+            if (newGallery) {
+                // Reemplazar la galería actual con la nueva
+                document.querySelector("[data-main-media]").innerHTML = newGallery.innerHTML;
+                console.log("✅ Galería actualizada con AJAX");
+            } else {
+                console.warn("⚠️ No se encontró la nueva galería en la respuesta AJAX.");
+            }
+        })
+        .catch(error => console.error("❌ Error al cargar la galería:", error));
+}
 
-          if (selectedVariant) {
-              console.log("✅ Variante encontrada:", selectedVariant);
+// 💡 Usa esta función después de cambiar la variante
+document.querySelector("[name='id']").addEventListener("change", function() {
+    let selectedVariantId = this.value;
+    updateProductGallery(selectedVariantId);
+});
 
-              // Actualizar el selector de variante en el formulario
-              let variantInput = document.querySelector("[name='id']");
-              if (variantInput) {
-                  variantInput.value = selectedVariant.id;
-                  console.log("🆕 Variante actualizada en el formulario:", selectedVariant.id);
-
-                  // Disparar un evento para que Shopify actualice la variante
-                  let changeEvent = new Event("change", { bubbles: true });
-                  variantInput.dispatchEvent(changeEvent);
-
-                  // 🔄 Forzar la actualización de la imagen de la variante
-                  let mediaID = selectedVariant?.featured_media?.id;
-                  if (mediaID) {
-                      console.log("🖼️ Media ID encontrado:", mediaID);
-
-                      // Ocultar todas las imágenes del carrusel
-                      document.querySelectorAll("[data-main-slide]").forEach(img => img.classList.add("hidden"));
-
-                      // Mostrar la nueva imagen correspondiente
-                      let newImage = document.querySelector(`[data-media-id="${mediaID}"]`);
-                      if (newImage) {
-                          newImage.classList.remove("hidden");
-                          console.log("✅ Imagen actualizada correctamente:", mediaID);
-                      } else {
-                          console.warn("⚠️ No se encontró la imagen para el media ID:", mediaID);
-                      }
-                  } else {
-                      console.warn("⚠️ No se encontró media para la variante:", selectedVariant.id);
-                  }
-
-                  // 🔄 Intentar forzar la actualización del tema si tiene una función específica
-                  if (window.T4SThemeSP && typeof window.T4SThemeSP.Product !== "undefined") {
-                      console.log("🔄 Intentando forzar actualización con el tema...");
-                      if (typeof window.T4SThemeSP.Product._updateMedia === "function") {
-                          window.T4SThemeSP.Product._updateMedia(selectedVariant, {}, document);
-                      } else {
-                          console.warn("⚠️ No se encontró la función _updateMedia en el tema.");
-                      }
-                  }
-              }
-          } else {
-              console.warn("⚠️ No se encontró una variante para el color:", selectedColor);
-          }
-      });
-  });
 </script>
 
 
