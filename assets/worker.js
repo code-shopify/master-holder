@@ -11,25 +11,30 @@ function updateGallery() {
     // Seleccionar todas las galerías en la página
     document.querySelectorAll("[data-main-media]").forEach(gallery => {
         let flickityInstance = Flickity?.data(gallery);
-        if (flickityInstance) {
-            flickityInstance.destroy(); // Eliminar instancia previa
+
+        if (!flickityInstance) {
+            console.warn("⚠️ No hay una instancia previa de Flickity. Inicializando...");
+            flickityInstance = new Flickity(gallery, {
+                cellSelector: "[data-main-slide]:not(.is--media-hide)",
+                adaptiveHeight: true,
+                contain: true,
+                wrapAround: true,
+                prevNextButtons: true,
+                percentPosition: true,
+                pageDots: false,
+                autoPlay: false,
+                pauseAutoPlayOnHover: true,
+                thumbNav: true,
+                thumbVertical: false,
+                isMedia: true
+            });
+        } else {
+            console.log("🔄 Reiniciando Flickity sin destruir...");
+            flickityInstance.resize();
+            flickityInstance.reloadCells();
+            flickityInstance.select(0, false, true);
         }
-
-        new Flickity(gallery, {
-            cellSelector: "[data-main-slide]:not(.is--media-hide)",
-            adaptiveHeight: true,
-            contain: true,
-            wrapAround: true,
-            prevNextButtons: true,
-            percentPosition: true,
-            pageDots: false,
-            autoPlay: false,
-            pauseAutoPlayOnHover: true,
-            thumbNav: true,
-            thumbVertical: false,
-            isMedia: true
-        });
-
+        
         console.log("✅ Galería actualizada correctamente.");
     });
 }
@@ -40,14 +45,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Verificar que Flickity esté disponible antes de asignar eventos
     if (typeof Flickity === "undefined") {
-        console.error("❌ Flickity aún no está cargado. Intentando recargar...");
+        console.warn("⚠️ Flickity no está cargado. Intentando cargarlo...");
         
         let flickityScript = document.createElement("script");
         flickityScript.src = "https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js";
         flickityScript.onload = () => {
             console.log("✅ Flickity cargado correctamente.");
+            updateGallery(); // Intentar actualizar la galería después de cargar Flickity
         };
         document.head.appendChild(flickityScript);
+    } else {
+        updateGallery(); // Si ya está cargado, actualizar la galería de inmediato
     }
 
     // Evento para cambio de variante
@@ -56,6 +64,3 @@ document.addEventListener("DOMContentLoaded", function () {
         updateGallery();
     });
 });
-
-
-
