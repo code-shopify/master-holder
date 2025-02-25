@@ -32,7 +32,7 @@ if img_alt contains '_' and variants_size > 1
 	    assign index   = product.options_by_name[grname].position | default: 0
     endif
 
-	# ✅ Mantiene la lógica del case
+
 	case index
 		when 1
 			assign currentValue = current_option1
@@ -42,7 +42,7 @@ if img_alt contains '_' and variants_size > 1
 			assign currentValue = current_option3
 	endcase
 
-	# ✅ Filtramos imágenes usando `alt` (color) + Shopify `variant_images`
+
 	if img_alt contains product.selected_or_first_available_variant.option1 or variant_images contains media.src
 	  assign isMediaHidden = ''
 	else
@@ -57,7 +57,7 @@ assign img_alt = img_alt | escape
 
 {%- if media_type == 'image' -%}
   {% if img_alt contains product.selected_or_first_available_variant.option1 %}
-    <div data-product-single-media-wrapper 
+      <div data-product-single-media-wrapper 
          data-main-slide 
          class="{{ class_col }} t4s-col-12 t4s-col-item t4s-product__media-item {{ isMediaHidden }} {% if variant_images contains media.src %} t4s-product__media-item--variant{% endif %}" 
          data-media-id="{{ media.id }}" 
