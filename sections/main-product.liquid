@@ -4645,30 +4645,17 @@ function updateProductGallery(variantId) {
     fetch(productUrl)
         .then(response => response.text())
         .then(html => {
+            // Crear un elemento temporal para extraer la galería
             let parser = new DOMParser();
             let doc = parser.parseFromString(html, "text/html");
-            let newGallery = doc.querySelector("[data-main-media]");
-            let newThumbnails = doc.querySelector(".t4s-carousel__nav"); // Ajusta el selector de thumbnails
+            
+            // Seleccionar la nueva galería desde la respuesta AJAX
+            let newGallery = doc.querySelector("[data-main-media]"); // Ajusta el selector según tu estructura
 
             if (newGallery) {
-                // 🔄 Reemplazar la galería principal
+                // Reemplazar la galería actual con la nueva
                 document.querySelector("[data-main-media]").innerHTML = newGallery.innerHTML;
-                console.log("✅ Galería principal actualizada");
-
-                // 🔄 Reemplazar los thumbnails
-                if (newThumbnails) {
-                    document.querySelector(".t4s-carousel__nav").innerHTML = newThumbnails.innerHTML;
-                    console.log("✅ Thumbnails actualizados");
-                } else {
-                    console.warn("⚠️ No se encontraron nuevos thumbnails");
-                }
-
-                // 🔄 Reiniciar Flickity o Isotope si los thumbnails usan sliders
-                document.querySelector("[data-main-media]")?.dispatchEvent(new Event("update.flickityt4s"));
-                document.querySelector("[data-main-media]")?.dispatchEvent(new Event("update.isotopet4s"));
-                
-                // 🚀 Volver a enlazar eventos de los thumbnails si es necesario
-                setTimeout(() => reattachThumbnailEvents(), 500);
+                console.log("✅ Galería actualizada con AJAX");
             } else {
                 console.warn("⚠️ No se encontró la nueva galería en la respuesta AJAX.");
             }
@@ -4676,22 +4663,11 @@ function updateProductGallery(variantId) {
         .catch(error => console.error("❌ Error al cargar la galería:", error));
 }
 
-  function reattachThumbnailEvents() {
-    document.querySelectorAll(".t4s-carousel__nav-item").forEach(thumbnail => {
-        thumbnail.addEventListener("click", function() {
-            let mediaId = this.getAttribute("data-media-id");
-            let mainImage = document.querySelector(`[data-main-media] [data-media-id='${mediaId}']`);
-            
-            if (mainImage) {
-                document.querySelectorAll("[data-main-media] [data-main-slide]").forEach(img => img.classList.add("hidden"));
-                mainImage.classList.remove("hidden");
-                console.log("✅ Imagen principal cambiada desde thumbnails");
-            } else {
-                console.warn("⚠️ No se encontró la imagen para este thumbnail.");
-            }
-        });
-    });
-}
+// 💡 Usa esta función después de cambiar la variante
+document.querySelector("[name='id']").addEventListener("change", function() {
+    let selectedVariantId = this.value;
+    updateProductGallery(selectedVariantId);
+});
 
 </script>
 
