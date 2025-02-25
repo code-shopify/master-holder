@@ -4648,21 +4648,28 @@ function updateProductGallery(variantId) {
             let parser = new DOMParser();
             let doc = parser.parseFromString(html, "text/html");
 
-            // Buscar la nueva galería en la respuesta AJAX
+            // Buscar la nueva galería y los thumbnails en la respuesta AJAX
             let newGallery = doc.querySelector("[data-main-media]");
             let newThumbnails = doc.querySelector(".t4s-carousel__nav");
 
             if (newGallery) {
-                // Reemplazar la galería en el DOM
-                document.querySelector("[data-main-media]").innerHTML = newGallery.innerHTML;
-                console.log("✅ Galería actualizada");
-
-                if (newThumbnails) {
-                    document.querySelector(".t4s-carousel__nav").innerHTML = newThumbnails.innerHTML;
-                    console.log("✅ Thumbnails actualizados");
+                let currentGallery = document.querySelector("[data-main-media]");
+                if (currentGallery) {
+                    currentGallery.innerHTML = ""; // 🔥 Limpiar antes de insertar
+                    currentGallery.innerHTML = newGallery.innerHTML;
+                    console.log("✅ Galería actualizada correctamente.");
                 }
 
-                // Re-inicializar scripts o eventos de thumbnails si es necesario
+                if (newThumbnails) {
+                    let currentThumbnails = document.querySelector(".t4s-carousel__nav");
+                    if (currentThumbnails) {
+                        currentThumbnails.innerHTML = ""; // 🔥 Limpiar antes de insertar
+                        currentThumbnails.innerHTML = newThumbnails.innerHTML;
+                        console.log("✅ Thumbnails actualizados.");
+                    }
+                }
+
+                // 🛠️ Re-inicializar Flickity o Isotope si es necesario
                 setTimeout(() => reinitializeGallery(), 500);
             } else {
                 console.warn("⚠️ No se encontró la nueva galería.");
@@ -4671,7 +4678,7 @@ function updateProductGallery(variantId) {
         .catch(error => console.error("❌ Error al actualizar la galería:", error));
 }
 
-// 🔄 Re-inicializar la funcionalidad de la galería si usa Flickity o Isotope
+// 🔄 Re-inicializar la funcionalidad de la galería
 function reinitializeGallery() {
     let mainMedia = document.querySelector("[data-main-media]");
     if (mainMedia.classList.contains("flickityt4s-enabled")) {
