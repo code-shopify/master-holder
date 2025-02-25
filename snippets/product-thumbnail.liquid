@@ -109,8 +109,33 @@ assign img_alt = img_alt | escape
             });
         });
     }
-    console.log("⚡ Script de cambio de imágenes cargado correctamente.");
+});
 
+  document.addEventListener("DOMContentLoaded", function() {
+    var variantSelectors = document.querySelectorAll("[name='id']");
+    
+    if (variantSelectors.length > 0) {
+        console.log("🎯 Detectando cambios en las variantes...");
+        variantSelectors.forEach(function(selector) {
+            selector.addEventListener("change", function() {
+                var selectedVariantTitle = selector.options[selector.selectedIndex].text.trim();
+                console.log("✅ Variante seleccionada: " + selectedVariantTitle);
+
+                // Oculta todas las imágenes de la galería
+                document.querySelectorAll(".t4s-product__media-item").forEach(function(item) {
+                    item.classList.add("hidden");
+                });
+
+                // Muestra solo las imágenes que coincidan con la variante seleccionada
+                document.querySelectorAll(".t4s-product__media-item[data-grpvl]").forEach(function(item) {
+                    if (item.getAttribute("data-grpvl").trim() === selectedVariantTitle) {
+                        item.classList.remove("hidden");
+                        console.log("🔄 Mostrando imagen: " + item.getAttribute("data-grpvl"));
+                    }
+                });
+            });
+        });
+    }
 });
 
 </script>
