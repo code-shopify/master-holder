@@ -4636,7 +4636,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <script type="application/json" data-product-json>
   {{ product | json }}
+</script>
 
+<script>
+  
   // Detectar clic en los swatches de color
 document.querySelectorAll("[data-swatch-item]").forEach((swatch) => {
     swatch.addEventListener("click", function () {
