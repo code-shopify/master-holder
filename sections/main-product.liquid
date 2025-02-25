@@ -4639,49 +4639,67 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 <script>
-  
   // Detectar clic en los swatches de color
-document.querySelectorAll("[data-swatch-item]").forEach((swatch) => {
-    swatch.addEventListener("click", function () {
-        let selectedColor = this.getAttribute("data-value");
-        console.log("🎨 Color seleccionado:", selectedColor);
+  document.querySelectorAll("[data-swatch-item]").forEach((swatch) => {
+      swatch.addEventListener("click", function () {
+          let selectedColor = this.getAttribute("data-value");
+          console.log("🎨 Color seleccionado:", selectedColor);
 
-        // Obtener los datos del producto desde el JSON
-        let productData = JSON.parse(document.querySelector('script[type="application/json"][data-product-json]')?.textContent || "{}");
+          // Obtener los datos del producto desde el JSON
+          let productData = JSON.parse(document.querySelector('script[type="application/json"][data-product-json]')?.textContent || "{}");
 
-        // Buscar la variante correspondiente
-        let selectedVariant = productData.variants.find(v => v.option1 === selectedColor);
+          // Buscar la variante correspondiente
+          let selectedVariant = productData.variants.find(v => v.option1 === selectedColor);
 
-        if (selectedVariant) {
-            console.log("✅ Variante encontrada:", selectedVariant);
+          if (selectedVariant) {
+              console.log("✅ Variante encontrada:", selectedVariant);
 
-            // Actualizar el selector de variante en el formulario
-            let variantInput = document.querySelector("[name='id']");
-            if (variantInput) {
-                variantInput.value = selectedVariant.id;
-                console.log("🆕 Variante actualizada en el formulario:", selectedVariant.id);
+              // Actualizar el selector de variante en el formulario
+              let variantInput = document.querySelector("[name='id']");
+              if (variantInput) {
+                  variantInput.value = selectedVariant.id;
+                  console.log("🆕 Variante actualizada en el formulario:", selectedVariant.id);
 
-                // Disparar un evento para que Shopify actualice la imagen y el precio
-                let changeEvent = new Event("change", { bubbles: true });
-                variantInput.dispatchEvent(changeEvent);
+                  // Disparar un evento para que Shopify actualice la variante
+                  let changeEvent = new Event("change", { bubbles: true });
+                  variantInput.dispatchEvent(changeEvent);
 
-                // 🔄 Forzar la actualización de la variante en el tema
-                if (window.T4SThemeSP && typeof window.T4SThemeSP.Product !== "undefined") {
-                    console.log("🔄 Forzando actualización de la variante en el tema...");
-                   window.T4SThemeSP.Product && typeof window.T4SThemeSP.Product._updateMedia === "function"
-                        ? window.T4SThemeSP.Product._updateMedia(selectedVariant, {}, document)
-                        : console.warn("⚠️ No se encontró la función de actualización de imágenes.");
+                  // 🔄 Forzar la actualización de la imagen de la variante
+                  let mediaID = selectedVariant?.featured_media?.id;
+                  if (mediaID) {
+                      console.log("🖼️ Media ID encontrado:", mediaID);
 
-                } else {
-                    console.warn("⚠️ No se encontró la función de actualización de variantes en el tema.");
-                }
-            }
-        } else {
-            console.warn("⚠️ No se encontró una variante para el color:", selectedColor);
-        }
-    });
-});
+                      // Ocultar todas las imágenes del carrusel
+                      document.querySelectorAll("[data-main-slide]").forEach(img => img.classList.add("hidden"));
 
+                      // Mostrar la nueva imagen correspondiente
+                      let newImage = document.querySelector(`[data-media-id="${mediaID}"]`);
+                      if (newImage) {
+                          newImage.classList.remove("hidden");
+                          console.log("✅ Imagen actualizada correctamente:", mediaID);
+                      } else {
+                          console.warn("⚠️ No se encontró la imagen para el media ID:", mediaID);
+                      }
+                  } else {
+                      console.warn("⚠️ No se encontró media para la variante:", selectedVariant.id);
+                  }
+
+                  // 🔄 Intentar forzar la actualización del tema si tiene una función específica
+                  if (window.T4SThemeSP && typeof window.T4SThemeSP.Product !== "undefined") {
+                      console.log("🔄 Intentando forzar actualización con el tema...");
+                      if (typeof window.T4SThemeSP.Product._updateMedia === "function") {
+                          window.T4SThemeSP.Product._updateMedia(selectedVariant, {}, document);
+                      } else {
+                          console.warn("⚠️ No se encontró la función _updateMedia en el tema.");
+                      }
+                  }
+              }
+          } else {
+              console.warn("⚠️ No se encontró una variante para el color:", selectedColor);
+          }
+      });
+  });
 </script>
+
 
 
