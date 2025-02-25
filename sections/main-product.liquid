@@ -4648,56 +4648,48 @@ function updateProductGallery(variantId) {
             let parser = new DOMParser();
             let doc = parser.parseFromString(html, "text/html");
 
-            // Buscar la nueva galería de imágenes y los thumbnails en la respuesta AJAX
+            // Buscar la nueva galería y los thumbnails en la respuesta AJAX
             let newGallery = doc.querySelector("[data-main-media]");
             let newThumbnails = doc.querySelector(".t4s-carousel__nav");
 
-            let currentGallery = document.querySelector("[data-main-media]");
-            let currentThumbnails = document.querySelector(".t4s-carousel__nav");
+            if (newGallery) {
+                let currentGallery = document.querySelector("[data-main-media]");
+                if (currentGallery) {
+                    currentGallery.innerHTML = ""; // 🔥 Limpiar antes de insertar
+                    currentGallery.innerHTML = newGallery.innerHTML;
+                    console.log("✅ Galería actualizada correctamente.");
+                }
 
-            if (newGallery && currentGallery) {
-                // 🔥 1️⃣ ELIMINAR EVENTOS DE LA GALERÍA ANTES DE REEMPLAZAR
-                currentGallery.replaceWith(newGallery.cloneNode(true));
+                if (newThumbnails) {
+                    let currentThumbnails = document.querySelector(".t4s-carousel__nav");
+                    if (currentThumbnails) {
+                        currentThumbnails.innerHTML = ""; // 🔥 Limpiar antes de insertar
+                        currentThumbnails.innerHTML = newThumbnails.innerHTML;
+                        console.log("✅ Thumbnails actualizados.");
+                    }
+                }
 
-                console.log("✅ Galería actualizada correctamente.");
+                // 🛠️ Re-inicializar Flickity o Isotope si es necesario
+                setTimeout(() => reinitializeGallery(), 500);
             } else {
                 console.warn("⚠️ No se encontró la nueva galería.");
             }
-
-            if (newThumbnails && currentThumbnails) {
-                currentThumbnails.replaceWith(newThumbnails.cloneNode(true));
-                console.log("✅ Thumbnails actualizados.");
-            } else {
-                console.warn("⚠️ No se encontraron nuevos thumbnails.");
-            }
-
-            // 🔄 2️⃣ REINICIALIZAR FLICKITY O ISOTOPE PARA QUE FUNCIONE EL SLIDER
-            setTimeout(() => reinitializeGallery(), 500);
         })
         .catch(error => console.error("❌ Error al actualizar la galería:", error));
 }
 
-// 🛠️ Función para reiniciar la galería
+// 🔄 Re-inicializar la funcionalidad de la galería
 function reinitializeGallery() {
     let mainMedia = document.querySelector("[data-main-media]");
-    if (!mainMedia) return;
-
-    // 🔄 Si Flickity está presente, actualízalo
     if (mainMedia.classList.contains("flickityt4s-enabled")) {
         mainMedia.dispatchEvent(new Event("update.flickityt4s"));
-        console.log("🔄 Flickity actualizado.");
     }
-
-    // 🔄 Si Isotope está presente, actualízalo
     if (mainMedia.classList.contains("isotopet4s-enabled")) {
         mainMedia.dispatchEvent(new Event("update.isotopet4s"));
-        console.log("🔄 Isotope actualizado.");
     }
-
-    console.log("📸 Galería re-inicializada.");
 }
 
-// 📌 Escuchar el cambio de variante y actualizar la galería
+// 📌 Llamar a la función cada vez que cambie la variante
 document.querySelector("[name='id']").addEventListener("change", function () {
     let variantId = this.value;
     updateProductGallery(variantId);
