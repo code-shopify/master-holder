@@ -298,6 +298,13 @@ endif -%}
             -%}
           {{ 'slider-settings.css' | asset_url | stylesheet_tag }}
 
+
+
+
+
+
+
+
             
           <div class="t4s-row t4s-g-0" timeline hdt-reveal="slide-in">
 
@@ -305,17 +312,52 @@ endif -%}
             <div data-product-single-media-group class="{{ class_main }}t4s-col-12 t4s-col-item t4s-pr">
               <div data-t4s-gallery data-main-media data-t4s-thumb-true class="t4s-row t4s-g-0 t4s-slide-eff-{{ se_stts.eff }} flickityt4s t4s_{{ image_ratio }} t4s_position_{{ se_stts.image_position }} t4s_{{ se_stts.image_size }} t4s-flicky-slider {% if se_stts.nav_btn %} t4s-slider-btn-{{ se_stts.nav_btn }} t4s-slider-btn-style-{{ se_stts.btn_owl }} t4s-slider-btn-{{ se_stts.btn_shape }} t4s-slider-btn-{{ se_stts.btn_size }} t4s-slider-btn-cl-{{ se_stts.btn_cl }} t4s-slider-btn-vi-{{ se_stts.btn_vi }} t4s-slider-btn-hidden-mobile-{{ se_stts.btn_hidden_mobile }} {% endif %} {% if se_stts.nav_dot %} t4s-dots-style-{{ se_stts.dot_owl }} t4s-dots-cl-{{ se_stts.dots_cl }} t4s-dots-round-{{ se_stts.dots_round }} t4s-dots-hidden-mobile-{{ se_stts.dots_hidden_mobile }} {% endif %}" data-flickityt4s-js='{"t4sid": "{{ se_id }}", "status": true, "checkVisibility": false, "cellSelector": "[data-main-slide]:not(.is--media-hide)","isFilter":{{ canMedia_group }},"imagesLoaded": 0,"adaptiveHeight": 1, "contain": 1, "groupCells": "100%", "dragThreshold" : {% if se_stts.eff == 'fade' %}6{% else %}5{% endif %}, "cellAlign": "left","wrapAround": true,"prevNextButtons": {{ se_stts.nav_btn }},"percentPosition": 1,"pageDots": {{ se_stts.nav_dot }}, "autoPlay" : 0, "pauseAutoPlayOnHover" : true , "thumbNav": {% if media_layout != 'without_thumbnails' %}true{% else %}false{% endif %}, "thumbVertical": {% if media_layout != 'thumbnails_bottom' %}true{% else %}false{% endif %}, "isMedia": true }' style="--flickity-btn-pos: 0px;--flickity-btn-pos-mb: 0px;--space-dots: {{ se_stts.dots_space }}px;">
                 
-                  {%- liquid
-                    for media in product_media
-                      if media.preview_image and media.preview_image.alt contains 'break--360'
-                        break
-                      endif
-                      render 'product-thumbnail', media: media, imgatt: imgatt, variant_images: variant_images, loop: enable_video_looping, mute: enable_video_muting, autoplay: enable_video_autoplaying, height: height, se_id: se_id, isMediaHidden: isMediaHidden, current_option1: current_option1, current_option2: current_option2, current_option3: current_option3, ops_name: ops_name, ops_name_1: ops_name_1, ops_name_2: ops_name_2, ops_name_3: ops_name_3, class_pswp_disable: class_pswp_disable, variants_size: variants_size
-                    endfor
-                    if has_media_360
-                      render 'product-360', product: product, se_id: se_id
-                    endif
-                  -%}
+                
+                
+                {% comment %}
+                  Nuevo contenido
+                {% endcomment %}
+                    {%- for media in product_media -%}
+                        {%- if media.preview_image and media.preview_image.alt contains 'break--360' -%}
+                          {%- break -%}
+                        {%- endif -%}
+                      
+                        {%- assign media_color = media.preview_image.alt | downcase -%}
+                      
+                        <div class="t4s-col-item t4s-carousel_nav-item" data-media-color="{{ media_color }}">
+                          {%- render 'product-thumbnail', 
+                             product: product,
+                             media_color: media_color,
+                              media: media, 
+                              imgatt: imgatt, 
+                              variant_images: variant_images, 
+                              loop: enable_video_looping, 
+                              mute: enable_video_muting, 
+                              autoplay: enable_video_autoplaying, 
+                              height: height, 
+                              se_id: se_id, 
+                              isMediaHidden: isMediaHidden, 
+                              current_option1: current_option1, 
+                              current_option2: current_option2, 
+                              current_option3: current_option3, 
+                              ops_name: ops_name, 
+                              ops_name_1: ops_name_1, 
+                              ops_name_2: ops_name_2, 
+                              ops_name_3: ops_name_3, 
+                              class_pswp_disable: class_pswp_disable, 
+                              variants_size: variants_size 
+                          -%}
+                        </div>
+                      {%- endfor -%}
+                      
+                      {%- if has_media_360 -%}
+                        {%- render 'product-360', product: product, se_id: se_id -%}
+                      {%- endif -%}
+                {% comment %}
+                  Fin Nuevo contenido
+                {% endcomment %}
+
+                
                 {%- if se_stts.nav_dot and se_stts.dot_owl == 'number' -%}
                   <div class="flickityt4s-page-dots t4s-dots-list carousel--status{{ se_id }}"><span data-current-slide></span> / <span data-total-number></span></div>
                 {%- endif -%}
@@ -323,7 +365,15 @@ endif -%}
               <div data-product-single-badge data-sort="sale,new,soldout,preOrder,custom" class="t4s-single-product-badge lazyloadt4s t4s-pa t4s-pe-none t4s-op-0" data-rendert4s="css:{{ 'single-pr-badge.css' | asset_url }}"></div>
               {%- render 'product-btns', se_stts: se_stts, product: product -%}
             </div>
-             
+
+    
+
+
+
+
+            
+             {% comment %}
+              Código Original
               {%- if media_layout != 'without_thumbnails' -%}
               <div class="{{ class_thumb }}t4s-col-12 t4s-col-item t4s-col-thumb t4s-pr t4s-oh">
                 <div data-thumb__scroller="{{ se_id }}" class="t4s-carousel__nav-scroller is__position-{{ media_layout | remove: 'thumbnails_' }}">
@@ -337,6 +387,42 @@ endif -%}
                 <button type="button" data-thumb-btn__next="{{ se_id }}" aria-label="Next" class="btn_pnav_next t4s-pa t4s-pe-none t4s-op-0"></button>
               </div>
               {%- endif -%}
+            {% endcomment %}
+
+            {% comment %}
+              Nuevo contenido
+            {% endcomment %}
+              {%- if media_layout != 'without_thumbnails' -%}
+                <div class="{{ class_thumb }}t4s-col-12 t4s-col-item t4s-col-thumb t4s-pr t4s-oh">
+                  <div data-thumb__scroller="{{ se_id }}" class="t4s-carousel__nav-scroller is__position-{{ media_layout | remove: 'thumbnails_' }}">
+                    <div class="t4s-row t4s-row-mt t4s-row-cols-4 t4s_{{ image_ratio }} t4s_position_{{ se_stts.image_position }} t4s_{{ se_stts.image_size }} {{ class_gx_lg }}t4s-g-5 t4s-carousel__nav carousel__nav--{{ se_id }} carousel__nav-hover1">
+                      
+                      {%- for media in product_media limit: 4 -%}
+                        {%- assign image = media.preview_image -%}
+                        {%- assign media_color = media.preview_image.alt | downcase -%}
+              
+                        <div class="t4s-col-item t4s-product__thumb-item" data-media-color="{{ media_color }}">
+                          <div class="t4s_ratio t4s-product__thumb" {{ imgatt }} style="--aspect-ratioapt:{{ image.aspect_ratio }}">
+                            <img alt="{{ media.preview_image.alt }}" class="lazyautosizes lazyloaded lazyloadt4sed" data-src="{{ image | img_url: '100x' }}">
+                          </div>
+                        </div>
+                      {%- endfor -%}
+              
+                    </div>
+                  </div>
+                  {% if product.metafields.custom.imagen_fija %}
+                   <a class="imagen-fija" >{% render "imagen-galeria-fix" %}</a>
+                  {% endif %}
+                  <button type="button" data-thumb-btn__prev="{{ se_id }}" aria-label="Previous" class="btn_pnav_prev t4s-pa t4s-pe-none t4s-op-0"></button>
+                  <button type="button" data-thumb-btn__next="{{ se_id }}" aria-label="Next" class="btn_pnav_next t4s-pa t4s-pe-none t4s-op-0"></button>
+                </div>
+
+                
+                
+              {%- endif -%}
+            {% comment %}
+              Fin Nuevo contenido
+            {% endcomment %}
           </div>
 
           {%- when 'one_column' or 'two_columns' or 'combined_grid' -%}
@@ -1023,7 +1109,84 @@ endif -%}
     {{ product.media | where: 'media_type', 'model' | json }}
   </script>
 {%- endunless -%}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("👀 Observando cambios en el DOM...");
 
+    const observer = new MutationObserver(function (mutationsList, observer) {
+        const swatches = document.querySelectorAll("[data-value]");
+
+        if (swatches.length > 0) {
+            console.log("✅ Swatches detectados, ejecutando script...");
+            observer.disconnect(); // Detiene la observación después de encontrar los swatches
+            iniciarFiltrado();
+        }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    function iniciarFiltrado() {
+        const swatches = document.querySelectorAll("[data-value]");
+
+        swatches.forEach(swatch => {
+            swatch.addEventListener("click", function () {
+                let selectedColor = swatch.getAttribute("data-value").trim().toLowerCase();
+                console.log("🎨 Color seleccionado:", selectedColor);
+
+                const allImages = document.querySelectorAll("[data-media-color]");
+                const allThumbnails = document.querySelectorAll(".t4s-carousel__nav-item img");
+
+                // Oculta imágenes que no corresponden al color seleccionado
+                allImages.forEach(img => {
+                    let imgColor = img.getAttribute("data-media-color").trim().toLowerCase();
+                    img.style.display = imgColor.replace(/\s+/g, '') === selectedColor.replace(/\s+/g, '') ? "block" : "none";
+                });
+
+                // Oculta miniaturas de otras variantes
+                allThumbnails.forEach(thumbnail => {
+                    let thumbColor = thumbnail.getAttribute("alt");
+                    if (thumbColor) {
+                        thumbColor = thumbColor.trim().toLowerCase();
+                        let parentThumbnail = thumbnail.closest(".t4s-carousel__nav-item"); // Encuentra el contenedor de la miniatura
+                        if (parentThumbnail) {
+                            parentThumbnail.style.display = thumbColor.replace(/\s+/g, '') === selectedColor.replace(/\s+/g, '') ? "block" : "none";
+                        }
+                    }
+                });
+            });
+        });
+
+        // Configurar visibilidad inicial con el color por defecto
+        let defaultSwatch = document.querySelector("[data-value].is--selected");
+        if (defaultSwatch) {
+            let defaultColor = defaultSwatch.getAttribute("data-value").trim().toLowerCase();
+            console.log("🎨 Color por defecto:", defaultColor);
+
+            const allImages = document.querySelectorAll("[data-media-color]");
+            const allThumbnails = document.querySelectorAll(".t4s-carousel__nav-item img");
+
+            allImages.forEach(img => {
+                let imgColor = img.getAttribute("data-media-color").trim().toLowerCase();
+                img.style.display = imgColor.replace(/\s+/g, '') === defaultColor.replace(/\s+/g, '') ? "block" : "none";
+            });
+
+            allThumbnails.forEach(thumbnail => {
+                let thumbColor = thumbnail.getAttribute("alt");
+                if (thumbColor) {
+                    thumbColor = thumbColor.trim().toLowerCase();
+                    let parentThumbnail = thumbnail.closest(".t4s-carousel__nav-item");
+                    if (parentThumbnail) {
+                        parentThumbnail.style.display = thumbColor.replace(/\s+/g, '') === defaultColor.replace(/\s+/g, '') ? "block" : "none";
+                    }
+                }
+            });
+        }
+    }
+});
+
+
+
+</script>
         
 {%- schema -%}
 {
@@ -4472,5 +4635,36 @@ endif -%}
 {% endschema %}
 
 <script>
- 
+document.addEventListener("DOMContentLoaded", function () {
+    const swatches = document.querySelectorAll("[data-swatch-item]");
+
+    if (swatches.length > 0) {
+        swatches.forEach((swatch) => {
+            swatch.addEventListener("click", function () {
+                // Simulamos el evento de cambio de variante
+                const event = new CustomEvent("variant:changed", {
+                    detail: {
+                        currentVariant: window.T4SThemeSP?.currentVariant,
+                        oldVariant: window.T4SThemeSP?.oldVariant,
+                    },
+                });
+
+                // Disparamos el evento en el contenedor principal del producto
+                const productContainer = document.querySelector(".t4s-main-product__content");
+                if (productContainer) {
+                    productContainer.dispatchEvent(event);
+                }
+
+                // Si el tema ya tiene una función de actualización, la ejecutamos
+                if (typeof window.T4SThemeSP?._updateMedia === "function") {
+                    const newVariant = window.T4SThemeSP?.currentVariant;
+                    const oldVariant = window.T4SThemeSP?.oldVariant;
+                    const productContainer = document.querySelector(".t4s-main-product__content");
+
+                    window.T4SThemeSP._updateMedia(newVariant, oldVariant, productContainer);
+                }
+            });
+        });
+    }
+});
 </script>
