@@ -4668,6 +4668,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.warn("⚠️ No se encontraron nuevos thumbnails.");
             }
 
+            console.log("📸 Nueva Galería:", newGallery);
+            console.log("🖼️ Nuevos Thumbnails:", newThumbnails);
+          
             // 🔄 REINICIALIZAR FLICKITY PARA QUE EL SLIDER FUNCIONE BIEN
             setTimeout(() => reinitializeGallery(), 500);
         })
