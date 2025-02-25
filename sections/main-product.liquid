@@ -4676,6 +4676,23 @@ function updateProductGallery(variantId) {
         .catch(error => console.error("❌ Error al cargar la galería:", error));
 }
 
+  function reattachThumbnailEvents() {
+    document.querySelectorAll(".t4s-carousel__nav-item").forEach(thumbnail => {
+        thumbnail.addEventListener("click", function() {
+            let mediaId = this.getAttribute("data-media-id");
+            let mainImage = document.querySelector(`[data-main-media] [data-media-id='${mediaId}']`);
+            
+            if (mainImage) {
+                document.querySelectorAll("[data-main-media] [data-main-slide]").forEach(img => img.classList.add("hidden"));
+                mainImage.classList.remove("hidden");
+                console.log("✅ Imagen principal cambiada desde thumbnails");
+            } else {
+                console.warn("⚠️ No se encontró la imagen para este thumbnail.");
+            }
+        });
+    });
+}
+
 </script>
 
 
