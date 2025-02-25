@@ -4668,7 +4668,10 @@ document.querySelectorAll("[data-swatch-item]").forEach((swatch) => {
                 // 🔄 Forzar la actualización de la variante en el tema
                 if (window.T4SThemeSP && typeof window.T4SThemeSP.Product !== "undefined") {
                     console.log("🔄 Forzando actualización de la variante en el tema...");
-                    window.T4SThemeSP.Product._onSelectChange();
+                   window.T4SThemeSP.Product && typeof window.T4SThemeSP.Product._updateMedia === "function"
+                        ? window.T4SThemeSP.Product._updateMedia(selectedVariant, {}, document)
+                        : console.warn("⚠️ No se encontró la función de actualización de imágenes.");
+
                 } else {
                     console.warn("⚠️ No se encontró la función de actualización de variantes en el tema.");
                 }
