@@ -12,38 +12,43 @@ jQuery_T4NT(document).ready(function($) {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    const swatches = document.querySelectorAll("[data-swatch-item]");
+    document.querySelectorAll("[data-swatch-item]").forEach(swatch => {
+        swatch.addEventListener("click", function () {
+            const selectedValue = this.getAttribute("data-value");
 
-    if (swatches.length > 0) {
-        swatches.forEach((swatch) => {
-            swatch.addEventListener("click", function () {
-                // Simulamos el evento de cambio de variante
-                const event = new CustomEvent("variant:changed", {
-                    detail: {
-                        currentVariant: window.T4SThemeSP?.currentVariant,
-                        oldVariant: window.T4SThemeSP?.oldVariant,
-                    },
-                });
+            // Obtener el ID de la variante seleccionada desde el input oculto
+            const selectedVariantId = document.querySelector("[name='id']")?.value;
 
-                // Disparamos el evento en el contenedor principal del producto
-                const productContainer = document.querySelector(".t4s-main-product__content");
-                if (productContainer) {
-                    productContainer.dispatchEvent(event);
+            // Buscar la variante correspondiente
+            const newVariant = window.T4SThemeSP?.variants?.find(v => v.id == selectedVariantId);
+
+            if (newVariant) {
+                console.log("Variant selected:", newVariant);
+
+                // Actualizar la variable global
+                window.T4SThemeSP.oldVariant = window.T4SThemeSP.currentVariant;
+                window.T4SThemeSP.currentVariant = newVariant;
+
+                // Disparar evento de cambio de variante
+                document.querySelector(".t4s-main-product__content").dispatchEvent(
+                    new CustomEvent("variant:changed", {
+                        detail: {
+                            currentVariant: newVariant,
+                            oldVariant: window.T4SThemeSP.oldVariant
+                        }
+                    })
+                );
+
+                // Actualizar las imágenes de la variante seleccionada
+                if (typeof window.T4SThemeSP._updateMedia === "function") {
+                    window.T4SThemeSP._updateMedia(newVariant, window.T4SThemeSP.oldVariant, document.querySelector(".t4s-main-product__content"));
                 }
 
-                // Si el tema ya tiene una función de actualización, la ejecutamos
-                if (typeof window.T4SThemeSP?._updateMedia === "function") {
-                    const newVariant = window.T4SThemeSP?.currentVariant;
-                    const oldVariant = window.T4SThemeSP?.oldVariant;
-                    const productContainer = document.querySelector(".t4s-main-product__content");
-
-                    window.T4SThemeSP._updateMedia(newVariant, oldVariant, productContainer);
-                }
-            });
+                console.log("Updated Current Variant:", window.T4SThemeSP.currentVariant);
+            } else {
+                console.error("No variant found for selected ID:", selectedVariantId);
+            }
         });
-    }
+    });
 });
-
-
-
 
