@@ -17,6 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Seleccionamos todos los swatches de color
     let swatchItems = document.querySelectorAll("[data-swatch-item]");
 
+  console.log("HOla")
+
     swatchItems.forEach(swatch => {
         swatch.addEventListener("click", function () {
             let selectedColor = this.getAttribute("data-value"); // Obtiene el nombre del color seleccionado
