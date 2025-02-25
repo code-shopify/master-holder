@@ -12,43 +12,45 @@ jQuery_T4NT(document).ready(function($) {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll("[data-swatch-item]").forEach(swatch => {
+    // Seleccionamos todos los swatches de color
+    let swatchItems = document.querySelectorAll("[data-swatch-item]");
+
+    swatchItems.forEach(swatch => {
         swatch.addEventListener("click", function () {
-            const selectedValue = this.getAttribute("data-value");
+            let selectedColor = this.getAttribute("data-value"); // Obtiene el nombre del color seleccionado
+            let productData = JSON.parse(document.querySelector('script[type="application/json"][data-product-json]')?.textContent || "{}");
+            
+            if (!productData.variants) return;
 
-            // Obtener el ID de la variante seleccionada desde el input oculto
-            const selectedVariantId = document.querySelector("[name='id']")?.value;
+            // Encuentra la variante correspondiente al color seleccionado
+            let selectedVariant = productData.variants.find(variant => variant.option1 === selectedColor);
 
-            // Buscar la variante correspondiente
-            const newVariant = window.T4SThemeSP?.variants?.find(v => v.id == selectedVariantId);
+            if (selectedVariant) {
+                // Actualizar el input oculto de Shopify con el nuevo ID de variante
+                let variantInput = document.querySelector("input[name='id']");
+                if (variantInput) variantInput.value = selectedVariant.id;
 
-            if (newVariant) {
-                console.log("Variant selected:", newVariant);
-
-                // Actualizar la variable global
-                window.T4SThemeSP.oldVariant = window.T4SThemeSP.currentVariant;
-                window.T4SThemeSP.currentVariant = newVariant;
-
-                // Disparar evento de cambio de variante
-                document.querySelector(".t4s-main-product__content").dispatchEvent(
-                    new CustomEvent("variant:changed", {
-                        detail: {
-                            currentVariant: newVariant,
-                            oldVariant: window.T4SThemeSP.oldVariant
-                        }
-                    })
-                );
-
-                // Actualizar las imágenes de la variante seleccionada
-                if (typeof window.T4SThemeSP._updateMedia === "function") {
-                    window.T4SThemeSP._updateMedia(newVariant, window.T4SThemeSP.oldVariant, document.querySelector(".t4s-main-product__content"));
+                // Actualizar la imagen principal del producto
+                let mainImage = document.querySelector(".t4s-product__media img");
+                if (mainImage && selectedVariant.featured_image) {
+                    mainImage.src = selectedVariant.featured_image.src;
+                    mainImage.setAttribute("data-src", selectedVariant.featured_image.src);
                 }
 
-                console.log("Updated Current Variant:", window.T4SThemeSP.currentVariant);
-            } else {
-                console.error("No variant found for selected ID:", selectedVariantId);
+                // Actualizar miniaturas de imágenes
+                let thumbnails = document.querySelectorAll(".t4s-product__media-item img");
+                thumbnails.forEach(thumb => {
+                    let imgSrc = selectedVariant.featured_image ? selectedVariant.featured_image.src : "";
+                    if (imgSrc) {
+                        thumb.src = imgSrc;
+                        thumb.setAttribute("data-src", imgSrc);
+                    }
+                });
+
+                console.log("Variante actualizada:", selectedVariant);
             }
         });
     });
 });
+
 
