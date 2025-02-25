@@ -4,49 +4,49 @@ assign image         = media.preview_image
 assign img_alt       = image.alt
 
 if img_alt contains '_' and variants_size > 1
-	assign arr_alt = img_alt | replace: ' | ', ' |' | replace: ' | ', ' |' | replace: ' |', ' |' | split: '|'
-	assign img_alt = arr_alt[1] | default: product.title
+  assign arr_alt = img_alt | replace: ' | ', ' |' | replace: ' | ', ' |' | replace: ' |', ' |' | split: '|'
+  assign img_alt = arr_alt[1] | default: product.title
 
-    if arr_alt[0] contains 't4option'
-		assign arr_alt_index   = arr_alt[0] | remove: 't4option' | split: '_'
-		assign index_alt_first = arr_alt_index | first | plus: 0
-		assign index_alt_last  = arr_alt_index | last | plus: 0
-	    
-        if index_alt_first == 0
-			assign ops_name_arr = ops_name_1
-			assign index        = 1
-	    elsif index_alt_first == 1
-         	assign ops_name_arr = ops_name_2
-			assign index        = 2
-        else
-         	assign ops_name_arr = ops_name_3
-			assign index        = 3
-        endif
+  if arr_alt[0] contains 't4option'
+    assign arr_alt_index   = arr_alt[0] | remove: 't4option' | split: '_'
+    assign index_alt_first = arr_alt_index | first | plus: 0
+    assign index_alt_last  = arr_alt_index | last | plus: 0
 
-	    assign grname  = ops_name[index_alt_first] | strip | downcase
-	    assign grpvl   = ops_name_arr[index_alt_last] | strip | downcase
+    if index_alt_first == 0
+      assign ops_name_arr = ops_name_1
+      assign index        = 1
+    elsif index_alt_first == 1
+      assign ops_name_arr = ops_name_2
+      assign index        = 2
     else
-	    assign var_alt = arr_alt[0] | split: '_'
-	    assign grname  = var_alt | first | strip | downcase
-	    assign grpvl   = var_alt | last | strip | downcase
-	    assign index   = product.options_by_name[grname].position | default: 0
+      assign ops_name_arr = ops_name_3
+      assign index        = 3
     endif
 
-	# 🔴 Aquí corregimos el uso de case/when a if/elsif
-	assign currentValue = ""
+    assign grname  = ops_name[index_alt_first] | strip | downcase
+    assign grpvl   = ops_name_arr[index_alt_last] | strip | downcase
+  else
+    assign var_alt = arr_alt[0] | split: '_'
+    assign grname  = var_alt | first | strip | downcase
+    assign grpvl   = var_alt | last | strip | downcase
+    assign index   = product.options_by_name[grname].position | default: 0
+  endif
 
-	if index == 1
-		assign currentValue = current_option1
-	elsif index == 2
-		assign currentValue = current_option2
-	elsif index == 3
-		assign currentValue = current_option3
-	endif
+  assign currentValue = ""
 
-	# Validación final
-	if currentValue == grpvl and currentValue != blank
-	  assign isMediaHidden = ''
-	endif
+  if index == 1
+    assign currentValue = product.selected_or_first_available_variant.option1
+  elsif index == 2
+    assign currentValue = product.selected_or_first_available_variant.option2
+  elsif index == 3
+    assign currentValue = product.selected_or_first_available_variant.option3
+  endif
+
+  if currentValue == grpvl and currentValue != blank
+    assign isMediaHidden = ''
+  else
+    assign isMediaHidden = 'hidden'
+  endif
 endif
 
 assign img_alt = img_alt | escape
@@ -55,15 +55,12 @@ assign img_alt = img_alt | escape
 {%- capture image_size %}{{ height }}x{{ height }}{% endcapture -%}
 
 {%- if media_type == 'image' -%}
-  {% if img_alt  == product.selected_or_first_available_variant.title  %} 
-    <div data-product-single-media-wrapper data-main-slide class="{{ class_col }}t4s-col-12 t4s-col-item t4s-product__media-item {{ isMediaHidden }}{% if variant_images contains media.src %} t4s-product__media-item--variant{% endif %}" data-media-id="{{ media.id }}" data-nt-media-id="{{ se_id }}-{{ media.id }}" data-media-type="{{ media.media_type }}" data-grname="{{ grname | escape }}" data-grpvl="{{ grpvl | escape }}">
-    	<div data-t4s-gallery--open class="t4s_ratio t4s-product__media{{ class_pswp_disable }}" {{ imgatt }}style="--aspect-ratioapt:{{ image.aspect_ratio }};--mw-media:{{ image.width }}px">
-    		<noscript>{{ image | image_url: width: image_size | image_tag: widths: '288, 576, 750, 1100, 1500', alt: img_alt, class: 't4s-img-noscript', loading: 'lazy', sizes: '(min-width: 1500px) 1500px, (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw - 4rem)' }}</noscript>
-            <img data-master="{{ image | image_url }}" class="lazyloadt4s t4s-lz--fadeIn" data-src="{{ image | image_url: width: 1 }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg', w: image.width, h: image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ img_alt }}">
-            {% comment %}
-              <h1>{{ img_alt }}</h1>
-            {% endcomment %}
-    	</div>
+  {% if variant_images contains media.src or img_alt contains product.selected_or_first_available_variant.option1 %}
+    <div data-product-single-media-wrapper data-main-slide class="{{ class_col }}t4s-col-12 t4s-col-item t4s-product__media-item {{ isMediaHidden }}" data-media-id="{{ media.id }}" data-nt-media-id="{{ se_id }}-{{ media.id }}" data-media-type="{{ media.media_type }}" data-grname="{{ grname | escape }}" data-grpvl="{{ grpvl | escape }}">
+      <div data-t4s-gallery--open class="t4s_ratio t4s-product__media{{ class_pswp_disable }}" {{ imgatt }}style="--aspect-ratioapt:{{ image.aspect_ratio }};--mw-media:{{ image.width }}px">
+        <noscript>{{ image | image_url: width: image_size | image_tag: widths: '288, 576, 750, 1100, 1500', alt: img_alt, class: 't4s-img-noscript', loading: 'lazy' }}</noscript>
+        <img data-master="{{ image | image_url }}" class="lazyloadt4s t4s-lz--fadeIn" data-src="{{ image | image_url: width: 1 }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg', w: image.width, h: image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ img_alt }}">
+      </div>
     </div>
   {% endif %}
   
