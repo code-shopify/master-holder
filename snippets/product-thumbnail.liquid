@@ -32,7 +32,7 @@ if img_alt contains '_' and variants_size > 1
 	    assign index   = product.options_by_name[grname].position | default: 0
     endif
 
-	# ✅ Manteniendo case/when en lugar de if/elsif
+
 	case index
 		when 1
 			assign currentValue = current_option1
@@ -42,7 +42,7 @@ if img_alt contains '_' and variants_size > 1
 			assign currentValue = current_option3
 	endcase
 
-	# ✅ Filtramos imágenes que solo correspondan al color seleccionado
+
 	if img_alt contains product.selected_or_first_available_variant.option1
 	  assign isMediaHidden = ''
 	else
@@ -86,7 +86,7 @@ assign img_alt = img_alt | escape
   
 </style>
 
-<sript>
+<script>
   document.addEventListener("DOMContentLoaded", function() {
     var variantSelectors = document.querySelectorAll("[name='id']");
     
@@ -111,4 +111,4 @@ assign img_alt = img_alt | escape
     }
 });
 
-</sript>
+</script>
