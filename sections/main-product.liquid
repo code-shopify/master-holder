@@ -4639,69 +4639,6 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 <script>
-function updateProductGallery(variantId) {
-    let productUrl = window.location.pathname + `?variant=${variantId}&section_id=main-product`;
-
-    fetch(productUrl)
-        .then(response => response.text())
-        .then(html => {
-            let parser = new DOMParser();
-            let doc = parser.parseFromString(html, "text/html");
-
-            // Buscar la nueva galería de imágenes y los thumbnails en la respuesta AJAX
-            let newGallery = doc.querySelector("[data-main-media]");
-            let newThumbnails = doc.querySelector(".t4s-carousel__nav");
-
-            let currentGallery = document.querySelector("[data-main-media]");
-            let currentThumbnails = document.querySelector(".t4s-carousel__nav");
-
-            if (newGallery && currentGallery) {
-                // 🔥 1️⃣ ELIMINAR EVENTOS DE LA GALERÍA ANTES DE REEMPLAZAR
-                currentGallery.replaceWith(newGallery.cloneNode(true));
-
-                console.log("✅ Galería actualizada correctamente.");
-            } else {
-                console.warn("⚠️ No se encontró la nueva galería.");
-            }
-
-            if (newThumbnails && currentThumbnails) {
-                currentThumbnails.replaceWith(newThumbnails.cloneNode(true));
-                console.log("✅ Thumbnails actualizados.");
-            } else {
-                console.warn("⚠️ No se encontraron nuevos thumbnails.");
-            }
-
-            // 🔄 2️⃣ REINICIALIZAR FLICKITY O ISOTOPE PARA QUE FUNCIONE EL SLIDER
-            setTimeout(() => reinitializeGallery(), 500);
-        })
-        .catch(error => console.error("❌ Error al actualizar la galería:", error));
-}
-
-// 🛠️ Función para reiniciar la galería
-function reinitializeGallery() {
-    let mainMedia = document.querySelector("[data-main-media]");
-    if (!mainMedia) return;
-
-    // 🔄 Si Flickity está presente, actualízalo
-    if (mainMedia.classList.contains("flickityt4s-enabled")) {
-        mainMedia.dispatchEvent(new Event("update.flickityt4s"));
-        console.log("🔄 Flickity actualizado.");
-    }
-
-    // 🔄 Si Isotope está presente, actualízalo
-    if (mainMedia.classList.contains("isotopet4s-enabled")) {
-        mainMedia.dispatchEvent(new Event("update.isotopet4s"));
-        console.log("🔄 Isotope actualizado.");
-    }
-
-    console.log("📸 Galería re-inicializada.");
-}
-
-// 📌 Escuchar el cambio de variante y actualizar la galería
-document.querySelector("[name='id']").addEventListener("change", function () {
-    let variantId = this.value;
-    updateProductGallery(variantId);
-});
 
 </script>
 
