@@ -4680,16 +4680,18 @@ document.addEventListener("DOMContentLoaded", function () {
 // 🛠️ Reinicializar Flickity para que el slider funcione correctamente
 function reinitializeGallery() {
     let mainMedia = document.querySelector("[data-t4s-gallery]");
+    console.log("🔄 Verificando galería para reiniciar Flickity:", mainMedia);
+
     if (!mainMedia) return;
 
-    // 🔄 Si Flickity está presente, actualizarlo
     if (mainMedia.classList.contains("flickityt4s-enabled")) {
         mainMedia.dispatchEvent(new Event("update.flickityt4s"));
-        console.log("🔄 Flickity actualizado.");
+        console.log("🔥 Flickity actualizado correctamente.");
+    } else {
+        console.warn("⚠️ Flickity no está presente.");
     }
-
-    console.log("📸 Galería re-inicializada.");
 }
+
 
 // 📌 Detectar cambio de variante y actualizar la galería
 document.querySelector("[name='id']").addEventListener("change", function () {
