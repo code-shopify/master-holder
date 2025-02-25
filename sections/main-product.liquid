@@ -4640,7 +4640,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <script>
 function updateProductGallery(variantId) {
-    let productUrl = window.location.pathname + `?variant=${variantId}&section_id=main-product`; 
+    let productUrl = window.location.pathname + `?variant=${variantId}&section_id=main-product`;
 
     fetch(productUrl)
         .then(response => response.text())
@@ -4648,33 +4648,45 @@ function updateProductGallery(variantId) {
             let parser = new DOMParser();
             let doc = parser.parseFromString(html, "text/html");
 
-            // 🖼️ Obtener nueva galería principal
+            // Buscar la nueva galería en la respuesta AJAX
             let newGallery = doc.querySelector("[data-main-media]");
-            let newThumbnails = doc.querySelector(".t4s-carousel__nav"); // Ajusta el selector de thumbnails
+            let newThumbnails = doc.querySelector(".t4s-carousel__nav");
 
             if (newGallery) {
+                // Reemplazar la galería en el DOM
                 document.querySelector("[data-main-media]").innerHTML = newGallery.innerHTML;
-                console.log("✅ Galería principal actualizada");
+                console.log("✅ Galería actualizada");
 
                 if (newThumbnails) {
                     document.querySelector(".t4s-carousel__nav").innerHTML = newThumbnails.innerHTML;
                     console.log("✅ Thumbnails actualizados");
-                } else {
-                    console.warn("⚠️ No se encontraron nuevos thumbnails");
                 }
 
-                // 🔄 Reiniciar Flickity o Isotope si los thumbnails usan sliders
-                document.querySelector("[data-main-media]")?.dispatchEvent(new Event("update.flickityt4s"));
-                document.querySelector("[data-main-media]")?.dispatchEvent(new Event("update.isotopet4s"));
-                
-                // 🚀 Volver a enlazar eventos de los thumbnails
-                setTimeout(() => reattachThumbnailEvents(), 500);
+                // Re-inicializar scripts o eventos de thumbnails si es necesario
+                setTimeout(() => reinitializeGallery(), 500);
             } else {
-                console.warn("⚠️ No se encontró la nueva galería en la respuesta AJAX.");
+                console.warn("⚠️ No se encontró la nueva galería.");
             }
         })
-        .catch(error => console.error("❌ Error al cargar la galería:", error));
+        .catch(error => console.error("❌ Error al actualizar la galería:", error));
 }
+
+// 🔄 Re-inicializar la funcionalidad de la galería si usa Flickity o Isotope
+function reinitializeGallery() {
+    let mainMedia = document.querySelector("[data-main-media]");
+    if (mainMedia.classList.contains("flickityt4s-enabled")) {
+        mainMedia.dispatchEvent(new Event("update.flickityt4s"));
+    }
+    if (mainMedia.classList.contains("isotopet4s-enabled")) {
+        mainMedia.dispatchEvent(new Event("update.isotopet4s"));
+    }
+}
+
+// 📌 Llamar a la función cada vez que cambie la variante
+document.querySelector("[name='id']").addEventListener("change", function () {
+    let variantId = this.value;
+    updateProductGallery(variantId);
+});
 
 </script>
 
