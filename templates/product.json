@@ -159,7 +159,7 @@
         "enable_sticky_info": false,
         "media_layout": "thumbnails_left",
         "media_size": "medium",
-        "thumb_lr_size": "medium",
+        "thumb_lr_size": "large",
         "image_ratio": "ratioadapt",
         "image_size": "cover",
         "image_position": "8",
