@@ -1021,11 +1021,12 @@
               "menu": "tienda",
               "item_fsize": 13,
               "sp_bettewn_item": 20,
-              "col": "3"
+              "col": "1"
             }
           },
           "2ceac397-4b2b-4740-a477-707dd2680e02": {
             "type": "link",
+            "disabled": true,
             "settings": {
               "tt_hd": "HOME PAGES",
               "url": "",
@@ -1038,6 +1039,7 @@
           },
           "1f90cea5-04fb-4ef3-822b-5f987845e5c4": {
             "type": "link",
+            "disabled": true,
             "settings": {
               "tt_hd": "HEADER LAYOUTS",
               "url": "",
@@ -1050,6 +1052,7 @@
           },
           "6122e966-0272-4c46-a1a0-051bdc2ae08c": {
             "type": "link",
+            "disabled": true,
             "settings": {
               "tt_hd": "FEATURES",
               "url": "",
