@@ -1,8 +1,19 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "heading": {
       "type": "heading-template",
       "settings": {
+        "heading_fullwidth": false,
+        "use_specify_image": true,
         "parallax": false,
         "color": "#000000",
         "overlay": 54,
@@ -26,6 +37,8 @@
         "cl_bg_gradient": "",
         "mg": "60px,,60px,",
         "pd": "",
+        "mg_tb": "",
+        "pd_tb": "",
         "mg_mb": ",,30px,",
         "pd_mb": ""
       }
@@ -55,11 +68,27 @@
         "sidebar_bdr": 5,
         "sidebar_pd": 10
       }
+    },
+    "custom_liquid_nitRTx": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<style>\n    /* Contenedor general */\n    .contenedor {\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        gap: 20px;\n        padding: 20px;\n    }\n\n    /* Contenedor de filtros */\n    .filtro-container {\n        display: flex;\n        flex-wrap: wrap;\n        justify-content: center;\n        gap: 10px;\n        margin-bottom: 20px;\n    }\n\n    /* Botones de filtro */\n    .btn-filtro {\n        padding: 10px 15px;\n        font-size: 14px;\n        border: none;\n        border-radius: 5px;\n        cursor: pointer;\n        background: #007bff;\n        color: white;\n        transition: background 0.2s;\n    }\n\n    .btn-filtro:hover, .btn-filtro.active {\n        background: #0056b3;\n    }\n\n    /* Grid de tarjetas */\n    .grid-distribuidores {\n        display: grid;\n        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n        gap: 20px;\n        width: 100%;\n        max-width: 1200px;\n    }\n\n    /* Tarjetas */\n    .tarjeta {\n        background: white;\n        padding: 15px;\n        border-radius: 8px;\n        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);\n        transition: transform 0.2s;\n        text-align: center;\n    }\n\n    .tarjeta:hover {\n        transform: scale(1.03);\n    }\n\n    .tarjeta img {\n        width: 80px;\n        height: 80px;\n        object-fit: contain;\n        border-radius: 8px;\n        margin-bottom: 10px;\n    }\n\n    .tarjeta h3 {\n        font-size: 18px;\n        margin: 5px 0;\n    }\n\n    .tarjeta p {\n        font-size: 14px;\n        color: #666;\n        margin: 3px 0;\n    }\n\n    .btn-como-llegar {\n        display: inline-block;\n        text-align: center;\n        background: #28a745;\n        color: white;\n        padding: 10px 15px;\n        border-radius: 5px;\n        text-decoration: none;\n        margin-top: 10px;\n    }\n\n    .btn-como-llegar:hover {\n        background: #1e7e34;\n    }\n\n</style>\n\n<div class=\"contenedor\">\n    <!-- Filtro de ciudades con botones -->\n    <div id=\"filtro-container\" class=\"filtro-container\">\n        <button class=\"btn-filtro active\" data-ciudad=\"todas\" onclick=\"filtrarPorCiudad('todas')\">Todas</button>\n    </div>\n\n    <!-- Grid de tarjetas -->\n    <div id=\"grid-distribuidores\" class=\"grid-distribuidores\"></div>\n</div>\n\n<script>\n    document.addEventListener(\"DOMContentLoaded\", function() {\n        var distribuidores = {{ shop.metaobjects.distribuidor.values | json }};\n        var gridDistribuidores = document.getElementById(\"grid-distribuidores\");\n        var filtroContainer = document.getElementById(\"filtro-container\");\n\n        if (!distribuidores || distribuidores.length === 0) {\n            console.error(\"No se encontraron distribuidores en Shopify.\");\n            return;\n        }\n\n        var ciudadesUnicas = new Set();\n\n        function renderizarDistribuidores(ciudadFiltro = \"todas\") {\n            gridDistribuidores.innerHTML = \"\";\n\n            distribuidores.forEach(function(distribuidor) {\n                var ciudad = distribuidor.ciudad;\n                ciudadesUnicas.add(ciudad);\n\n                if (ciudadFiltro === \"todas\" || ciudad === ciudadFiltro) {\n                    var tarjeta = document.createElement(\"div\");\n                    tarjeta.className = \"tarjeta\";\n\n                    // Convertir URL del logo correctamente\n                    var logoUrl = distribuidor.logo ? `${distribuidor.logo}` : \"https://via.placeholder.com/80\";\n\n                    // URL de Google Maps desde el campo `ubicacion`\n                    var ubicacionUrl = distribuidor.ubicacion ? distribuidor.ubicacion : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(distribuidor.direccion)}`;\n\n                    tarjeta.innerHTML = `\n                        <img src=\"${logoUrl}\" alt=\"${distribuidor.nombre}\">\n                        <h3>${distribuidor.nombre}</h3>\n                        <p><strong>Ciudad:</strong> ${ciudad}</p>\n                        <p><strong>Dirección:</strong> ${distribuidor.direccion}</p>\n                        <p><strong>Teléfono:</strong> ${distribuidor.telefono}</p>\n                        <p><strong>Horario:</strong> ${distribuidor.horario}</p>\n                        <a href=\"${ubicacionUrl}\" target=\"_blank\" class=\"btn-como-llegar\">Cómo llegar</a>\n                    `;\n\n                    gridDistribuidores.appendChild(tarjeta);\n                }\n            });\n\n            // Crear botones de filtro una sola vez\n            if (filtroContainer.childElementCount === 1) {\n                ciudadesUnicas.forEach(function(ciudad) {\n                    var btn = document.createElement(\"button\");\n                    btn.className = \"btn-filtro\";\n                    btn.textContent = ciudad;\n                    btn.setAttribute(\"data-ciudad\", ciudad);\n                    btn.onclick = function() {\n                        filtrarPorCiudad(ciudad);\n                    };\n                    filtroContainer.appendChild(btn);\n                });\n            }\n        }\n\n        function filtrarPorCiudad(ciudadSeleccionada) {\n            document.querySelectorAll(\".btn-filtro\").forEach(btn => btn.classList.remove(\"active\"));\n            document.querySelector(`[data-ciudad=\"${ciudadSeleccionada}\"]`).classList.add(\"active\");\n\n            renderizarDistribuidores(ciudadSeleccionada);\n        }\n\n        renderizarDistribuidores();\n    });\n</script>",
+        "layout": "t4s-container-wrap",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": ",,50px,",
+        "pd": "",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": ",,30px,",
+        "pd_mb": ""
+      }
     }
   },
   "order": [
     "heading",
     "main",
-    "sidebar-page"
+    "sidebar-page",
+    "custom_liquid_nitRTx"
   ]
 }
