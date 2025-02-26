@@ -4561,79 +4561,7 @@ endif -%}
 </script>
 
 <script>
-/*document.addEventListener("DOMContentLoaded", function () {
-    console.log("👀 Observando cambios en el DOM...");
 
-    const observer = new MutationObserver(function (mutationsList, observer) {
-        const swatches = document.querySelectorAll("[data-value]");
-
-        if (swatches.length > 0) {
-            console.log("✅ Swatches detectados, ejecutando script...");
-            observer.disconnect(); // Detiene la observación después de encontrar los swatches
-            iniciarFiltrado();
-        }
-    });
-
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    function iniciarFiltrado() {
-        const swatches = document.querySelectorAll("[data-value]");
-
-        swatches.forEach(swatch => {
-            swatch.addEventListener("click", function () {
-                let selectedColor = swatch.getAttribute("data-value").trim().toLowerCase();
-                console.log("🎨 Color seleccionado:", selectedColor);
-
-                const allImages = document.querySelectorAll("[data-media-color]");
-                const allThumbnails = document.querySelectorAll(".t4s-carousel__nav-item img");
-
-                // Oculta imágenes que no corresponden al color seleccionado
-                allImages.forEach(img => {
-                    let imgColor = img.getAttribute("data-media-color").trim().toLowerCase();
-                    img.style.display = imgColor.replace(/\s+/g, '') === selectedColor.replace(/\s+/g, '') ? "block" : "none";
-                });
-
-                // Oculta miniaturas de otras variantes
-                allThumbnails.forEach(thumbnail => {
-                    let thumbColor = thumbnail.getAttribute("alt");
-                    if (thumbColor) {
-                        thumbColor = thumbColor.trim().toLowerCase();
-                        let parentThumbnail = thumbnail.closest(".t4s-carousel__nav-item"); // Encuentra el contenedor de la miniatura
-                        if (parentThumbnail) {
-                            parentThumbnail.style.display = thumbColor.replace(/\s+/g, '') === selectedColor.replace(/\s+/g, '') ? "block" : "none";
-                        }
-                    }
-                });
-            });
-        });
-
-        // Configurar visibilidad inicial con el color por defecto
-        let defaultSwatch = document.querySelector("[data-value].is--selected");
-        if (defaultSwatch) {
-            let defaultColor = defaultSwatch.getAttribute("data-value").trim().toLowerCase();
-            console.log("🎨 Color por defecto:", defaultColor);
-
-            const allImages = document.querySelectorAll("[data-media-color]");
-            const allThumbnails = document.querySelectorAll(".t4s-carousel__nav-item img");
-
-            allImages.forEach(img => {
-                let imgColor = img.getAttribute("data-media-color").trim().toLowerCase();
-                img.style.display = imgColor.replace(/\s+/g, '') === defaultColor.replace(/\s+/g, '') ? "block" : "none";
-            });
-
-            allThumbnails.forEach(thumbnail => {
-                let thumbColor = thumbnail.getAttribute("alt");
-                if (thumbColor) {
-                    thumbColor = thumbColor.trim().toLowerCase();
-                    let parentThumbnail = thumbnail.closest(".t4s-carousel__nav-item");
-                    if (parentThumbnail) {
-                        parentThumbnail.style.display = thumbColor.replace(/\s+/g, '') === defaultColor.replace(/\s+/g, '') ? "block" : "none";
-                    }
-                }
-            });
-        }
-    }
-});*/
 
 //Nuevo Script
   
