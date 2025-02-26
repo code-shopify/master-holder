@@ -1330,7 +1330,7 @@
             "type": "menu",
             "settings": {
               "title": "NOSOTROS",
-              "url": "",
+              "url": "/",
               "open_link": "_self",
               "menu": "",
               "lb": "",
@@ -1343,7 +1343,7 @@
             "type": "menu",
             "settings": {
               "title": "TECNOLOGÍA",
-              "url": "shopify://collections/women",
+              "url": "shopify://pages/tecnologia",
               "open_link": "_self",
               "menu": "",
               "lb": "",
@@ -1356,7 +1356,7 @@
             "type": "menu",
             "settings": {
               "title": "ÚNETE Y EMPRENDE",
-              "url": "shopify://products/analogue-resin-strap",
+              "url": "shopify://pages/contact",
               "open_link": "_self",
               "menu": "",
               "lb": "",
@@ -1369,7 +1369,7 @@
             "type": "menu",
             "settings": {
               "title": "PUNTOS DE VENTA",
-              "url": "",
+              "url": "shopify://pages/nuestro-distribuidores",
               "open_link": "_self",
               "menu": "",
               "lb": "",
