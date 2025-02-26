@@ -158,7 +158,7 @@
         ".t4s-container {margin-top: 5rem;}"
       ],
       "settings": {
-        "pr_layout": "default",
+        "pr_layout": "wide",
         "enable_sticky_info": false,
         "media_layout": "thumbnails_left",
         "media_size": "small",
