@@ -1015,10 +1015,10 @@
           "3abb98a1-837d-46af-b195-f5c43e7c88ee": {
             "type": "link",
             "settings": {
-              "tt_hd": "HOME PAGES",
+              "tt_hd": "",
               "url": "",
               "open_link": "_self",
-              "menu": "",
+              "menu": "tienda",
               "item_fsize": 13,
               "sp_bettewn_item": 20,
               "col": "3"
