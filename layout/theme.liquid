@@ -28,6 +28,7 @@ t4sp-theme t4s-wrapper__{{ settings.general_layout }}{% if settings.animations_r
 {%- endcapture -%}
 <html class="{{ class_html }} no-js" lang="{{ iso_code }}"{% if isRTL %} dir="rtl"{% endif %}>
   <head>
+ {%- render 'ecom_header' -%}
 
 
     <!-- Swiper CSS -->
@@ -111,7 +112,7 @@ t4sp-theme t4s-wrapper__{{ settings.general_layout }}{% if settings.animations_r
       render 'render_bottom'
       render 'structured-data'
     -%}
-  </body>
+  {%- render "ecom_footer"-%}</body>
 </html>
 
 {% else %}
