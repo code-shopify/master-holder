@@ -2631,6 +2631,11 @@
         "type": "shopify://apps/ck-whatsapp-chat-abandoned/blocks/app-embed-block/ce4c5d89-06d5-4502-b18d-35d424a3f693",
         "disabled": false,
         "settings": {}
+      },
+      "21474836472147483647": {
+        "type": "shopify://apps/ecomposer-landing-page-builder/blocks/app-embed/a0fc26e1-7741-4773-8b27-39389b4fb4a0",
+        "disabled": false,
+        "settings": {}
       }
     }
   }
