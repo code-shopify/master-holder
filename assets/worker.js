@@ -1,4 +1,4 @@
-<script>
+
 document.addEventListener("DOMContentLoaded", function() {
     console.log("✅ DOM cargado, esperando que los elementos estén disponibles...");
 
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     setupToggleEvent(); // Llamar a la función
 });
-</script>
+
 
 
 
