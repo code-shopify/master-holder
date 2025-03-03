@@ -327,8 +327,9 @@ endif -%}
                   {%- for media in product_media limit: 4 %}{% assign image = media.preview_image -%} 
                     <div class="t4s-col-item t4s-product__thumb-item"><div class="t4s_ratio t4s-product__thumb" {{ imgatt }}style="--aspect-ratioapt:{{ image.aspect_ratio }}"></div></div>
                   {%- endfor -%}
+                  {% render 'before-after'%}
                 </div>
-                {% render 'before-after'%}
+                
               </div>
               
               {% if product.metafields.custom.imagen_fija %}
