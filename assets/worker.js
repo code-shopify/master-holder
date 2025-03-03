@@ -1,36 +1,35 @@
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    console.log("DOM cargado, ejecutando script...");
+    console.log("✅ DOM cargado, ejecutando script...");
 
     var toggleButton = document.getElementById("toggleBeforeAfter");
     var beforeAfterContainer = document.getElementById("before-after-container");
 
-    if (toggleButton) {
-        console.log("Botón encontrado:", toggleButton);
-    } else {
-        console.log("⚠️ No se encontró el botón con ID 'toggleBeforeAfter'");
+    if (!toggleButton) {
+        console.error("⚠️ No se encontró el botón con ID 'toggleBeforeAfter'. Verifica que el código Liquid lo esté renderizando correctamente.");
+        return;
     }
 
-    if (beforeAfterContainer) {
-        console.log("Contenedor encontrado:", beforeAfterContainer);
-    } else {
-        console.log("⚠️ No se encontró el contenedor con ID 'before-after-container'");
+    if (!beforeAfterContainer) {
+        console.error("⚠️ No se encontró el contenedor con ID 'before-after-container'. Verifica que el código Liquid lo esté renderizando correctamente.");
+        return;
     }
 
-    if (toggleButton && beforeAfterContainer) {
-        toggleButton.addEventListener("click", function() {
-            console.log("Botón clickeado. Estado actual:", beforeAfterContainer.style.display);
+    // Asegurar que el contenedor esté oculto al inicio
+    beforeAfterContainer.style.display = "none";
 
-            // Alternar visibilidad
-            if (beforeAfterContainer.style.display === "none" || beforeAfterContainer.style.display === "") {
-                beforeAfterContainer.style.display = "block"; // Mostrar
-                console.log("Contenedor mostrado.");
-            } else {
-                beforeAfterContainer.style.display = "none"; // Ocultar
-                console.log("Contenedor ocultado.");
-            }
-        });
-    }
+    toggleButton.addEventListener("click", function() {
+        console.log("🔹 Botón clickeado.");
+        
+        if (beforeAfterContainer.style.display === "none") {
+            beforeAfterContainer.style.display = "block"; // Mostrar el contenedor
+            console.log("✅ Contenedor mostrado.");
+        } else {
+            beforeAfterContainer.style.display = "none"; // Ocultar el contenedor
+            console.log("✅ Contenedor ocultado.");
+        }
+    });
 });
 </script>
+
 
