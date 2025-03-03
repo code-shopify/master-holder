@@ -19,6 +19,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
         console.log("🎯 Botón y contenedor encontrados, agregando eventos de clic...");
 
+        // Aseguramos que el Before-After esté oculto al inicio
+        beforeAfterContainer.classList.add("hidden");
+
         // Evento para mostrar/ocultar al hacer clic en la imagen fija
         toggleButton.addEventListener("click", function(event) {
             event.preventDefault();
