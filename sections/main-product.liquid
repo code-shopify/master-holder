@@ -6,27 +6,27 @@ t4option0_0 | alt text
 {%- liquid
 assign isProductAvailable = product.available
 if isProductAvailable and settings.variant_remove == '2'
-   assign remove_soldout = true
-else
-   assign remove_soldout = false
-endif
+   assign remove_soldout = true 
+else 
+   assign remove_soldout = false  
+endif 
 assign se_stts          = section.settings
 assign se_id            = section.id
 assign pr_se_id         = product.id | append: se_id
 assign media_layout     = se_stts.media_layout
-assign pr_variants      = product.variants
-assign variants_size    = pr_variants.size
+assign pr_variants      = product.variants 
+assign variants_size    = pr_variants.size 
 assign selected_variant = product.selected_variant
 assign pr_curent        = settings.pr_curent
 if pr_curent == '1' and variants_size > 1
   assign current_variant = selected_variant
-elsif pr_curent == '2'
-  assign current_variant = selected_variant | default: pr_variants.first
-  if remove_soldout and current_variant.available == false and isProductAvailable
-    assign current_variant = product.first_available_variant
+elsif pr_curent == '2' 
+  assign current_variant = selected_variant | default: pr_variants.first 
+  if remove_soldout and current_variant.available == false and isProductAvailable 
+    assign current_variant = product.first_available_variant 
   endif
-else
-  assign current_variant = product.selected_or_first_available_variant
+else 
+  assign current_variant = product.selected_or_first_available_variant 
 endif
 assign PR_no_pick = false
 if pr_curent == '1' and variants_size > 1 and selected_variant == blank
@@ -38,7 +38,7 @@ assign ntsoldout  = false
 assign unvariants = false
 assign ck_so_un   = false
 if isProductDefault == false and variants_size > 1
-  assign unavailable_prs = pr_variants | where: "available", false
+  assign unavailable_prs = pr_variants | where: "available", false 
   assign options_size = product.options.size
   assign vls0 = product.options_with_values[0].values.size | default: 1
   assign vls1 = product.options_with_values[1].values.size | default: 1
@@ -65,16 +65,14 @@ if current_variant.quantity_rule.min and cus_qty < current_variant.quantity_rule
   assign cus_qty          = current_variant.quantity_rule.min
 endif
 assign isExternal         = false
-assign external_title     = meta_theme.external_title
+assign external_title     = meta_theme.external_title 
 assign external_link      = meta_theme.external_link
-if external_title != blank and external_link != blank
-   assign isExternal = true
+if external_title != blank and external_link != blank 
+   assign isExternal = true 
 endif
-assign isGrouped = false
-assign seBlocks = section.blocks
-assign block_form = seBlocks | where: 'type', 'form' | first
-if block_form.settings.product_list != blank
-   assign isGrouped = true
+assign isGrouped = false 
+if meta_theme.grouped != blank
+   assign isGrouped = true 
 endif
 assign custom_badge = meta_theme.custom_badge
 if custom_badge != blank
@@ -97,11 +95,11 @@ if media_size < 1
 elsif media_size == 1
   assign media_layout = 'one_media_size'
 endif
-assign canMedia_group = false
+assign canMedia_group = false 
 assign mediaAlt = product_media | map: 'alt' | join: 'nt-t4s'
 if settings.use_group_media and variants_size > 1 and media_size > 1 and mediaAlt contains '_'
   assign canMedia_group = true
-
+  
   if mediaAlt contains 't4option'
     assign ops_name   = product.options_with_values | map: 'name'
     assign ops_name_1 = product.options_by_name[ops_name[0]].values
@@ -111,37 +109,37 @@ if settings.use_group_media and variants_size > 1 and media_size > 1 and mediaAl
 
   unless PR_no_pick
     assign isMediaHidden   = 'is--media-hide'
-    assign current_option1 = current_variant.option1 | downcase
-    assign current_option2 = current_variant.option2 | downcase
+    assign current_option1 = current_variant.option1 | downcase 
+    assign current_option2 = current_variant.option2 | downcase 
     assign current_option3 = current_variant.option3 | downcase
   endunless
 endif
 
 if mediaAlt contains 'break--360'
-  assign has_media_360 = true
+  assign has_media_360 = true 
 else
-  assign has_media_360 = false
+  assign has_media_360 = false 
 endif
 
 case se_stts.media_size
   when 'small'
    assign class_media = 'col-md-4'
    assign class_info = 'col-md-8'
-   assign height = 530
+   assign height = 530 
   when 'medium'
    assign class_media = 'col-md-6'
    assign class_info = 'col-md-6'
-   assign height = 720
+   assign height = 720 
   when 'large'
    assign class_media = 'col-md-7'
    assign class_info = 'col-md-5'
-   assign height = 1090
+   assign height = 1090 
 endcase
 
 assign image_ratio = se_stts.image_ratio
 if image_ratio == "ratioadapt"
   assign imgatt = ''
- else
+ else 
   assign imgatt = 'data-'
 endif
 if settings.enable_his and PR_no_pick == false
@@ -156,11 +154,11 @@ assign pr_vendor = product.vendor
 assign inventory_quantity = current_variant.inventory_quantity
 assign inventory_management = current_variant.inventory_management
 if inventory_quantity <= 0  and inventory_management == 'shopify' and current_variant.available
-  assign classdn1 = 't4s-dn'
+  assign classdn1 = 't4s-dn' 
   assign classdn2 = ''
   assign isPreoder = true
-else
-  assign classdn1 = ''
+else 
+  assign classdn1 = '' 
   assign classdn2 = 't4s-dn'
   assign isPreoder = false
 endif
@@ -172,6 +170,8 @@ else
   assign class_pswp_disable = ' is-pswp-disable'
 endif
 
+assign seBlocks = section.blocks
+assign Block_sizeg = seBlocks | where: 'type', 'size_delivery_ask' | first
 assign bk_stts__sizeg = Block_sizeg.settings
 assign bk_size_chart = bk_stts__sizeg.size_chart | default: '1'
 assign pos_sizeg = bk_stts__sizeg.pos_sizeg
@@ -226,7 +226,7 @@ endif -%}
         endfor
       endif
     -%}
-
+   
     {%- if sc_type == '1' and page_size != blank and ck_s -%}
       <a class="t4s-ch t4s-btn__size-chart" data-no-instant rel="nofollow" href="{{ page_size.url }}" data-class="t4s-mfp-btn-close-inline" data-id="t4s-pr-popup__size-guide" data-storageid="{{ page_size.url }}" data-open-mfp-ajax data-style="max-width:950px" data-mfp-src="{{ page_size.url }}/?section_id=ajax_popup">{{ 'products.product.product_size_guide' | t }}</a>
     {%- elsif sc_type == '2' and image != blank and ck_s -%}
@@ -249,8 +249,7 @@ endif -%}
 {{ 'pre_flickityt4s.min.css' | asset_url | stylesheet_tag }}
 {{ 'slider-settings.css' | asset_url | stylesheet_tag }}
 {{ 'main-product.css' | asset_url | stylesheet_tag }}
-  {{ 'main-product-custom.css' | asset_url | stylesheet_tag }}
-
+{{ 'main-product-custom.css' | asset_url | stylesheet_tag }}
 
 <div class="t4s-container t4s-main-product__content is--layout_{{ se_stts.pr_layout }} t4s-product-media__{{ media_layout }} t4s-product-thumb-size__{{ se_stts.thumb_lr_size }}">
   <div class="t4s-row">
@@ -292,113 +291,48 @@ endif -%}
               elsif media_layout == 'thumbnails_right'
                 assign class_main = 't4s-col-lg '
                 assign class_thumb = 't4s-col-lg-auto '
-              else
+              else 
                 assign class_gx_lg = ' t4s-g-lg-10 '
               endif
             -%}
           {{ 'slider-settings.css' | asset_url | stylesheet_tag }}
-
-
-
-
-
-
-
-
-            
           <div class="t4s-row t4s-g-0" timeline hdt-reveal="slide-in">
-
-            
             <div data-product-single-media-group class="{{ class_main }}t4s-col-12 t4s-col-item t4s-pr">
+              
               <div data-t4s-gallery data-main-media data-t4s-thumb-true class="t4s-row t4s-g-0 t4s-slide-eff-{{ se_stts.eff }} flickityt4s t4s_{{ image_ratio }} t4s_position_{{ se_stts.image_position }} t4s_{{ se_stts.image_size }} t4s-flicky-slider {% if se_stts.nav_btn %} t4s-slider-btn-{{ se_stts.nav_btn }} t4s-slider-btn-style-{{ se_stts.btn_owl }} t4s-slider-btn-{{ se_stts.btn_shape }} t4s-slider-btn-{{ se_stts.btn_size }} t4s-slider-btn-cl-{{ se_stts.btn_cl }} t4s-slider-btn-vi-{{ se_stts.btn_vi }} t4s-slider-btn-hidden-mobile-{{ se_stts.btn_hidden_mobile }} {% endif %} {% if se_stts.nav_dot %} t4s-dots-style-{{ se_stts.dot_owl }} t4s-dots-cl-{{ se_stts.dots_cl }} t4s-dots-round-{{ se_stts.dots_round }} t4s-dots-hidden-mobile-{{ se_stts.dots_hidden_mobile }} {% endif %}" data-flickityt4s-js='{"t4sid": "{{ se_id }}", "status": true, "checkVisibility": false, "cellSelector": "[data-main-slide]:not(.is--media-hide)","isFilter":{{ canMedia_group }},"imagesLoaded": 0,"adaptiveHeight": 1, "contain": 1, "groupCells": "100%", "dragThreshold" : {% if se_stts.eff == 'fade' %}6{% else %}5{% endif %}, "cellAlign": "left","wrapAround": true,"prevNextButtons": {{ se_stts.nav_btn }},"percentPosition": 1,"pageDots": {{ se_stts.nav_dot }}, "autoPlay" : 0, "pauseAutoPlayOnHover" : true , "thumbNav": {% if media_layout != 'without_thumbnails' %}true{% else %}false{% endif %}, "thumbVertical": {% if media_layout != 'thumbnails_bottom' %}true{% else %}false{% endif %}, "isMedia": true }' style="--flickity-btn-pos: 0px;--flickity-btn-pos-mb: 0px;--space-dots: {{ se_stts.dots_space }}px;">
-                
-                
-                
-                {% comment %}
-                  Nuevo contenido
-                {% endcomment %}
-                    {%- for media in product_media -%}
-                        {%- if media.preview_image and media.preview_image.alt contains 'break--360' -%}
-                          {%- break -%}
-                        {%- endif -%}
-                      
-                        {%- assign media_color = media.preview_image.alt | downcase -%}
-                      
-                        <div class="t4s-col-item t4s-carousel_nav-item" data-media-color="{{ media_color }}">
-                          {%- render 'product-thumbnail', 
-                             product: product,
-                             media_color: media_color,
-                              media: media, 
-                              imgatt: imgatt, 
-                              variant_images: variant_images, 
-                              loop: enable_video_looping, 
-                              mute: enable_video_muting, 
-                              autoplay: enable_video_autoplaying, 
-                              height: height, 
-                              se_id: se_id, 
-                              isMediaHidden: isMediaHidden, 
-                              current_option1: current_option1, 
-                              current_option2: current_option2, 
-                              current_option3: current_option3, 
-                              ops_name: ops_name, 
-                              ops_name_1: ops_name_1, 
-                              ops_name_2: ops_name_2, 
-                              ops_name_3: ops_name_3, 
-                              class_pswp_disable: class_pswp_disable, 
-                              variants_size: variants_size 
-                          -%}
-                        </div>
-                      {%- endfor -%}
-                      
-                      {%- if has_media_360 -%}
-                        {%- render 'product-360', product: product, se_id: se_id -%}
-                      {%- endif -%}
-                {% comment %}
-                  Fin Nuevo contenido
-                {% endcomment %}
-
-                
+                {%- liquid 
+                  for media in product_media
+                    if media.preview_image and media.preview_image.alt contains 'break--360'
+                      break
+                    endif
+                    render 'product-thumbnail', media: media, imgatt: imgatt, variant_images: variant_images, loop: enable_video_looping, mute: enable_video_muting, autoplay: enable_video_autoplaying, height: height, se_id: se_id, isMediaHidden: isMediaHidden, current_option1: current_option1, current_option2: current_option2, current_option3: current_option3, ops_name: ops_name, ops_name_1: ops_name_1, ops_name_2: ops_name_2, ops_name_3: ops_name_3, class_pswp_disable: class_pswp_disable, variants_size: variants_size
+                  endfor 
+                  if has_media_360
+                    render 'product-360', product: product, se_id: se_id
+                  endif
+                -%}
                 {%- if se_stts.nav_dot and se_stts.dot_owl == 'number' -%}
                   <div class="flickityt4s-page-dots t4s-dots-list carousel--status{{ se_id }}"><span data-current-slide></span> / <span data-total-number></span></div>
                 {%- endif -%}
               </div>
+              
               <div data-product-single-badge data-sort="sale,new,soldout,preOrder,custom" class="t4s-single-product-badge lazyloadt4s t4s-pa t4s-pe-none t4s-op-0" data-rendert4s="css:{{ 'single-pr-badge.css' | asset_url }}"></div>
               {%- render 'product-btns', se_stts: se_stts, product: product -%}
             </div>
 
-    
-
-
-
-
-            
             {%- if media_layout != 'without_thumbnails' -%}
             <div class="{{ class_thumb }}t4s-col-12 t4s-col-item t4s-col-thumb t4s-pr t4s-oh">
-
-              
               <div data-thumb__scroller="{{ se_id }}" class="t4s-carousel__nav-scroller is__position-{{ media_layout | remove: 'thumbnails_' }}">
-               
-               {% comment %} bucle del carrusel {% endcomment %}
-                
-                <div class="t4s-row t4s-row-mt t4s-row-cols-5 t4s_{{ image_ratio }} t4s_position_{{ se_stts.image_position }} t4s_{{ se_stts.image_size }} {{ class_gx_lg }}t4s-g-5 t4s-carousel__nav carousel__nav--{{ se_id }} carousel__nav-hover1">
-                  {%- for media in product_media limit:4  %}{% assign image = media.preview_image -%}
+                <div class="t4s-row t4s-row-mt t4s-row-cols-4 t4s_{{ image_ratio }} t4s_position_{{ se_stts.image_position }} t4s_{{ se_stts.image_size }} {{ class_gx_lg }}t4s-g-5 t4s-carousel__nav carousel__nav--{{ se_id }} carousel__nav-hover1">
+                  {%- for media in product_media limit: 4 %}{% assign image = media.preview_image -%} 
                     <div class="t4s-col-item t4s-product__thumb-item"><div class="t4s_ratio t4s-product__thumb" {{ imgatt }}style="--aspect-ratioapt:{{ image.aspect_ratio }}"></div></div>
-                   
                   {%- endfor -%}
                 </div>
-
-
-
-               
               </div>
-
-
+              
               {% if product.metafields.custom.imagen_fija %}
-               <a class="imagen-fija" >{% render "imagen-galeria-fix" %}</a>
+                <a class="imagen-fija" >{% render "imagen-galeria-fix" %}</a>
               {% endif %}
-
-
-
               
               <button type="button" data-thumb-btn__prev="{{ se_id }}" aria-label="Previous" class="btn_pnav_prev t4s-pa t4s-pe-none t4s-op-0"></button>
               <button type="button" data-thumb-btn__next="{{ se_id }}" aria-label="Next" class="btn_pnav_next t4s-pa t4s-pe-none t4s-op-0"></button>
@@ -406,9 +340,11 @@ endif -%}
             {%- endif -%}
 
           </div>
+          {% render 'before-after%}
+
 
           {%- when 'one_column' or 'two_columns' or 'combined_grid' -%}
-
+              
           {%- liquid
             if media_layout == 'one_column'
               assign class_col = 't4s-col-md-12 '
@@ -416,50 +352,35 @@ endif -%}
             elsif media_layout == 'two_columns'
               assign class_col = 't4s-col-md-6 '
               assign row_g = '10'
-            else
+            else 
               assign class_col = 't4s-col-md-12 '
               assign row_g = '10'
             endif
           -%}
 
-
-
-
-            
           <div class="t4s-row t4s-g-0" timeline hdt-reveal="slide-in">
             <div data-product-single-media-group class="{{ class_main }}t4s-col-12 t4s-col-item t4s-pr">
-              <div data-media-sizes="{{ product_media.size }}" data-t4s-gallery data-t4s-thumb-true data-main-media class="t4s-row t4s-g-{{ row_g }} t4s-slide-eff-{{ se_stts.eff }} flickityt4s isotopet4s isotopet4s-later carousel-disable-md t4s_{{ image_ratio }} t4s_position_{{ se_stts.image_position }} t4s_{{ se_stts.image_size }}{% if se_stts.nav_btn %} t4s-flicky-slider t4s-slider-btn-{{ se_stts.nav_btn }} t4s-slider-btn-style-{{ se_stts.btn_owl }} t4s-slider-btn-{{ se_stts.btn_shape }} t4s-slider-btn-{{ se_stts.btn_size }} t4s-slider-btn-cl-{{ se_stts.btn_cl }} t4s-slider-btn-vi-{{ se_stts.btn_vi }} t4s-slider-btn-hidden-mobile-{{ se_stts.btn_hidden_mobile }} {% endif %}"
+              <div data-media-sizes="{{ product_media.size }}" data-t4s-gallery data-t4s-thumb-true data-main-media class="t4s-row t4s-g-{{ row_g }} t4s-slide-eff-{{ se_stts.eff }} flickityt4s isotopet4s isotopet4s-later carousel-disable-md t4s_{{ image_ratio }} t4s_position_{{ se_stts.image_position }} t4s_{{ se_stts.image_size }}{% if se_stts.nav_btn %} t4s-flicky-slider t4s-slider-btn-{{ se_stts.nav_btn }} t4s-slider-btn-style-{{ se_stts.btn_owl }} t4s-slider-btn-{{ se_stts.btn_shape }} t4s-slider-btn-{{ se_stts.btn_size }} t4s-slider-btn-cl-{{ se_stts.btn_cl }} t4s-slider-btn-vi-{{ se_stts.btn_vi }} t4s-slider-btn-hidden-mobile-{{ se_stts.btn_hidden_mobile }} {% endif %}" 
                 data-isotopet4s-js='{"transitionDuration": 0,"itemSelector-":"[data-main-slide]:not(.is--media-hide)","filter": "[data-main-slide]:not(.is--media-hide)", "layoutMode":"packery" }'
                 data-flickityt4s-js='{"cellSelector": "[data-main-slide]:not(.is--media-hide)","isFilter":{{ canMedia_group }},"watchCSS": true,"imagesLoaded": 0,"adaptiveHeight": 1, "contain": 1, "groupCells": "100%", "dragThreshold" : {% if se_stts.eff == 'fade' %}6{% else %}5{% endif %}, "cellAlign": "left","wrapAround": true,"prevNextButtons": {{ se_stts.nav_btn }},"percentPosition": 1,"pageDots": false, "autoPlay" : 0, "pauseAutoPlayOnHover" : true , "t4sid": "{{ se_id }}", "thumbNav": false, "thumbVertical": false, "isMedia": true }'>
-               
-                
-                
-                {%- liquid
-
+                {%- liquid 
                   for media in product_media
                     if media.preview_image and media.preview_image.alt contains 'break--360'
                       break
                     endif
-                   
                     render 'product-thumbnail', media: media, imgatt: imgatt, variant_images: variant_images, loop: enable_video_looping, mute: enable_video_muting, autoplay: false, height: height, se_id: se_id, isMediaHidden: isMediaHidden, current_option1: current_option1, current_option2: current_option2, current_option3: current_option3, class_col: class_col, ops_name: ops_name, ops_name_1: ops_name_1, ops_name_2: ops_name_2, ops_name_3: ops_name_3, class_pswp_disable: class_pswp_disable, variants_size: variants_size
                   endfor
-                 
+                  if has_media_360
+                    render 'product-360', product: product, se_id: se_id, class_col: class_col
+                  endif
                 -%}
-
-      
               </div>
-              
               <link href="{{ 'single-pr-badge.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all'">
               <div data-product-single-badge data-sort="sale,new,soldout,preOrder,custom" class="t4s-single-product-badge t4s-pa t4s-pe-none t4s-op-0"></div>
               {%- render 'product-btns', se_stts: se_stts, product: product -%}
             </div>
           </div>
-
-
-
-
-
-            
+          
           {%- endcase -%}
         </div>
         <div data-t4s-zoom-info class="t4s-{{ class_info }} t4s-col-12 t4s-col-item t4s-product__info-wrapper t4s-pr">
@@ -472,7 +393,7 @@ endif -%}
                 {%- when 'properties' %}
                   {% continue -%}
                 {%- when 'title' -%}
-                  {% liquid
+                  {% liquid 
                     if bk_stts.lh_pr == 0
                       assign lh_pr = 1
                     else
@@ -480,14 +401,14 @@ endif -%}
                     endif
                   %}
                   <h1 class="t4s-product__title" style="--title-family:var(--font-family-{{ bk_stts.fnt_df_pr }});--title-style:{{ bk_stts.txt_tr_pr }};--title-size:{{ bk_stts.size_pr }}px;--title-weight:{{ bk_stts.fw_pr }};--title-line-height:{{ lh_pr }};--title-spacing:{{ bk_stts.ls_pr }}px;--title-color:{{ bk_stts.pr_title_color }};--title-color-hover:{{ bk_stts.pr_title_color }};" {{ block.shopify_attributes }}>{{ product.title }}</h1>
-
+              
                 {%- when 'price_review' -%}
                   <div class="t4s-product__price-review" style="--price-size:{{ bk_stts.size_price_pr }}px;--price-weight:{{ bk_stts.fw_price_pr }};--price-color:{{ bk_stts.price_color }};--price-sale-color:{{ bk_stts.price_sale_color }};">
                     {%- render 'product-price-single', variant: current_variant, product: product, PR_no_pick: PR_no_pick, type_sale: bk_stts.type_sale, price_varies_style: bk_stts.price -%}
                     {%- if bk_stts.rating -%}
                     {%- assign pid = product.id -%}
                     <a href="#{{ idTabReview }}" data-go-id="#{{ idTabReview }}" class="t4s-product__review t4s-d-inline-block">
-                      {%- case settings.app_review -%}
+                      {%- case settings.app_review -%}              
                         {%- when '1' -%}
                           <span class="shopify-product-reviews-badge" data-id="{{ pid }}"></span>
                         {%- when '2' -%}
@@ -500,10 +421,10 @@ endif -%}
                           {%- capture the_snippet_review_avg %}{% render 'ssw-widget-avg-rate-profile' %}{% endcapture -%}
                           {%- unless the_snippet_review_avg contains 'Liquid error' %}{{ the_snippet_review_avg }}{% endunless -%}
                         {%- when '7' -%}
-                          <!-- Start of Judge.me code -->
+                          <!-- Start of Judge.me code --> 
                             <div style='{{ jm_style }}' class='jdgm-widget jdgm-preview-badge' data-id='{{ product.id }}' style="pointer-events: none;">
                               {{- product.metafields.judgeme.badge -}}
-                            </div>
+                            </div>  
                           <!-- End of Judge.me code -->
                         {%- when '8' -%}
                           <div id="scm-product-detail-rate" class="scm-reviews-rate" data-rate-version2= {{ product.metafields.scm_review_importer.reviewsData.reviewCountInfo | json }} data-product-id= {{ product.id }}></div>
@@ -513,8 +434,6 @@ endif -%}
                     </a>
                     {%- endif -%}
                   </div>
-                
-               
 
                   {%- if bk_stts.tax_ship and cart.taxes_included or shop.shipping_policy.body != blank -%}
                     <div class="t4s-product__policies t4s-rte" data-product-policies>
@@ -528,109 +447,20 @@ endif -%}
                   {%- endif -%}
 
                 {%- when 'description' -%}
-                  {%- liquid
-                    assign product = section.settings.product | default: product 
-                    assign description_excerpt = block.settings.text | default: product.description
-                    if description_excerpt == blank
-                      continue 
-                    endif 
-                  
-                  -%}
-                  <style>
-                    t4s-product-description{
-                      padding-bottom: 10px;
-                    }
-                    t4s-product-description.is--less .t4s-rl-text{
-                      display: block;
-                    }
-                    t4s-product-description.is--less .t4s-rm-text{
-                      display: none;
-                    }
-                    t4s-product-description .t4s-product__description::after{
-                      position: absolute;
-                      content:"";
-                      left:0;
-                      right: 0;
-                      bottom:0;
-                      height: 20px;
-                      background: linear-gradient(to top , rgba(255,255,255,0.5) 60%, transparent 100%);
-                      transition: .3s linear;
-                      pointer-events: none;
-                    }
-                    t4s-product-description.is--less .t4s-product__description::after{
-                      opacity:0;
-                    }
-                    t4s-product-description [data-lm-content]{
-                      max-height: var(--m-h);
-                      overflow:hidden;
-                      transition: .3s linear;
-                    }
-                    t4s-product-description button.is--show{
-                      display: block
-                    }
-                    t4s-product-description .t4s-hidden{
-                      display: none;
-                    }
-                    t4s-product-description button{
-                      position: absolute;
-                      left:50%;
-                      right:0;
-                      bottom: 0;
-                      transform: translateX(-50%) translateY(50%);
-                      width: fit-content;
-                    }
-                  </style>
-                  {%- if product.description != blank and block.settings.des == '1' -%}    
-                    <div class="t4s-product-info__item t4s-product__description">
-                      <div class="t4s-rte">
-                        {{ product.description }}
-                      </div>
-                    </div>
-                  {%- elsif description_excerpt != blank -%}
-                    {%- if block.settings.readm == false -%}
-                      <div class="t4s-product-info__item t4s-product__description">
-                        <div class="t4s-rte">
-                          {{ description_excerpt }}
-                        </div>
-                      </div>
-                    {%- else -%}
-                      <t4s-product-description class="t4s-d-block t4s-product-description t4s-pr" data-type="{{ block.type }}" data-height="{{ block.settings.length | json }}" {{ block.shopify_attributes }}>
-                        <div class="t4s-product-info__item t4s-product__description t4s-pr">
-                          <div class="t4s-rte t4s-full-des" data-lm-content style="--m-h: {{ block.settings.length }}px;">
-                            {{ description_excerpt }}
-                          </div>
-                        </div>
-                        <button class="t4s-product__description_readm t4s-pr-des-rm t4s-hidden">
-                          <span class="t4s-rm-text">{{ block.settings.readm_txt }}</span>
-                          <span class="t4s-rl-text t4s-hidden">{{ block.settings.readl_txt }}</span>
-                        </button>
-                      </t4s-product-description>
+                  {%- assign pr_des = product.description -%}
+                  {%- assign description_excerpt = meta_theme.description_excerpt | default: bk_stts.text -%}
+
+                  {% if description_excerpt == blank and pr_des == blank %}{% continue %}{% endif -%}
+                  {%- capture readm -%}
+                    {%- if bk_stts.readm %}<button class="t4s-product__description_readm" data-go-id='#{{ idTabDes }}'>{{ bk_stts.readm_txt }}</button>{% endif -%}
+                  {%- endcapture -%}
+
+                  <div class="t4s-product__description t4s-rte" {{ block.shopify_attributes }}>
+                    {%- if bk_stts.des == '1' -%}{{- pr_des -}}
+                    {%- elsif description_excerpt != blank -%}{{- description_excerpt -}}{{ readm }}
+                    {%- else -%}<p>{{- pr_des | strip_html | truncatewords: bk_stts.length -}}{{ readm }}</p>
                     {%- endif -%}
-                  {%- endif -%}
-                  <script>
-                    if (!customElements.get('t4s-product-description')) {
-                      class ProductDescription extends HTMLElement{
-                        constructor(){
-                          super();
-                          this.lm_btn = this.querySelector('.t4s-pr-des-rm');
-                          this.content = this.querySelector('[data-lm-content]');
-                          this.m_h_content = parseInt(this.getAttribute('data-height'));
-  
-  
-                          if(!this.lm_btn || !this.content || this.m_h_content < 0 ) return;
-                          setTimeout(() => {
-                            // console.dir(this.content.scrollHeight);
-                            this.lm_btn.classList.toggle('is--show', parseInt(this.content.scrollHeight) > this.m_h_content);
-                          },500)
-                          this.lm_btn.addEventListener('click',()=>{
-                            this.classList.contains('is--less') ? this.content.style.setProperty('--m-h', `${this.m_h_content}px`) : this.content.style.setProperty('--m-h', `${this.content.scrollHeight}px`)
-                            this.classList.toggle('is--less');
-                          })
-                        }
-                      }
-                      customElements.define('t4s-product-description',ProductDescription);
-                    }
-                  </script>
+                  </div>
 
                 {%- when 'form' -%}
                   {%- liquid
@@ -641,7 +471,7 @@ endif -%}
                     if variant_images.size > 0 and bk_stts.enable_fit_ratio_img and bk_stts.color_mode contains 'variant_image'
                       assign is_fit_ratio_img = true
                       assign first_ratio_img = variant_images[0].aspect_ratio
-                    endif
+                    endif 
                     assign arr_properties = seBlocks | where: 'type', 'properties'
                     if product_list == blank
                       render 'product-form', type: 'main', product: product, bk_stts: bk_stts, pr_se_id: pr_se_id, isExternal: isExternal, external_title: external_title, external_link: external_link, isProductAvailable: isProductAvailable, isProductDefault: isProductDefault, current_variant: current_variant, remove_soldout: remove_soldout, PR_no_pick: PR_no_pick, isPreoder: isPreoder, is_fit_ratio_img: is_fit_ratio_img, first_ratio_img: first_ratio_img, name_sizeg: name_sizeg, html_sizeg: html_sizeg, advance_pr_type: advance_pr_type, advance_label: advance_label, html_price: html_price , shopify_attributes: block.shopify_attributes, arr_properties: arr_properties, cus_qty: cus_qty
@@ -649,7 +479,7 @@ endif -%}
                       render 'grouped-form', product: product, bk_stts: bk_stts, pr_se_id: pr_se_id, product_list: product_list, shopify_attributes: block.shopify_attributes, cus_qty: cus_qty
                     endif
                   -%}
-
+                
                 {%- when 'size_delivery_ask' -%}
                   <div class="t4s-extra-link" {{ block.shopify_attributes }}>
                     {%- if bk_size_chart != '1' and pos_sizeg == '1' %}{{ html_sizeg }}{% endif -%}
@@ -714,7 +544,6 @@ endif -%}
                         </span>
                         <span data-soldout-status class="t4s-soldout-status t4s-csecondary t4s-dib{% if isProductAvailable %} t4s-dn{% endif %}">{{ 'products.product.sold_out_status' | t }}</span>
                         </span></div>
-                        
                       {%- endif -%}
 
                       {%- if product.collections.size > 0 and bk_stts.show_category %}{% assign ck_meta = true -%}
@@ -722,12 +551,7 @@ endif -%}
                         {% for collection in product.collections -%}{{ collection.title | link_to: collection.url, class: 't4s-dib' }} {% endfor -%}
                       </div>
                       {%- endif -%}
-
-                    
-                   
-               
-                    
-
+                      
                       {%- if pr_tags.size > 0 and bk_stts.show_tags and product.collections.size > 0 -%}
 
                       {%- liquid
@@ -748,26 +572,24 @@ endif -%}
                           <a class="t4s-dib" href="{{ tag_cat_url }}/{{ tag | handle }}">{{ tag | remove: 'type ' | remove: 'Type ' }}</a> {% endfor -%}
                         </div>
                       {%- endif -%}
-
+                        
                     {%- endif -%}
 
                   {%- endcapture -%}
-
-                
                   {%- if ck_meta -%}<div class="t4s-product_meta" {{ block.shopify_attributes }}>{{- meta -}}</div>{%- endif -%}
 
                 {%- when 'social' -%}
-
+                  
                   <div class="t4s-product_social-share t4s-text-{{ bk_stts.socials_align }}" {{ block.shopify_attributes }}>
                     {%- if settings.share_source == '1' -%}
                       {{ 'icon-social.css' | asset_url | stylesheet_tag }}
                       <div class="t4s-product__social t4s-socials-block t4s-setts-color-{{ bk_stts.use_color_set }} social-{{ block.id }}" style="--cl:{{ bk_stts.icon_cl }};--bg-cl:{{ bk_stts.bg_cl }};--mgb: {{ bk_stts.mgb }}px;--mgb-mb: {{ bk_stts.mgb_mb }}px; --bd-radius:{{ bk_stts.bd_radius }}px;">
-                        {%- if bk_stts.social_mode == '1' -%}
-                          {%- assign follow_social = true -%}
-                        {%- else -%}
-                          {%- assign share_image = settings.share_image | default: page_image | default: settings.logo -%}
-                        {%- endif -%}
-                        {%- render 'social_sharing', style: bk_stts.social_style, use_color_set: bk_stts.use_color_set, size: bk_stts.social_size, space_h_item: bk_stts.space_h_item, space_h_item_mb: bk_stts.space_h_item_mb, space_v_item: bk_stts.space_v_item, space_v_item_mb: bk_stts.space_v_item_mb, follow_social: follow_social -%}
+                        {%- if bk_stts.social_mode == '1' -%} 
+                          {%- assign follow_social = true -%} 
+                        {%- else -%} 
+                          {%- assign share_image = settings.share_image | default: page_image | default: settings.logo -%} 
+                        {%- endif -%} 
+                        {%- render 'social_sharing', style: bk_stts.social_style, use_color_set: bk_stts.use_color_set, size: bk_stts.social_size, space_h_item: bk_stts.space_h_item, space_h_item_mb: bk_stts.space_h_item_mb, space_v_item: bk_stts.space_v_item, space_v_item_mb: bk_stts.space_v_item_mb, follow_social: follow_social -%} 
                       </div>
                     {%- else -%}
                       {{ 'icon-social.css' | asset_url | stylesheet_tag }}
@@ -775,13 +597,11 @@ endif -%}
                       {%- unless the_snippet_share contains 'Liquid error' %}{{ the_snippet_share }}{%- endunless -%}
                     {%- endif -%}
                   </div>
-                
 
-   
                 {%- when 'vendor_img' -%}
-                  {%- liquid
-                    if pr_vendor == blank
-                    continue
+                  {%- liquid 
+                    if pr_vendor == blank 
+                    continue 
                     endif
                     assign img_vendor = links_vendor | where: 'title', pr_vendor | first
                     assign name_img_vendor = img_vendor.url | split: '?' | first | split : '/' | last
@@ -793,7 +613,7 @@ endif -%}
                       assign pr_vendor_url = collection_vendor.url | default: pr_vendor_url
                     endif
                   -%}
-
+                  
                   <div class="t4s-pr-vendor t4s-pr t4s-d-inline-flex t4s-align-items-center t4s-justify-content-center t4s-text-center{% if image != blank %} has-img__vendor{% endif %}">
                     <a href="{{ pr_vendor_url }}">
                       {%- if image != blank -%}
@@ -819,7 +639,7 @@ endif -%}
                       {%- endfor -%}
                     {%- endif -%}
                   {%- endcapture -%}
-
+                    
                   <div id="t4s-trust_seal{{ bk_id }}" data-rr="{{ svg_width }}" {% if isStyleSvg %} style="--height-img:{{ svg_height }}px;"{% endif %} class="t4s-pr_trust_seal t4s-text-md-{{ bk_stts.al }} t4s-text-center" {{ block.shopify_attributes }}>
                     {%- if bk_stts.mess -%}<p class="t4s-pr-mess_trust t4s-ch" style="--fs-mess-trust:{{ bk_stts.size }}px;">{{ bk_stts.mess }}</p>{%- endif -%}
                     {{- html_trust -}}
@@ -867,20 +687,20 @@ endif -%}
                 {%- when 'countdown' %}
                   {% unless bk_stts.source == '1' or pr_tags contains 'has_stock_countdown' %}{% continue %}{% endunless -%}
                   {{ 'countdown.css' | asset_url | stylesheet_tag }}
-                  {%- liquid
+                  {%- liquid 
                     assign meta = meta_theme.countdown
                     assign isCountdownMeta = false
-                    assign isShowCountdownt = false
-                    if meta != blank
+                    assign isShowCountdownt = false 
+                    if meta != blank 
                       assign cd_date = meta | date: '%Y/%m/%d %H:%M:%S'
                       assign isCountdownMeta = true
                     else
-                      assign cd_date = meta_theme.countdown_day | default: bk_stts.stock_time
+                      assign cd_date = meta_theme.countdown_day | default: bk_stts.stock_time 
                     endif
                     if bk_stts.source == '1' and cd_date != blank
-                      assign isShowCountdownt = true
+                      assign isShowCountdownt = true 
                     elsif bk_stts.source == '2' and cd_date != blank and pr_tags contains 'has_stock_countdown'
-                      assign isShowCountdownt = true
+                      assign isShowCountdownt = true 
                     endif
                   -%}
                   {%- unless isShowCountdownt %}{% continue %}{% endunless -%}
@@ -962,12 +782,13 @@ endif -%}
                   </div>
               {%- endcase -%}
             {%- endfor -%}
-
-             {%- render 'custom-product-icons' -%}
+            {% comment %}Inicio de Renders{% endcomment %}
+              {%- render 'custom-product-icons' -%}
               {% render "before-after" %}
+            {% comment %}Fin Inicio de Renders{% endcomment %}
           </div>
         </div>
-      </div>
+      </div> 
     </div>
     <aside data-sidebar-content class="t4s-col-item t4s-col-12 t4s-col-lg-3 t4s-sidebar t4s-dn"><div class="t4s-loading--bg"></div></aside>
   </div>
@@ -996,9 +817,9 @@ endif -%}
   </svg>
 </template>
 
-{%- if isSticky and product != blank and isExternal == false -%}
+{%- if isSticky and product != blank -%}
 
-  {%- liquid
+  {%- liquid 
     assign current_inventory_quantity = current_variant.inventory_quantity
     if current_variant.inventory_management != null and current_inventory_quantity > 0 and current_variant.inventory_policy != 'continue'
       assign max_qty = current_inventory_quantity
@@ -1009,14 +830,14 @@ endif -%}
       assign max_qty = current_variant.quantity_rule.max
     endif
   -%}
-
+    
 <link href="{{ 'sticky-atc.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all'">
 {%- if se_stts.ani != 'none' -%}<link href="{{ 'ani-atc.min.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all'">{%- endif -%}
 <template class="t4s-d-none" id="t4s-sticky-atc-temp">
   <div data-sticky-addtocart class="t4s-sticky-atc sticky_layout_mb--{{ se_stts.sticky_layout_mb }} t4s-pf t4s-b-0 t4s-l-0 t4s-r-0 t4s-op-0 t4s-pe-none"{% if PR_no_pick %} hidden{% endif %}>
     {%- if request.design_mode %}<link href="{{ 'sticky-atc.css' | asset_url }}" rel="stylesheet" media="all">{% endif -%}
     <div class="t4s-sticky-atc__product">
-
+       
        {%- liquid
        assign image = current_variant.featured_image | default: product.featured_image
        assign img_url = image | image_url: width: 1
@@ -1061,7 +882,7 @@ endif -%}
      </div>
     </div>
     <div class="t4s-sticky-atc__btns">
-        <div data-quantity-wrapper class="t4s-quantity-wrapper t4s-sticky-atc__qty">
+        <div data-quantity-wrapper class="t4s-quantity-wrapper t4s-sticky-atc__qty"> 
           <button data-quantity-selector data-decrease-qty type="button" class="t4s-quantity-selector is--minus"><svg focusable="false" class="icon icon--minus" viewBox="0 0 10 2" role="presentation"><path d="M10 0v2H0V0z" fill="currentColor"></path></svg></button>
           <input data-quantity-value type="number" class="t4s-quantity-input" step="{{ current_variant.quantity_rule.increment | default: 1 }}" min="{{ cus_qty }}" max="{{ max_qty }}" name="quantity" value="{{ cus_qty }}" size="4" pattern="[0-9]*" inputmode="numeric">
           <button data-quantity-selector data-increase-qty type="button" class="t4s-quantity-selector is--plus"><svg focusable="false" class="icon icon--plus" viewBox="0 0 10 10" role="presentation"><path d="M6 4h4v2H6v4H4V6H0V4h4V0h2v4z" fill="currentColor" fill-rule="evenodd"></path></svg></button>
@@ -1091,85 +912,84 @@ endif -%}
     {{ product.media | where: 'media_type', 'model' | json }}
   </script>
 {%- endunless -%}
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    console.log("👀 Observando cambios en el DOM...");
 
-    const observer = new MutationObserver(function (mutationsList, observer) {
-        const swatches = document.querySelectorAll("[data-value]");
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "url": "{{ request.origin }}{{ product.url }}",
+  {%- if seo_media != blank -%}
+    "image": [
+      "https:{{ seo_media | image_url: width: seo_media.preview_image.width }}"
+    ],
+  {%- endif -%}
+  "description": {{ product.description | strip_html | escape | strip_newlines | json }},
+  "sku": "{{ current_variant.sku | default: current_variant.id }}",
+  "mpn": "{{ current_variant.barcode }}",
+  "productID": "{{ product.id }}",
+  "brand": {
+    "@type": "Brand",
+    "name": "{{ product.vendor | escape }}"
+  },
+  {%- if product.price_varies -%}
+  "offers": [
+    {%- capture not_change -%}
+      "@type" : "Offer",
+      "availability" : "http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+      "priceCurrency" : "{{ cart.currency.iso_code }}",
+      "itemCondition": "https://schema.org/NewCondition",
+      "priceValidUntil": "{{ 'now' | date: '%s' | plus: 31536000 | date: '%Y-%m-%d' | url_encode | replace: '+', '%20' }}",
+    {%- endcapture -%}
+    {%- assign shop_secure_url = shop.secure_url -%}
+    {%- for variant in product.variants -%}
+      {
+        {{ not_change }}
+        "sku": "{{ variant.sku | default: variant.id }}",
+        "price" : "{{ variant.price | divided_by: 100.00 }}",
+        "mpn": "{{ variant.barcode }}",
+        {%- if variant.barcode.size >= 12 and variant.barcode.size <= 14 -%}"gtin{{ variant.barcode.size }}": "{{ variant.barcode }}",{%- endif -%}
+        "url" : "{{ request.origin }}{{ variant.url }}"
+      }{% unless forloop.last %},{% endunless -%}
+    {%- endfor -%}
+  ]
+  {%- else -%}
+  "offers": {
+    "@type" : "Offer",
+    "sku": "{{ current_variant.sku | default: current_variant.id }}",
+    "availability" : "http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+    "price" : "{{ product.price | divided_by: 100.00 }}",
+    "priceCurrency" : "{{ cart.currency.iso_code }}",
+    "itemCondition": "https://schema.org/NewCondition",
+    "url" : "{{ request.origin }}{{ product.url }}",
+    "mpn": "{{ current_variant.barcode }}",
+    {%- if current_variant.barcode.size >= 12 and current_variant.barcode.size <= 14 -%}"gtin{{ current_variant.barcode.size }}": "{{ current_variant.barcode }}",{%- endif -%}
+    "priceValidUntil": "{{ 'now' | date: '%s' | plus: 31536000 | date: '%Y-%m-%d' | url_encode | replace: '+', '%20' }}"
+  }
+  {%- endif -%}
 
-        if (swatches.length > 0) {
-            console.log("✅ Swatches detectados, ejecutando script...");
-            observer.disconnect(); // Detiene la observación después de encontrar los swatches
-            iniciarFiltrado();
-        }
-    });
-
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    function iniciarFiltrado() {
-        const swatches = document.querySelectorAll("[data-value]");
-
-        swatches.forEach(swatch => {
-            swatch.addEventListener("click", function () {
-                let selectedColor = swatch.getAttribute("data-value").trim().toLowerCase();
-                console.log("🎨 Color seleccionado:", selectedColor);
-
-                const allImages = document.querySelectorAll("[data-media-color]");
-                const allThumbnails = document.querySelectorAll(".t4s-carousel__nav-item img");
-
-                // Oculta imágenes que no corresponden al color seleccionado
-                allImages.forEach(img => {
-                    let imgColor = img.getAttribute("data-media-color").trim().toLowerCase();
-                    img.style.display = imgColor.replace(/\s+/g, '') === selectedColor.replace(/\s+/g, '') ? "block" : "none";
-                });
-
-                // Oculta miniaturas de otras variantes
-                allThumbnails.forEach(thumbnail => {
-                    let thumbColor = thumbnail.getAttribute("alt");
-                    if (thumbColor) {
-                        thumbColor = thumbColor.trim().toLowerCase();
-                        let parentThumbnail = thumbnail.closest(".t4s-carousel__nav-item"); // Encuentra el contenedor de la miniatura
-                        if (parentThumbnail) {
-                            parentThumbnail.style.display = thumbColor.replace(/\s+/g, '') === selectedColor.replace(/\s+/g, '') ? "block" : "none";
-                        }
-                    }
-                });
-            });
-        });
-
-        // Configurar visibilidad inicial con el color por defecto
-        let defaultSwatch = document.querySelector("[data-value].is--selected");
-        if (defaultSwatch) {
-            let defaultColor = defaultSwatch.getAttribute("data-value").trim().toLowerCase();
-            console.log("🎨 Color por defecto:", defaultColor);
-
-            const allImages = document.querySelectorAll("[data-media-color]");
-            const allThumbnails = document.querySelectorAll(".t4s-carousel__nav-item img");
-
-            allImages.forEach(img => {
-                let imgColor = img.getAttribute("data-media-color").trim().toLowerCase();
-                img.style.display = imgColor.replace(/\s+/g, '') === defaultColor.replace(/\s+/g, '') ? "block" : "none";
-            });
-
-            allThumbnails.forEach(thumbnail => {
-                let thumbColor = thumbnail.getAttribute("alt");
-                if (thumbColor) {
-                    thumbColor = thumbColor.trim().toLowerCase();
-                    let parentThumbnail = thumbnail.closest(".t4s-carousel__nav-item");
-                    if (parentThumbnail) {
-                        parentThumbnail.style.display = thumbColor.replace(/\s+/g, '') === defaultColor.replace(/\s+/g, '') ? "block" : "none";
-                    }
-                }
-            });
-        }
-    }
-});
-
-
-
+  {%- capture ratingValue -%}
+    {{ product.metafields.reviews.rating.value.rating }}
+    {{ product.metafields.ryviu.product_reviews_info | split: ";" | last }}
+    {{ product.metafields.ali.reviews_average }}
+    {{ product.metafields.loox.avg_rating }}
+    {{ product.metafields.stamped.reviews_average }}
+  {%- endcapture -%}
+  {%- capture ratingCount -%}
+    {{ product.metafields.reviews.rating_count }}
+    {{ product.metafields.ryviu.product_reviews_info | split: ";" | first }}
+    {{ product.metafields.ali.reviews_count }}
+    {{ product.metafields.loox.num_reviews }}
+    {{ product.metafields.stamped.reviews_count }}
+  {%- endcapture -%}
+  ,"aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": {{ ratingValue | strip_newlines | split: " " | uniq | first | default: 0 }},
+    "ratingCount": {{ ratingCount | strip_newlines | split: " " | uniq | first | default: 0 }}
+  }
+}
 </script>
-        
+  
 {%- schema -%}
 {
   "name": "Product main",
@@ -1747,10 +1567,6 @@ document.addEventListener("DOMContentLoaded", function () {
         {
           "value": "accordion",
           "label": "Accordion"
-        },
-        {
-          "value": "accordion accordion-2",
-          "label": "Accordion design 2"
         }
       ]
     },
@@ -1768,10 +1584,6 @@ document.addEventListener("DOMContentLoaded", function () {
         {
           "value": "accordion",
           "label": "Accordion"
-        },
-        {
-          "value": "accordion accordion-2",
-          "label": "Accordion design 2"
         }
       ]
     },
@@ -2110,8 +1922,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           ],
           "label": "Save badge type",
-          "default": "0",
-          "info": "Elevate your sales with [Advanced Badges](https:\/\/apps.shopify.com\/product-badges-label-design?utm_source=co_marketing&utm_medium=the4) – CRO boost!"
+          "default": "0"
         },
         {
           "type": "checkbox",
@@ -2183,41 +1994,37 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           ],
           "label": "Description mode",
-          "info": "Choose [Full description] to show the full Product content in Shopify admin",
+          "info": "If you want to show full HTML of the Product Description, please select \"Full Description\".",
           "default": "2"
+        },
+        {
+          "type": "header",
+          "content": "Short description configs"
         },
         {
           "type": "richtext",
           "id": "text",
           "label": "Short description",
-          "info": "You can enter a short description for all Products or call the metafield description of each product here. (metafield description will take higher priority)"
+          "info": "Short description that will be displayed for each product content if you don't set metafield excerpt for each product content."
+        },
+        {
+          "type": "number",
+          "id": "length",
+          "label": "Excerpt length (integer)",
+          "info": "Number of words that will be displayed for each product content if you don't set short description page or set metafield excerpt for each product content.",
+          "default": 31
         },
         {
           "type": "checkbox",
           "id": "readm",
           "label": "Use read more",
-          "info": "Only apply for [Short description] mode",
           "default": false
         },
-        {
-          "type": "number",
-          "id": "length",
-          "label": "Short description length",
-          "info": "Max height description (px)",
-          "default": 100
-        },
-        
         {
           "type": "text",
           "id": "readm_txt",
           "label": "Read more label",
           "default": "Read more"
-        },
-        {
-          "type": "text",
-          "id": "readl_txt",
-          "label": "Read less label",
-          "default": "Less"
         }
       ]
     },
@@ -3827,7 +3634,7 @@ document.addEventListener("DOMContentLoaded", function () {
           "id": "svg",
           "label": "SVG list",
           "default": "amazon_payments,american_express,apple_pay,bitcoin,dankort,diners_club,discover,dogecoin,dwolla,forbrugsforeningen,interac,google_pay,jcb,klarna,klarna-pay-later,litecoin,maestro,master,paypal,shopify_pay,sofort,visa",
-          "info": "Review the [list of available values](https:\/\/github.com\/activemerchant\/payment_icons\/tree\/master\/app\/assets\/images\/payment_icons) and copy the name of each icon that you need from that list, without the .svg extension"
+          "info": "amazon_payments,american_express,apple_pay,bitcoin,dankort,diners_club,discover,dogecoin,dwolla,forbrugsforeningen,interac,google_pay,jcb,klarna,klarna-pay-later,litecoin,maestro,master,paypal,shopify_pay,sofort,visa"
         },
         {
           "type": "range",
@@ -4488,18 +4295,6 @@ document.addEventListener("DOMContentLoaded", function () {
           "id": "heading",
           "default": "Your name",
           "label": "Your form field label"
-        },
-        {
-          "type": "text",
-          "id": "des",
-          "default": "Description",
-          "label": "Description",
-        },
-        {
-          "type": "color",
-          "id": "color_des",
-          "label": "Description color",
-          "default": "#222222"
         },
         {
           "type": "textarea",
