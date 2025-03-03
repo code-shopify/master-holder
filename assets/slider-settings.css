@@ -22,13 +22,13 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.5s ease;
+  /* transition: all 0.5s ease; */
   color: #000;
   margin: auto 0;
   min-width: 1px;
   min-height: 1px;
-  -webkit-animation: 1s t4s-ani-fadeIn;
-  animation: 1s t4s-ani-fadeIn;
+  /* -webkit-animation: 1s t4s-ani-fadeIn;
+  animation: 1s t4s-ani-fadeIn; */
   z-index: 3;
 }
 .flickityt4s-enabled .flickityt4s-prev-next-button[disabled], 
