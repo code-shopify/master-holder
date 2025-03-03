@@ -7,11 +7,7 @@
           src="//www.masterholder.com.mx/cdn/shop/files/mh-4en1-anticaida-negro-16-negro-269826.jpg?v=1737213793&width=600"
           alt="color photo"
         >
-        <span
-          class="before_badge ba_badge"
-          style="display: block;"
-          >Antes</span
-        >
+        <span class="before_badge ba_badge">Antes</span>
       </div>
       <div class="after_img">
         <img
@@ -19,9 +15,7 @@
           src="//www.masterholder.com.mx/cdn/shop/files/mh-4en1-anticaida-negro-16-negro-453841.jpg?v=1737213793&width=600"
           alt="black and white"
         >
-        <span class="after_badge ba_badge" style="display: block;"
-          >Después</span
-        >
+        <span class="after_badge ba_badge">Después</span>
       </div>
     </div>
     <input
@@ -32,8 +26,8 @@
       aria-label="Percentage of before photo shown"
       class="ba-slider"
     >
-    <div class="slider-line" aria-hidden="true"></div>
-    <div class="slider-button" aria-hidden="true">
+    <div class="slider-line"></div>
+    <div class="slider-button">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="10"
@@ -99,7 +93,7 @@
 <style>
   .ba_main {
     display: flex;
-    place-items: center;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 30px;
     padding: 0 5rem;
@@ -108,59 +102,57 @@
     margin: 50px auto;
   }
 
-  img {
-    display: block;
-    max-width: 100%;
-  }
-
   .container {
-    display: grid;
     position: relative;
     overflow: hidden;
     border-radius: 1rem;
-    --position: 50%;
     width: 50%;
+    max-width: 600px;
     margin: 0 auto;
   }
 
   .image-container {
-    max-width: 1200px;
+    position: relative;
+    width: 100%;
+    max-height: 500px;
   }
 
-  .before_badge {
-    z-index: 99 !important;
+  .before_img,
+  .after_img {
     position: absolute;
-    bottom: 15px;
-    left: 15px;
-    background: #fff;
-    padding: 0 5px;
-    border-radius: 5px;
-    color: #000;
+    inset: 0;
+    width: 100%;
+    height: 100%;
   }
 
-  .after_badge {
-    z-index: 99 !important;
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
-    background: #fff;
-    padding: 0 5px;
-    border-radius: 5px;
-    color: #000;
+  .before_img {
+    overflow: hidden;
+    clip-path: inset(0 var(--position, 50%) 0 0);
   }
 
   .slider-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: left;
-    max-height: 500px;
   }
 
-  .image-before {
+  .before_badge,
+  .after_badge {
     position: absolute;
-    inset: 0;
-    width: var(--position);
+    bottom: 15px;
+    background: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    color: #000;
+    font-weight: bold;
+  }
+
+  .before_badge {
+    left: 15px;
+  }
+
+  .after_badge {
+    right: 15px;
   }
 
   .ba-slider {
@@ -172,37 +164,32 @@
     height: 100%;
   }
 
-  .ba-slider:focus-visible ~ .slider-button {
-    outline: 5px solid black;
-    outline-offset: 3px;
-  }
-
   .slider-line {
     position: absolute;
-    inset: 0;
-    width: .2rem;
+    width: 3px;
     height: 100%;
     background-color: #fff;
-    left: var(--position);
+    left: var(--position, 50%);
     transform: translateX(-50%);
     pointer-events: none;
   }
 
   .slider-button {
     position: absolute;
-    background-color: #ffffffb5 !important;
+    background-color: #ffffffb5;
     color: black;
-    padding: .5rem;
-    border-radius: 100vw;
-    display: grid;
-    place-items: center;
+    padding: 0.5rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     top: 50%;
-    left: var(--position);
+    left: var(--position, 50%);
     transform: translate(-50%, -50%);
     pointer-events: none;
-    box-shadow: 1px 1px 1px hsl(0, 50%, 2%, .5);
-width: 10px;
-height: 40px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    width: 30px;
+    height: 30px;
   }
 
   @media only screen and (max-width: 768px) {
@@ -221,7 +208,8 @@ height: 40px;
     const slider = document.querySelector(".ba-slider");
 
     slider.addEventListener("input", (e) => {
-      container.style.setProperty("--position", ${e.target.value}%);
+      const position = e.target.value + "%";
+      container.style.setProperty("--position", position);
     });
   });
 </script>
