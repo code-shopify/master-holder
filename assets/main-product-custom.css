@@ -5,7 +5,7 @@
 }
 .imagen-fija {
     background: #29559e;
-    padding: 2px;
+    /*padding: 2px;*/
     border-radius: 0.2rem;
     z-index: 10;
     height: 105px;
