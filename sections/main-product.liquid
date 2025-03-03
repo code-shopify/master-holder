@@ -328,30 +328,33 @@ endif -%}
                 -%}
               
                 {%- if product.metafields.custom.imagen_fija != blank -%}
-                  <!-- Agregar la imagen fija al final del carrusel -->
-                  <div data-product-single-media-wrapper data-main-slide 
-                       class="{{ class_col }} t4s-col-12 t4s-col-item t4s-product__media-item"
-                       data-media-type="image"
-                       data-fixed-image="{{ product.metafields.custom.imagen_fija | image_url }}">
-                    <div data-t4s-gallery--open class="t4s_ratio t4s-product__media{{ class_pswp_disable }}" {{ imgatt }}
-                         style="--aspect-ratioapt:1; --mw-media:{{ product.metafields.custom.imagen_fija.width }}px">
-                      <noscript>
-                        {{ product.metafields.custom.imagen_fija | image_url: width: image_size | image_tag: widths: '288, 576, 750, 1100, 1500', alt: "Imagen Fija", class: 't4s-img-noscript', loading: 'lazy' }}
-                      </noscript>
-                      <img id="fixed-image"
-                           data-master="{{ product.metafields.custom.imagen_fija | image_url }}" 
-                           class="lazyloadt4s t4s-lz--fadeIn" 
-                           data-src="{{ product.metafields.custom.imagen_fija | image_url: width: 1 }}" 
-                           data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" 
-                           data-optimumx="2" 
-                           data-sizes="auto" 
-                           src="{% render 'img_svg', w: product.metafields.custom.imagen_fija.width, h: product.metafields.custom.imagen_fija.height %}" 
-                           width="{{ product.metafields.custom.imagen_fija.width }}" 
-                           height="{{ product.metafields.custom.imagen_fija.height }}" 
-                           alt="Imagen Fija">
-                    </div>
-                  </div>
-                {%- endif -%}
+  <!-- Agregar la imagen fija al final del carrusel -->
+  <div data-product-single-media-wrapper data-main-slide 
+       class="{{ class_col }} t4s-col-12 t4s-col-item t4s-product__media-item imagen-fija-custom"
+       data-media-type="image"
+       data-fixed-image="{{ product.metafields.custom.imagen_fija | image_url }}">
+    <div data-t4s-gallery--open class="t4s_ratio t4s-product__media{{ class_pswp_disable }}" {{ imgatt }}
+         style="--aspect-ratioapt:1; --mw-media:{{ product.metafields.custom.imagen_fija.width }}px">
+      <noscript>
+        {{ product.metafields.custom.imagen_fija | image_url: width: image_size | image_tag: widths: '288, 576, 750, 1100, 1500', alt: "Imagen Fija", class: 't4s-img-noscript', loading: 'lazy' }}
+      </noscript>
+      <img id="fixed-image"
+           data-master="{{ product.metafields.custom.imagen_fija | image_url }}" 
+           class="lazyloadt4s t4s-lz--fadeIn" 
+           data-src="{{ product.metafields.custom.imagen_fija | image_url: width: 1 }}" 
+           data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" 
+           data-optimumx="2" 
+           data-sizes="auto" 
+           src="{% render 'img_svg', w: product.metafields.custom.imagen_fija.width, h: product.metafields.custom.imagen_fija.height %}" 
+           width="{{ product.metafields.custom.imagen_fija.width }}" 
+           height="{{ product.metafields.custom.imagen_fija.height }}" 
+           alt="Imagen Fija">
+    </div>
+  </div>
+  <script>
+    console.log("📢 Imagen fija agregada al DOM:", document.querySelector('.imagen-fija-custom'));
+  </script>
+{%- endif -%}
               
                 {%- liquid
                   if has_media_360
