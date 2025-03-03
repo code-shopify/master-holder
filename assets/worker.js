@@ -1,41 +1,30 @@
 
-document.addEventListener("DOMContentLoaded", function() {
-    console.log("✅ DOM cargado, esperando que los elementos estén disponibles...");
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("✅ DOM cargado, esperando clics...");
+    
+    var toggleButton = document.getElementById("toggleBeforeAfter");
+    var beforeAfterContainer = document.getElementById("before-after-container");
 
-    function setupToggleEvent() {
-        var toggleButton = document.getElementById("toggleBeforeAfter");
-        var beforeAfterContainer = document.getElementById("before-after-container");
-
-        if (!toggleButton) {
-            console.log("⚠️ El botón aún no está disponible, esperando...");
-            setTimeout(setupToggleEvent, 500); // Reintentar en 500ms
-            return;
-        }
-        if (!beforeAfterContainer) {
-            console.log("⚠️ El contenedor aún no está disponible, esperando...");
-            setTimeout(setupToggleEvent, 500);
-            return;
-        }
-
-        console.log("🎯 Botón y contenedor encontrados, agregando evento de clic...");
-
-        toggleButton.addEventListener("click", function(event) {
-            event.preventDefault(); // Evita comportamiento inesperado
-            console.log("🔄 Botón clickeado. Estado actual:", beforeAfterContainer.style.display);
-
-            if (beforeAfterContainer.style.display === "none" || beforeAfterContainer.style.display === "") {
-                beforeAfterContainer.style.display = "block"; // Mostrar
-                console.log("✅ Contenedor mostrado.");
-            } else {
-                beforeAfterContainer.style.display = "none"; // Ocultar
-                console.log("✅ Contenedor ocultado.");
-            }
-        });
+    if (!toggleButton || !beforeAfterContainer) {
+        console.error("❌ Elementos no encontrados, revisa los IDs.");
+        return;
     }
 
-    setupToggleEvent(); // Llamar a la función
+    // Asegurar que el contenedor está oculto al inicio
+    beforeAfterContainer.classList.add("before-after-hidden");
+
+    // Evento para alternar la visibilidad con classList.toggle
+    toggleButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        beforeAfterContainer.classList.toggle("before-after-hidden");
+        console.log("🔄 Estado del Before-After cambiado:", beforeAfterContainer.classList.contains("before-after-hidden") ? "Oculto" : "Visible");
+    });
+
+    // Evento adicional para cerrar al hacer clic fuera del contenedor
+    document.addEventListener("click", function (event) {
+        if (!toggleButton.contains(event.target) && !beforeAfterContainer.contains(event.target)) {
+            beforeAfterContainer.classList.add("before-after-hidden");
+            console.log("🚪 Se ocultó el Before-After por clic fuera del área.");
+        }
+    });
 });
-
-
-
-
