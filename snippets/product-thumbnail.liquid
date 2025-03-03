@@ -90,3 +90,46 @@ assign img_alt = img_alt | escape
 	</div>
 </div>
 {%- endif -%}
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var beforeAfterContainer = document.getElementById("before-after-container");
+    var imagenFijaTrigger = document.getElementById("imagen-fija-trigger");
+
+    if (imagenFijaTrigger) {
+        imagenFijaTrigger.addEventListener("click", function(event) {
+            event.preventDefault();
+            console.log("📢 Imagen fija clickeada, mostrando comparador...");
+
+            // Agregar el comparador dentro del contenedor
+            beforeAfterContainer.innerHTML = `
+                <div class="ba-overlay">
+                    ${document.getElementById("before-after-template").innerHTML}
+                </div>
+            `;
+
+            initializeBeforeAfterSlider();
+        });
+    }
+
+    // Detectar cuando se selecciona un thumbnail y eliminar el comparador
+    document.querySelectorAll(".t4s-product__thumb-item").forEach(function(thumb) {
+        thumb.addEventListener("click", function() {
+            console.log("🔄 Otro thumbnail seleccionado, ocultando comparador...");
+            beforeAfterContainer.innerHTML = ""; // Limpiar el contenido
+        });
+    });
+
+    function initializeBeforeAfterSlider() {
+        const container = document.querySelector(".before_after");
+        const slider = document.querySelector(".ba-slider");
+
+        if (slider && container) {
+            slider.addEventListener("input", (e) => {
+                container.style.setProperty("--position", `${e.target.value}%`);
+            });
+        }
+    }
+});
+
+</script>
