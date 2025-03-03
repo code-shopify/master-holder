@@ -1,36 +1,43 @@
 
-document.addEventListener("DOMContentLoaded", function () {
-    console.log("✅ DOM cargado, esperando clics...");
-    
-    var toggleButton = document.getElementById("toggleBeforeAfter");
-    var beforeAfterContainer = document.getElementById("before-after-container");
+document.addEventListener("DOMContentLoaded", function() {
+    console.log("✅ DOM cargado, esperando que los elementos estén disponibles...");
 
-    if (!toggleButton || !beforeAfterContainer) {
-        console.error("❌ Elementos no encontrados, revisa los IDs.");
-        return;
+    function setupToggleEvent() {
+        var toggleButton = document.getElementById("toggleBeforeAfter");
+        var beforeAfterContainer = document.getElementById("before-after-container");
+
+        if (!toggleButton) {
+            console.log("⚠️ El botón aún no está disponible, esperando...");
+            setTimeout(setupToggleEvent, 500);
+            return;
+        }
+        if (!beforeAfterContainer) {
+            console.log("⚠️ El contenedor aún no está disponible, esperando...");
+            setTimeout(setupToggleEvent, 500);
+            return;
+        }
+
+        console.log("🎯 Botón y contenedor encontrados, agregando eventos de clic...");
+
+        // Aseguramos que el Before-After esté oculto al inicio
+        beforeAfterContainer.classList.add("hidden");
+
+        // Evento para mostrar/ocultar al hacer clic en la imagen fija
+        toggleButton.addEventListener("click", function(event) {
+            event.preventDefault();
+            beforeAfterContainer.classList.toggle("hidden");
+            console.log("🔄 Estado cambiado:", beforeAfterContainer.classList.contains("hidden") ? "Oculto" : "Visible");
+        });
+
+        // Detectar clics fuera del contenedor para ocultarlo
+        document.addEventListener("click", function(event) {
+            if (!toggleButton.contains(event.target) && !beforeAfterContainer.contains(event.target)) {
+                beforeAfterContainer.classList.add("hidden");
+                console.log("🚪 Click fuera detectado, contenedor ocultado.");
+            }
+        });
     }
 
-    // Asegurar que el contenedor está oculto al inicio
-    beforeAfterContainer.classList.add("before-after-hidden");
-
-    // Evento para alternar la visibilidad con classList.toggle
-    toggleButton.addEventListener("click", function (event) {
-        event.preventDefault();
-        beforeAfterContainer.classList.toggle("before-after-hidden");
-        console.log("🔄 Estado del Before-After cambiado:", beforeAfterContainer.classList.contains("before-after-hidden") ? "Oculto" : "Visible");
-    });
-
-    // Evento adicional para cerrar al hacer clic fuera del contenedor
-    document.addEventListener("click", function (event) {
-        if (!toggleButton.contains(event.target) && !beforeAfterContainer.contains(event.target)) {
-            beforeAfterContainer.classList.add("before-after-hidden");
-            console.log("🚪 Se ocultó el Before-After por clic fuera del área.");
-        }
-    });
+    setupToggleEvent(); // Ejecutar la función
 });
-
-
-
-
-
 
