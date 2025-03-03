@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (!toggleButton) {
             console.log("⚠️ El botón aún no está disponible, esperando...");
-            setTimeout(setupToggleEvent, 500);
+            setTimeout(setupToggleEvent, 500); // Reintentar en 500ms
             return;
         }
         if (!beforeAfterContainer) {
@@ -17,27 +17,25 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        console.log("🎯 Botón y contenedor encontrados, agregando eventos de clic...");
+        console.log("🎯 Botón y contenedor encontrados, agregando evento de clic...");
 
-        // Aseguramos que el Before-After esté oculto al inicio
-        beforeAfterContainer.classList.add("hidden");
-
-        // Evento para mostrar/ocultar al hacer clic en la imagen fija
         toggleButton.addEventListener("click", function(event) {
-            event.preventDefault();
-            beforeAfterContainer.classList.toggle("hidden");
-            console.log("🔄 Estado cambiado:", beforeAfterContainer.classList.contains("hidden") ? "Oculto" : "Visible");
-        });
+            event.preventDefault(); // Evita comportamiento inesperado
+            console.log("🔄 Botón clickeado. Estado actual:", beforeAfterContainer.style.display);
 
-        // Detectar clics fuera del contenedor para ocultarlo
-        document.addEventListener("click", function(event) {
-            if (!toggleButton.contains(event.target) && !beforeAfterContainer.contains(event.target)) {
-                beforeAfterContainer.classList.add("hidden");
-                console.log("🚪 Click fuera detectado, contenedor ocultado.");
+            if (beforeAfterContainer.style.display === "none" || beforeAfterContainer.style.display === "") {
+                beforeAfterContainer.style.display = "block"; // Mostrar
+                console.log("✅ Contenedor mostrado.");
+            } else {
+                beforeAfterContainer.style.display = "none"; // Ocultar
+                console.log("✅ Contenedor ocultado.");
             }
         });
     }
 
-    setupToggleEvent(); // Ejecutar la función
+    setupToggleEvent(); // Llamar a la función
 });
+
+
+
 
