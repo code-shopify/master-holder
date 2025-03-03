@@ -335,18 +335,19 @@ endif -%}
               {% endif %}
               {% endcomment %}
             {% if product.metafields.custom.imagen_fija %}
-              <div class="t4s-col-item t4s-product__thumb-item imagen-fija-thumbnail">
-                <a class="imagen-fija" id="imagen-fija-trigger">
-                  <div class="img_fija"
-                    style="background-image: url('{{ product.metafields.custom.imagen_fija | file_url }}');
-                           width: 105px;
-                           height: 105px;
-                           background-size: cover;
-                           background-position: center;">
-                  </div>
-                </a>
-              </div>
-            {% endif %}
+  <div class="t4s-col-item t4s-product__thumb-item imagen-fija-thumbnail">
+    <a class="imagen-fija" id="imagen-fija-trigger">
+      <div class="img_fija"
+        style="background-image: url('{{ product.metafields.custom.imagen_fija | file_url }}');
+               width: 105px;
+               height: 105px;
+               background-size: cover;
+               background-position: center;">
+      </div>
+    </a>
+  </div>
+{% endif %}
+
 
               <button type="button" data-thumb-btn__prev="{{ se_id }}" aria-label="Previous" class="btn_pnav_prev t4s-pa t4s-pe-none t4s-op-0"></button>
               <button type="button" data-thumb-btn__next="{{ se_id }}" aria-label="Next" class="btn_pnav_next t4s-pa t4s-pe-none t4s-op-0"></button>
