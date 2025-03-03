@@ -382,6 +382,7 @@ endif -%}
           </div>
           
           {%- endcase -%}
+          {% render "before-after" %}
         </div>
         <div data-t4s-zoom-info class="t4s-{{ class_info }} t4s-col-12 t4s-col-item t4s-product__info-wrapper t4s-pr">
           <div id="product-zoom-{{ section.id }}" class="t4s-product__zoom-wrapper"></div>
@@ -784,7 +785,7 @@ endif -%}
             {%- endfor -%}
             {% comment %}Inicio de Renders{% endcomment %}
               {%- render 'custom-product-icons' -%}
-              {% render "before-after" %}
+              {% comment %}{% render "before-after" %}{% endcomment %}
             {% comment %}Fin Inicio de Renders{% endcomment %}
           </div>
         </div>
