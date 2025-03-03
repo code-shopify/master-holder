@@ -328,6 +328,7 @@ endif -%}
                     <div class="t4s-col-item t4s-product__thumb-item"><div class="t4s_ratio t4s-product__thumb" {{ imgatt }}style="--aspect-ratioapt:{{ image.aspect_ratio }}"></div></div>
                   {%- endfor -%}
                 </div>
+                {% render 'before-after%}
               </div>
               
               {% if product.metafields.custom.imagen_fija %}
@@ -340,7 +341,7 @@ endif -%}
             {%- endif -%}
 
           </div>
-          {% render 'before-after%}
+          
 
 
           {%- when 'one_column' or 'two_columns' or 'combined_grid' -%}
@@ -382,6 +383,7 @@ endif -%}
           </div>
           
           {%- endcase -%}
+          
           {% render "before-after" %}
         </div>
         <div data-t4s-zoom-info class="t4s-{{ class_info }} t4s-col-12 t4s-col-item t4s-product__info-wrapper t4s-pr">
