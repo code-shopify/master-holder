@@ -100,9 +100,9 @@ assign img_alt = img_alt | escape
     if (imagenFijaTrigger) {
         imagenFijaTrigger.addEventListener("click", function(event) {
             event.preventDefault();
-            console.log("📢 Imagen fija clickeada, mostrando comparador...");
+            console.log("📢 Imagen fija clickeada, mostrando comparador Before-After...");
 
-            // Agregar el comparador dentro del contenedor
+            // Removemos cualquier otro before-after antes de agregar uno nuevo
             beforeAfterContainer.innerHTML = `
                 <div class="ba-overlay">
                     ${document.getElementById("before-after-template").innerHTML}
@@ -132,5 +132,6 @@ assign img_alt = img_alt | escape
         }
     }
 });
+
 
 </script>
