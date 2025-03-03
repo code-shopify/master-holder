@@ -330,9 +330,11 @@ endif -%}
                   
                 </div>
               </div>
-              
+
               {% if product.metafields.custom.imagen_fija %}
-                <a class="imagen-fija" >{% render "imagen-galeria-fix" %}</a>
+                <a class="imagen-fija" id="toggleBeforeAfter">  
+                  {% render "imagen-galeria-fix" %}
+                </a>
               {% endif %}
               
               <button type="button" data-thumb-btn__prev="{{ se_id }}" aria-label="Previous" class="btn_pnav_prev t4s-pa t4s-pe-none t4s-op-0"></button>
