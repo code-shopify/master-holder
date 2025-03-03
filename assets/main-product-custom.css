@@ -1,10 +1,10 @@
 /*borde radius de las imagenes de la galeria */
 .img-carrou {
-  border: 1px solid #cdcdcd;
-  border-radius: .7rem;
+  /*border: 1px solid #cdcdcd;
+  border-radius: .7rem;*/
 }
 .imagen-fija {
-      background: #29559e;
+    background: #29559e;
     padding: 2px;
     border-radius: 0.2rem;
     z-index: 10;
