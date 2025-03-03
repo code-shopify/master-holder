@@ -7,7 +7,11 @@
           src="//www.masterholder.com.mx/cdn/shop/files/mh-4en1-anticaida-negro-16-negro-269826.jpg?v=1737213793&width=600"
           alt="color photo"
         >
-        <span class="before_badge ba_badge">Antes</span>
+        <span
+          class="before_badge ba_badge"
+          style="display: block;"
+          >Antes</span
+        >
       </div>
       <div class="after_img">
         <img
@@ -15,7 +19,9 @@
           src="//www.masterholder.com.mx/cdn/shop/files/mh-4en1-anticaida-negro-16-negro-453841.jpg?v=1737213793&width=600"
           alt="black and white"
         >
-        <span class="after_badge ba_badge">Después</span>
+        <span class="after_badge ba_badge" style="display: block;"
+          >Después</span
+        >
       </div>
     </div>
     <input
@@ -121,11 +127,6 @@
     max-width: 1200px;
   }
 
-  .before_img,
-  .after_img {
-    position: relative;
-  }
-
   .before_badge {
     z-index: 99 !important;
     position: absolute;
@@ -160,7 +161,6 @@
     position: absolute;
     inset: 0;
     width: var(--position);
-    overflow: hidden;
   }
 
   .ba-slider {
@@ -180,7 +180,7 @@
   .slider-line {
     position: absolute;
     inset: 0;
-    width: 0.2rem;
+    width: .2rem;
     height: 100%;
     background-color: #fff;
     left: var(--position);
@@ -201,8 +201,8 @@
     transform: translate(-50%, -50%);
     pointer-events: none;
     box-shadow: 1px 1px 1px hsl(0, 50%, 2%, .5);
-    width: 10px;
-    height: 40px;
+width: 10px;
+height: 40px;
   }
 
   @media only screen and (max-width: 768px) {
@@ -221,8 +221,7 @@
     const slider = document.querySelector(".ba-slider");
 
     slider.addEventListener("input", (e) => {
-      const position = e.target.value + "%";
-      container.style.setProperty("--position", position);
+      container.style.setProperty("--position", ${e.target.value}%);
     });
   });
 </script>
