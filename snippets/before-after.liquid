@@ -160,7 +160,9 @@
   .image-before {
     position: absolute;
     inset: 0;
-    width: var(--position);
+    width: 100%;
+    clip-path: inset(0 calc(100% - var(--position)) 0 0);
+    
   }
 
   .ba-slider {
