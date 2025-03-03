@@ -327,11 +327,9 @@ endif -%}
                   {%- endfor -%}
                 </div>
               </div>
-              {% comment %}
               {% if product.metafields.custom.imagen_fija %}
                 <a class="imagen-fija" >{% render "imagen-galeria-fix" %}</a>
               {% endif %}
-              {% endcomment %}
               <button type="button" data-thumb-btn__prev="{{ se_id }}" aria-label="Previous" class="btn_pnav_prev t4s-pa t4s-pe-none t4s-op-0"></button>
               <button type="button" data-thumb-btn__next="{{ se_id }}" aria-label="Next" class="btn_pnav_next t4s-pa t4s-pe-none t4s-op-0"></button>
             </div>
