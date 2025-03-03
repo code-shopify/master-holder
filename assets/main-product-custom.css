@@ -12,6 +12,10 @@
   /*display:none;*/
 }
 
+.before-after-hidden {
+  display: none;
+}
+
 
 
 /* acomoda el tamaño de  los botones del producto para que se vean mas largos */
