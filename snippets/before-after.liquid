@@ -97,124 +97,93 @@
 </main>
 
 <style>
-  .ba_main {
-    display: flex;
-    place-items: center;
-    flex-wrap: wrap;
-    gap: 30px;
-    padding: 0 5rem;
-    max-width: 1200px;
-    width: 100%;
-    margin: 50px auto;
-  }
-
-  img {
-    display: block;
-    max-width: 100%;
-  }
-
-  .container {
+.container {
     display: grid;
     position: relative;
     overflow: hidden;
     border-radius: 1rem;
     --position: 50%;
-    width: 50%;
+    width: 100%;  /* Cambiado de 50% a 100% para ocupar todo el ancho */
+    height: 100%; /* Ahora ocupa todo el alto disponible */
+    max-height: 600px; /* Ajusta según necesidad, puedes eliminarlo si quieres altura completa */
     margin: 0 auto;
-  }
+}
 
-  .image-container {
-    max-width: 1200px;
-  }
+/* Ajustar el tamaño del contenedor de imágenes */
+.image-container {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    position: relative;
+}
 
-  .before_badge {
-    z-index: 99 !important;
-    position: absolute;
-    bottom: 15px;
-    left: 15px;
-    background: #fff;
-    padding: 0 5px;
-    border-radius: 5px;
-    color: #000;
-  }
-
-  .after_badge {
-    z-index: 99 !important;
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
-    background: #fff;
-    padding: 0 5px;
-    border-radius: 5px;
-    color: #000;
-  }
-
-  .slider-image {
+/* Ajustar las imágenes para que ocupen el 100% */
+.slider-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: left;
-    max-height: 500px;
-  }
+    object-position: center;
+}
 
-  .image-before {
+/* Ajuste de la imagen BEFORE para que se recorte correctamente */
+.image-before {
     position: absolute;
     inset: 0;
     width: 100%;
+    height: 100%;
     clip-path: inset(0 calc(100% - var(--position)) 0 0);
-    
-  }
+}
 
-  .ba-slider {
+/* Ajuste del slider */
+.ba-slider {
     position: absolute;
     inset: 0;
+    width: 100%;
+    height: 100%;
     cursor: pointer;
     opacity: 0;
-    width: 100%;
-    height: 100%;
-  }
+}
 
-  .ba-slider:focus-visible ~ .slider-button {
-    outline: 5px solid black;
-    outline-offset: 3px;
-  }
-
-  .slider-line {
+/* Ajustar la línea del slider */
+.slider-line {
     position: absolute;
-    inset: 0;
-    width: .2rem;
+    width: 2px;
     height: 100%;
-    background-color: #fff;
+    background-color: white;
     left: var(--position);
     transform: translateX(-50%);
     pointer-events: none;
-  }
+}
 
-  .slider-button {
+/* Ajustar el botón del slider */
+.slider-button {
     position: absolute;
-    background-color: #ffffffb5 !important;
+    background-color: rgba(255, 255, 255, 0.7);
     color: black;
-    padding: .5rem;
-    border-radius: 100vw;
-    display: grid;
-    place-items: center;
+    padding: 10px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     top: 50%;
     left: var(--position);
     transform: translate(-50%, -50%);
     pointer-events: none;
-    box-shadow: 1px 1px 1px hsl(0, 50%, 2%, .5);
-width: 10px;
-height: 40px;
-  }
+    width: 20px;
+    height: 40px;
+}
 
-  @media only screen and (max-width: 768px) {
+/* Hacerlo responsivo */
+@media only screen and (max-width: 768px) {
     .container {
-      width: 100%;
+        width: 100%;
+        height: auto; /* Ajuste automático en móviles */
     }
     .ba_main {
-      padding: 0 20px;
+        padding: 0 20px;
     }
-  }
+}
+
 </style>
 
 <script>
