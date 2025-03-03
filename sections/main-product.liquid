@@ -381,11 +381,12 @@ endif -%}
               <div data-product-single-badge data-sort="sale,new,soldout,preOrder,custom" class="t4s-single-product-badge t4s-pa t4s-pe-none t4s-op-0"></div>
               {%- render 'product-btns', se_stts: se_stts, product: product -%}
             </div>
+            {% render "before-after" %}
           </div>
           
           {%- endcase -%}
           
-          {% render "before-after" %}
+          
         </div>
         <div data-t4s-zoom-info class="t4s-{{ class_info }} t4s-col-12 t4s-col-item t4s-product__info-wrapper t4s-pr">
           <div id="product-zoom-{{ section.id }}" class="t4s-product__zoom-wrapper"></div>
