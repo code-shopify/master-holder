@@ -1,6 +1,7 @@
 {% comment %}
-  Before & After Slider for Shopify (Fixed with Slider Icon Adjustments)
-  - Ensures the slider icon is correctly positioned and does not interfere with images.
+  Before & After Slider for Shopify (Adapted from Original)
+  - Fully functional and faithful to the original version.
+  - Uses Liquid to load images dynamically.
 {% endcomment %}
 
 {% assign product_type = product.type | downcase %}
@@ -18,15 +19,10 @@
     {% assign after_image = product.images[1] | img_url: 'master' %}
 {% endcase %}
 
+<!-- BEGIN BEFORE AFTER SLIDER MARKUP -->
 <div class="before-after-container">
-  <figure class="before-after-wrapper">
-    <div class="after-image" style="background-image: url({{ after_image }});"></div>
-    <div id="before_after_{{ product.id }}" class="before-image" style="background-image: url({{ before_image }});"></div>
-    <div class="slider-line" id="slider_line_{{ product.id }}"></div>
-    <!-- Icono centrado para el control del slider -->
-    <div class="slider-icon" id="slider_icon_{{ product.id }}">
-      <span>&#8656;</span> <!-- Puedes cambiar el icono si prefieres otro -->
-    </div>
+  <figure>
+    <div id="before_after_{{ product.id }}"></div>
   </figure>
   <input 
     oninput="beforeAfter({{ product.id }})" 
@@ -35,123 +31,90 @@
     id="before_after_slider_{{ product.id }}" 
   />
 </div>
+<!-- END BEFORE AFTER SLIDER MARKUP -->
 
 <style>
 :root {
+  --before-after-aspect-ratio: 1 / 1;
+  --before-image: url({{ before_image }});
+  --after-image: url({{ after_image }});
   --before-after-background-color: #1f1f1c;
 }
 
 .before-after-container {
-  position: relative;
-  width: 100%;
-  max-width: 600px;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: var(--before-after-aspect-ratio);
   background: var(--before-after-background-color);
+  width: 100%;
   overflow: hidden;
+  transition: all 0.3s ease-in-out;
 }
 
-.before-after-wrapper {
+.before-after-container figure {
+  background-image: var(--after-image);
   position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.after-image, .before-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  margin: 0;
   background-size: cover;
-  background-position: center;
+  width: 100%;
+  height: 100%;
 }
 
-.before-image {
-  width: 50%; /* Inicialmente al 50% */
+#before_after_{{ product.id }} {
+  background-image: var(--before-image);
+  background-size: cover;
+  bottom: 0;
   border-right: 5px solid rgba(255, 255, 255, 0.7);
   box-shadow: 10px 0 15px -13px #000;
-  transition: width 0.2s ease-in-out;
-  animation: first 2s 1 normal ease-in-out 0.1s forwards;
-}
-
-/* Animación inicial */
-@keyframes first {
-  0% { width: 0%; }
-  50% { width: 80%; }
-  100% { width: 50%; }
-}
-
-/* Línea del slider */
-.slider-line {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 5px;
   height: 100%;
-  background: rgba(255, 255, 255, 0.7);
-  transform: translateX(-50%);
-  transition: left 0.2s ease-in-out;
-}
-
-/* Icono centrado en el slider */
-.slider-icon {
+  width: 50%;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 2rem; /* Puedes cambiar el tamaño del icono */
-  color: #fff;
-  z-index: 3; /* Asegúrate de que esté por encima de las imágenes */
+  animation: first 2s 1 normal ease-in-out 0.1s;
 }
 
-/* Corrección: Slider ahora es funcional */
-input[type="range"] {
+input#before_after_slider_{{ product.id }} {
   -moz-appearance: none;
   -webkit-appearance: none;
   border: none;
   background: transparent;
   cursor: col-resize;
-  height: 30px;
-  width: 100%;
-  position: absolute;
-  top: 50%;
+  height: 100vw;
   left: 0;
-  transform: translateY(-50%);
-  opacity: 1; /* Visible */
-  z-index: 2;
+  margin: 0;
+  outline: none;
+  padding: 0;
+  position: relative;
+  top: -100vw;
+  width: 100%;
 }
 
-/* Estilos para mejorar la apariencia del control deslizante */
-input[type="range"]::-webkit-slider-thumb {
+input#before_after_slider_{{ product.id }}::-webkit-slider-thumb {
   -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  background: white;
-  border: 2px solid #333;
-  border-radius: 50%;
-  cursor: pointer;
+  height: 100vw;
+  width: 0.5%;
+  opacity: 0;
 }
 
-input[type="range"]::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  background: white;
-  border: 2px solid #333;
-  border-radius: 50%;
-  cursor: pointer;
+#before_after_{{ product.id }}::before {
+  background: url('https://assets.codepen.io/191814/comparision.png') no-repeat center;
+  background-size: contain;
+  content: " ";
+  float: right;
+  height: 100%;
+  margin-right: -34px;
+  position: relative;
+  top: 0;
+  width: 64px;
+}
+
+@keyframes first {
+  0% { width: 0%; }
+  50% { width: 80%; }
+  100% { width: 50%; }
 }
 </style>
 
 <script>
 function beforeAfter(productId) {
-  let beforeImage = document.getElementById("before_after_" + productId);
-  let slider = document.getElementById("before_after_slider_" + productId);
-  let sliderLine = document.getElementById("slider_line_" + productId);
-  let sliderIcon = document.getElementById("slider_icon_" + productId);
-
-  beforeImage.style.width = slider.value + "%";
-  sliderLine.style.left = slider.value + "%";
-  sliderIcon.style.left = slider.value + "%"; // Aseguramos que el icono se mueva con el slider
+  document.getElementById("before_after_" + productId).style.width =
+    document.getElementById("before_after_slider_" + productId).value + "%";
 }
 </script>
