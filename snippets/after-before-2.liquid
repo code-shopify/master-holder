@@ -1,0 +1,87 @@
+{% comment %}
+  Before & After Slider for Shopify (Dynamic)
+  - Uses product type to determine before & after images.
+  - Adjusts to the container width automatically.
+{% endcomment %}
+
+{% assign product_type = product.type | downcase %}
+
+{% comment %} Configuración de imágenes según tipo de producto {% endcomment %}
+{% case product_type %}
+  {% when 'zapatos' %}
+    {% assign before_image = '//www.masterholder.com.mx/cdn/shop/files/mh-4en1-anticaida-negro-16-negro-269826.jpg?v=1737213793&width=600' | asset_url %}
+    {% assign after_image = '//www.masterholder.com.mx/cdn/shop/files/mh-4en1-anticaida-negro-16-negro-453841.jpg?v=1737213793&width=600' | asset_url %}
+  {% when 'ropa' %}
+    {% assign before_image = '//www.masterholder.com.mx/cdn/shop/files/mh-4en1-anticaida-negro-16-negro-269826.jpg?v=1737213793&width=600' | asset_url %}
+    {% assign after_image = '//www.masterholder.com.mx/cdn/shop/files/mh-4en1-anticaida-negro-16-negro-453841.jpg?v=1737213793&width=600' | asset_url %}
+  {% else %}
+    {% assign before_image = product.images[0] | img_url: 'master' %}
+    {% assign after_image = product.images[1] | img_url: 'master' %}
+{% endcase %}
+
+<div class="before-after-container">
+  <figure>
+    <div id="before_after_{{ product.id }}" class="before-image" style="background-image: url({{ before_image }});"></div>
+  </figure>
+  <input 
+    oninput="beforeAfter({{ product.id }})" 
+    onchange="beforeAfter({{ product.id }})" 
+    type="range" min="0" max="100" value="50" 
+    id="before_after_slider_{{ product.id }}" 
+  />
+</div>
+
+<style>
+:root {
+  --before-after-background-color: #1f1f1c;
+}
+
+.before-after-container {
+  aspect-ratio: 1 / 1;
+  background: var(--before-after-background-color);
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.before-after-container figure {
+  background-image: url({{ after_image }});
+  position: relative;
+  margin: 0;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.before-image {
+  background-size: cover;
+  bottom: 0;
+  border-right: 5px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 10px 0 15px -13px #000;
+  height: 100%;
+  width: 50%;
+  position: absolute;
+  transition: width 0.3s ease-in-out;
+}
+
+input[type="range"] {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  background: transparent;
+  cursor: col-resize;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+</style>
+
+<script>
+function beforeAfter(productId) {
+  document.getElementById("before_after_" + productId).style.width =
+    document.getElementById("before_after_slider_" + productId).value + "%";
+}
+</script>
