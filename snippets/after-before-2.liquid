@@ -1,7 +1,6 @@
 {% comment %}
-  Before & After Slider for Shopify (Fixed + Control Icon)
-  - Now fully functional with slider icon restored.
-  - Keeps initial animation and smooth movement.
+  Before & After Slider for Shopify (Fixed with Slider Icon Adjustments)
+  - Ensures the slider icon is correctly positioned and does not interfere with images.
 {% endcomment %}
 
 {% assign product_type = product.type | downcase %}
@@ -23,8 +22,10 @@
   <figure class="before-after-wrapper">
     <div class="after-image" style="background-image: url({{ after_image }});"></div>
     <div id="before_after_{{ product.id }}" class="before-image" style="background-image: url({{ before_image }});"></div>
-    <div class="slider-line" id="slider_line_{{ product.id }}">
-      <div class="slider-icon"></div> <!-- Ícono central restaurado -->
+    <div class="slider-line" id="slider_line_{{ product.id }}"></div>
+    <!-- Icono centrado para el control del slider -->
+    <div class="slider-icon" id="slider_icon_{{ product.id }}">
+      <span>&#8656;</span> <!-- Puedes cambiar el icono si prefieres otro -->
     </div>
   </figure>
   <input 
@@ -66,7 +67,7 @@
 }
 
 .before-image {
-  width: 50%;
+  width: 50%; /* Inicialmente al 50% */
   border-right: 5px solid rgba(255, 255, 255, 0.7);
   box-shadow: 10px 0 15px -13px #000;
   transition: width 0.2s ease-in-out;
@@ -90,28 +91,17 @@
   background: rgba(255, 255, 255, 0.7);
   transform: translateX(-50%);
   transition: left 0.2s ease-in-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-/* Icono del slider restaurado */
+/* Icono centrado en el slider */
 .slider-icon {
-  width: 50px;
-  height: 50px;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: absolute;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  pointer-events: none;
-  background-image: url('https://assets.codepen.io/191814/comparision.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+  font-size: 2rem; /* Puedes cambiar el tamaño del icono */
+  color: #fff;
+  z-index: 3; /* Asegúrate de que esté por encima de las imágenes */
 }
 
 /* Corrección: Slider ahora es funcional */
@@ -158,8 +148,10 @@ function beforeAfter(productId) {
   let beforeImage = document.getElementById("before_after_" + productId);
   let slider = document.getElementById("before_after_slider_" + productId);
   let sliderLine = document.getElementById("slider_line_" + productId);
+  let sliderIcon = document.getElementById("slider_icon_" + productId);
 
   beforeImage.style.width = slider.value + "%";
   sliderLine.style.left = slider.value + "%";
+  sliderIcon.style.left = slider.value + "%"; // Aseguramos que el icono se mueva con el slider
 }
 </script>
