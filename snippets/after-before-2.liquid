@@ -1,120 +1,106 @@
 {% comment %}
-  Before & After Slider for Shopify (Adapted from Original)
-  - Fully functional and faithful to the original version.
-  - Uses Liquid to load images dynamically.
+  Before & After Slider (Using Metafields for Dynamic Images)
 {% endcomment %}
 
-{% assign product_type = product.type | downcase %}
+{% assign before_image = product.metafields.custom.before_image | img_url: 'master' %}
+{% assign after_image = product.metafields.custom.after_image | img_url: 'master' %}
 
-{% comment %} Configuración de imágenes según tipo de producto {% endcomment %}
-{% case product_type %}
-  {% when 'zapatos' %}
-    {% assign before_image = 'zapatos-antes.jpg' | asset_url %}
-    {% assign after_image = 'zapatos-despues.jpg' | asset_url %}
-  {% when 'ropa' %}
-    {% assign before_image = 'ropa-antes.jpg' | asset_url %}
-    {% assign after_image = 'ropa-despues.jpg' | asset_url %}
-  {% else %}
-    {% assign before_image = product.images[0] | img_url: 'master' %}
-    {% assign after_image = product.images[1] | img_url: 'master' %}
-{% endcase %}
+{% if before_image != blank and after_image != blank %}
+  <div class="before-after-container">
+    <figure>
+      <div id="before_after_{{ product.id }}"></div>
+    </figure>
+    <input 
+      oninput="beforeAfter({{ product.id }})" 
+      onchange="beforeAfter({{ product.id }})" 
+      type="range" min="0" max="100" value="50" 
+      id="before_after_slider_{{ product.id }}" 
+    />
+  </div>
 
-<!-- BEGIN BEFORE AFTER SLIDER MARKUP -->
-<div class="before-after-container">
-  <figure>
-    <div id="before_after_{{ product.id }}"></div>
-  </figure>
-  <input 
-    oninput="beforeAfter({{ product.id }})" 
-    onchange="beforeAfter({{ product.id }})" 
-    type="range" min="0" max="100" value="50" 
-    id="before_after_slider_{{ product.id }}" 
-  />
-</div>
-<!-- END BEFORE AFTER SLIDER MARKUP -->
+  <style>
+    :root {
+      --before-after-aspect-ratio: 1 / 1;
+      --before-image: url({{ before_image }});
+      --after-image: url({{ after_image }});
+      --before-after-background-color: #1f1f1c;
+    }
 
-<style>
-:root {
-  --before-after-aspect-ratio: 1 / 1;
-  --before-image: url({{ before_image }});
-  --after-image: url({{ after_image }});
-  --before-after-background-color: #1f1f1c;
-}
+    .before-after-container {
+      aspect-ratio: var(--before-after-aspect-ratio);
+      background: var(--before-after-background-color);
+      width: 100%;
+      overflow: hidden;
+      transition: all 0.3s ease-in-out;
+    }
 
-.before-after-container {
-  aspect-ratio: var(--before-after-aspect-ratio);
-  background: var(--before-after-background-color);
-  width: 100%;
-  overflow: hidden;
-  transition: all 0.3s ease-in-out;
-}
+    .before-after-container figure {
+      background-image: var(--after-image);
+      position: relative;
+      margin: 0;
+      background-size: cover;
+      width: 100%;
+      height: 100%;
+    }
 
-.before-after-container figure {
-  background-image: var(--after-image);
-  position: relative;
-  margin: 0;
-  background-size: cover;
-  width: 100%;
-  height: 100%;
-}
+    #before_after_{{ product.id }} {
+      background-image: var(--before-image);
+      background-size: cover;
+      bottom: 0;
+      border-right: 5px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 10px 0 15px -13px #000;
+      height: 100%;
+      width: 50%;
+      position: absolute;
+      animation: first 2s 1 normal ease-in-out 0.1s;
+    }
 
-#before_after_{{ product.id }} {
-  background-image: var(--before-image);
-  background-size: cover;
-  bottom: 0;
-  border-right: 5px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 10px 0 15px -13px #000;
-  height: 100%;
-  width: 50%;
-  position: absolute;
-  animation: first 2s 1 normal ease-in-out 0.1s;
-}
+    input#before_after_slider_{{ product.id }} {
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      border: none;
+      background: transparent;
+      cursor: col-resize;
+      height: 100vw;
+      left: 0;
+      margin: 0;
+      outline: none;
+      padding: 0;
+      position: relative;
+      top: -100vw;
+      width: 100%;
+    }
 
-input#before_after_slider_{{ product.id }} {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  border: none;
-  background: transparent;
-  cursor: col-resize;
-  height: 100vw;
-  left: 0;
-  margin: 0;
-  outline: none;
-  padding: 0;
-  position: relative;
-  top: -100vw;
-  width: 100%;
-}
+    input#before_after_slider_{{ product.id }}::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 100vw;
+      width: 0.5%;
+      opacity: 0;
+    }
 
-input#before_after_slider_{{ product.id }}::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  height: 100vw;
-  width: 0.5%;
-  opacity: 0;
-}
+    #before_after_{{ product.id }}::before {
+      background: url('https://assets.codepen.io/191814/comparision.png') no-repeat center;
+      background-size: contain;
+      content: " ";
+      float: right;
+      height: 100%;
+      margin-right: -34px;
+      position: relative;
+      top: 0;
+      width: 64px;
+    }
 
-#before_after_{{ product.id }}::before {
-  background: url('https://assets.codepen.io/191814/comparision.png') no-repeat center;
-  background-size: contain;
-  content: " ";
-  float: right;
-  height: 100%;
-  margin-right: -34px;
-  position: relative;
-  top: 0;
-  width: 64px;
-}
+    @keyframes first {
+      0% { width: 0%; }
+      50% { width: 80%; }
+      100% { width: 50%; }
+    }
+  </style>
 
-@keyframes first {
-  0% { width: 0%; }
-  50% { width: 80%; }
-  100% { width: 50%; }
-}
-</style>
-
-<script>
-function beforeAfter(productId) {
-  document.getElementById("before_after_" + productId).style.width =
-    document.getElementById("before_after_slider_" + productId).value + "%";
-}
-</script>
+  <script>
+    function beforeAfter(productId) {
+      document.getElementById("before_after_" + productId).style.width =
+        document.getElementById("before_after_slider_" + productId).value + "%";
+    }
+  </script>
+{% endif %}
