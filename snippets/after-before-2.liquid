@@ -9,15 +9,8 @@
   <div class="before-after-wrapper">
     <figure>
       <div id="before_after_{{ product.id }}" class="before-after-slider"></div>
+      <div class="before-after-handle"></div>
     </figure>
-    <input 
-      type="range" 
-      min="0" 
-      max="100" 
-      value="50" 
-      id="before_after_slider_{{ product.id }}" 
-      class="before-after-range"
-    />
   </div>
 
   <style>
@@ -60,65 +53,33 @@
       animation: first 2s 1 normal ease-in-out 0.1s;
     }
 
-    .before-after-range {
-      -moz-appearance: none;
-      -webkit-appearance: none;
-      border: none;
-      background: transparent;
-      cursor: col-resize;
-      height: 100%;
-      left: 0;
-      margin: 0;
-      outline: none;
-      padding: 0;
+    .before-after-handle {
       position: absolute;
       top: 0;
-      width: 100%;
-      z-index: 20;
-      touch-action: none;
-      -webkit-tap-highlight-color: transparent;
-      pointer-events: auto;
-      user-select: none;
-      -webkit-user-select: none;
-    }
-
-    .before-after-range::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      height: 100%;
+      left: 50%;
       width: 40px;
-      opacity: 0;
-      cursor: col-resize;
-      pointer-events: auto;
-    }
-
-    .before-after-range::-moz-range-thumb {
-      -moz-appearance: none;
       height: 100%;
-      width: 40px;
-      opacity: 0;
+      background: rgba(255, 255, 255, 0.7);
       cursor: col-resize;
-      pointer-events: auto;
+      z-index: 30;
+      transform: translateX(-50%);
+      transition: background-color 0.2s;
     }
 
-    .before-after-range::-ms-thumb {
-      appearance: none;
-      height: 100%;
-      width: 40px;
-      opacity: 0;
-      cursor: col-resize;
-      pointer-events: auto;
+    .before-after-handle:hover {
+      background: rgba(255, 255, 255, 0.9);
     }
 
-    .before-after-slider::before {
+    .before-after-handle::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 24px;
+      height: 24px;
       background: url('https://assets.codepen.io/191814/comparision.png') no-repeat center;
       background-size: contain;
-      content: " ";
-      float: right;
-      height: 100%;
-      margin-right: -34px;
-      position: relative;
-      top: 0;
-      width: 64px;
+      transform: translate(-50%, -50%);
     }
 
     @keyframes first {
@@ -131,26 +92,56 @@
   <script>
     function beforeAfter(productId) {
       const slider = document.getElementById("before_after_" + productId);
-      const range = document.getElementById("before_after_slider_" + productId);
+      const handle = slider.parentElement.querySelector('.before-after-handle');
+      const wrapper = slider.closest('.before-after-wrapper');
       
-      if (slider && range) {
-        // Función para actualizar el slider
-        function updateSlider(e) {
-          const value = e.target.value;
-          slider.style.width = value + "%";
+      if (slider && handle && wrapper) {
+        let isDragging = false;
+        let startX;
+        let startWidth;
+
+        function startDragging(e) {
+          isDragging = true;
+          startX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+          startWidth = slider.offsetWidth;
+          wrapper.style.cursor = 'col-resize';
         }
-        
-        // Remover todos los listeners anteriores
-        range.removeEventListener('input', updateSlider);
-        range.removeEventListener('change', updateSlider);
-        
-        // Agregar los listeners
-        range.addEventListener('input', updateSlider);
-        range.addEventListener('change', updateSlider);
-        
-        // Establecer valor inicial
-        range.value = 50;
-        slider.style.width = "50%";
+
+        function stopDragging() {
+          isDragging = false;
+          wrapper.style.cursor = '';
+        }
+
+        function updateSlider(e) {
+          if (!isDragging) return;
+          
+          const currentX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
+          const diff = currentX - startX;
+          const newWidth = startWidth + diff;
+          const wrapperWidth = wrapper.offsetWidth;
+          
+          let percentage = (newWidth / wrapperWidth) * 100;
+          percentage = Math.max(0, Math.min(100, percentage));
+          
+          slider.style.width = percentage + '%';
+          handle.style.left = percentage + '%';
+        }
+
+        // Remover listeners anteriores
+        handle.removeEventListener('mousedown', startDragging);
+        handle.removeEventListener('touchstart', startDragging);
+        document.removeEventListener('mousemove', updateSlider);
+        document.removeEventListener('touchmove', updateSlider);
+        document.removeEventListener('mouseup', stopDragging);
+        document.removeEventListener('touchend', stopDragging);
+
+        // Agregar nuevos listeners
+        handle.addEventListener('mousedown', startDragging);
+        handle.addEventListener('touchstart', startDragging);
+        document.addEventListener('mousemove', updateSlider);
+        document.addEventListener('touchmove', updateSlider);
+        document.addEventListener('mouseup', stopDragging);
+        document.addEventListener('touchend', stopDragging);
       }
     }
 
