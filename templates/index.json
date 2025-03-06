@@ -776,7 +776,7 @@
           "type": "shipping",
           "settings": {
             "icon_themes": "help",
-            "icon": "las la-life-ring",
+            "icon": "la-palette",
             "title": "Diseños 100% mexicanos",
             "text": "<p>Contact us 24 hours a day, 7 days a week</p>",
             "html": ""
