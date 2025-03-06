@@ -598,7 +598,7 @@
             "type": "drop",
             "settings": {
               "title": "TIENDA",
-              "url": "shopify://collections/all",
+              "url": "shopify://collections",
               "open_link": "_self",
               "menu": "tienda",
               "icon": "",
