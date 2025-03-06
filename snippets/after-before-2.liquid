@@ -121,81 +121,66 @@
   </style>
 
   <script>
-    let currentSlider = null;
-    let currentRange = null;
+    class BeforeAfterSlider {
+      constructor(productId) {
+        this.productId = productId;
+        this.slider = document.getElementById("before_after_" + productId);
+        this.range = document.getElementById("before_after_slider_" + productId);
+        this.initialize();
+      }
 
-    function beforeAfter(productId) {
-      const slider = document.getElementById("before_after_" + productId);
-      const range = document.getElementById("before_after_slider_" + productId);
-      
-      if (slider && range) {
-        // Si es el mismo slider, no reinicializamos
-        if (currentSlider === slider && currentRange === range) return;
-
-        function updateSlider(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          slider.style.width = this.value + "%";
-        }
+      initialize() {
+        if (!this.slider || !this.range) return;
         
-        // Remover listeners anteriores si existen
-        if (currentRange) {
-          currentRange.removeEventListener('input', updateSlider);
-          currentRange.removeEventListener('change', updateSlider);
-          currentRange.removeEventListener('click', stopEvent);
-        }
+        // Limpiar listeners anteriores
+        this.range.replaceWith(this.range.cloneNode(true));
+        this.range = document.getElementById("before_after_slider_" + this.productId);
         
         // Agregar nuevos listeners
-        range.addEventListener('input', updateSlider);
-        range.addEventListener('change', updateSlider);
-        range.addEventListener('click', stopEvent);
+        this.range.addEventListener('input', this.updateSlider.bind(this));
+        this.range.addEventListener('change', this.updateSlider.bind(this));
+        this.range.addEventListener('click', this.stopEvent);
         
         // Establecer valor inicial
-        range.value = 50;
-        slider.style.width = "50%";
+        this.range.value = 50;
+        this.slider.style.width = "50%";
+      }
 
-        // Actualizar referencias actuales
-        currentSlider = slider;
-        currentRange = range;
+      updateSlider(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.slider.style.width = this.range.value + "%";
+      }
+
+      stopEvent(e) {
+        e.preventDefault();
+        e.stopPropagation();
       }
     }
 
-    function stopEvent(e) {
-      e.preventDefault();
-      e.stopPropagation();
+    let sliderInstance = null;
+
+    function initializeBeforeAfter(productId) {
+      sliderInstance = new BeforeAfterSlider(productId);
     }
 
-    // Inicializar el slider cuando el DOM esté listo
-    document.addEventListener('DOMContentLoaded', function() {
-      beforeAfter({{ product.id }});
+    // Event Listeners
+    document.addEventListener('DOMContentLoaded', () => {
+      initializeBeforeAfter({{ product.id }});
     });
 
-    // Reinicializar el slider cuando cambie el thumbnail
-    document.addEventListener('t4s:mediaChange', function() {
-      setTimeout(() => {
-        beforeAfter({{ product.id }});
-      }, 100);
+    ['t4s:mediaChange', 'flickityt4s:ready', 'flickityt4s:change'].forEach(eventName => {
+      document.addEventListener(eventName, () => {
+        setTimeout(() => {
+          initializeBeforeAfter({{ product.id }});
+        }, 100);
+      });
     });
 
-    // Reinicializar cuando la galería esté lista
-    document.addEventListener('flickityt4s:ready', function() {
-      setTimeout(() => {
-        beforeAfter({{ product.id }});
-      }, 100);
-    });
-
-    // Reinicializar cuando cambie la galería
-    document.addEventListener('flickityt4s:change', function() {
-      setTimeout(() => {
-        beforeAfter({{ product.id }});
-      }, 100);
-    });
-
-    // Reinicializar cuando se haga clic en cualquier thumbnail
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', (e) => {
       if (e.target.closest('.t4s-product__media-item')) {
         setTimeout(() => {
-          beforeAfter({{ product.id }});
+          initializeBeforeAfter({{ product.id }});
         }, 100);
       }
     });
