@@ -9,8 +9,15 @@
   <div class="before-after-wrapper">
     <figure>
       <div id="before_after_{{ product.id }}" class="before-after-slider"></div>
-      <div class="before-after-handle"></div>
     </figure>
+    <input 
+      type="range" 
+      min="0" 
+      max="100" 
+      value="50" 
+      id="before_after_slider_{{ product.id }}" 
+      class="before-after-range"
+    />
   </div>
 
   <style>
@@ -28,8 +35,6 @@
       z-index: 10;
       background-color: #1f1f1c;
       touch-action: none;
-      user-select: none;
-      -webkit-user-select: none;
     }
 
     .before-after-wrapper figure {
@@ -50,125 +55,89 @@
       height: 100%;
       width: 50%;
       position: absolute;
-      animation: first 2s 1 normal ease-in-out 0.1s;
     }
 
-    .before-after-handle {
+    .before-after-range {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
       position: absolute;
       top: 0;
-      left: 50%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      cursor: col-resize;
+      z-index: 20;
+    }
+
+    .before-after-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
       width: 40px;
       height: 100%;
-      background: rgba(255, 255, 255, 0.7);
+      background: transparent;
       cursor: col-resize;
-      z-index: 30;
-      transform: translateX(-50%);
-      transition: background-color 0.2s;
     }
 
-    .before-after-handle:hover {
-      background: rgba(255, 255, 255, 0.9);
+    .before-after-range::-moz-range-thumb {
+      width: 40px;
+      height: 100%;
+      background: transparent;
+      cursor: col-resize;
+      border: none;
     }
 
-    .before-after-handle::before {
+    .before-after-slider::before {
       content: '';
       position: absolute;
+      right: -20px;
       top: 50%;
-      left: 50%;
-      width: 24px;
-      height: 24px;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
       background: url('https://assets.codepen.io/191814/comparision.png') no-repeat center;
       background-size: contain;
-      transform: translate(-50%, -50%);
-    }
-
-    @keyframes first {
-      0% { width: 0%; }
-      50% { width: 80%; }
-      100% { width: 50%; }
+      z-index: 30;
     }
   </style>
 
   <script>
     function beforeAfter(productId) {
       const slider = document.getElementById("before_after_" + productId);
-      const handle = slider.parentElement.querySelector('.before-after-handle');
-      const wrapper = slider.closest('.before-after-wrapper');
+      const range = document.getElementById("before_after_slider_" + productId);
       
-      if (slider && handle && wrapper) {
-        let isDragging = false;
-        let startX;
-        let startWidth;
-
-        function startDragging(e) {
-          isDragging = true;
-          startX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
-          startWidth = slider.offsetWidth;
-          wrapper.style.cursor = 'col-resize';
+      if (slider && range) {
+        function updateSlider() {
+          slider.style.width = range.value + "%";
         }
-
-        function stopDragging() {
-          isDragging = false;
-          wrapper.style.cursor = '';
-        }
-
-        function updateSlider(e) {
-          if (!isDragging) return;
-          
-          const currentX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
-          const diff = currentX - startX;
-          const newWidth = startWidth + diff;
-          const wrapperWidth = wrapper.offsetWidth;
-          
-          let percentage = (newWidth / wrapperWidth) * 100;
-          percentage = Math.max(0, Math.min(100, percentage));
-          
-          slider.style.width = percentage + '%';
-          handle.style.left = percentage + '%';
-        }
-
-        // Remover listeners anteriores
-        handle.removeEventListener('mousedown', startDragging);
-        handle.removeEventListener('touchstart', startDragging);
-        document.removeEventListener('mousemove', updateSlider);
-        document.removeEventListener('touchmove', updateSlider);
-        document.removeEventListener('mouseup', stopDragging);
-        document.removeEventListener('touchend', stopDragging);
-
-        // Agregar nuevos listeners
-        handle.addEventListener('mousedown', startDragging);
-        handle.addEventListener('touchstart', startDragging);
-        document.addEventListener('mousemove', updateSlider);
-        document.addEventListener('touchmove', updateSlider);
-        document.addEventListener('mouseup', stopDragging);
-        document.addEventListener('touchend', stopDragging);
+        
+        range.addEventListener('input', updateSlider);
+        range.addEventListener('change', updateSlider);
+        
+        // Establecer valor inicial
+        range.value = 50;
+        slider.style.width = "50%";
       }
-    }
-
-    // Función para reinicializar el slider
-    function reinitializeSlider() {
-      setTimeout(() => {
-        beforeAfter({{ product.id }});
-      }, 50);
     }
 
     // Inicializar el slider cuando el DOM esté listo
-    document.addEventListener('DOMContentLoaded', reinitializeSlider);
+    document.addEventListener('DOMContentLoaded', function() {
+      beforeAfter({{ product.id }});
+    });
 
     // Reinicializar el slider cuando cambie el thumbnail
-    document.addEventListener('t4s:mediaChange', reinitializeSlider);
+    document.addEventListener('t4s:mediaChange', function() {
+      beforeAfter({{ product.id }});
+    });
 
     // Reinicializar cuando la galería esté lista
-    document.addEventListener('flickityt4s:ready', reinitializeSlider);
+    document.addEventListener('flickityt4s:ready', function() {
+      beforeAfter({{ product.id }});
+    });
 
     // Reinicializar cuando cambie la galería
-    document.addEventListener('flickityt4s:change', reinitializeSlider);
-
-    // Reinicializar cuando se haga clic en cualquier thumbnail
-    document.addEventListener('click', function(e) {
-      if (e.target.closest('.t4s-product__media-item')) {
-        reinitializeSlider();
-      }
+    document.addEventListener('flickityt4s:change', function() {
+      beforeAfter({{ product.id }});
     });
   </script>
 {% endif %}
