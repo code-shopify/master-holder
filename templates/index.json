@@ -767,7 +767,7 @@
           "settings": {
             "icon_themes": "car",
             "icon": "las la-shipping-fast",
-            "title": "FREE SHIPPING",
+            "title": "Envio Express",
             "text": "<p>Free shipping on all US order or order above $100</p>",
             "html": ""
           }
@@ -777,7 +777,7 @@
           "settings": {
             "icon_themes": "help",
             "icon": "las la-life-ring",
-            "title": "SUPPORT 24/7",
+            "title": "Diseños 100% mexicanos",
             "text": "<p>Contact us 24 hours a day, 7 days a week</p>",
             "html": ""
           }
@@ -787,7 +787,7 @@
           "settings": {
             "icon_themes": "refesh",
             "icon": "las la-undo-alt",
-            "title": "30 DAYS RETURN",
+            "title": "Productos Originales Master Holder",
             "text": "<p>Simply return it within 30 days for an exchange.</p>",
             "html": ""
           }
@@ -797,7 +797,7 @@
           "settings": {
             "icon_themes": "door-lock",
             "icon": "las la-lock",
-            "title": "100% PAYMENT SECURE",
+            "title": "Como lo viste en Shark Tank",
             "text": "<p>We ensure secure payment with PEV</p>",
             "html": ""
           }
