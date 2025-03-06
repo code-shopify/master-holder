@@ -73,13 +73,15 @@
       top: 0;
       width: 100%;
       z-index: 20;
+      touch-action: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .before-after-range::-webkit-slider-thumb {
       -webkit-appearance: none;
       height: 100%;
       width: 40px;
-      opacity: 0.01;
+      opacity: 0;
       cursor: col-resize;
     }
 
@@ -87,7 +89,7 @@
       -moz-appearance: none;
       height: 100%;
       width: 40px;
-      opacity: 0.01;
+      opacity: 0;
       cursor: col-resize;
     }
 
@@ -95,7 +97,7 @@
       appearance: none;
       height: 100%;
       width: 40px;
-      opacity: 0.01;
+      opacity: 0;
       cursor: col-resize;
     }
 
@@ -124,41 +126,22 @@
       const range = document.getElementById("before_after_slider_" + productId);
       
       if (slider && range) {
-        let isDragging = false;
-        
         function updateSlider(e) {
-          if (!isDragging) return;
           const value = e.target.value;
           slider.style.width = value + "%";
         }
-
-        function startDragging(e) {
-          isDragging = true;
-          e.preventDefault();
-          e.stopPropagation();
-        }
-
-        function stopDragging(e) {
-          isDragging = false;
-          e.preventDefault();
-          e.stopPropagation();
-        }
         
-        // Remover listeners anteriores si existen
+        // Remover todos los listeners anteriores
         range.removeEventListener('input', updateSlider);
         range.removeEventListener('change', updateSlider);
-        range.removeEventListener('mousedown', startDragging);
-        range.removeEventListener('mouseup', stopDragging);
-        range.removeEventListener('touchstart', startDragging);
-        range.removeEventListener('touchend', stopDragging);
+        range.removeEventListener('mousemove', updateSlider);
+        range.removeEventListener('touchmove', updateSlider);
         
-        // Agregar nuevos listeners
+        // Agregar los listeners necesarios
         range.addEventListener('input', updateSlider);
         range.addEventListener('change', updateSlider);
-        range.addEventListener('mousedown', startDragging);
-        range.addEventListener('mouseup', stopDragging);
-        range.addEventListener('touchstart', startDragging);
-        range.addEventListener('touchend', stopDragging);
+        range.addEventListener('mousemove', updateSlider);
+        range.addEventListener('touchmove', updateSlider);
         
         // Establecer valor inicial
         range.value = 50;
