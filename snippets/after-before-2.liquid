@@ -1,199 +1,157 @@
 {% comment %}
-  Before & After Slider (Using Metafields for Dynamic Images)
+  Before & After Slider for Shopify (Fixed with Slider Icon Adjustments)
+  - Ensures the slider icon is correctly positioned and does not interfere with images.
 {% endcomment %}
 
-{% assign before_image = product.metafields.custom.before_image | img_url: 'master' %}
-{% assign after_image = product.metafields.custom.after_image | img_url: 'master' %}
+{% assign product_type = product.type | downcase %}
 
-{% if before_image != blank and after_image != blank %}
-  <div class="before-after-wrapper">
-    <figure>
-      <div id="before_after_{{ product.id }}" class="before-after-slider"></div>
-    </figure>
-    <input 
-      type="range" 
-      min="0" 
-      max="100" 
-      value="50" 
-      id="before_after_slider_{{ product.id }}" 
-      class="before-after-range"
-    />
-  </div>
+{% comment %} Configuración de imágenes según tipo de producto {% endcomment %}
+{% case product_type %}
+  {% when 'zapatos' %}
+    {% assign before_image = 'zapatos-antes.jpg' | asset_url %}
+    {% assign after_image = 'zapatos-despues.jpg' | asset_url %}
+  {% when 'ropa' %}
+    {% assign before_image = 'ropa-antes.jpg' | asset_url %}
+    {% assign after_image = 'ropa-despues.jpg' | asset_url %}
+  {% else %}
+    {% assign before_image = product.images[0] | img_url: 'master' %}
+    {% assign after_image = product.images[1] | img_url: 'master' %}
+{% endcase %}
 
-  <style>
-    :root {
-      --before-image: url({{ before_image }});
-      --after-image: url({{ after_image }});
-    }
+<div class="before-after-container">
+  <figure class="before-after-wrapper">
+    <div class="after-image" style="background-image: url({{ after_image }});"></div>
+    <div id="before_after_{{ product.id }}" class="before-image" style="background-image: url({{ before_image }});"></div>
+    <div class="slider-line" id="slider_line_{{ product.id }}"></div>
+    <!-- Icono centrado para el control del slider -->
+    <div class="slider-icon" id="slider_icon_{{ product.id }}">
+      <span>&#8656;</span> <!-- Puedes cambiar el icono si prefieres otro -->
+    </div>
+  </figure>
+  <input 
+    oninput="beforeAfter({{ product.id }})" 
+    onchange="beforeAfter({{ product.id }})" 
+    type="range" min="0" max="100" value="50" 
+    id="before_after_slider_{{ product.id }}" 
+  />
+</div>
 
-    .before-after-wrapper {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 10;
-      background-color: #1f1f1c;
-      touch-action: none;
-      user-select: none;
-      -webkit-user-select: none;
-    }
+<style>
+:root {
+  --before-after-background-color: #1f1f1c;
+}
 
-    .before-after-wrapper figure {
-      background-image: var(--after-image);
-      position: relative;
-      margin: 0;
-      background-size: cover;
-      width: 100%;
-      height: 100%;
-    }
+.before-after-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 1 / 1;
+  background: var(--before-after-background-color);
+  overflow: hidden;
+}
 
-    .before-after-slider {
-      background-image: var(--before-image);
-      background-size: cover;
-      bottom: 0;
-      border-right: 5px solid rgba(255, 255, 255, 0.7);
-      box-shadow: 10px 0 15px -13px #000;
-      height: 100%;
-      width: 50%;
-      position: absolute;
-      animation: first 2s 1 normal ease-in-out 0.1s;
-    }
+.before-after-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
 
-    .before-after-range {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: transparent;
-      cursor: col-resize;
-      z-index: 20;
-      touch-action: none;
-      -webkit-tap-highlight-color: transparent;
-      pointer-events: auto;
-    }
+.after-image, .before-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
 
-    .before-after-range::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 40px;
-      height: 100%;
-      background: transparent;
-      cursor: col-resize;
-      pointer-events: auto;
-    }
+.before-image {
+  width: 50%; /* Inicialmente al 50% */
+  border-right: 5px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 10px 0 15px -13px #000;
+  transition: width 0.2s ease-in-out;
+  animation: first 2s 1 normal ease-in-out 0.1s forwards;
+}
 
-    .before-after-range::-moz-range-thumb {
-      width: 40px;
-      height: 100%;
-      background: transparent;
-      cursor: col-resize;
-      border: none;
-      pointer-events: auto;
-    }
+/* Animación inicial */
+@keyframes first {
+  0% { width: 0%; }
+  50% { width: 80%; }
+  100% { width: 50%; }
+}
 
-    .before-after-slider::before {
-      content: '';
-      position: absolute;
-      right: -20px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 40px;
-      height: 40px;
-      background: url('https://assets.codepen.io/191814/comparision.png') no-repeat center;
-      background-size: contain;
-      z-index: 30;
-    }
+/* Línea del slider */
+.slider-line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 5px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.7);
+  transform: translateX(-50%);
+  transition: left 0.2s ease-in-out;
+}
 
-    @keyframes first {
-      0% { width: 0%; }
-      50% { width: 80%; }
-      100% { width: 50%; }
-    }
-  </style>
+/* Icono centrado en el slider */
+.slider-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem; /* Puedes cambiar el tamaño del icono */
+  color: #fff;
+  z-index: 3; /* Asegúrate de que esté por encima de las imágenes */
+}
 
-  <script>
-    function beforeAfter(productId) {
-      const slider = document.getElementById("before_after_" + productId);
-      const range = document.getElementById("before_after_slider_" + productId);
-      
-      if (slider && range) {
-        function updateSlider(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          slider.style.width = this.value + "%";
-        }
-        
-        // Remover listeners anteriores
-        range.removeEventListener('input', updateSlider);
-        range.removeEventListener('change', updateSlider);
-        range.removeEventListener('click', stopEvent);
-        
-        // Agregar listeners
-        range.addEventListener('input', updateSlider);
-        range.addEventListener('change', updateSlider);
-        range.addEventListener('click', stopEvent);
-        
-        // Establecer valor inicial
-        range.value = 50;
-        slider.style.width = "50%";
-      }
-    }
+/* Corrección: Slider ahora es funcional */
+input[type="range"] {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  background: transparent;
+  cursor: col-resize;
+  height: 30px;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  opacity: 1; /* Visible */
+  z-index: 2;
+}
 
-    function stopEvent(e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
+/* Estilos para mejorar la apariencia del control deslizante */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border: 2px solid #333;
+  border-radius: 50%;
+  cursor: pointer;
+}
 
-    // Función para reinicializar el slider
-    function reinitializeSlider() {
-      setTimeout(() => {
-        beforeAfter({{ product.id }});
-      }, 100);
-    }
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: white;
+  border: 2px solid #333;
+  border-radius: 50%;
+  cursor: pointer;
+}
+</style>
 
-    // Inicializar el slider cuando el DOM esté listo
-    document.addEventListener('DOMContentLoaded', reinitializeSlider);
+<script>
+function beforeAfter(productId) {
+  let beforeImage = document.getElementById("before_after_" + productId);
+  let slider = document.getElementById("before_after_slider_" + productId);
+  let sliderLine = document.getElementById("slider_line_" + productId);
+  let sliderIcon = document.getElementById("slider_icon_" + productId);
 
-    // Reinicializar el slider cuando cambie el thumbnail
-    document.addEventListener('t4s:mediaChange', reinitializeSlider);
-
-    // Reinicializar cuando la galería esté lista
-    document.addEventListener('flickityt4s:ready', reinitializeSlider);
-
-    // Reinicializar cuando cambie la galería
-    document.addEventListener('flickityt4s:change', reinitializeSlider);
-
-    // Reinicializar cuando se haga clic en cualquier thumbnail
-    document.addEventListener('click', function(e) {
-      if (e.target.closest('.t4s-product__media-item')) {
-        reinitializeSlider();
-      }
-    });
-
-    // Reinicializar cuando se haga clic en cualquier imagen del producto
-    document.addEventListener('click', function(e) {
-      if (e.target.closest('.t4s-product__media-wrapper')) {
-        reinitializeSlider();
-      }
-    });
-
-    // Prevenir que el slider pierda el foco
-    document.addEventListener('mousedown', function(e) {
-      if (e.target.closest('.before-after-range')) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    }, true);
-
-    document.addEventListener('touchstart', function(e) {
-      if (e.target.closest('.before-after-range')) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    }, true);
-  </script>
-{% endif %}
+  beforeImage.style.width = slider.value + "%";
+  sliderLine.style.left = slider.value + "%";
+  sliderIcon.style.left = slider.value + "%"; // Aseguramos que el icono se mueva con el slider
+}
+</script>
