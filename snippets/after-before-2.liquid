@@ -35,10 +35,6 @@
       z-index: 10;
       background-color: #1f1f1c;
       touch-action: none;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
     }
 
     .before-after-wrapper figure {
@@ -60,7 +56,6 @@
       width: 50%;
       position: absolute;
       animation: first 2s 1 normal ease-in-out 0.1s;
-      pointer-events: none;
     }
 
     .before-after-range {
@@ -137,28 +132,14 @@
       initialize() {
         if (!this.slider || !this.range) return;
         
-        // Remover eventos anteriores
-        this.range.removeEventListener('input', this.updateSlider);
-        this.range.removeEventListener('change', this.updateSlider);
-        this.range.removeEventListener('touchstart', this.stopEvent);
-        this.range.removeEventListener('touchmove', this.updateSlider);
-        this.range.removeEventListener('touchend', this.stopEvent);
-        this.range.removeEventListener('mousedown', this.stopEvent);
-        this.range.removeEventListener('mousemove', this.updateSlider);
-        this.range.removeEventListener('mouseup', this.stopEvent);
+        // Limpiar listeners anteriores
+        this.range.replaceWith(this.range.cloneNode(true));
+        this.range = document.getElementById("before_after_slider_" + this.productId);
         
         // Agregar nuevos listeners
-        this.updateSlider = this.updateSlider.bind(this);
-        this.stopEvent = this.stopEvent.bind(this);
-        
-        this.range.addEventListener('input', this.updateSlider, { passive: false });
-        this.range.addEventListener('change', this.updateSlider, { passive: false });
-        this.range.addEventListener('touchstart', this.stopEvent, { passive: false });
-        this.range.addEventListener('touchmove', this.updateSlider, { passive: false });
-        this.range.addEventListener('touchend', this.stopEvent, { passive: false });
-        this.range.addEventListener('mousedown', this.stopEvent, { passive: false });
-        this.range.addEventListener('mousemove', this.updateSlider, { passive: false });
-        this.range.addEventListener('mouseup', this.stopEvent, { passive: false });
+        this.range.addEventListener('input', this.updateSlider.bind(this));
+        this.range.addEventListener('change', this.updateSlider.bind(this));
+        this.range.addEventListener('click', this.stopEvent);
         
         // Establecer valor inicial
         this.range.value = 50;
@@ -166,29 +147,21 @@
       }
 
       updateSlider(e) {
-        if (e) {
-          e.preventDefault();
-          e.stopPropagation();
-        }
+        e.preventDefault();
+        e.stopPropagation();
         this.slider.style.width = this.range.value + "%";
       }
 
       stopEvent(e) {
-        if (e) {
-          e.preventDefault();
-          e.stopPropagation();
-        }
+        e.preventDefault();
+        e.stopPropagation();
       }
     }
 
     let sliderInstance = null;
 
     function initializeBeforeAfter(productId) {
-      if (sliderInstance) {
-        sliderInstance.initialize();
-      } else {
-        sliderInstance = new BeforeAfterSlider(productId);
-      }
+      sliderInstance = new BeforeAfterSlider(productId);
     }
 
     // Event Listeners
@@ -196,7 +169,6 @@
       initializeBeforeAfter({{ product.id }});
     });
 
-    // Reinicializar cuando cambie la galería
     ['t4s:mediaChange', 'flickityt4s:ready', 'flickityt4s:change'].forEach(eventName => {
       document.addEventListener(eventName, () => {
         setTimeout(() => {
@@ -205,16 +177,6 @@
       });
     });
 
-    // Reinicializar cuando se haga scroll
-    let scrollTimeout;
-    document.addEventListener('scroll', () => {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        initializeBeforeAfter({{ product.id }});
-      }, 150);
-    }, { passive: true });
-
-    // Reinicializar cuando se haga clic en un thumbnail
     document.addEventListener('click', (e) => {
       if (e.target.closest('.t4s-product__media-item')) {
         setTimeout(() => {
