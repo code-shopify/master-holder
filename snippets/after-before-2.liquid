@@ -35,6 +35,8 @@
       z-index: 10;
       background-color: #1f1f1c;
       touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .before-after-wrapper figure {
@@ -76,6 +78,8 @@
       touch-action: none;
       -webkit-tap-highlight-color: transparent;
       pointer-events: auto;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .before-after-range::-webkit-slider-thumb {
@@ -125,46 +129,36 @@
   </style>
 
   <script>
-    let sliderInstance = null;
-
     function beforeAfter(productId) {
       const slider = document.getElementById("before_after_" + productId);
       const range = document.getElementById("before_after_slider_" + productId);
       
       if (slider && range) {
-        // Si ya existe una instancia, limpiarla
-        if (sliderInstance) {
-          sliderInstance.range.removeEventListener('input', sliderInstance.updateSlider);
-          sliderInstance.range.removeEventListener('change', sliderInstance.updateSlider);
+        // Función para actualizar el slider
+        function updateSlider(e) {
+          const value = e.target.value;
+          slider.style.width = value + "%";
         }
-
-        // Crear nueva instancia
-        sliderInstance = {
-          slider: slider,
-          range: range,
-          updateSlider: function() {
-            this.slider.style.width = this.range.value + "%";
-          }
-        };
-
-        // Agregar listeners a la nueva instancia
-        sliderInstance.range.addEventListener('input', function() {
-          sliderInstance.updateSlider.call(sliderInstance);
-        });
         
-        sliderInstance.range.addEventListener('change', function() {
-          sliderInstance.updateSlider.call(sliderInstance);
-        });
+        // Remover todos los listeners anteriores
+        range.removeEventListener('input', updateSlider);
+        range.removeEventListener('change', updateSlider);
+        
+        // Agregar los listeners
+        range.addEventListener('input', updateSlider);
+        range.addEventListener('change', updateSlider);
         
         // Establecer valor inicial
-        sliderInstance.range.value = 50;
-        sliderInstance.slider.style.width = "50%";
+        range.value = 50;
+        slider.style.width = "50%";
       }
     }
 
     // Función para reinicializar el slider
     function reinitializeSlider() {
-      beforeAfter({{ product.id }});
+      setTimeout(() => {
+        beforeAfter({{ product.id }});
+      }, 50);
     }
 
     // Inicializar el slider cuando el DOM esté listo
@@ -182,7 +176,7 @@
     // Reinicializar cuando se haga clic en cualquier thumbnail
     document.addEventListener('click', function(e) {
       if (e.target.closest('.t4s-product__media-item')) {
-        setTimeout(reinitializeSlider, 100);
+        reinitializeSlider();
       }
     });
   </script>
