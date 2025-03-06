@@ -765,10 +765,11 @@
         "164620932047c7965f-0": {
           "type": "shipping",
           "settings": {
-            "icon_themes": "car",
-            "icon": "las la-shipping-fast",
+            "icon_themes": "truck",
+            "image_icon": "shopify://shop_images/FaSolidShippingFast.svg",
+            "icon": "",
             "title": "Envio Express",
-            "text": "<p>Free shipping on all US order or order above $100</p>",
+            "text": "<p>Entrega rápida y segura.</p>",
             "html": ""
           }
         },
@@ -776,9 +777,10 @@
           "type": "shipping",
           "settings": {
             "icon_themes": "help",
+            "image_icon": "shopify://shop_images/EmojioneMonotoneFlagForMexico.svg",
             "icon": "la-palette",
             "title": "Diseños 100% mexicanos",
-            "text": "<p>Contact us 24 hours a day, 7 days a week</p>",
+            "text": "<p>Calidad y creatividad mexicana en cada producto, hechos con pasión.</p>",
             "html": ""
           }
         },
@@ -786,9 +788,10 @@
           "type": "shipping",
           "settings": {
             "icon_themes": "refesh",
+            "image_icon": "shopify://shop_images/MH_LOGO_Black.png",
             "icon": "las la-sync-alt",
             "title": "Productos Originales Master Holder",
-            "text": "<p>Simply return it within 30 days for an exchange.</p>",
+            "text": "<p>Garantía de autenticidad y calidad.</p>",
             "html": ""
           }
         },
@@ -796,9 +799,10 @@
           "type": "shipping",
           "settings": {
             "icon_themes": "door-lock",
+            "image_icon": "shopify://shop_images/LucideLabShark.svg",
             "icon": "las la-lock",
             "title": "Como lo viste en Shark Tank",
-            "text": "<p>We ensure secure payment with PEV</p>",
+            "text": "<p>Un producto innovador que conquistó a los expertos. </p>",
             "html": ""
           }
         }
@@ -819,7 +823,7 @@
         "content_align": "text-start",
         "align_vertical": false,
         "design_padding": "1",
-        "source": "themes_icon",
+        "source": "get_image",
         "icon_des": "default",
         "icon_size": "medium",
         "col_dk": "4",
