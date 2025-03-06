@@ -559,7 +559,7 @@
             "type": "base",
             "settings": {
               "title": "ÚNETE Y EMPRENDE",
-              "url": "shopify://pages/puntos-de-venta",
+              "url": "shopify://pages/contact",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
