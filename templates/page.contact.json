@@ -42,7 +42,7 @@
         "use_specify_image": true,
         "parallax": false,
         "color": "#111795",
-        "overlay": 54,
+        "overlay": 100,
         "padding": 50,
         "paddingmb": 50,
         "mg_b": 0,
