@@ -15,7 +15,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Función para mostrar/ocultar el before/after
     function toggleBeforeAfter(show) {
-        beforeAfterContainer.style.display = show ? "block" : "none";
+        const containers = document.querySelectorAll("#before-after-container");
+        containers.forEach(container => {
+            container.style.display = show ? "block" : "none";
+        });
         isBeforeAfterVisible = show;
         console.log("🔄 Estado del Before-After cambiado:", show ? "Visible" : "Oculto");
     }
@@ -41,8 +44,27 @@ document.addEventListener("DOMContentLoaded", function () {
             beforeAfter(productId);
             // Mantener el estado de visibilidad del before/after
             if (isBeforeAfterVisible) {
-                toggleBeforeAfter(true);
+                setTimeout(() => {
+                    toggleBeforeAfter(true);
+                }, 100);
             }
+        }
+    });
+
+    // Escuchar eventos de la galería
+    document.addEventListener('flickityt4s:ready', function() {
+        if (isBeforeAfterVisible) {
+            setTimeout(() => {
+                toggleBeforeAfter(true);
+            }, 100);
+        }
+    });
+
+    document.addEventListener('flickityt4s:change', function() {
+        if (isBeforeAfterVisible) {
+            setTimeout(() => {
+                toggleBeforeAfter(true);
+            }, 100);
         }
     });
 });
