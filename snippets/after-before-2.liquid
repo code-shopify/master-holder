@@ -120,25 +120,26 @@
 
   <script>
     function beforeAfter(productId) {
-      const slider = document.getElementById("before_after_slider_" + productId);
+      const slider = document.getElementById("before_after_" + productId);
       const range = document.getElementById("before_after_slider_" + productId);
       
       if (slider && range) {
         function updateSlider(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          slider.style.width = this.value + "%";
+          const value = e.target.value;
+          slider.style.width = value + "%";
         }
         
         // Remover listeners anteriores si existen
         range.removeEventListener('input', updateSlider);
         range.removeEventListener('change', updateSlider);
-        range.removeEventListener('click', stopEvent);
+        range.removeEventListener('mousedown', stopEvent);
+        range.removeEventListener('touchstart', stopEvent);
         
         // Agregar nuevos listeners
         range.addEventListener('input', updateSlider);
         range.addEventListener('change', updateSlider);
-        range.addEventListener('click', stopEvent);
+        range.addEventListener('mousedown', stopEvent);
+        range.addEventListener('touchstart', stopEvent);
         
         // Establecer valor inicial
         range.value = 50;
