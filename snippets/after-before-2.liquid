@@ -121,87 +121,68 @@
   </style>
 
   <script>
-  class BeforeAfterSlider {
-    constructor(productId) {
-      this.productId = productId;
-      this.initialize();
-    }
-
-    initialize() {
-      // Obtener elementos cada vez que se inicializa
-      this.slider = document.getElementById("before_after_" + this.productId);
-      this.range = document.getElementById("before_after_slider_" + this.productId);
-      
-      if (!this.slider || !this.range) return;
-      
-      // Remover listeners anteriores si existen
-      if (this.boundUpdateSlider) {
-        this.range.removeEventListener('input', this.boundUpdateSlider);
-        this.range.removeEventListener('change', this.boundUpdateSlider);
+    class BeforeAfterSlider {
+      constructor(productId) {
+        this.productId = productId;
+        this.slider = document.getElementById("before_after_" + productId);
+        this.range = document.getElementById("before_after_slider_" + productId);
+        this.initialize();
       }
-      
-      // Crear nuevo binding para el evento
-      this.boundUpdateSlider = this.updateSlider.bind(this);
-      
-      // Agregar nuevos listeners
-      this.range.addEventListener('input', this.boundUpdateSlider);
-      this.range.addEventListener('change', this.boundUpdateSlider);
-      
-      // Establecer valor inicial
-      this.range.value = 50;
-      this.slider.style.width = "50%";
+
+      initialize() {
+        if (!this.slider || !this.range) return;
+        
+        // Limpiar listeners anteriores
+        this.range.replaceWith(this.range.cloneNode(true));
+        this.range = document.getElementById("before_after_slider_" + this.productId);
+        
+        // Agregar nuevos listeners
+        this.range.addEventListener('input', this.updateSlider.bind(this));
+        this.range.addEventListener('change', this.updateSlider.bind(this));
+        this.range.addEventListener('click', this.stopEvent);
+        
+        // Establecer valor inicial
+        this.range.value = 50;
+        this.slider.style.width = "50%";
+      }
+
+      updateSlider(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.slider.style.width = this.range.value + "%";
+      }
+
+      stopEvent(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
     }
 
-    updateSlider(e) {
-      this.slider.style.width = this.range.value + "%";
-    }
-  }
+    let sliderInstance = null;
 
-  let sliderInstance = null;
-
-  // Función para inicializar o reinicializar el slider
-  function initializeBeforeAfter(productId) {
-    if (sliderInstance) {
-      sliderInstance.initialize();
-    } else {
+    function initializeBeforeAfter(productId) {
       sliderInstance = new BeforeAfterSlider(productId);
     }
-  }
 
-  // Inicializar cuando se carga el DOM
-  document.addEventListener('DOMContentLoaded', () => {
-    initializeBeforeAfter({{ product.id }});
-  });
+    // Event Listeners
+    document.addEventListener('DOMContentLoaded', () => {
+      initializeBeforeAfter({{ product.id }});
+    });
 
-  // Reinicializar cuando se hace clic en el botón de imagen fija
-  document.addEventListener('click', (e) => {
-    if (e.target.closest('#toggleBeforeAfter')) {
-      setTimeout(() => {
-        initializeBeforeAfter({{ product.id }});
-      }, 100);
-    }
-  });
-
-  // Reinicializar cuando el contenedor se muestra
-  const beforeAfterContainer = document.getElementById('before-after-container');
-  if (beforeAfterContainer) {
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-          const displayStyle = beforeAfterContainer.style.display;
-          if (displayStyle !== 'none') {
-            setTimeout(() => {
-              initializeBeforeAfter({{ product.id }});
-            }, 100);
-          }
-        }
+    ['t4s:mediaChange', 'flickityt4s:ready', 'flickityt4s:change'].forEach(eventName => {
+      document.addEventListener(eventName, () => {
+        setTimeout(() => {
+          initializeBeforeAfter({{ product.id }});
+        }, 100);
       });
     });
 
-    observer.observe(beforeAfterContainer, {
-      attributes: true,
-      attributeFilter: ['style']
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('.t4s-product__media-item')) {
+        setTimeout(() => {
+          initializeBeforeAfter({{ product.id }});
+        }, 100);
+      }
     });
-  }
-</script>
+  </script>
 {% endif %}
