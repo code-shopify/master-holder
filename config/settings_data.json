@@ -600,7 +600,7 @@
               "title": "TIENDA",
               "url": "shopify://collections",
               "open_link": "_self",
-              "menu": "",
+              "menu": "tienda",
               "icon": "",
               "cus_cl": false,
               "cl": "#ec0101",
