@@ -127,6 +127,10 @@
         
         slider.addEventListener('input', updateSlider);
         slider.addEventListener('change', updateSlider);
+
+        // Reiniciar el slider a 50%
+        slider.value = 50;
+        beforeAfter.style.width = "50%";
       }
     }
 
@@ -137,6 +141,16 @@
 
     // Reinicializar el slider cuando cambie el thumbnail
     document.addEventListener('t4s:mediaChange', function() {
+      beforeAfter({{ product.id }});
+    });
+
+    // Reinicializar cuando la galería esté lista
+    document.addEventListener('flickityt4s:ready', function() {
+      beforeAfter({{ product.id }});
+    });
+
+    // Reinicializar cuando cambie la galería
+    document.addEventListener('flickityt4s:change', function() {
       beforeAfter({{ product.id }});
     });
   </script>
