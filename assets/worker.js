@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ DOM cargado, esperando clics...");
     
@@ -11,20 +10,29 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Asegurar que el contenedor está oculto al inicio
-    beforeAfterContainer.classList.add("before-after-hidden");
+    beforeAfterContainer.style.display = "none";
 
-    // Evento para alternar la visibilidad con classList.toggle
+    // Evento para alternar la visibilidad
     toggleButton.addEventListener("click", function (event) {
         event.preventDefault();
-        beforeAfterContainer.classList.toggle("before-after-hidden");
-        console.log("🔄 Estado del Before-After cambiado:", beforeAfterContainer.classList.contains("before-after-hidden") ? "Oculto" : "Visible");
+        const isHidden = beforeAfterContainer.style.display === "none";
+        beforeAfterContainer.style.display = isHidden ? "block" : "none";
+        console.log("🔄 Estado del Before-After cambiado:", isHidden ? "Visible" : "Oculto");
     });
 
     // Evento adicional para cerrar al hacer clic fuera del contenedor
     document.addEventListener("click", function (event) {
         if (!toggleButton.contains(event.target) && !beforeAfterContainer.contains(event.target)) {
-            beforeAfterContainer.classList.add("before-after-hidden");
+            beforeAfterContainer.style.display = "none";
             console.log("🚪 Se ocultó el Before-After por clic fuera del área.");
+        }
+    });
+
+    // Reinicializar el slider cuando cambie el thumbnail
+    document.addEventListener('t4s:mediaChange', function() {
+        const productId = document.querySelector('[data-product-id]')?.dataset.productId;
+        if (productId) {
+            beforeAfter(productId);
         }
     });
 });

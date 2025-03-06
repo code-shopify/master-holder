@@ -6,35 +6,37 @@
 {% assign after_image = product.metafields.custom.after_image | img_url: 'master' %}
 
 {% if before_image != blank and after_image != blank %}
-  <div class="before-after-container">
+  <div class="before-after-wrapper">
     <figure>
-      <div id="before_after_{{ product.id }}"></div>
+      <div id="before_after_{{ product.id }}" class="before-after-slider"></div>
     </figure>
     <input 
-      oninput="beforeAfter({{ product.id }})" 
-      onchange="beforeAfter({{ product.id }})" 
-      type="range" min="0" max="100" value="50" 
+      type="range" 
+      min="0" 
+      max="100" 
+      value="50" 
       id="before_after_slider_{{ product.id }}" 
+      class="before-after-range"
     />
   </div>
 
   <style>
     :root {
-      --before-after-aspect-ratio: 1 / 1;
       --before-image: url({{ before_image }});
       --after-image: url({{ after_image }});
-      --before-after-background-color: #1f1f1c;
     }
 
-    .before-after-container {
-      aspect-ratio: var(--before-after-aspect-ratio);
-      background: var(--before-after-background-color);
+    .before-after-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      overflow: hidden;
-      transition: all 0.3s ease-in-out;
+      height: 100%;
+      z-index: 10;
+      background-color: #1f1f1c;
     }
 
-    .before-after-container figure {
+    .before-after-wrapper figure {
       background-image: var(--after-image);
       position: relative;
       margin: 0;
@@ -43,7 +45,7 @@
       height: 100%;
     }
 
-    #before_after_{{ product.id }} {
+    .before-after-slider {
       background-image: var(--before-image);
       background-size: cover;
       bottom: 0;
@@ -55,30 +57,31 @@
       animation: first 2s 1 normal ease-in-out 0.1s;
     }
 
-    input#before_after_slider_{{ product.id }} {
+    .before-after-range {
       -moz-appearance: none;
       -webkit-appearance: none;
       border: none;
       background: transparent;
       cursor: col-resize;
-      height: 100vw;
+      height: 100%;
       left: 0;
       margin: 0;
       outline: none;
       padding: 0;
-      position: relative;
-      top: -100vw;
+      position: absolute;
+      top: 0;
       width: 100%;
+      z-index: 20;
     }
 
-    input#before_after_slider_{{ product.id }}::-webkit-slider-thumb {
+    .before-after-range::-webkit-slider-thumb {
       -webkit-appearance: none;
-      height: 100vw;
+      height: 100%;
       width: 0.5%;
       opacity: 0;
     }
 
-    #before_after_{{ product.id }}::before {
+    .before-after-slider::before {
       background: url('https://assets.codepen.io/191814/comparision.png') no-repeat center;
       background-size: contain;
       content: " ";
@@ -99,8 +102,31 @@
 
   <script>
     function beforeAfter(productId) {
-      document.getElementById("before_after_" + productId).style.width =
-        document.getElementById("before_after_slider_" + productId).value + "%";
+      const slider = document.getElementById("before_after_slider_" + productId);
+      const beforeAfter = document.getElementById("before_after_" + productId);
+      
+      if (slider && beforeAfter) {
+        // Remover listeners anteriores si existen
+        slider.removeEventListener('input', updateSlider);
+        slider.removeEventListener('change', updateSlider);
+        
+        function updateSlider() {
+          beforeAfter.style.width = this.value + "%";
+        }
+        
+        slider.addEventListener('input', updateSlider);
+        slider.addEventListener('change', updateSlider);
+      }
     }
+
+    // Inicializar el slider cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', function() {
+      beforeAfter({{ product.id }});
+    });
+
+    // Reinicializar el slider cuando cambie el thumbnail
+    document.addEventListener('t4s:mediaChange', function() {
+      beforeAfter({{ product.id }});
+    });
   </script>
 {% endif %}
