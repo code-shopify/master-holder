@@ -786,7 +786,7 @@
           "type": "shipping",
           "settings": {
             "icon_themes": "refesh",
-            "icon": "las la-undo-alt",
+            "icon": "las la-sync-alt",
             "title": "Productos Originales Master Holder",
             "text": "<p>Simply return it within 30 days for an exchange.</p>",
             "html": ""
