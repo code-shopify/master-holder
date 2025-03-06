@@ -777,7 +777,7 @@
           "type": "shipping",
           "settings": {
             "icon_themes": "help",
-            "image_icon": "shopify://shop_images/EmojioneMonotoneFlagForMexico.svg",
+            "image_icon": "shopify://shop_images/mexico.png",
             "icon": "la-palette",
             "title": "Diseños 100% mexicanos",
             "text": "<p>Calidad y creatividad mexicana en cada producto, hechos con pasión.</p>",
@@ -799,7 +799,7 @@
           "type": "shipping",
           "settings": {
             "icon_themes": "door-lock",
-            "image_icon": "shopify://shop_images/LucideLabShark.svg",
+            "image_icon": "shopify://shop_images/FluentEmojiHighContrastShark.svg",
             "icon": "las la-lock",
             "title": "Como lo viste en Shark Tank",
             "text": "<p>Un producto innovador que conquistó a los expertos. </p>",
