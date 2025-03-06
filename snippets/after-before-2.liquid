@@ -2,6 +2,61 @@
   Before & After Slider (Using Metafields for Dynamic Images)
 {% endcomment %}
 
+<script>
+  class BeforeAfterSlider {
+    constructor(productId) {
+      this.productId = productId;
+      this.slider = document.getElementById("before_after_" + productId);
+      this.range = document.getElementById("before_after_slider_" + productId);
+      this.initialize();
+    }
+
+    initialize() {
+      if (!this.slider || !this.range) return;
+      
+      // Establecer valor inicial
+      this.range.value = 50;
+      this.slider.style.width = "50%";
+      
+      // Agregar listeners
+      this.range.addEventListener('input', this.updateSlider.bind(this));
+      this.range.addEventListener('change', this.updateSlider.bind(this));
+    }
+
+    updateSlider(e) {
+      this.slider.style.width = this.range.value + "%";
+    }
+  }
+
+  // Función para inicializar o reinicializar el slider
+  function initBeforeAfter(productId) {
+    new BeforeAfterSlider(productId);
+  }
+
+  // Inicializar cuando se carga el DOM
+  document.addEventListener('DOMContentLoaded', () => {
+    initBeforeAfter({{ product.id }});
+  });
+
+  // Reinicializar cuando se hace clic en el botón
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('#toggleBeforeAfter')) {
+      setTimeout(() => {
+        initBeforeAfter({{ product.id }});
+      }, 100);
+    }
+  });
+
+  // Escuchar eventos de Ajax
+  document.addEventListener('t4s:afterChange', (e) => {
+    if (e.detail && e.detail.section === 'product') {
+      setTimeout(() => {
+        initBeforeAfter({{ product.id }});
+      }, 100);
+    }
+  });
+</script>
+
 {% assign before_image = product.metafields.custom.before_image | img_url: 'master' %}
 {% assign after_image = product.metafields.custom.after_image | img_url: 'master' %}
 
@@ -119,45 +174,4 @@
       100% { width: 50%; }
     }
   </style>
-
- <script>
-  class BeforeAfterSlider {
-    constructor(productId) {
-      this.productId = productId;
-      this.slider = document.getElementById("before_after_" + productId);
-      this.range = document.getElementById("before_after_slider_" + productId);
-      this.initialize();
-    }
-
-    initialize() {
-      if (!this.slider || !this.range) return;
-      
-      // Establecer valor inicial
-      this.range.value = 50;
-      this.slider.style.width = "50%";
-      
-      // Agregar listeners
-      this.range.addEventListener('input', this.updateSlider.bind(this));
-      this.range.addEventListener('change', this.updateSlider.bind(this));
-    }
-
-    updateSlider(e) {
-      this.slider.style.width = this.range.value + "%";
-    }
-  }
-
-  let sliderInstance = null;
-
-  // Inicializar cuando se carga el DOM
-  document.addEventListener('DOMContentLoaded', () => {
-    new BeforeAfterSlider({{ product.id }});
-  });
-
-  // Reinicializar cuando se hace clic en el botón
-  document.querySelector('#toggleBeforeAfter').addEventListener('click', () => {
-    setTimeout(() => {
-      new BeforeAfterSlider({{ product.id }});
-    }, 100);
-  });
-</script>
 {% endif %}
