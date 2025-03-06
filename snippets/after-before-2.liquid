@@ -101,17 +101,28 @@
   </style>
 
   <script>
+    let currentSlider = null;
+    let currentBeforeAfter = null;
+
     function beforeAfter(productId) {
       const slider = document.getElementById("before_after_slider_" + productId);
       const beforeAfter = document.getElementById("before_after_" + productId);
       
       if (slider && beforeAfter) {
-        // Remover listeners anteriores si existen
-        slider.removeEventListener('input', updateSlider);
-        slider.removeEventListener('change', updateSlider);
-        
+        // Limpiar listeners anteriores
+        if (currentSlider) {
+          currentSlider.removeEventListener('input', updateSlider);
+          currentSlider.removeEventListener('change', updateSlider);
+        }
+
+        // Actualizar referencias actuales
+        currentSlider = slider;
+        currentBeforeAfter = beforeAfter;
+
         function updateSlider() {
-          beforeAfter.style.width = this.value + "%";
+          if (currentBeforeAfter) {
+            currentBeforeAfter.style.width = this.value + "%";
+          }
         }
         
         slider.addEventListener('input', updateSlider);
