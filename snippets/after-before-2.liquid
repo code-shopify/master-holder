@@ -121,42 +121,38 @@
   </style>
 
  <script>
-  class BeforeAfterSlider {
-    constructor(productId) {
-      this.productId = productId;
-      this.slider = document.getElementById("before_after_" + productId);
-      this.range = document.getElementById("before_after_slider_" + productId);
-      this.initialize();
+  function initializeBeforeAfter(productId) {
+    let slider = document.getElementById("before_after_" + productId);
+    let range = document.getElementById("before_after_slider_" + productId);
+    
+    if (!slider || !range) return;
+
+    // Establecer valor inicial
+    range.value = 50;
+    slider.style.width = "50%";
+
+    // Función simple para actualizar el slider
+    function updateSlider() {
+      slider.style.width = range.value + "%";
     }
 
-    initialize() {
-      if (!this.slider || !this.range) return;
-      
-      // Establecer valor inicial
-      this.range.value = 50;
-      this.slider.style.width = "50%";
-      
-      // Agregar listeners
-      this.range.addEventListener('input', this.updateSlider.bind(this));
-      this.range.addEventListener('change', this.updateSlider.bind(this));
-    }
-
-    updateSlider(e) {
-      this.slider.style.width = this.range.value + "%";
-    }
+    // Remover y volver a agregar los event listeners
+    range.removeEventListener('input', updateSlider);
+    range.removeEventListener('change', updateSlider);
+    
+    range.addEventListener('input', updateSlider);
+    range.addEventListener('change', updateSlider);
   }
-
-  let sliderInstance = null;
 
   // Inicializar cuando se carga el DOM
   document.addEventListener('DOMContentLoaded', () => {
-    new BeforeAfterSlider({{ product.id }});
+    initializeBeforeAfter({{ product.id }});
   });
 
-  // Reinicializar cuando se hace clic en el botón
+  // Reinicializar cuando se hace clic en el botón de imagen fija
   document.querySelector('#toggleBeforeAfter').addEventListener('click', () => {
     setTimeout(() => {
-      new BeforeAfterSlider({{ product.id }});
+      initializeBeforeAfter({{ product.id }});
     }, 100);
   });
 </script>
