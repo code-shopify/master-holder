@@ -33,7 +33,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Evento adicional para cerrar al hacer clic fuera del contenedor
     document.addEventListener("click", function (event) {
-        if (!toggleButton.contains(event.target) && !beforeAfterContainer.contains(event.target)) {
+        if (!toggleButton.contains(event.target) && 
+            !beforeAfterContainer.contains(event.target) && 
+            !event.target.classList.contains('before-after-range')) {
             toggleBeforeAfter(false);
             console.log("🚪 Se ocultó el Before-After por clic fuera del área.");
         }
