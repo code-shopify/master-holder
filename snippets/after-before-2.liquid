@@ -77,8 +77,25 @@
     .before-after-range::-webkit-slider-thumb {
       -webkit-appearance: none;
       height: 100%;
-      width: 0.5%;
-      opacity: 0;
+      width: 5px;
+      opacity: 0.01;
+      cursor: col-resize;
+    }
+
+    .before-after-range::-moz-range-thumb {
+      -moz-appearance: none;
+      height: 100%;
+      width: 5px;
+      opacity: 0.01;
+      cursor: col-resize;
+    }
+
+    .before-after-range::-ms-thumb {
+      appearance: none;
+      height: 100%;
+      width: 5px;
+      opacity: 0.01;
+      cursor: col-resize;
     }
 
     .before-after-slider::before {
@@ -101,36 +118,26 @@
   </style>
 
   <script>
-    let currentSlider = null;
-    let currentBeforeAfter = null;
-
     function beforeAfter(productId) {
       const slider = document.getElementById("before_after_slider_" + productId);
-      const beforeAfter = document.getElementById("before_after_" + productId);
+      const range = document.getElementById("before_after_slider_" + productId);
       
-      if (slider && beforeAfter) {
-        // Limpiar listeners anteriores
-        if (currentSlider) {
-          currentSlider.removeEventListener('input', updateSlider);
-          currentSlider.removeEventListener('change', updateSlider);
-        }
-
-        // Actualizar referencias actuales
-        currentSlider = slider;
-        currentBeforeAfter = beforeAfter;
-
-        function updateSlider() {
-          if (currentBeforeAfter) {
-            currentBeforeAfter.style.width = this.value + "%";
-          }
+      if (slider && range) {
+        function updateSlider(e) {
+          slider.style.width = e.target.value + "%";
         }
         
-        slider.addEventListener('input', updateSlider);
-        slider.addEventListener('change', updateSlider);
-
-        // Reiniciar el slider a 50%
-        slider.value = 50;
-        beforeAfter.style.width = "50%";
+        // Remover listeners anteriores si existen
+        range.removeEventListener('input', updateSlider);
+        range.removeEventListener('change', updateSlider);
+        
+        // Agregar nuevos listeners
+        range.addEventListener('input', updateSlider);
+        range.addEventListener('change', updateSlider);
+        
+        // Establecer valor inicial
+        range.value = 50;
+        slider.style.width = "50%";
       }
     }
 
