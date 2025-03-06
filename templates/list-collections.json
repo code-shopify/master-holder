@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "heading": {
@@ -29,11 +38,11 @@
         "8a07976b-2d4e-4066-ad3b-2d7a9e79fae0"
       ],
       "settings": {
-        "image": "shopify:\/\/shop_images\/bg-heading.jpg",
+        "heading_fullwidth": false,
         "use_specify_image": true,
         "parallax": false,
-        "color": "#000000",
-        "overlay": 54,
+        "color": "#111795",
+        "overlay": 100,
         "padding": 50,
         "paddingmb": 50,
         "mg_b": 60,
@@ -53,7 +62,6 @@
           "type": "collection",
           "settings": {
             "collection": "women",
-            "image": "shopify:\/\/shop_images\/cat-01.jpg",
             "collection_title": "Women"
           }
         },
@@ -61,7 +69,6 @@
           "type": "collection",
           "settings": {
             "collection": "frontpage",
-            "image": "shopify:\/\/shop_images\/cat-02.jpg",
             "collection_title": "Men"
           }
         },
@@ -69,7 +76,6 @@
           "type": "collection",
           "settings": {
             "collection": "accessories",
-            "image": "shopify:\/\/shop_images\/cat-03.jpg",
             "collection_title": "Accessories"
           }
         },
@@ -77,7 +83,6 @@
           "type": "collection",
           "settings": {
             "collection": "shoes",
-            "image": "shopify:\/\/shop_images\/cat-04.jpg",
             "collection_title": "Footwear"
           }
         },
@@ -85,7 +90,6 @@
           "type": "collection",
           "settings": {
             "collection": "default",
-            "image": "shopify:\/\/shop_images\/cat-05.jpg",
             "collection_title": "Tops"
           }
         },
@@ -93,7 +97,6 @@
           "type": "collection",
           "settings": {
             "collection": "sale",
-            "image": "shopify:\/\/shop_images\/cl13_400x_fe793a6a-c1b2-46bc-9753-c1c760ebaf52.jpg",
             "collection_title": "Sale"
           }
         }
@@ -147,6 +150,8 @@
         "cl_bg_gradient": "",
         "mg": ",,80px,",
         "pd": "",
+        "mg_tb": "",
+        "pd_tb": "",
         "mg_mb": ",,50px,",
         "pd_mb": ""
       }
