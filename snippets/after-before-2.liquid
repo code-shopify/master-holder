@@ -124,32 +124,46 @@
       const range = document.getElementById("before_after_slider_" + productId);
       
       if (slider && range) {
+        let isDragging = false;
+        
         function updateSlider(e) {
+          if (!isDragging) return;
           const value = e.target.value;
           slider.style.width = value + "%";
+        }
+
+        function startDragging(e) {
+          isDragging = true;
+          e.preventDefault();
+          e.stopPropagation();
+        }
+
+        function stopDragging(e) {
+          isDragging = false;
+          e.preventDefault();
+          e.stopPropagation();
         }
         
         // Remover listeners anteriores si existen
         range.removeEventListener('input', updateSlider);
         range.removeEventListener('change', updateSlider);
-        range.removeEventListener('mousedown', stopEvent);
-        range.removeEventListener('touchstart', stopEvent);
+        range.removeEventListener('mousedown', startDragging);
+        range.removeEventListener('mouseup', stopDragging);
+        range.removeEventListener('touchstart', startDragging);
+        range.removeEventListener('touchend', stopDragging);
         
         // Agregar nuevos listeners
         range.addEventListener('input', updateSlider);
         range.addEventListener('change', updateSlider);
-        range.addEventListener('mousedown', stopEvent);
-        range.addEventListener('touchstart', stopEvent);
+        range.addEventListener('mousedown', startDragging);
+        range.addEventListener('mouseup', stopDragging);
+        range.addEventListener('touchstart', startDragging);
+        range.addEventListener('touchend', stopDragging);
         
         // Establecer valor inicial
         range.value = 50;
         slider.style.width = "50%";
       }
-    }
-
-    function stopEvent(e) {
-      e.preventDefault();
-      e.stopPropagation();
     }
 
     // Inicializar el slider cuando el DOM esté listo
