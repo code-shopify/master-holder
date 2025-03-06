@@ -124,21 +124,32 @@
   class BeforeAfterSlider {
     constructor(productId) {
       this.productId = productId;
-      this.slider = document.getElementById("before_after_" + productId);
-      this.range = document.getElementById("before_after_slider_" + productId);
       this.initialize();
     }
 
     initialize() {
+      // Obtener elementos cada vez que se inicializa
+      this.slider = document.getElementById("before_after_" + this.productId);
+      this.range = document.getElementById("before_after_slider_" + this.productId);
+      
       if (!this.slider || !this.range) return;
+      
+      // Remover listeners anteriores si existen
+      if (this.boundUpdateSlider) {
+        this.range.removeEventListener('input', this.boundUpdateSlider);
+        this.range.removeEventListener('change', this.boundUpdateSlider);
+      }
+      
+      // Crear nuevo binding para el evento
+      this.boundUpdateSlider = this.updateSlider.bind(this);
+      
+      // Agregar nuevos listeners
+      this.range.addEventListener('input', this.boundUpdateSlider);
+      this.range.addEventListener('change', this.boundUpdateSlider);
       
       // Establecer valor inicial
       this.range.value = 50;
       this.slider.style.width = "50%";
-      
-      // Agregar listeners
-      this.range.addEventListener('input', this.updateSlider.bind(this));
-      this.range.addEventListener('change', this.updateSlider.bind(this));
     }
 
     updateSlider(e) {
@@ -147,6 +158,15 @@
   }
 
   let sliderInstance = null;
+
+  // Función para inicializar o reinicializar el slider
+  function initializeBeforeAfter(productId) {
+    if (sliderInstance) {
+      sliderInstance.initialize();
+    } else {
+      sliderInstance = new BeforeAfterSlider(productId);
+    }
+  }
 
   // Inicializar cuando se carga el DOM
   document.addEventListener('DOMContentLoaded', () => {
@@ -162,8 +182,26 @@
     }
   });
 
-  function initializeBeforeAfter(productId) {
-    sliderInstance = new BeforeAfterSlider(productId);
+  // Reinicializar cuando el contenedor se muestra
+  const beforeAfterContainer = document.getElementById('before-after-container');
+  if (beforeAfterContainer) {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+          const displayStyle = beforeAfterContainer.style.display;
+          if (displayStyle !== 'none') {
+            setTimeout(() => {
+              initializeBeforeAfter({{ product.id }});
+            }, 100);
+          }
+        }
+      });
+    });
+
+    observer.observe(beforeAfterContainer, {
+      attributes: true,
+      attributeFilter: ['style']
+    });
   }
 </script>
 {% endif %}
