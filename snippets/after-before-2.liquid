@@ -34,6 +34,7 @@
       height: 100%;
       z-index: 10;
       background-color: #1f1f1c;
+      touch-action: none;
     }
 
     .before-after-wrapper figure {
@@ -77,7 +78,7 @@
     .before-after-range::-webkit-slider-thumb {
       -webkit-appearance: none;
       height: 100%;
-      width: 5px;
+      width: 40px;
       opacity: 0.01;
       cursor: col-resize;
     }
@@ -85,7 +86,7 @@
     .before-after-range::-moz-range-thumb {
       -moz-appearance: none;
       height: 100%;
-      width: 5px;
+      width: 40px;
       opacity: 0.01;
       cursor: col-resize;
     }
@@ -93,7 +94,7 @@
     .before-after-range::-ms-thumb {
       appearance: none;
       height: 100%;
-      width: 5px;
+      width: 40px;
       opacity: 0.01;
       cursor: col-resize;
     }
@@ -124,21 +125,30 @@
       
       if (slider && range) {
         function updateSlider(e) {
-          slider.style.width = e.target.value + "%";
+          e.preventDefault();
+          e.stopPropagation();
+          slider.style.width = this.value + "%";
         }
         
         // Remover listeners anteriores si existen
         range.removeEventListener('input', updateSlider);
         range.removeEventListener('change', updateSlider);
+        range.removeEventListener('click', stopEvent);
         
         // Agregar nuevos listeners
         range.addEventListener('input', updateSlider);
         range.addEventListener('change', updateSlider);
+        range.addEventListener('click', stopEvent);
         
         // Establecer valor inicial
         range.value = 50;
         slider.style.width = "50%";
       }
+    }
+
+    function stopEvent(e) {
+      e.preventDefault();
+      e.stopPropagation();
     }
 
     // Inicializar el slider cuando el DOM esté listo
