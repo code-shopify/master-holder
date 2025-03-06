@@ -1,2 +1,13 @@
-<div class="img_fija" style="background-image: url('{{ product.metafields.custom.imagen_fija | file_url }}'); width: 105px; height: 105px; background-size: cover; background-position: center; "></div>
+<style>
+  .img_fija {
+    background-image: url('{{ product.metafields.custom.imagen_fija | file_url }}');
+    width: 105px;
+    height: 105px;
+    background-size: cover;
+    background-position: center;
+    border: 2px solid black;
+  }
+</style>
+
+<div class="img_fija"></div>
 
