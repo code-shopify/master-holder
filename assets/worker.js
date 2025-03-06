@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var toggleButton = document.getElementById("toggleBeforeAfter");
     var beforeAfterContainer = document.getElementById("before-after-container");
     var isBeforeAfterVisible = false;
+    var scrollTimeout;
 
     if (!toggleButton || !beforeAfterContainer) {
         console.error("❌ Elementos no encontrados, revisa los IDs.");
@@ -26,6 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Evento para alternar la visibilidad
     toggleButton.addEventListener("click", function (event) {
         event.preventDefault();
+        event.stopPropagation();
         toggleBeforeAfter(!isBeforeAfterVisible);
     });
 
@@ -36,6 +38,18 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("🚪 Se ocultó el Before-After por clic fuera del área.");
         }
     });
+
+    // Manejar el scroll
+    window.addEventListener('scroll', function() {
+        if (!isBeforeAfterVisible) return;
+        
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(function() {
+            if (isBeforeAfterVisible) {
+                toggleBeforeAfter(true);
+            }
+        }, 150);
+    }, { passive: true });
 
     // Reinicializar el slider cuando cambie el thumbnail
     document.addEventListener('t4s:mediaChange', function() {
