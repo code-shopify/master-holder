@@ -151,10 +151,11 @@
         this.range = document.getElementById("before_after_slider_" + productId);
         this.wrapper = document.querySelector('[data-before-after-wrapper]');
         this.isInitialized = false;
+        this.isVisible = false;
       }
 
       initialize() {
-        if (!this.slider || !this.range || this.isInitialized) return;
+        if (!this.slider || !this.range) return;
         
         // Establecer valor inicial
         this.range.value = 50;
@@ -182,29 +183,46 @@
         this.slider.style.width = this.range.value + "%";
       }
 
+      toggle() {
+        if (this.isVisible) {
+          this.hide();
+        } else {
+          this.show();
+        }
+      }
+
       show() {
+        if (!this.isInitialized) {
+          this.initialize();
+        }
         if (this.wrapper) {
           this.wrapper.classList.add('is--active');
-          this.initialize(); // Solo inicializamos cuando se muestra
+          this.isVisible = true;
         }
       }
 
       hide() {
         if (this.wrapper) {
           this.wrapper.classList.remove('is--active');
+          this.isVisible = false;
         }
       }
     }
 
+    // Mantener una referencia global al slider
+    let currentSlider = null;
+
     // Solo inicializar cuando el DOM esté listo
     document.addEventListener('DOMContentLoaded', () => {
-      const slider = new BeforeAfterSlider({{ product.id }});
+      currentSlider = new BeforeAfterSlider({{ product.id }});
       
       // Usar el botón existente toggleBeforeAfter
       const toggleButton = document.getElementById('toggleBeforeAfter');
       if (toggleButton) {
-        toggleButton.addEventListener('click', () => {
-          slider.show();
+        toggleButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          currentSlider.toggle();
         });
       }
 
@@ -213,10 +231,17 @@
         // Agregar evento para cerrar
         wrapper.addEventListener('click', (e) => {
           if (e.target === wrapper) {
-            slider.hide();
+            currentSlider.hide();
           }
         });
       }
+
+      // Agregar evento para cerrar con Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && currentSlider.isVisible) {
+          currentSlider.hide();
+        }
+      });
     });
   </script>
 {% endif %}
