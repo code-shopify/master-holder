@@ -1,0 +1,200 @@
+{% comment %}
+  Before & After Slider (Using Metafields for Dynamic Images)
+{% endcomment %}
+
+{% assign before_image = product.metafields.custom.before_image | img_url: 'master' %}
+{% assign after_image = product.metafields.custom.after_image | img_url: 'master' %}
+
+{% if before_image != blank and after_image != blank %}
+  <div class="before-after-wrapper">
+    <figure>
+      <div id="before_after_{{ product.id }}" class="before-after-slider"></div>
+    </figure>
+    <input 
+      type="range" 
+      min="0" 
+      max="100" 
+      value="50" 
+      id="before_after_slider_{{ product.id }}" 
+      class="before-after-range"
+    />
+  </div>
+
+  <style>
+    :root {
+      --before-image: url({{ before_image }});
+      --after-image: url({{ after_image }});
+    }
+
+    .before-after-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      background-color: #1f1f1c;
+      touch-action: none;
+    }
+
+    .before-after-wrapper figure {
+      background-image: var(--after-image);
+      position: relative;
+      margin: 0;
+      background-size: cover;
+      width: 100%;
+      height: 100%;
+    }
+
+    .before-after-slider {
+      background-image: var(--before-image);
+      background-size: cover;
+      bottom: 0;
+      border-right: 5px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 10px 0 15px -13px #000;
+      height: 100%;
+      width: 50%;
+      position: absolute;
+      animation: first 2s 1 normal ease-in-out 0.1s;
+    }
+
+    .before-after-range {
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      border: none;
+      background: transparent;
+      cursor: col-resize;
+      height: 100%;
+      left: 0;
+      margin: 0;
+      outline: none;
+      padding: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 20;
+      touch-action: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .before-after-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 100%;
+      width: 40px;
+      opacity: 0.01;
+      cursor: col-resize;
+    }
+
+    .before-after-range::-moz-range-thumb {
+      -moz-appearance: none;
+      height: 100%;
+      width: 40px;
+      opacity: 0.01;
+      cursor: col-resize;
+    }
+
+    .before-after-range::-ms-thumb {
+      appearance: none;
+      height: 100%;
+      width: 40px;
+      opacity: 0.01;
+      cursor: col-resize;
+    }
+
+    .before-after-slider::before {
+      background: url('https://assets.codepen.io/191814/comparision.png') no-repeat center;
+      background-size: contain;
+      content: " ";
+      float: right;
+      height: 100%;
+      margin-right: -34px;
+      position: relative;
+      top: 0;
+      width: 64px;
+    }
+
+    @keyframes first {
+      0% { width: 0%; }
+      50% { width: 80%; }
+      100% { width: 50%; }
+    }
+  </style>
+
+  <script>
+    let currentSlider = null;
+    let currentRange = null;
+
+    function beforeAfter(productId) {
+      const slider = document.getElementById("before_after_" + productId);
+      const range = document.getElementById("before_after_slider_" + productId);
+      
+      if (slider && range) {
+        function updateSlider(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          slider.style.width = this.value + "%";
+        }
+        
+        // Remover listeners anteriores si existen
+        if (currentRange) {
+          currentRange.removeEventListener('input', updateSlider);
+          currentRange.removeEventListener('change', updateSlider);
+          currentRange.removeEventListener('click', stopEvent);
+        }
+        
+        // Agregar nuevos listeners
+        range.addEventListener('input', updateSlider);
+        range.addEventListener('change', updateSlider);
+        range.addEventListener('click', stopEvent);
+        
+        // Establecer valor inicial
+        range.value = 50;
+        slider.style.width = "50%";
+
+        // Actualizar referencias actuales
+        currentSlider = slider;
+        currentRange = range;
+      }
+    }
+
+    function stopEvent(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    // Inicializar el slider cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', function() {
+      beforeAfter({{ product.id }});
+    });
+
+    // Reinicializar el slider cuando cambie el thumbnail
+    document.addEventListener('t4s:mediaChange', function() {
+      setTimeout(() => {
+        beforeAfter({{ product.id }});
+      }, 100);
+    });
+
+    // Reinicializar cuando la galería esté lista
+    document.addEventListener('flickityt4s:ready', function() {
+      setTimeout(() => {
+        beforeAfter({{ product.id }});
+      }, 100);
+    });
+
+    // Reinicializar cuando cambie la galería
+    document.addEventListener('flickityt4s:change', function() {
+      setTimeout(() => {
+        beforeAfter({{ product.id }});
+      }, 100);
+    });
+
+    // Reinicializar cuando se haga clic en cualquier thumbnail
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('.t4s-product__media-item')) {
+        setTimeout(() => {
+          beforeAfter({{ product.id }});
+        }, 100);
+      }
+    });
+  </script>
+{% endif %} 
