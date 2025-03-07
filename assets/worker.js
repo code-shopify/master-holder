@@ -37,17 +37,15 @@ function getSliderElements() {
     const slider = document.getElementById(`before_after_${productId}`);
     const range = document.getElementById(`before_after_slider_${productId}`);
     const wrapper = document.querySelector('[data-before-after-wrapper]');
-    const handle = slider ? slider.querySelector('.handle') : null;
 
     console.log('🔍 Elementos encontrados:', {
         container: !!beforeAfterContainer,
         slider: !!slider,
         range: !!range,
-        wrapper: !!wrapper,
-        handle: !!handle
+        wrapper: !!wrapper
     });
 
-    if (!beforeAfterContainer || !slider || !range || !wrapper || !handle) {
+    if (!beforeAfterContainer || !slider || !range || !wrapper) {
         console.error('❌ No se encontraron todos los elementos necesarios');
         return null;
     }
@@ -58,7 +56,6 @@ function getSliderElements() {
         slider,
         range,
         wrapper,
-        handle,
         isVisible: false
     };
 }
@@ -66,8 +63,7 @@ function getSliderElements() {
 function updateSliderPosition(elements, value) {
     if (!elements || !elements.slider) return;
     requestAnimationFrame(() => {
-        elements.slider.style.clipPath = `inset(0 0 0 ${value}%)`;
-        elements.handle.style.left = `${value}%`;
+        elements.slider.style.width = `${value}%`;
     });
 }
 
