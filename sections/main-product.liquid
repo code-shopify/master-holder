@@ -446,6 +446,12 @@ endif -%}
                 {% render 'after-before-2' %}
                 {% endcomment %}
 
+                {% if product.metafields.custom.imagen_fija %}
+                  <a href="javascript:void(0);" class="imagen-fija" id="toggleBeforeAfter">  
+                    {% render "imagen-galeria-fix" %}
+                  </a>
+                {% endif %}
+
                   {%- if bk_stts.tax_ship and cart.taxes_included or shop.shipping_policy.body != blank -%}
                     <div class="t4s-product__policies t4s-rte" data-product-policies>
                       {%- if cart.taxes_included -%}
