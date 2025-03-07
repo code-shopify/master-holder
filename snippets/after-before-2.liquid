@@ -38,13 +38,11 @@
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.3s ease, visibility 0.3s ease;
-      pointer-events: none;
     }
 
     .before-after-wrapper.is--active {
       opacity: 1;
       visibility: visible;
-      pointer-events: all;
     }
 
     .before-after-wrapper figure {
@@ -149,39 +147,11 @@
     class BeforeAfterSlider {
       constructor(productId) {
         this.productId = productId;
-        this.boundHandleInput = this.handleInput.bind(this);
-        this.boundHandleToggleClick = this.handleToggleClick.bind(this);
-        this.boundHandleWrapperClick = this.handleWrapperClick.bind(this);
-        this.boundHandleKeydown = this.handleKeydown.bind(this);
-        this.isVisible = false;
-        
-        // Inicializar elementos
         this.init();
-        
-        // Agregar listeners globales que no dependen de los elementos
-        document.addEventListener('keydown', this.boundHandleKeydown);
-        
-        // Escuchar eventos de la galería
-        const galleryEvents = ['flickityt4s:ready', 'flickityt4s:change', 't4s:mediaChange'];
-        galleryEvents.forEach(event => {
-          document.addEventListener(event, () => {
-            console.log(event + ' triggered');
-            this.updateElements();
-            // Restaurar el estado visible si es necesario
-            if (this.isVisible) {
-              requestAnimationFrame(() => this.forceShow());
-            }
-          });
-        });
+        this.setupGalleryEvents();
       }
 
       init() {
-        this.updateElements();
-        this.addEventListeners();
-      }
-
-      updateElements() {
-        console.log('Updating elements');
         this.slider = document.getElementById("before_after_" + this.productId);
         this.range = document.getElementById("before_after_slider_" + this.productId);
         this.wrapper = document.querySelector('[data-before-after-wrapper]');
@@ -191,36 +161,40 @@
         if (this.range && this.slider) {
           this.range.value = 50;
           this.slider.style.width = "50%";
+          
+          // Bind de eventos
+          this.handleInput = this.handleInput.bind(this);
+          this.handleToggleClick = this.handleToggleClick.bind(this);
+          this.handleWrapperClick = this.handleWrapperClick.bind(this);
+          
+          // Agregar listeners
+          this.addEventListeners();
         }
-
-        // Restaurar event listeners
-        this.addEventListeners();
       }
 
       addEventListeners() {
-        if (!this.range || !this.slider || !this.wrapper || !this.toggleButton) return;
+        // Eventos del slider
+        if (this.range) {
+          this.range.addEventListener('input', this.handleInput);
+          this.range.addEventListener('change', this.handleInput);
+        }
 
-        // Remover listeners anteriores
-        this.removeEventListeners();
+        // Evento del botón toggle
+        if (this.toggleButton) {
+          this.toggleButton.addEventListener('click', this.handleToggleClick);
+        }
 
-        // Agregar nuevos listeners
-        this.range.addEventListener('input', this.boundHandleInput);
-        this.range.addEventListener('change', this.boundHandleInput);
-        this.toggleButton.addEventListener('click', this.boundHandleToggleClick);
-        this.wrapper.addEventListener('click', this.boundHandleWrapperClick);
+        // Evento del wrapper
+        if (this.wrapper) {
+          this.wrapper.addEventListener('click', this.handleWrapperClick);
+        }
       }
 
-      removeEventListeners() {
-        if (this.range) {
-          this.range.removeEventListener('input', this.boundHandleInput);
-          this.range.removeEventListener('change', this.boundHandleInput);
-        }
-        if (this.toggleButton) {
-          this.toggleButton.removeEventListener('click', this.boundHandleToggleClick);
-        }
-        if (this.wrapper) {
-          this.wrapper.removeEventListener('click', this.boundHandleWrapperClick);
-        }
+      setupGalleryEvents() {
+        // Eventos de la galería
+        document.addEventListener('flickityt4s:ready', () => this.init());
+        document.addEventListener('flickityt4s:change', () => this.init());
+        document.addEventListener('t4s:mediaChange', () => this.init());
       }
 
       handleInput(e) {
@@ -230,7 +204,6 @@
       }
 
       handleToggleClick(e) {
-        console.log('Toggle click');
         e.preventDefault();
         e.stopPropagation();
         this.toggle();
@@ -242,52 +215,24 @@
         }
       }
 
-      handleKeydown(e) {
-        if (e.key === 'Escape' && this.isVisible) {
-          this.hide();
-        }
-      }
-
-      forceShow() {
-        if (!this.wrapper) return;
-        
-        // Forzar un reflow
-        void this.wrapper.offsetWidth;
-        
-        // Aplicar estilos
-        this.wrapper.style.opacity = '1';
-        this.wrapper.style.visibility = 'visible';
-        this.wrapper.style.pointerEvents = 'all';
-        this.wrapper.classList.add('is--active');
-        
-        // Asegurar que el slider esté en posición correcta
-        if (this.range && this.slider) {
+      show() {
+        if (this.wrapper) {
+          // Asegurarse de que el slider esté configurado correctamente
           this.range.value = 50;
           this.slider.style.width = "50%";
+          this.wrapper.classList.add('is--active');
         }
-      }
-
-      show() {
-        console.log('Show called');
-        this.isVisible = true;
-        this.forceShow();
       }
 
       hide() {
-        console.log('Hide called');
         if (this.wrapper) {
-          this.isVisible = false;
-          this.wrapper.style.opacity = '0';
-          this.wrapper.style.visibility = 'hidden';
-          this.wrapper.style.pointerEvents = 'none';
           this.wrapper.classList.remove('is--active');
         }
       }
 
       toggle() {
-        console.log('Toggle called');
         if (this.wrapper) {
-          if (this.isVisible) {
+          if (this.wrapper.classList.contains('is--active')) {
             this.hide();
           } else {
             this.show();
@@ -299,8 +244,14 @@
     // Crear instancia cuando el DOM esté listo
     let slider;
     document.addEventListener('DOMContentLoaded', () => {
-      console.log('DOM Content Loaded');
       slider = new BeforeAfterSlider({{ product.id }});
+      
+      // Cerrar con Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && slider) {
+          slider.hide();
+        }
+      });
     });
   </script>
 {% endif %}
