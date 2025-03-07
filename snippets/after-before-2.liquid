@@ -8,8 +8,8 @@
 {% if before_image != blank and after_image != blank %}
   <div class="before-after-wrapper" data-before-after-wrapper>
     <div class="before-after-figure">
-      <div class="before-after-image before-image"></div>
-      <div id="before_after_{{ product.id }}" class="before-after-image after-image"></div>
+      <div class="before-after-image after-image"></div>
+      <div id="before_after_{{ product.id }}" class="before-after-image before-image"></div>
     </div>
     <input 
       type="range" 
@@ -65,18 +65,18 @@
       background-repeat: no-repeat;
     }
 
-    .before-image {
-      background-image: var(--before-image);
+    .after-image {
+      background-image: var(--after-image);
       z-index: 1;
     }
 
-    .after-image {
-      background-image: var(--after-image);
+    .before-image {
+      background-image: var(--before-image);
       z-index: 2;
-      width: 50%;
-      border-right: 5px solid rgba(255, 255, 255, 0.7);
-      box-shadow: 10px 0 15px -13px #000;
-      transition: width 0.1s ease-out;
+      clip-path: inset(0 0 0 50%);
+      border-left: 5px solid rgba(255, 255, 255, 0.7);
+      box-shadow: -10px 0 15px -13px #000;
+      transition: clip-path 0.1s ease-out;
     }
 
     .before-after-range {
@@ -122,10 +122,10 @@
       cursor: col-resize;
     }
 
-    .after-image::before {
+    .before-image::after {
       content: "";
       position: absolute;
-      right: -32px;
+      left: -32px;
       top: 0;
       width: 64px;
       height: 100%;

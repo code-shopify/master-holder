@@ -63,7 +63,7 @@ function getSliderElements() {
 function updateSliderPosition(elements, value) {
     if (!elements || !elements.slider) return;
     requestAnimationFrame(() => {
-        elements.slider.style.width = `${value}%`;
+        elements.slider.style.clipPath = `inset(0 0 0 ${value}%)`;
     });
 }
 
