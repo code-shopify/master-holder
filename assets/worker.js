@@ -64,28 +64,36 @@ function getSliderElements() {
     return sliderElements;
 }
 
+function updateSliderPosition(elements, value) {
+    requestAnimationFrame(() => {
+        elements.slider.style.width = `${value}%`;
+    });
+}
+
 function resetSlider(elements) {
     elements.range.value = 50;
-    elements.slider.style.width = "50%";
+    updateSliderPosition(elements, 50);
 }
 
 function showSlider(elements) {
     console.log('👁️ Mostrando slider');
     elements.beforeAfterContainer.style.display = 'block';
-    elements.wrapper.style.opacity = '1';
-    elements.wrapper.style.visibility = 'visible';
-    resetSlider(elements);
-    elements.wrapper.classList.add('is--active');
-    elements.isVisible = true;
+    requestAnimationFrame(() => {
+        elements.wrapper.classList.add('is--active');
+        elements.isVisible = true;
+        resetSlider(elements);
+    });
 }
 
 function hideSlider(elements) {
     console.log('🔒 Ocultando slider');
-    elements.beforeAfterContainer.style.display = 'none';
-    elements.wrapper.style.opacity = '0';
-    elements.wrapper.style.visibility = 'hidden';
     elements.wrapper.classList.remove('is--active');
     elements.isVisible = false;
+    setTimeout(() => {
+        if (!elements.isVisible) {
+            elements.beforeAfterContainer.style.display = 'none';
+        }
+    }, 300); // Esperar a que termine la transición
 }
 
 function handleSliderVisibility(elements) {
@@ -105,8 +113,9 @@ function initBeforeAfter() {
 
     // Configurar eventos
     elements.range.addEventListener('input', (e) => {
-        console.log('🎚️ Ajustando slider:', e.target.value);
-        elements.slider.style.width = e.target.value + "%";
+        const value = parseInt(e.target.value, 10);
+        console.log('🎚️ Ajustando slider:', value);
+        updateSliderPosition(elements, value);
     });
 
     elements.toggleButton.addEventListener('click', (e) => {
