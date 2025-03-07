@@ -6,7 +6,7 @@
 {% assign after_image = product.metafields.custom.after_image | img_url: 'master' %}
 
 {% if before_image != blank and after_image != blank %}
-  <div class="before-after-wrapper">
+  <div class="before-after-wrapper" data-before-after-wrapper>
     <figure>
       <div id="before_after_{{ product.id }}" class="before-after-slider"></div>
     </figure>
@@ -35,6 +35,14 @@
       z-index: 10;
       background-color: #1f1f1c;
       touch-action: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .before-after-wrapper.is--active {
+      opacity: 1;
+      visibility: visible;
     }
 
     .before-after-wrapper figure {
@@ -118,42 +126,99 @@
       50% { width: 80%; }
       100% { width: 50%; }
     }
+
+    /* Botón para activar before-after */
+    .t4s-before-after-trigger {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 30;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
   </style>
 
- <script>
-  function initializeBeforeAfter(productId) {
-    let slider = document.getElementById("before_after_" + productId);
-    let range = document.getElementById("before_after_slider_" + productId);
-    
-    if (!slider || !range) return;
+  <script>
+    class BeforeAfterSlider {
+      constructor(productId) {
+        this.productId = productId;
+        this.slider = document.getElementById("before_after_" + productId);
+        this.range = document.getElementById("before_after_slider_" + productId);
+        this.wrapper = document.querySelector('[data-before-after-wrapper]');
+        this.isInitialized = false;
+      }
 
-    // Establecer valor inicial
-    range.value = 50;
-    slider.style.width = "50%";
+      initialize() {
+        if (!this.slider || !this.range || this.isInitialized) return;
+        
+        // Establecer valor inicial
+        this.range.value = 50;
+        this.slider.style.width = "50%";
 
-    // Función simple para actualizar el slider
-    function updateSlider() {
-      slider.style.width = range.value + "%";
+        // Limpiar listeners anteriores si existen
+        if (this.boundUpdateSlider) {
+          this.range.removeEventListener('input', this.boundUpdateSlider);
+          this.range.removeEventListener('change', this.boundUpdateSlider);
+        }
+
+        // Crear nuevo binding
+        this.boundUpdateSlider = this.updateSlider.bind(this);
+        
+        // Agregar nuevos listeners
+        this.range.addEventListener('input', this.boundUpdateSlider);
+        this.range.addEventListener('change', this.boundUpdateSlider);
+
+        this.isInitialized = true;
+      }
+
+      updateSlider(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.slider.style.width = this.range.value + "%";
+      }
+
+      show() {
+        if (this.wrapper) {
+          this.wrapper.classList.add('is--active');
+          this.initialize(); // Solo inicializamos cuando se muestra
+        }
+      }
+
+      hide() {
+        if (this.wrapper) {
+          this.wrapper.classList.remove('is--active');
+        }
+      }
     }
 
-    // Remover y volver a agregar los event listeners
-    range.removeEventListener('input', updateSlider);
-    range.removeEventListener('change', updateSlider);
-    
-    range.addEventListener('input', updateSlider);
-    range.addEventListener('change', updateSlider);
-  }
+    // Solo inicializar cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', () => {
+      const slider = new BeforeAfterSlider({{ product.id }});
+      
+      // Agregar botón de trigger
+      const trigger = document.createElement('button');
+      trigger.className = 't4s-before-after-trigger';
+      trigger.textContent = 'Compare';
+      trigger.addEventListener('click', () => {
+        slider.show();
+      });
 
-  // Inicializar cuando se carga el DOM
-  document.addEventListener('DOMContentLoaded', () => {
-    initializeBeforeAfter({{ product.id }});
-  });
-
-  // Reinicializar cuando se hace clic en el botón de imagen fija
-  document.querySelector('#toggleBeforeAfter').addEventListener('click', () => {
-    setTimeout(() => {
-      initializeBeforeAfter({{ product.id }});
-    }, 100);
-  });
-</script>
+      const wrapper = document.querySelector('[data-before-after-wrapper]');
+      if (wrapper) {
+        wrapper.parentElement.appendChild(trigger);
+        
+        // Agregar evento para cerrar
+        wrapper.addEventListener('click', (e) => {
+          if (e.target === wrapper) {
+            slider.hide();
+          }
+        });
+      }
+    });
+  </script>
 {% endif %}
