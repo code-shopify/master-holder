@@ -147,40 +147,63 @@
     class BeforeAfterSlider {
       constructor(productId) {
         this.productId = productId;
-        this.slider = document.getElementById("before_after_" + productId);
-        this.range = document.getElementById("before_after_slider_" + productId);
+        this.init();
+      }
+
+      init() {
+        this.slider = document.getElementById("before_after_" + this.productId);
+        this.range = document.getElementById("before_after_slider_" + this.productId);
         this.wrapper = document.querySelector('[data-before-after-wrapper]');
         this.isInitialized = false;
         this.isVisible = false;
+        this.boundUpdateSlider = null;
       }
 
       initialize() {
-        if (!this.slider || !this.range) return;
+        if (!this.slider || !this.range) {
+          // Reintentar obtener elementos si no están disponibles
+          this.init();
+          if (!this.slider || !this.range) return;
+        }
         
         // Establecer valor inicial
         this.range.value = 50;
         this.slider.style.width = "50%";
 
         // Limpiar listeners anteriores si existen
-        if (this.boundUpdateSlider) {
-          this.range.removeEventListener('input', this.boundUpdateSlider);
-          this.range.removeEventListener('change', this.boundUpdateSlider);
-        }
+        this.removeListeners();
 
         // Crear nuevo binding
         this.boundUpdateSlider = this.updateSlider.bind(this);
         
         // Agregar nuevos listeners
-        this.range.addEventListener('input', this.boundUpdateSlider);
-        this.range.addEventListener('change', this.boundUpdateSlider);
+        this.addListeners();
 
         this.isInitialized = true;
       }
 
+      removeListeners() {
+        if (this.boundUpdateSlider && this.range) {
+          this.range.removeEventListener('input', this.boundUpdateSlider);
+          this.range.removeEventListener('change', this.boundUpdateSlider);
+        }
+      }
+
+      addListeners() {
+        if (this.range && this.boundUpdateSlider) {
+          this.range.addEventListener('input', this.boundUpdateSlider);
+          this.range.addEventListener('change', this.boundUpdateSlider);
+        }
+      }
+
       updateSlider(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        this.slider.style.width = this.range.value + "%";
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        if (this.slider && this.range) {
+          this.slider.style.width = this.range.value + "%";
+        }
       }
 
       toggle() {
@@ -192,12 +215,14 @@
       }
 
       show() {
-        if (!this.isInitialized) {
-          this.initialize();
-        }
+        // Siempre reinicializar al mostrar
+        this.initialize();
+        
         if (this.wrapper) {
           this.wrapper.classList.add('is--active');
           this.isVisible = true;
+          // Forzar actualización del slider
+          this.updateSlider();
         }
       }
 
@@ -207,14 +232,27 @@
           this.isVisible = false;
         }
       }
+
+      destroy() {
+        this.removeListeners();
+        this.isInitialized = false;
+        this.isVisible = false;
+      }
     }
 
     // Mantener una referencia global al slider
     let currentSlider = null;
 
+    function initializeSlider() {
+      if (currentSlider) {
+        currentSlider.destroy();
+      }
+      currentSlider = new BeforeAfterSlider({{ product.id }});
+    }
+
     // Solo inicializar cuando el DOM esté listo
     document.addEventListener('DOMContentLoaded', () => {
-      currentSlider = new BeforeAfterSlider({{ product.id }});
+      initializeSlider();
       
       // Usar el botón existente toggleBeforeAfter
       const toggleButton = document.getElementById('toggleBeforeAfter');
@@ -222,6 +260,9 @@
         toggleButton.addEventListener('click', (e) => {
           e.preventDefault();
           e.stopPropagation();
+          if (!currentSlider || !currentSlider.slider) {
+            initializeSlider();
+          }
           currentSlider.toggle();
         });
       }
@@ -238,10 +279,15 @@
 
       // Agregar evento para cerrar con Escape
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && currentSlider.isVisible) {
+        if (e.key === 'Escape' && currentSlider && currentSlider.isVisible) {
           currentSlider.hide();
         }
       });
+    });
+
+    // Reinicializar cuando cambie la galería
+    document.addEventListener('t4s:mediaChange', () => {
+      setTimeout(initializeSlider, 100);
     });
   </script>
 {% endif %}
