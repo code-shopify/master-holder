@@ -1,8 +1,11 @@
 // Esperar a que el DOM esté listo
 console.log('🚀 Worker.js cargado');
 
-function initBeforeAfter() {
-    console.log('🔄 Iniciando before/after...');
+let isInitialized = false;
+let sliderElements = null;
+
+function getSliderElements() {
+    if (sliderElements) return sliderElements;
 
     // Buscar elementos necesarios
     const toggleButton = document.querySelector('.imagen-fija');
@@ -10,7 +13,7 @@ function initBeforeAfter() {
 
     if (!toggleButton) {
         console.error('❌ No se encontró el botón toggleBeforeAfter');
-        return;
+        return null;
     }
 
     // Encontrar el ID del producto
@@ -19,7 +22,7 @@ function initBeforeAfter() {
 
     if (!productFeatured) {
         console.error('❌ No se encontró el elemento product-featured');
-        return;
+        return null;
     }
 
     let productId;
@@ -28,7 +31,7 @@ function initBeforeAfter() {
         console.log('✅ ID de producto encontrado:', productId);
     } catch (error) {
         console.error('❌ Error al obtener ID del producto:', error);
-        return;
+        return null;
     }
 
     // Obtener elementos del slider
@@ -46,56 +49,70 @@ function initBeforeAfter() {
 
     if (!beforeAfterContainer || !slider || !range || !wrapper) {
         console.error('❌ No se encontraron todos los elementos necesarios');
-        return;
+        return null;
     }
 
-    // Estado del slider
-    let isVisible = false;
+    sliderElements = {
+        toggleButton,
+        beforeAfterContainer,
+        slider,
+        range,
+        wrapper,
+        isVisible: false
+    };
 
-    // Función para mostrar el slider
-    function showSlider() {
-        console.log('👁️ Mostrando slider');
-        beforeAfterContainer.style.display = 'block';
-        range.value = 50;
-        slider.style.width = "50%";
-        wrapper.classList.add('is--active');
-        isVisible = true;
-    }
+    return sliderElements;
+}
 
-    // Función para ocultar el slider
-    function hideSlider() {
-        console.log('🔒 Ocultando slider');
-        beforeAfterContainer.style.display = 'none';
-        wrapper.classList.remove('is--active');
-        isVisible = false;
-    }
+function showSlider(elements) {
+    console.log('👁️ Mostrando slider');
+    elements.beforeAfterContainer.style.display = 'block';
+    elements.range.value = 50;
+    elements.slider.style.width = "50%";
+    elements.wrapper.classList.add('is--active');
+    elements.isVisible = true;
+}
+
+function hideSlider(elements) {
+    console.log('🔒 Ocultando slider');
+    elements.beforeAfterContainer.style.display = 'none';
+    elements.wrapper.classList.remove('is--active');
+    elements.isVisible = false;
+}
+
+function initBeforeAfter() {
+    if (isInitialized) return;
+    console.log('🔄 Iniciando before/after...');
+
+    const elements = getSliderElements();
+    if (!elements) return;
 
     // Configurar eventos
-    range.addEventListener('input', (e) => {
+    elements.range.addEventListener('input', (e) => {
         console.log('🎚️ Ajustando slider:', e.target.value);
-        slider.style.width = e.target.value + "%";
+        elements.slider.style.width = e.target.value + "%";
     });
 
-    toggleButton.addEventListener('click', (e) => {
+    elements.toggleButton.addEventListener('click', (e) => {
         console.log('🖱️ Click en botón toggle');
         e.preventDefault();
         e.stopPropagation();
-        if (isVisible) {
-            hideSlider();
+        if (elements.isVisible) {
+            hideSlider(elements);
         } else {
-            showSlider();
+            showSlider(elements);
         }
     });
 
-    wrapper.addEventListener('click', (e) => {
-        if (e.target === wrapper) {
-            hideSlider();
+    elements.wrapper.addEventListener('click', (e) => {
+        if (e.target === elements.wrapper) {
+            hideSlider(elements);
         }
     });
 
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && isVisible) {
-            hideSlider();
+        if (e.key === 'Escape' && elements.isVisible) {
+            hideSlider(elements);
         }
     });
 
@@ -103,15 +120,16 @@ function initBeforeAfter() {
     ['flickityt4s:ready', 'flickityt4s:change', 't4s:mediaChange'].forEach(event => {
         document.addEventListener(event, () => {
             console.log(`🔄 Evento de galería detectado: ${event}`);
-            if (isVisible) {
+            if (elements.isVisible) {
                 setTimeout(() => {
-                    range.value = 50;
-                    slider.style.width = "50%";
+                    elements.range.value = 50;
+                    elements.slider.style.width = "50%";
                 }, 100);
             }
         });
     });
 
+    isInitialized = true;
     console.log('✅ Before/after inicializado correctamente');
 }
 
@@ -125,5 +143,7 @@ if (document.readyState === 'loading') {
 // Reinicializar cuando cambie la galería
 document.addEventListener('t4s:mediaChange', () => {
     console.log('🔄 Cambio en galería detectado, reinicializando...');
+    isInitialized = false;
+    sliderElements = null;
     setTimeout(initBeforeAfter, 100);
 });
