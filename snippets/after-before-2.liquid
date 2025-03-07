@@ -38,7 +38,8 @@
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      will-change: opacity, visibility;
     }
 
     .before-after-wrapper.is--active {
@@ -146,6 +147,13 @@
   </style>
 
   <script>
+    // Estado global compartido
+    window.T4S = window.T4S || {};
+    window.T4S.beforeAfter = window.T4S.beforeAfter || {
+      isVisible: false,
+      activeInstance: null
+    };
+
     class BeforeAfterSlider {
       constructor(productId) {
         this.productId = productId;
@@ -157,13 +165,26 @@
         // Inicializar elementos
         this.init();
         
-        // Agregar listeners globales que no dependen de los elementos
+        // Agregar listeners globales
         document.addEventListener('keydown', this.boundHandleKeydown);
       }
 
       init() {
         this.updateElements();
         this.addEventListeners();
+        
+        // Si hay una instancia activa, destruirla
+        if (window.T4S.beforeAfter.activeInstance && window.T4S.beforeAfter.activeInstance !== this) {
+          window.T4S.beforeAfter.activeInstance.destroy();
+        }
+        
+        // Registrar esta instancia como activa
+        window.T4S.beforeAfter.activeInstance = this;
+        
+        // Sincronizar estado inicial
+        if (window.T4S.beforeAfter.isVisible) {
+          this.show(true);
+        }
       }
 
       updateElements() {
@@ -191,17 +212,6 @@
           this.range.addEventListener('input', this.boundHandleInput);
           this.range.addEventListener('change', this.boundHandleInput);
         }
-
-        // Escuchar eventos del worker
-        window.addEventListener('message', (event) => {
-          if (event.data && event.data.type === 'beforeAfterState') {
-            if (event.data.state === 'visible') {
-              this.show();
-            } else {
-              this.hide();
-            }
-          }
-        });
       }
 
       removeEventListeners() {
@@ -227,8 +237,7 @@
       handleToggleClick(e) {
         e.preventDefault();
         e.stopPropagation();
-        const isActive = this.wrapper.classList.contains('is--active');
-        if (isActive) {
+        if (window.T4S.beforeAfter.isVisible) {
           this.hide();
         } else {
           this.show();
@@ -242,12 +251,12 @@
       }
 
       handleKeydown(e) {
-        if (e.key === 'Escape') {
+        if (e.key === 'Escape' && window.T4S.beforeAfter.isVisible) {
           this.hide();
         }
       }
 
-      show() {
+      show(skipStateUpdate = false) {
         if (!this.wrapper) return;
         
         // Reset slider position
@@ -255,9 +264,11 @@
           this.range.value = 50;
           this.slider.style.width = "50%";
         }
-
-        // Notificar al worker
-        window.postMessage({ type: 'beforeAfterAction', action: 'show' }, '*');
+        
+        // Actualizar estado global
+        if (!skipStateUpdate) {
+          window.T4S.beforeAfter.isVisible = true;
+        }
         
         // Mostrar el wrapper
         requestAnimationFrame(() => {
@@ -265,11 +276,13 @@
         });
       }
 
-      hide() {
+      hide(skipStateUpdate = false) {
         if (!this.wrapper) return;
         
-        // Notificar al worker
-        window.postMessage({ type: 'beforeAfterAction', action: 'hide' }, '*');
+        // Actualizar estado global
+        if (!skipStateUpdate) {
+          window.T4S.beforeAfter.isVisible = false;
+        }
         
         // Ocultar el wrapper
         requestAnimationFrame(() => {
@@ -279,6 +292,10 @@
 
       destroy() {
         this.removeEventListeners();
+        document.removeEventListener('keydown', this.boundHandleKeydown);
+        if (window.T4S.beforeAfter.activeInstance === this) {
+          window.T4S.beforeAfter.activeInstance = null;
+        }
       }
     }
 
