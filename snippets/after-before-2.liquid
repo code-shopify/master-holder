@@ -35,6 +35,8 @@
       z-index: 10;
       background-color: #1f1f1c;
       touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .before-after-wrapper figure {
@@ -59,58 +61,51 @@
     }
 
     .before-after-range {
-      -moz-appearance: none;
       -webkit-appearance: none;
-      border: none;
-      background: transparent;
-      cursor: col-resize;
-      height: 100%;
-      left: 0;
-      margin: 0;
-      outline: none;
-      padding: 0;
+      -moz-appearance: none;
+      appearance: none;
       position: absolute;
       top: 0;
+      left: 0;
       width: 100%;
+      height: 100%;
+      background: transparent;
+      cursor: col-resize;
       z-index: 20;
       touch-action: none;
       -webkit-tap-highlight-color: transparent;
+      pointer-events: auto;
     }
 
     .before-after-range::-webkit-slider-thumb {
       -webkit-appearance: none;
-      height: 100%;
       width: 40px;
-      opacity: 0.01;
+      height: 100%;
+      background: transparent;
       cursor: col-resize;
+      pointer-events: auto;
     }
 
     .before-after-range::-moz-range-thumb {
-      -moz-appearance: none;
-      height: 100%;
       width: 40px;
-      opacity: 0.01;
-      cursor: col-resize;
-    }
-
-    .before-after-range::-ms-thumb {
-      appearance: none;
       height: 100%;
-      width: 40px;
-      opacity: 0.01;
+      background: transparent;
       cursor: col-resize;
+      border: none;
+      pointer-events: auto;
     }
 
     .before-after-slider::before {
+      content: '';
+      position: absolute;
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
       background: url('https://assets.codepen.io/191814/comparision.png') no-repeat center;
       background-size: contain;
-      content: " ";
-      float: right;
-      height: 100%;
-      margin-right: -34px;
-      position: relative;
-      top: 0;
-      width: 64px;
+      z-index: 30;
     }
 
     @keyframes first {
@@ -121,68 +116,47 @@
   </style>
 
   <script>
-    class BeforeAfterSlider {
-      constructor(productId) {
-        this.productId = productId;
-        this.slider = document.getElementById("before_after_" + productId);
-        this.range = document.getElementById("before_after_slider_" + productId);
-        this.initialize();
-      }
-
-      initialize() {
-        if (!this.slider || !this.range) return;
+    function beforeAfter(productId) {
+      const slider = document.getElementById("before_after_" + productId);
+      const range = document.getElementById("before_after_slider_" + productId);
+      
+      if (slider && range) {
+        function updateSlider() {
+          slider.style.width = range.value + "%";
+        }
         
-        // Limpiar listeners anteriores
-        this.range.replaceWith(this.range.cloneNode(true));
-        this.range = document.getElementById("before_after_slider_" + this.productId);
+        // Remover listeners anteriores
+        range.removeEventListener('input', updateSlider);
+        range.removeEventListener('change', updateSlider);
         
-        // Agregar nuevos listeners
-        this.range.addEventListener('input', this.updateSlider.bind(this));
-        this.range.addEventListener('change', this.updateSlider.bind(this));
-        this.range.addEventListener('click', this.stopEvent);
+        // Agregar listeners
+        range.addEventListener('input', updateSlider);
+        range.addEventListener('change', updateSlider);
         
         // Establecer valor inicial
-        this.range.value = 50;
-        this.slider.style.width = "50%";
-      }
-
-      updateSlider(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        this.slider.style.width = this.range.value + "%";
-      }
-
-      stopEvent(e) {
-        e.preventDefault();
-        e.stopPropagation();
+        range.value = 50;
+        slider.style.width = "50%";
       }
     }
 
-    let sliderInstance = null;
-
-    function initializeBeforeAfter(productId) {
-      sliderInstance = new BeforeAfterSlider(productId);
-    }
-
-    // Event Listeners
-    document.addEventListener('DOMContentLoaded', () => {
-      initializeBeforeAfter({{ product.id }});
+    // Inicializar el slider cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', function() {
+      beforeAfter({{ product.id }});
     });
 
-    ['t4s:mediaChange', 'flickityt4s:ready', 'flickityt4s:change'].forEach(eventName => {
-      document.addEventListener(eventName, () => {
-        setTimeout(() => {
-          initializeBeforeAfter({{ product.id }});
-        }, 100);
-      });
+    // Reinicializar el slider cuando cambie el thumbnail
+    document.addEventListener('t4s:mediaChange', function() {
+      beforeAfter({{ product.id }});
     });
 
-    document.addEventListener('click', (e) => {
-      if (e.target.closest('.t4s-product__media-item')) {
-        setTimeout(() => {
-          initializeBeforeAfter({{ product.id }});
-        }, 100);
-      }
+    // Reinicializar cuando la galería esté lista
+    document.addEventListener('flickityt4s:ready', function() {
+      beforeAfter({{ product.id }});
+    });
+
+    // Reinicializar cuando cambie la galería
+    document.addEventListener('flickityt4s:change', function() {
+      beforeAfter({{ product.id }});
     });
   </script>
 {% endif %}
