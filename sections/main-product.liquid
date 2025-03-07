@@ -332,13 +332,12 @@ endif -%}
               </div>
 
               {% comment %}
-              {% if product.metafields.custom.imagen_fija %}
+                elds.custom.imagen_fija %}
                 <a href="javascript:void(0);" class="imagen-fija" id="toggleBeforeAfter">  
                   {% render "imagen-galeria-fix" %}
                 </a>
               {% endif %}
-               {% endcomment %}
-
+              {% endcomment %}
               
               <button type="button" data-thumb-btn__prev="{{ se_id }}" aria-label="Previous" class="btn_pnav_prev t4s-pa t4s-pe-none t4s-op-0"></button>
               <button type="button" data-thumb-btn__next="{{ se_id }}" aria-label="Next" class="btn_pnav_next t4s-pa t4s-pe-none t4s-op-0"></button>
@@ -454,8 +453,6 @@ endif -%}
                     {% render "imagen-galeria-fix" %}
                   </a>
                 {% endif %}
-
-                
 
                   {%- if bk_stts.tax_ship and cart.taxes_included or shop.shipping_policy.body != blank -%}
                     <div class="t4s-product__policies t4s-rte" data-product-policies>
