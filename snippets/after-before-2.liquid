@@ -115,104 +115,85 @@
     }
   </style>
 
- <script>
-  let currentSlider = null;
-  let currentRange = null;
+  <script>
+    function beforeAfter(productId) {
+      const slider = document.getElementById("before_after_" + productId);
+      const range = document.getElementById("before_after_slider_" + productId);
+      
+      if (slider && range) {
+        function updateSlider(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          slider.style.width = this.value + "%";
+        }
+        
+        // Remover listeners anteriores
+        range.removeEventListener('input', updateSlider);
+        range.removeEventListener('change', updateSlider);
+        range.removeEventListener('click', stopEvent);
+        
+        // Agregar listeners
+        range.addEventListener('input', updateSlider);
+        range.addEventListener('change', updateSlider);
+        range.addEventListener('click', stopEvent);
+        
+        // Establecer valor inicial
+        range.value = 50;
+        slider.style.width = "50%";
+      }
+    }
 
-  function beforeAfter(productId) {
-    const slider = document.getElementById("before_after_" + productId);
-    const range = document.getElementById("before_after_slider_" + productId);
-    
-    if (slider && range) {
-      function updateSlider(e) {
+    function stopEvent(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    // Función para reinicializar el slider
+    function reinitializeSlider() {
+      setTimeout(() => {
+        beforeAfter({{ product.id }});
+      }, 100);
+    }
+
+    // Inicializar el slider cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', reinitializeSlider);
+
+    // Reinicializar el slider cuando cambie el thumbnail
+    document.addEventListener('t4s:mediaChange', reinitializeSlider);
+
+    // Reinicializar cuando la galería esté lista
+    document.addEventListener('flickityt4s:ready', reinitializeSlider);
+
+    // Reinicializar cuando cambie la galería
+    document.addEventListener('flickityt4s:change', reinitializeSlider);
+
+    // Reinicializar cuando se haga clic en cualquier thumbnail
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('.t4s-product__media-item')) {
+        reinitializeSlider();
+      }
+    });
+
+    // Reinicializar cuando se haga clic en cualquier imagen del producto
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('.t4s-product__media-wrapper')) {
+        reinitializeSlider();
+      }
+    });
+
+    // Prevenir que el slider pierda el foco
+    document.addEventListener('mousedown', function(e) {
+      if (e.target.closest('.before-after-range')) {
         e.preventDefault();
         e.stopPropagation();
-        slider.style.width = this.value + "%";
       }
-      
-      // Remover listeners anteriores si existen
-      if (currentRange) {
-        currentRange.removeEventListener('input', updateSlider);
-        currentRange.removeEventListener('change', updateSlider);
-        currentRange.removeEventListener('click', stopEvent);
+    }, true);
+
+    document.addEventListener('touchstart', function(e) {
+      if (e.target.closest('.before-after-range')) {
+        e.preventDefault();
+        e.stopPropagation();
       }
-      
-      // Agregar nuevos listeners
-      range.addEventListener('input', updateSlider);
-      range.addEventListener('change', updateSlider);
-      range.addEventListener('click', stopEvent);
-      
-      // Establecer valor inicial
-      range.value = 50;
-      slider.style.width = "50%";
-
-      // Actualizar referencias actuales
-      currentSlider = slider;
-      currentRange = range;
-    }
-  }
-
-  function stopEvent(e) {
-    e.preventDefault();
-    e.stopPropagation();
-  }
-
-  // Array de eventos que necesitamos escuchar
-  const eventsToWatch = [
-    'DOMContentLoaded',
-    't4s:mediaChange',
-    'flickityt4s:ready',
-    'flickityt4s:change',
-    'T4sHeaderReveal',  // Evento del header sticky
-    'T4sHeaderHide'     // Evento del header sticky
-  ];
-
-  // Escuchar todos los eventos
-  eventsToWatch.forEach(eventName => {
-    document.addEventListener(eventName, function() {
-      setTimeout(() => {
-        beforeAfter({{ product.id }});
-      }, 100);
-    });
-  });
-
-  // Manejar clics en thumbnails
-  document.addEventListener('click', function(e) {
-    if (e.target.closest('.t4s-product__media-item') || e.target.closest('#toggleBeforeAfter')) {
-      setTimeout(() => {
-        beforeAfter({{ product.id }});
-      }, 100);
-    }
-  });
-
-  // Manejar scroll con debounce
-  let scrollTimeout;
-  window.addEventListener('scroll', function() {
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-      beforeAfter({{ product.id }});
-    }, 150);
-  }, { passive: true });
-
-  // Observer para detectar cambios en la visibilidad del contenedor
-  const beforeAfterContainer = document.getElementById('before-after-container');
-  if (beforeAfterContainer) {
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' && 
-            mutation.attributeName === 'style' && 
-            beforeAfterContainer.style.display !== 'none') {
-          setTimeout(() => {
-            beforeAfter({{ product.id }});
-          }, 100);
-        }
-      });
-    });
-
-    observer.observe(beforeAfterContainer, {
-      attributes: true,
-      attributeFilter: ['style']
-    });
-  }
-</script>
+    }, true);
+  </script>
 {% endif %}
