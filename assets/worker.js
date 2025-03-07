@@ -64,11 +64,17 @@ function getSliderElements() {
     return sliderElements;
 }
 
+function resetSlider(elements) {
+    elements.range.value = 50;
+    elements.slider.style.width = "50%";
+}
+
 function showSlider(elements) {
     console.log('👁️ Mostrando slider');
     elements.beforeAfterContainer.style.display = 'block';
-    elements.range.value = 50;
-    elements.slider.style.width = "50%";
+    elements.wrapper.style.opacity = '1';
+    elements.wrapper.style.visibility = 'visible';
+    resetSlider(elements);
     elements.wrapper.classList.add('is--active');
     elements.isVisible = true;
 }
@@ -76,8 +82,18 @@ function showSlider(elements) {
 function hideSlider(elements) {
     console.log('🔒 Ocultando slider');
     elements.beforeAfterContainer.style.display = 'none';
+    elements.wrapper.style.opacity = '0';
+    elements.wrapper.style.visibility = 'hidden';
     elements.wrapper.classList.remove('is--active');
     elements.isVisible = false;
+}
+
+function handleSliderVisibility(elements) {
+    if (elements.isVisible) {
+        hideSlider(elements);
+    } else {
+        showSlider(elements);
+    }
 }
 
 function initBeforeAfter() {
@@ -97,11 +113,7 @@ function initBeforeAfter() {
         console.log('🖱️ Click en botón toggle');
         e.preventDefault();
         e.stopPropagation();
-        if (elements.isVisible) {
-            hideSlider(elements);
-        } else {
-            showSlider(elements);
-        }
+        handleSliderVisibility(elements);
     });
 
     elements.wrapper.addEventListener('click', (e) => {
@@ -121,13 +133,13 @@ function initBeforeAfter() {
         document.addEventListener(event, () => {
             console.log(`🔄 Evento de galería detectado: ${event}`);
             if (elements.isVisible) {
-                setTimeout(() => {
-                    elements.range.value = 50;
-                    elements.slider.style.width = "50%";
-                }, 100);
+                resetSlider(elements);
             }
         });
     });
+
+    // Asegurarse de que el slider esté oculto inicialmente
+    hideSlider(elements);
 
     isInitialized = true;
     console.log('✅ Before/after inicializado correctamente');
