@@ -39,15 +39,17 @@ function getSliderElements() {
     const slider = document.getElementById(`before_after_${productId}`);
     const range = document.getElementById(`before_after_slider_${productId}`);
     const wrapper = document.querySelector('[data-before-after-wrapper]');
+    const overlay = wrapper ? wrapper.querySelector('.before-after-overlay') : null;
 
     console.log('🔍 Elementos encontrados:', {
         container: !!beforeAfterContainer,
         slider: !!slider,
         range: !!range,
-        wrapper: !!wrapper
+        wrapper: !!wrapper,
+        overlay: !!overlay
     });
 
-    if (!beforeAfterContainer || !slider || !range || !wrapper) {
+    if (!beforeAfterContainer || !slider || !range || !wrapper || !overlay) {
         console.error('❌ No se encontraron todos los elementos necesarios');
         return null;
     }
@@ -58,6 +60,7 @@ function getSliderElements() {
         slider,
         range,
         wrapper,
+        overlay,
         isVisible: false
     };
 
@@ -93,7 +96,7 @@ function hideSlider(elements) {
         if (!elements.isVisible) {
             elements.beforeAfterContainer.style.display = 'none';
         }
-    }, 300); // Esperar a que termine la transición
+    }, 300);
 }
 
 function handleSliderVisibility(elements) {
@@ -125,10 +128,11 @@ function initBeforeAfter() {
         handleSliderVisibility(elements);
     });
 
-    elements.wrapper.addEventListener('click', (e) => {
-        if (e.target === elements.wrapper) {
-            hideSlider(elements);
-        }
+    elements.overlay.addEventListener('click', (e) => {
+        console.log('🖱️ Click en overlay');
+        e.preventDefault();
+        e.stopPropagation();
+        hideSlider(elements);
     });
 
     document.addEventListener('keydown', (e) => {
