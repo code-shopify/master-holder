@@ -35,23 +35,15 @@
       z-index: 10;
       background-color: #1f1f1c;
       touch-action: none;
-      display: none;
       opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
     }
 
     .before-after-wrapper.is--active {
-      display: block;
       opacity: 1;
-      animation: fadeIn 0.3s ease forwards;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
+      visibility: visible;
+      pointer-events: all;
     }
 
     .before-after-wrapper figure {
@@ -161,6 +153,7 @@
         this.boundHandleWrapperClick = this.handleWrapperClick.bind(this);
         this.boundHandleKeydown = this.handleKeydown.bind(this);
         this.isVisible = false;
+        this.ignoreNextMutation = false;
         
         // Inicializar elementos
         this.init();
@@ -168,24 +161,46 @@
         // Agregar listeners globales que no dependen de los elementos
         document.addEventListener('keydown', this.boundHandleKeydown);
         
-        // Escuchar eventos de la galería
-        const events = ['flickityt4s:ready', 'flickityt4s:change', 't4s:mediaChange'];
-        events.forEach(event => {
-          document.addEventListener(event, () => {
-            requestAnimationFrame(() => {
-              this.updateElements();
-              this.addEventListeners();
-              if (this.isVisible) {
-                this.forceShow();
-              }
-            });
-          });
-        });
+        // Configurar MutationObserver
+        this.setupMutationObserver();
       }
 
       init() {
         this.updateElements();
         this.addEventListeners();
+      }
+
+      setupMutationObserver() {
+        // Observer para detectar cambios en las clases del wrapper
+        this.observer = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+              const hasActiveClass = this.wrapper.classList.contains('is--active');
+              
+              // Si el cambio fue iniciado por nosotros, ignorarlo
+              if (this.ignoreNextMutation) {
+                this.ignoreNextMutation = false;
+                return;
+              }
+
+              // Si el worker.js está tratando de cambiar el estado, forzar nuestro estado
+              if (hasActiveClass !== this.isVisible) {
+                if (this.isVisible) {
+                  this.forceShow();
+                } else {
+                  this.forceHide();
+                }
+              }
+            }
+          });
+        });
+
+        if (this.wrapper) {
+          this.observer.observe(this.wrapper, {
+            attributes: true,
+            attributeFilter: ['class']
+          });
+        }
       }
 
       updateElements() {
@@ -197,6 +212,15 @@
         if (this.range && this.slider) {
           this.range.value = 50;
           this.slider.style.width = "50%";
+        }
+
+        // Actualizar observer si el wrapper cambió
+        if (this.wrapper && this.observer) {
+          this.observer.disconnect();
+          this.observer.observe(this.wrapper, {
+            attributes: true,
+            attributeFilter: ['class']
+          });
         }
       }
 
@@ -262,13 +286,23 @@
           this.slider.style.width = "50%";
         }
 
-        // Force reflow
-        this.wrapper.style.display = 'block';
-        void this.wrapper.offsetHeight;
+        // Marcar que este cambio es nuestro
+        this.ignoreNextMutation = true;
         
-        // Add active class
+        // Mostrar el wrapper
         this.wrapper.classList.add('is--active');
         this.isVisible = true;
+      }
+
+      forceHide() {
+        if (!this.wrapper) return;
+        
+        // Marcar que este cambio es nuestro
+        this.ignoreNextMutation = true;
+        
+        // Ocultar el wrapper
+        this.wrapper.classList.remove('is--active');
+        this.isVisible = false;
       }
 
       show() {
@@ -278,15 +312,7 @@
 
       hide() {
         if (!this.wrapper || !this.isVisible) return;
-        this.wrapper.classList.remove('is--active');
-        this.isVisible = false;
-        
-        // Delay hiding to allow animation
-        setTimeout(() => {
-          if (!this.isVisible) {
-            this.wrapper.style.display = 'none';
-          }
-        }, 300);
+        this.forceHide();
       }
 
       toggle() {
@@ -296,12 +322,29 @@
           this.show();
         }
       }
+
+      destroy() {
+        this.removeEventListeners();
+        if (this.observer) {
+          this.observer.disconnect();
+        }
+      }
     }
 
     // Crear instancia cuando el DOM esté listo
     let slider;
     document.addEventListener('DOMContentLoaded', () => {
       slider = new BeforeAfterSlider({{ product.id }});
+    });
+
+    // Reinicializar en eventos de la galería
+    ['flickityt4s:ready', 'flickityt4s:change', 't4s:mediaChange'].forEach(event => {
+      document.addEventListener(event, () => {
+        if (slider) {
+          slider.destroy();
+        }
+        slider = new BeforeAfterSlider({{ product.id }});
+      });
     });
   </script>
 {% endif %}
