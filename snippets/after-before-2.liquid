@@ -148,8 +148,11 @@
       constructor(productId) {
         console.log('BeforeAfterSlider constructor:', productId);
         this.productId = productId;
+        this.isVisible = false;
+        this.scrollTimeout = null;
         this.init();
         this.setupGalleryEvents();
+        this.setupScrollHandler();
       }
 
       init() {
@@ -165,6 +168,11 @@
           wrapper: !!this.wrapper,
           toggleButton: !!this.toggleButton
         });
+
+        if (!this.toggleButton || !this.wrapper) {
+          console.error("❌ Elementos no encontrados, revisa los IDs.");
+          return;
+        }
         
         // Configurar el slider
         if (this.range && this.slider) {
@@ -175,10 +183,24 @@
           this.handleInput = this.handleInput.bind(this);
           this.handleToggleClick = this.handleToggleClick.bind(this);
           this.handleWrapperClick = this.handleWrapperClick.bind(this);
+          this.handleDocumentClick = this.handleDocumentClick.bind(this);
           
           // Agregar listeners
           this.addEventListeners();
         }
+      }
+
+      setupScrollHandler() {
+        window.addEventListener('scroll', () => {
+          if (!this.isVisible) return;
+          
+          clearTimeout(this.scrollTimeout);
+          this.scrollTimeout = setTimeout(() => {
+            if (this.isVisible) {
+              this.show();
+            }
+          }, 150);
+        }, { passive: true });
       }
 
       addEventListeners() {
@@ -199,23 +221,34 @@
         if (this.wrapper) {
           this.wrapper.addEventListener('click', this.handleWrapperClick);
         }
+
+        // Evento para cerrar al hacer clic fuera
+        document.addEventListener('click', this.handleDocumentClick);
+      }
+
+      handleDocumentClick(event) {
+        if (this.isVisible && 
+            !this.toggleButton.contains(event.target) && 
+            !this.wrapper.contains(event.target) && 
+            !event.target.classList.contains('before-after-range')) {
+          this.hide();
+          console.log("🚪 Se ocultó el Before-After por clic fuera del área.");
+        }
       }
 
       setupGalleryEvents() {
         console.log('Setting up gallery events...');
-        // Eventos de la galería
-        document.addEventListener('flickityt4s:ready', () => {
-          console.log('Gallery ready event fired');
+        const reinitialize = () => {
+          console.log('Gallery event triggered, reinitializing...');
           this.init();
-        });
-        document.addEventListener('flickityt4s:change', () => {
-          console.log('Gallery change event fired');
-          this.init();
-        });
-        document.addEventListener('t4s:mediaChange', () => {
-          console.log('Media change event fired');
-          this.init();
-        });
+          if (this.isVisible) {
+            setTimeout(() => this.show(), 100);
+          }
+        };
+
+        document.addEventListener('flickityt4s:ready', reinitialize);
+        document.addEventListener('flickityt4s:change', reinitialize);
+        document.addEventListener('t4s:mediaChange', reinitialize);
       }
 
       handleInput(e) {
@@ -242,10 +275,10 @@
       show() {
         console.log('Showing slider');
         if (this.wrapper) {
-          // Asegurarse de que el slider esté configurado correctamente
           this.range.value = 50;
           this.slider.style.width = "50%";
           this.wrapper.classList.add('is--active');
+          this.isVisible = true;
         }
       }
 
@@ -253,17 +286,16 @@
         console.log('Hiding slider');
         if (this.wrapper) {
           this.wrapper.classList.remove('is--active');
+          this.isVisible = false;
         }
       }
 
       toggle() {
         console.log('Toggling slider');
-        if (this.wrapper) {
-          if (this.wrapper.classList.contains('is--active')) {
-            this.hide();
-          } else {
-            this.show();
-          }
+        if (this.isVisible) {
+          this.hide();
+        } else {
+          this.show();
         }
       }
     }
@@ -280,13 +312,6 @@
           console.log('Escape key pressed');
           slider.hide();
         }
-      });
-    });
-
-    // Agregar listener para verificar eventos de la galería
-    ['flickityt4s:ready', 'flickityt4s:change', 't4s:mediaChange'].forEach(eventName => {
-      document.addEventListener(eventName, () => {
-        console.log(`Gallery event fired: ${eventName}`);
       });
     });
   </script>
