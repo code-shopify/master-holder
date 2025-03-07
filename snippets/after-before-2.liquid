@@ -121,77 +121,95 @@
   </style>
 
   <script>
-  let currentSlider = null;
-  let currentRange = null;
+    let currentSlider = null;
+    let currentRange = null;
 
-  function beforeAfter(productId) {
-    const slider = document.getElementById("before_after_" + productId);
-    const range = document.getElementById("before_after_slider_" + productId);
-    
-    if (slider && range) {
-      function updateSlider(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        slider.style.width = this.value + "%";
+    function beforeAfter(productId) {
+      const slider = document.getElementById("before_after_" + productId);
+      const range = document.getElementById("before_after_slider_" + productId);
+      
+      if (slider && range) {
+        function updateSlider(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          slider.style.width = this.value + "%";
+        }
+
+        const boundUpdateSlider = updateSlider.bind(range);
+        
+        // Remover listeners anteriores si existen
+        if (currentRange) {
+          currentRange.removeEventListener('input', boundUpdateSlider);
+          currentRange.removeEventListener('change', boundUpdateSlider);
+        }
+        
+        // Agregar nuevos listeners
+        range.addEventListener('input', boundUpdateSlider);
+        range.addEventListener('change', boundUpdateSlider);
+        
+        // Establecer valor inicial
+        range.value = 50;
+        slider.style.width = "50%";
+
+        // Actualizar referencias actuales
+        currentSlider = slider;
+        currentRange = range;
       }
-
-      const boundUpdateSlider = updateSlider.bind(range);
-      
-      // Remover listeners anteriores si existen
-      if (currentRange) {
-        currentRange.removeEventListener('input', boundUpdateSlider);
-        currentRange.removeEventListener('change', boundUpdateSlider);
-      }
-      
-      // Agregar nuevos listeners
-      range.addEventListener('input', boundUpdateSlider);
-      range.addEventListener('change', boundUpdateSlider);
-      
-      // Establecer valor inicial
-      range.value = 50;
-      slider.style.width = "50%";
-
-      // Actualizar referencias actuales
-      currentSlider = slider;
-      currentRange = range;
     }
-  }
 
-  // Inicializar usando el sistema de eventos del tema
-  if (typeof T4SThemeSP !== 'undefined') {
-    // Agregar nuestro inicializador al sistema del tema
-    T4SThemeSP.beforeAfterSlider = function() {
-      beforeAfter({{ product.id }});
-    };
-
-    // Inicializar cuando el tema esté listo
-    document.addEventListener('t4s:ready', function() {
-      T4SThemeSP.beforeAfterSlider();
-    });
-
-    // Reinicializar en cambios de variante
-    document.addEventListener('variant:changed', function() {
-      T4SThemeSP.beforeAfterSlider();
-    });
-
-    // Reinicializar en cambios de media
-    document.addEventListener('t4s:mediaChange', function() {
-      T4SThemeSP.beforeAfterSlider();
-    });
-  } else {
-    // Fallback si el tema no está disponible
-    document.addEventListener('DOMContentLoaded', function() {
-      beforeAfter({{ product.id }});
-    });
-  }
-
-  // Manejar clics en el botón toggle
-  document.addEventListener('click', function(e) {
-    if (e.target.closest('#toggleBeforeAfter')) {
-      setTimeout(() => {
+    // Inicializar usando el sistema de eventos del tema
+    if (typeof T4SThemeSP !== 'undefined') {
+      // Agregar nuestro inicializador al sistema del tema
+      T4SThemeSP.beforeAfterSlider = function() {
         beforeAfter({{ product.id }});
-      }, 100);
+      };
+
+      // Inicializar cuando el tema esté listo
+      document.addEventListener('t4s:ready', function() {
+        T4SThemeSP.beforeAfterSlider();
+      });
+
+      // Reinicializar en cambios de variante
+      document.addEventListener('variant:changed', function() {
+        T4SThemeSP.beforeAfterSlider();
+      });
+
+      // Reinicializar en cambios de media
+      document.addEventListener('t4s:mediaChange', function() {
+        T4SThemeSP.beforeAfterSlider();
+      });
+
+      // Reinicializar en cambios de galería
+      document.addEventListener('flickityt4s:ready', function() {
+        T4SThemeSP.beforeAfterSlider();
+      });
+
+      document.addEventListener('flickityt4s:change', function() {
+        T4SThemeSP.beforeAfterSlider();
+      });
+    } else {
+      // Fallback si el tema no está disponible
+      document.addEventListener('DOMContentLoaded', function() {
+        beforeAfter({{ product.id }});
+      });
     }
-  });
-</script>
+
+    // Manejar clics en el botón toggle y thumbnails
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('#toggleBeforeAfter') || e.target.closest('.t4s-product__media-item')) {
+        setTimeout(() => {
+          beforeAfter({{ product.id }});
+        }, 100);
+      }
+    });
+
+    // Reinicializar cuando el header cambie
+    document.addEventListener('T4sHeaderReveal', function() {
+      T4SThemeSP.beforeAfterSlider();
+    });
+
+    document.addEventListener('T4sHeaderHide', function() {
+      T4SThemeSP.beforeAfterSlider();
+    });
+  </script>
 {% endif %}
