@@ -147,22 +147,54 @@
     class BeforeAfterSlider {
       constructor(productId) {
         this.productId = productId;
-        this.slider = document.getElementById("before_after_" + productId);
-        this.range = document.getElementById("before_after_slider_" + productId);
+        this.init();
+        this.setupGalleryEvents();
+      }
+
+      init() {
+        this.slider = document.getElementById("before_after_" + this.productId);
+        this.range = document.getElementById("before_after_slider_" + this.productId);
         this.wrapper = document.querySelector('[data-before-after-wrapper]');
+        this.toggleButton = document.getElementById('toggleBeforeAfter');
         
         // Configurar el slider
         if (this.range && this.slider) {
           this.range.value = 50;
           this.slider.style.width = "50%";
           
-          // Bind del evento
+          // Bind de eventos
           this.handleInput = this.handleInput.bind(this);
+          this.handleToggleClick = this.handleToggleClick.bind(this);
+          this.handleWrapperClick = this.handleWrapperClick.bind(this);
           
           // Agregar listeners
+          this.addEventListeners();
+        }
+      }
+
+      addEventListeners() {
+        // Eventos del slider
+        if (this.range) {
           this.range.addEventListener('input', this.handleInput);
           this.range.addEventListener('change', this.handleInput);
         }
+
+        // Evento del botón toggle
+        if (this.toggleButton) {
+          this.toggleButton.addEventListener('click', this.handleToggleClick);
+        }
+
+        // Evento del wrapper
+        if (this.wrapper) {
+          this.wrapper.addEventListener('click', this.handleWrapperClick);
+        }
+      }
+
+      setupGalleryEvents() {
+        // Eventos de la galería
+        document.addEventListener('flickityt4s:ready', () => this.init());
+        document.addEventListener('flickityt4s:change', () => this.init());
+        document.addEventListener('t4s:mediaChange', () => this.init());
       }
 
       handleInput(e) {
@@ -171,8 +203,23 @@
         }
       }
 
+      handleToggleClick(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.toggle();
+      }
+
+      handleWrapperClick(e) {
+        if (e.target === this.wrapper) {
+          this.hide();
+        }
+      }
+
       show() {
         if (this.wrapper) {
+          // Asegurarse de que el slider esté configurado correctamente
+          this.range.value = 50;
+          this.slider.style.width = "50%";
           this.wrapper.classList.add('is--active');
         }
       }
@@ -185,37 +232,23 @@
 
       toggle() {
         if (this.wrapper) {
-          this.wrapper.classList.toggle('is--active');
+          if (this.wrapper.classList.contains('is--active')) {
+            this.hide();
+          } else {
+            this.show();
+          }
         }
       }
     }
 
-    // Inicializar cuando el DOM esté listo
+    // Crear instancia cuando el DOM esté listo
+    let slider;
     document.addEventListener('DOMContentLoaded', () => {
-      const slider = new BeforeAfterSlider({{ product.id }});
+      slider = new BeforeAfterSlider({{ product.id }});
       
-      // Configurar el botón de toggle
-      const toggleButton = document.getElementById('toggleBeforeAfter');
-      if (toggleButton) {
-        toggleButton.addEventListener('click', (e) => {
-          e.preventDefault();
-          slider.toggle();
-        });
-      }
-
-      // Cerrar al hacer clic fuera
-      const wrapper = document.querySelector('[data-before-after-wrapper]');
-      if (wrapper) {
-        wrapper.addEventListener('click', (e) => {
-          if (e.target === wrapper) {
-            slider.hide();
-          }
-        });
-      }
-
       // Cerrar con Escape
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
+        if (e.key === 'Escape' && slider) {
           slider.hide();
         }
       });
