@@ -206,7 +206,7 @@
       "type": "accordion",
       "custom_css": [],
       "settings": {
-        "cold_hours": 50,
+        "cold_hours": 12,
         "hot_hours": 10
       }
     },
