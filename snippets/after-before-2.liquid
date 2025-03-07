@@ -200,18 +200,16 @@
     document.addEventListener('DOMContentLoaded', () => {
       const slider = new BeforeAfterSlider({{ product.id }});
       
-      // Agregar botón de trigger
-      const trigger = document.createElement('button');
-      trigger.className = 't4s-before-after-trigger';
-      trigger.textContent = 'Compare';
-      trigger.addEventListener('click', () => {
-        slider.show();
-      });
+      // Usar el botón existente toggleBeforeAfter
+      const toggleButton = document.getElementById('toggleBeforeAfter');
+      if (toggleButton) {
+        toggleButton.addEventListener('click', () => {
+          slider.show();
+        });
+      }
 
       const wrapper = document.querySelector('[data-before-after-wrapper]');
       if (wrapper) {
-        wrapper.parentElement.appendChild(trigger);
-        
         // Agregar evento para cerrar
         wrapper.addEventListener('click', (e) => {
           if (e.target === wrapper) {
