@@ -146,16 +146,25 @@
   <script>
     class BeforeAfterSlider {
       constructor(productId) {
+        console.log('BeforeAfterSlider constructor:', productId);
         this.productId = productId;
         this.init();
         this.setupGalleryEvents();
       }
 
       init() {
+        console.log('Initializing slider...');
         this.slider = document.getElementById("before_after_" + this.productId);
         this.range = document.getElementById("before_after_slider_" + this.productId);
         this.wrapper = document.querySelector('[data-before-after-wrapper]');
         this.toggleButton = document.getElementById('toggleBeforeAfter');
+        
+        console.log('Elements found:', {
+          slider: !!this.slider,
+          range: !!this.range,
+          wrapper: !!this.wrapper,
+          toggleButton: !!this.toggleButton
+        });
         
         // Configurar el slider
         if (this.range && this.slider) {
@@ -173,6 +182,7 @@
       }
 
       addEventListeners() {
+        console.log('Adding event listeners...');
         // Eventos del slider
         if (this.range) {
           this.range.addEventListener('input', this.handleInput);
@@ -181,6 +191,7 @@
 
         // Evento del botón toggle
         if (this.toggleButton) {
+          console.log('Adding click listener to toggle button');
           this.toggleButton.addEventListener('click', this.handleToggleClick);
         }
 
@@ -191,19 +202,31 @@
       }
 
       setupGalleryEvents() {
+        console.log('Setting up gallery events...');
         // Eventos de la galería
-        document.addEventListener('flickityt4s:ready', () => this.init());
-        document.addEventListener('flickityt4s:change', () => this.init());
-        document.addEventListener('t4s:mediaChange', () => this.init());
+        document.addEventListener('flickityt4s:ready', () => {
+          console.log('Gallery ready event fired');
+          this.init();
+        });
+        document.addEventListener('flickityt4s:change', () => {
+          console.log('Gallery change event fired');
+          this.init();
+        });
+        document.addEventListener('t4s:mediaChange', () => {
+          console.log('Media change event fired');
+          this.init();
+        });
       }
 
       handleInput(e) {
+        console.log('Input event:', e.type);
         if (this.slider) {
           this.slider.style.width = this.range.value + "%";
         }
       }
 
       handleToggleClick(e) {
+        console.log('Toggle button clicked');
         e.preventDefault();
         e.stopPropagation();
         this.toggle();
@@ -211,11 +234,13 @@
 
       handleWrapperClick(e) {
         if (e.target === this.wrapper) {
+          console.log('Wrapper clicked, hiding slider');
           this.hide();
         }
       }
 
       show() {
+        console.log('Showing slider');
         if (this.wrapper) {
           // Asegurarse de que el slider esté configurado correctamente
           this.range.value = 50;
@@ -225,12 +250,14 @@
       }
 
       hide() {
+        console.log('Hiding slider');
         if (this.wrapper) {
           this.wrapper.classList.remove('is--active');
         }
       }
 
       toggle() {
+        console.log('Toggling slider');
         if (this.wrapper) {
           if (this.wrapper.classList.contains('is--active')) {
             this.hide();
@@ -244,13 +271,22 @@
     // Crear instancia cuando el DOM esté listo
     let slider;
     document.addEventListener('DOMContentLoaded', () => {
+      console.log('DOM Content Loaded');
       slider = new BeforeAfterSlider({{ product.id }});
       
       // Cerrar con Escape
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && slider) {
+          console.log('Escape key pressed');
           slider.hide();
         }
+      });
+    });
+
+    // Agregar listener para verificar eventos de la galería
+    ['flickityt4s:ready', 'flickityt4s:change', 't4s:mediaChange'].forEach(eventName => {
+      document.addEventListener(eventName, () => {
+        console.log(`Gallery event fired: ${eventName}`);
       });
     });
   </script>
