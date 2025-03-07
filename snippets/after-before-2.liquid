@@ -150,10 +150,6 @@
         this.slider = document.getElementById("before_after_" + productId);
         this.range = document.getElementById("before_after_slider_" + productId);
         this.wrapper = document.querySelector('[data-before-after-wrapper]');
-        this.isDragging = false;
-        this.startX = 0;
-        this.sliderLeft = 0;
-        this.isInitialized = false;
         this.initialize();
       }
 
@@ -161,129 +157,32 @@
         if (!this.slider || !this.range) return;
         
         // Limpiar listeners anteriores
-        this.removeEventListeners();
-        
+        if (this.boundUpdateSlider) {
+          this.range.removeEventListener('input', this.boundUpdateSlider);
+          this.range.removeEventListener('change', this.boundUpdateSlider);
+        }
+
         // Crear nuevos bindings
         this.boundUpdateSlider = this.updateSlider.bind(this);
-        this.boundHandleMouseDown = this.handleMouseDown.bind(this);
-        this.boundHandleMouseMove = this.handleMouseMove.bind(this);
-        this.boundHandleMouseUp = this.handleMouseUp.bind(this);
-        this.boundHandleTouchStart = this.handleTouchStart.bind(this);
-        this.boundHandleTouchMove = this.handleTouchMove.bind(this);
-        this.boundHandleTouchEnd = this.handleTouchEnd.bind(this);
         
         // Agregar nuevos listeners
-        this.addEventListeners();
+        this.range.addEventListener('input', this.boundUpdateSlider);
+        this.range.addEventListener('change', this.boundUpdateSlider);
         
         // Establecer valor inicial
         this.range.value = 50;
         this.slider.style.width = "50%";
-
-        // Marcar como inicializado
-        this.isInitialized = true;
-
-        // Integración con T4SThemeSP
-        if (window.T4SThemeSP) {
-          document.addEventListener('t4s:shopify:section:load', () => this.reinitialize());
-          document.addEventListener('t4s:shopify:section:unload', () => this.destroy());
-        }
-      }
-
-      reinitialize() {
-        if (this.isInitialized) {
-          this.destroy();
-        }
-        this.initialize();
-      }
-
-      addEventListeners() {
-        if (!this.slider || !this.range) return;
-
-        // Input events
-        this.range.addEventListener('input', this.boundUpdateSlider);
-        this.range.addEventListener('change', this.boundUpdateSlider);
-
-        // Mouse events
-        this.slider.addEventListener('mousedown', this.boundHandleMouseDown);
-        document.addEventListener('mousemove', this.boundHandleMouseMove);
-        document.addEventListener('mouseup', this.boundHandleMouseUp);
-
-        // Touch events
-        this.slider.addEventListener('touchstart', this.boundHandleTouchStart, { passive: true });
-        document.addEventListener('touchmove', this.boundHandleTouchMove, { passive: false });
-        document.addEventListener('touchend', this.boundHandleTouchEnd);
-
-        // Integración con eventos del tema
-        document.addEventListener('t4s:slider:changed', () => this.handleSliderChange());
-        document.addEventListener('t4s:product:variantChange', () => this.handleVariantChange());
-      }
-
-      handleSliderChange() {
-        if (this.wrapper && this.wrapper.classList.contains('is--active')) {
-          this.reinitialize();
-        }
-      }
-
-      handleVariantChange() {
-        if (this.isInitialized) {
-          this.reinitialize();
-        }
       }
 
       updateSlider(e) {
         e.preventDefault();
         e.stopPropagation();
-        const value = this.range.value;
-        this.slider.style.width = value + "%";
-      }
-
-      handleMouseDown(e) {
-        this.isDragging = true;
-        this.startX = e.pageX;
-        this.sliderLeft = this.slider.offsetLeft;
-      }
-
-      handleMouseMove(e) {
-        if (!this.isDragging) return;
-        e.preventDefault();
-        this.updateSliderPosition(e.pageX);
-      }
-
-      handleMouseUp() {
-        this.isDragging = false;
-      }
-
-      handleTouchStart(e) {
-        this.isDragging = true;
-        this.startX = e.touches[0].pageX;
-        this.sliderLeft = this.slider.offsetLeft;
-      }
-
-      handleTouchMove(e) {
-        if (!this.isDragging) return;
-        e.preventDefault();
-        this.updateSliderPosition(e.touches[0].pageX);
-      }
-
-      handleTouchEnd() {
-        this.isDragging = false;
-      }
-
-      updateSliderPosition(pageX) {
-        const walk = pageX - this.startX;
-        const containerWidth = this.wrapper.offsetWidth;
-        const percentage = ((this.sliderLeft + walk) / containerWidth) * 100;
-        const boundedPercentage = Math.max(0, Math.min(100, percentage));
-        
-        this.range.value = boundedPercentage;
-        this.slider.style.width = boundedPercentage + "%";
+        this.slider.style.width = this.range.value + "%";
       }
 
       show() {
         if (this.wrapper) {
           this.wrapper.classList.add('is--active');
-          // Reinicializar al mostrar
-          this.initialize();
         }
       }
 
@@ -292,138 +191,40 @@
           this.wrapper.classList.remove('is--active');
         }
       }
-
-      destroy() {
-        this.removeEventListeners();
-        this.isInitialized = false;
-      }
-
-      removeEventListeners() {
-        if (this.boundUpdateSlider) {
-          this.range.removeEventListener('input', this.boundUpdateSlider);
-          this.range.removeEventListener('change', this.boundUpdateSlider);
-          this.slider.removeEventListener('mousedown', this.boundHandleMouseDown);
-          document.removeEventListener('mousemove', this.boundHandleMouseMove);
-          document.removeEventListener('mouseup', this.boundHandleMouseUp);
-          this.slider.removeEventListener('touchstart', this.boundHandleTouchStart);
-          document.removeEventListener('touchmove', this.boundHandleTouchMove);
-          document.removeEventListener('touchend', this.boundHandleTouchEnd);
-        }
-      }
-    }
-
-    // Mantener referencia global del slider
-    let currentSlider = null;
-    let sliderInitialized = false;
-
-    // Función para inicializar el slider de manera segura
-    function safeInitializeSlider() {
-      try {
-        if (window.T4SThemeSP && !window.T4SThemeSP.isLoaded) {
-          document.addEventListener('t4s:ready', initializeSlider);
-          return;
-        }
-        initializeSlider();
-      } catch (error) {
-        console.warn('Error initializing before/after slider:', error);
-      }
-    }
-
-    function initializeSlider() {
-      if (sliderInitialized) return;
-
-      // Destruir instancia anterior si existe
-      if (currentSlider) {
-        currentSlider.destroy();
-      }
-
-      // Crear nueva instancia
-      currentSlider = new BeforeAfterSlider({{ product.id }});
-      
-      // Agregar botón de trigger si no existe
-      let trigger = document.querySelector('.t4s-before-after-trigger');
-      if (!trigger) {
-        trigger = document.createElement('button');
-        trigger.className = 't4s-before-after-trigger';
-        trigger.textContent = 'Compare';
-        
-        const wrapper = document.querySelector('[data-before-after-wrapper]');
-        if (wrapper) {
-          wrapper.parentElement.appendChild(trigger);
-        }
-      }
-
-      // Actualizar eventos del trigger
-      const newTrigger = trigger.cloneNode(true);
-      trigger.parentNode.replaceChild(newTrigger, trigger);
-      newTrigger.addEventListener('click', () => {
-        if (currentSlider) {
-          currentSlider.show();
-        }
-      });
-
-      const wrapper = document.querySelector('[data-before-after-wrapper]');
-      if (wrapper) {
-        wrapper.addEventListener('click', (e) => {
-          if (e.target === wrapper && currentSlider) {
-            currentSlider.hide();
-          }
-        });
-      }
-
-      sliderInitialized = true;
     }
 
     // Inicializar cuando el DOM esté listo
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', safeInitializeSlider);
-    } else {
-      safeInitializeSlider();
-    }
-
-    // Reinicializar en eventos relevantes del tema
-    const themeEvents = [
-      't4s:mediaChange',
-      'variant:changed', 
-      'flickityt4s:ready',
-      'flickityt4s:change',
-      't4s:hideTooltip',
-      't4s:showTooltip',
-      't4s:sliderChanged'
-    ];
-
-    themeEvents.forEach(eventName => {
-      document.addEventListener(eventName, () => {
-        if (currentSlider) {
-          currentSlider.reinitialize();
-        } else {
-          safeInitializeSlider();
-        }
-      });
-    });
-
-    // Reinicializar cuando cambie la visibilidad
-    if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && !sliderInitialized) {
-            safeInitializeSlider();
-          } else if (entry.isIntersecting && currentSlider) {
-            currentSlider.reinitialize();
-          }
-        });
+    document.addEventListener('DOMContentLoaded', () => {
+      const slider = new BeforeAfterSlider({{ product.id }});
+      
+      // Agregar botón de trigger
+      const trigger = document.createElement('button');
+      trigger.className = 't4s-before-after-trigger';
+      trigger.textContent = 'Compare';
+      trigger.addEventListener('click', () => {
+        slider.show();
       });
 
       const wrapper = document.querySelector('[data-before-after-wrapper]');
       if (wrapper) {
-        observer.observe(wrapper);
+        wrapper.parentElement.appendChild(trigger);
+        
+        // Agregar evento para cerrar
+        wrapper.addEventListener('click', (e) => {
+          if (e.target === wrapper) {
+            slider.hide();
+          }
+        });
       }
-    }
+    });
 
-    // Integración con el sistema de eventos del tema
-    if (window.T4SThemeSP) {
-      document.addEventListener('t4s:ready', safeInitializeSlider);
-      document.addEventListener('t4s:shopify:section:load', safeInitializeSlider);
-    }
+    // Reinicializar en eventos relevantes
+    ['t4s:mediaChange', 'flickityt4s:ready', 'flickityt4s:change'].forEach(eventName => {
+      document.addEventListener(eventName, () => {
+        setTimeout(() => {
+          new BeforeAfterSlider({{ product.id }});
+        }, 100);
+      });
+    });
   </script>
 {% endif %}
