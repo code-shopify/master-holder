@@ -6,7 +6,7 @@
 {% assign after_image = product.metafields.custom.after_image | img_url: 'master' %}
 
 {% if before_image != blank and after_image != blank %}
-  <div class="before-after-wrapper" data-before-after-wrapper>
+  <div class="before-after-wrapper">
     <figure>
       <div id="before_after_{{ product.id }}" class="before-after-slider"></div>
     </figure>
@@ -35,14 +35,6 @@
       z-index: 10;
       background-color: #1f1f1c;
       touch-action: none;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-
-    .before-after-wrapper.is--active {
-      opacity: 1;
-      visibility: visible;
     }
 
     .before-after-wrapper figure {
@@ -126,105 +118,83 @@
       50% { width: 80%; }
       100% { width: 50%; }
     }
-
-    /* Nuevo botón para activar before-after */
-    .t4s-before-after-trigger {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      z-index: 30;
-      background: rgba(0,0,0,0.5);
-      color: white;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-    }
   </style>
 
   <script>
-    class BeforeAfterSlider {
-      constructor(productId) {
-        this.productId = productId;
-        this.slider = document.getElementById("before_after_" + productId);
-        this.range = document.getElementById("before_after_slider_" + productId);
-        this.wrapper = document.querySelector('[data-before-after-wrapper]');
-        this.initialize();
-      }
+    let currentSlider = null;
+    let currentRange = null;
 
-      initialize() {
-        if (!this.slider || !this.range) return;
-        
-        // Limpiar listeners anteriores
-        if (this.boundUpdateSlider) {
-          this.range.removeEventListener('input', this.boundUpdateSlider);
-          this.range.removeEventListener('change', this.boundUpdateSlider);
+    function beforeAfter(productId) {
+      const slider = document.getElementById("before_after_" + productId);
+      const range = document.getElementById("before_after_slider_" + productId);
+      
+      if (slider && range) {
+        function updateSlider(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          slider.style.width = this.value + "%";
         }
-
-        // Crear nuevos bindings
-        this.boundUpdateSlider = this.updateSlider.bind(this);
+        
+        // Remover listeners anteriores si existen
+        if (currentRange) {
+          currentRange.removeEventListener('input', updateSlider);
+          currentRange.removeEventListener('change', updateSlider);
+          currentRange.removeEventListener('click', stopEvent);
+        }
         
         // Agregar nuevos listeners
-        this.range.addEventListener('input', this.boundUpdateSlider);
-        this.range.addEventListener('change', this.boundUpdateSlider);
+        range.addEventListener('input', updateSlider);
+        range.addEventListener('change', updateSlider);
+        range.addEventListener('click', stopEvent);
         
         // Establecer valor inicial
-        this.range.value = 50;
-        this.slider.style.width = "50%";
-      }
+        range.value = 50;
+        slider.style.width = "50%";
 
-      updateSlider(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        this.slider.style.width = this.range.value + "%";
-      }
-
-      show() {
-        if (this.wrapper) {
-          this.wrapper.classList.add('is--active');
-        }
-      }
-
-      hide() {
-        if (this.wrapper) {
-          this.wrapper.classList.remove('is--active');
-        }
+        // Actualizar referencias actuales
+        currentSlider = slider;
+        currentRange = range;
       }
     }
 
-    // Inicializar cuando el DOM esté listo
-    document.addEventListener('DOMContentLoaded', () => {
-      const slider = new BeforeAfterSlider({{ product.id }});
-      
-      // Agregar botón de trigger
-      const trigger = document.createElement('button');
-      trigger.className = 't4s-before-after-trigger';
-      trigger.textContent = 'Compare';
-      trigger.addEventListener('click', () => {
-        slider.show();
-      });
+    function stopEvent(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
 
-      const wrapper = document.querySelector('[data-before-after-wrapper]');
-      if (wrapper) {
-        wrapper.parentElement.appendChild(trigger);
-        
-        // Agregar evento para cerrar
-        wrapper.addEventListener('click', (e) => {
-          if (e.target === wrapper) {
-            slider.hide();
-          }
-        });
+    // Inicializar el slider cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', function() {
+      beforeAfter({{ product.id }});
+    });
+
+    // Reinicializar el slider cuando cambie el thumbnail
+    document.addEventListener('t4s:mediaChange', function() {
+      setTimeout(() => {
+        beforeAfter({{ product.id }});
+      }, 100);
+    });
+
+    // Reinicializar cuando la galería esté lista
+    document.addEventListener('flickityt4s:ready', function() {
+      setTimeout(() => {
+        beforeAfter({{ product.id }});
+      }, 100);
+    });
+
+    // Reinicializar cuando cambie la galería
+    document.addEventListener('flickityt4s:change', function() {
+      setTimeout(() => {
+        beforeAfter({{ product.id }});
+      }, 100);
+    });
+
+    // Reinicializar cuando se haga clic en cualquier thumbnail
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('.t4s-product__media-item')) {
+        setTimeout(() => {
+          beforeAfter({{ product.id }});
+        }, 100);
       }
     });
-
-    // Reinicializar en eventos relevantes
-    ['t4s:mediaChange', 'flickityt4s:ready', 'flickityt4s:change'].forEach(eventName => {
-      document.addEventListener(eventName, () => {
-        setTimeout(() => {
-          new BeforeAfterSlider({{ product.id }});
-        }, 100);
-      });
-    });
   </script>
-{% endif %}
+{% endif %} 
