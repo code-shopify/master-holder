@@ -35,17 +35,23 @@
       z-index: 10;
       background-color: #1f1f1c;
       touch-action: none;
+      display: none;
       opacity: 0;
-      visibility: hidden;
-      transition: none;
-      pointer-events: none;
     }
 
     .before-after-wrapper.is--active {
+      display: block;
       opacity: 1;
-      visibility: visible;
-      transition: opacity 0.3s ease;
-      pointer-events: all;
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
 
     .before-after-wrapper figure {
@@ -154,6 +160,7 @@
         this.boundHandleToggleClick = this.handleToggleClick.bind(this);
         this.boundHandleWrapperClick = this.handleWrapperClick.bind(this);
         this.boundHandleKeydown = this.handleKeydown.bind(this);
+        this.isVisible = false;
         
         // Inicializar elementos
         this.init();
@@ -165,9 +172,13 @@
         const events = ['flickityt4s:ready', 'flickityt4s:change', 't4s:mediaChange'];
         events.forEach(event => {
           document.addEventListener(event, () => {
-            console.log(event + ' triggered');
-            this.updateElements();
-            this.addEventListeners();
+            requestAnimationFrame(() => {
+              this.updateElements();
+              this.addEventListeners();
+              if (this.isVisible) {
+                this.forceShow();
+              }
+            });
           });
         });
       }
@@ -178,13 +189,11 @@
       }
 
       updateElements() {
-        console.log('Updating elements');
         this.slider = document.getElementById("before_after_" + this.productId);
         this.range = document.getElementById("before_after_slider_" + this.productId);
         this.wrapper = document.querySelector('[data-before-after-wrapper]');
         this.toggleButton = document.getElementById('toggleBeforeAfter');
 
-        // Configurar el slider
         if (this.range && this.slider) {
           this.range.value = 50;
           this.slider.style.width = "50%";
@@ -195,12 +204,7 @@
         if (!this.toggleButton || !this.wrapper) return;
 
         // Remover listeners anteriores
-        this.toggleButton.removeEventListener('click', this.boundHandleToggleClick);
-        this.wrapper.removeEventListener('click', this.boundHandleWrapperClick);
-        if (this.range) {
-          this.range.removeEventListener('input', this.boundHandleInput);
-          this.range.removeEventListener('change', this.boundHandleInput);
-        }
+        this.removeEventListeners();
 
         // Agregar nuevos listeners
         this.toggleButton.addEventListener('click', this.boundHandleToggleClick);
@@ -211,16 +215,27 @@
         }
       }
 
-      handleInput(e) {
-        if (this.slider) {
-          requestAnimationFrame(() => {
-            this.slider.style.width = this.range.value + "%";
-          });
+      removeEventListeners() {
+        if (this.toggleButton) {
+          this.toggleButton.removeEventListener('click', this.boundHandleToggleClick);
+        }
+        if (this.wrapper) {
+          this.wrapper.removeEventListener('click', this.boundHandleWrapperClick);
+        }
+        if (this.range) {
+          this.range.removeEventListener('input', this.boundHandleInput);
+          this.range.removeEventListener('change', this.boundHandleInput);
         }
       }
 
+      handleInput(e) {
+        if (!this.slider || !this.isVisible) return;
+        requestAnimationFrame(() => {
+          this.slider.style.width = this.range.value + "%";
+        });
+      }
+
       handleToggleClick(e) {
-        console.log('Toggle click');
         e.preventDefault();
         e.stopPropagation();
         this.toggle();
@@ -233,41 +248,49 @@
       }
 
       handleKeydown(e) {
-        if (e.key === 'Escape') {
+        if (e.key === 'Escape' && this.isVisible) {
           this.hide();
         }
       }
 
-      show() {
+      forceShow() {
         if (!this.wrapper) return;
         
-        // Forzar un reflow antes de agregar la clase
-        void this.wrapper.offsetWidth;
-        
-        // Configurar el slider
+        // Reset slider position
         if (this.range && this.slider) {
           this.range.value = 50;
           this.slider.style.width = "50%";
         }
 
-        // Mostrar el wrapper
+        // Force reflow
+        this.wrapper.style.display = 'block';
+        void this.wrapper.offsetHeight;
+        
+        // Add active class
         this.wrapper.classList.add('is--active');
-        console.log('Show: Added is--active class');
+        this.isVisible = true;
+      }
+
+      show() {
+        if (!this.wrapper || this.isVisible) return;
+        this.forceShow();
       }
 
       hide() {
-        if (!this.wrapper) return;
+        if (!this.wrapper || !this.isVisible) return;
         this.wrapper.classList.remove('is--active');
-        console.log('Hide: Removed is--active class');
+        this.isVisible = false;
+        
+        // Delay hiding to allow animation
+        setTimeout(() => {
+          if (!this.isVisible) {
+            this.wrapper.style.display = 'none';
+          }
+        }, 300);
       }
 
       toggle() {
-        if (!this.wrapper) return;
-        
-        const isActive = this.wrapper.classList.contains('is--active');
-        console.log('Toggle - current state:', isActive);
-        
-        if (isActive) {
+        if (this.isVisible) {
           this.hide();
         } else {
           this.show();
@@ -278,7 +301,6 @@
     // Crear instancia cuando el DOM esté listo
     let slider;
     document.addEventListener('DOMContentLoaded', () => {
-      console.log('DOM Content Loaded');
       slider = new BeforeAfterSlider({{ product.id }});
     });
   </script>
