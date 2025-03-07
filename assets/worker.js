@@ -5,8 +5,6 @@ let isInitialized = false;
 let sliderElements = null;
 
 function getSliderElements() {
-    if (sliderElements) return sliderElements;
-
     // Buscar elementos necesarios
     const toggleButton = document.querySelector('.imagen-fija');
     console.log('🔍 Botón toggle encontrado:', !!toggleButton);
@@ -39,48 +37,50 @@ function getSliderElements() {
     const slider = document.getElementById(`before_after_${productId}`);
     const range = document.getElementById(`before_after_slider_${productId}`);
     const wrapper = document.querySelector('[data-before-after-wrapper]');
-    const overlay = wrapper ? wrapper.querySelector('.before-after-overlay') : null;
 
     console.log('🔍 Elementos encontrados:', {
         container: !!beforeAfterContainer,
         slider: !!slider,
         range: !!range,
-        wrapper: !!wrapper,
-        overlay: !!overlay
+        wrapper: !!wrapper
     });
 
-    if (!beforeAfterContainer || !slider || !range || !wrapper || !overlay) {
+    if (!beforeAfterContainer || !slider || !range || !wrapper) {
         console.error('❌ No se encontraron todos los elementos necesarios');
         return null;
     }
 
-    sliderElements = {
+    return {
         toggleButton,
         beforeAfterContainer,
         slider,
         range,
         wrapper,
-        overlay,
         isVisible: false
     };
-
-    return sliderElements;
 }
 
 function updateSliderPosition(elements, value) {
+    if (!elements || !elements.slider) return;
     requestAnimationFrame(() => {
         elements.slider.style.width = `${value}%`;
     });
 }
 
 function resetSlider(elements) {
+    if (!elements || !elements.range) return;
     elements.range.value = 50;
     updateSliderPosition(elements, 50);
 }
 
 function showSlider(elements) {
+    if (!elements) return;
     console.log('👁️ Mostrando slider');
+    
+    // Primero mostramos el contenedor
     elements.beforeAfterContainer.style.display = 'block';
+    
+    // Esperamos un frame para asegurar que el contenedor está visible
     requestAnimationFrame(() => {
         elements.wrapper.classList.add('is--active');
         elements.isVisible = true;
@@ -89,17 +89,22 @@ function showSlider(elements) {
 }
 
 function hideSlider(elements) {
+    if (!elements) return;
     console.log('🔒 Ocultando slider');
+    
     elements.wrapper.classList.remove('is--active');
     elements.isVisible = false;
+    
+    // Esperamos a que termine la transición antes de ocultar el contenedor
     setTimeout(() => {
-        if (!elements.isVisible) {
+        if (elements && !elements.isVisible) {
             elements.beforeAfterContainer.style.display = 'none';
         }
     }, 300);
 }
 
 function handleSliderVisibility(elements) {
+    if (!elements) return;
     if (elements.isVisible) {
         hideSlider(elements);
     } else {
@@ -108,11 +113,14 @@ function handleSliderVisibility(elements) {
 }
 
 function initBeforeAfter() {
-    if (isInitialized) return;
     console.log('🔄 Iniciando before/after...');
 
+    // Siempre obtenemos elementos frescos
     const elements = getSliderElements();
     if (!elements) return;
+
+    // Guardamos los elementos para uso futuro
+    sliderElements = elements;
 
     // Configurar eventos
     elements.range.addEventListener('input', (e) => {
@@ -128,11 +136,10 @@ function initBeforeAfter() {
         handleSliderVisibility(elements);
     });
 
-    elements.overlay.addEventListener('click', (e) => {
-        console.log('🖱️ Click en overlay');
-        e.preventDefault();
-        e.stopPropagation();
-        hideSlider(elements);
+    elements.wrapper.addEventListener('click', (e) => {
+        if (e.target === elements.wrapper) {
+            hideSlider(elements);
+        }
     });
 
     document.addEventListener('keydown', (e) => {
@@ -145,9 +152,10 @@ function initBeforeAfter() {
     ['flickityt4s:ready', 'flickityt4s:change', 't4s:mediaChange'].forEach(event => {
         document.addEventListener(event, () => {
             console.log(`🔄 Evento de galería detectado: ${event}`);
-            if (elements.isVisible) {
-                resetSlider(elements);
-            }
+            // Reinicializamos completamente en cambios de galería
+            isInitialized = false;
+            sliderElements = null;
+            setTimeout(initBeforeAfter, 100);
         });
     });
 
@@ -164,11 +172,3 @@ if (document.readyState === 'loading') {
 } else {
     initBeforeAfter();
 }
-
-// Reinicializar cuando cambie la galería
-document.addEventListener('t4s:mediaChange', () => {
-    console.log('🔄 Cambio en galería detectado, reinicializando...');
-    isInitialized = false;
-    sliderElements = null;
-    setTimeout(initBeforeAfter, 100);
-});
