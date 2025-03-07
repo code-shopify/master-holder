@@ -5,59 +5,17 @@ let isInitialized = false;
 let sliderElements = null;
 
 function getSliderElements() {
-    // Buscar elementos necesarios
-    const toggleButton = document.querySelector('.imagen-fija');
-    console.log('🔍 Botón toggle encontrado:', !!toggleButton);
-
-    if (!toggleButton) {
-        console.error('❌ No se encontró el botón toggleBeforeAfter');
-        return null;
-    }
-
-    // Encontrar el ID del producto
-    const productFeatured = document.querySelector('[data-product-featured]');
-    console.log('🔍 Elemento product-featured encontrado:', !!productFeatured);
-
-    if (!productFeatured) {
-        console.error('❌ No se encontró el elemento product-featured');
-        return null;
-    }
-
-    let productId;
-    try {
-        productId = JSON.parse(productFeatured.dataset.productFeatured).id;
-        console.log('✅ ID de producto encontrado:', productId);
-    } catch (error) {
-        console.error('❌ Error al obtener ID del producto:', error);
-        return null;
-    }
-
-    // Obtener elementos del slider
-    const beforeAfterContainer = document.getElementById('before-after-container');
-    const slider = document.getElementById(`before_after_${productId}`);
-    const range = document.getElementById(`before_after_slider_${productId}`);
-    const wrapper = document.querySelector('[data-before-after-wrapper]');
-
-    console.log('🔍 Elementos encontrados:', {
-        container: !!beforeAfterContainer,
-        slider: !!slider,
-        range: !!range,
-        wrapper: !!wrapper
+    const beforeAfterWrapper = document.querySelector('[data-before-after-wrapper]');
+    const beforeImage = document.querySelector('.before-image');
+    const slider = document.querySelector('.before-after-range');
+    
+    console.log('Elementos encontrados:', {
+        wrapper: beforeAfterWrapper,
+        beforeImage: beforeImage,
+        slider: slider
     });
 
-    if (!beforeAfterContainer || !slider || !range || !wrapper) {
-        console.error('❌ No se encontraron todos los elementos necesarios');
-        return null;
-    }
-
-    return {
-        toggleButton,
-        beforeAfterContainer,
-        slider,
-        range,
-        wrapper,
-        isVisible: false
-    };
+    return { beforeAfterWrapper, beforeImage, slider };
 }
 
 function updateSliderPosition(elements, value) {
@@ -73,102 +31,81 @@ function resetSlider(elements) {
     updateSliderPosition(elements, 50);
 }
 
-function showSlider(elements) {
-    if (!elements) return;
-    console.log('👁️ Mostrando slider');
-    
-    // Primero mostramos el contenedor
-    elements.beforeAfterContainer.style.display = 'block';
-    
-    // Esperamos un frame para asegurar que el contenedor está visible
-    requestAnimationFrame(() => {
-        elements.wrapper.classList.add('is--active');
-        elements.isVisible = true;
-        resetSlider(elements);
-    });
+function showSlider() {
+    const elements = getSliderElements();
+    if (elements.beforeAfterWrapper) {
+        elements.beforeAfterWrapper.style.opacity = '1';
+        elements.beforeAfterWrapper.style.visibility = 'visible';
+    }
 }
 
-function hideSlider(elements) {
-    if (!elements) return;
-    console.log('🔒 Ocultando slider');
-    
-    elements.wrapper.classList.remove('is--active');
-    elements.isVisible = false;
-    
-    // Esperamos a que termine la transición antes de ocultar el contenedor
-    setTimeout(() => {
-        if (elements && !elements.isVisible) {
-            elements.beforeAfterContainer.style.display = 'none';
-        }
-    }, 300);
+function hideSlider() {
+    const elements = getSliderElements();
+    if (elements.beforeAfterWrapper) {
+        elements.beforeAfterWrapper.style.opacity = '0';
+        elements.beforeAfterWrapper.style.visibility = 'hidden';
+    }
 }
 
-function handleSliderVisibility(elements) {
-    if (!elements) return;
-    if (elements.isVisible) {
-        hideSlider(elements);
-    } else {
-        showSlider(elements);
+function handleSliderInput(e) {
+    const elements = getSliderElements();
+    if (elements.beforeImage) {
+        elements.beforeImage.style.width = `${e.target.value}%`;
     }
 }
 
 function initBeforeAfter() {
-    console.log('🔄 Iniciando before/after...');
-
-    // Siempre obtenemos elementos frescos
+    console.log('Inicializando before-after slider');
     const elements = getSliderElements();
-    if (!elements) return;
+    
+    if (!elements.beforeAfterWrapper || !elements.beforeImage || !elements.slider) {
+        console.log('No se encontraron todos los elementos necesarios');
+        return;
+    }
 
-    // Guardamos los elementos para uso futuro
-    sliderElements = elements;
-
-    // Configurar eventos
-    elements.range.addEventListener('input', (e) => {
-        const value = parseInt(e.target.value, 10);
-        console.log('🎚️ Ajustando slider:', value);
-        updateSliderPosition(elements, value);
-    });
-
-    elements.toggleButton.addEventListener('click', (e) => {
-        console.log('🖱️ Click en botón toggle');
-        e.preventDefault();
-        e.stopPropagation();
-        handleSliderVisibility(elements);
-    });
-
-    elements.wrapper.addEventListener('click', (e) => {
-        if (e.target === elements.wrapper) {
-            hideSlider(elements);
-        }
-    });
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && elements.isVisible) {
-            hideSlider(elements);
-        }
-    });
-
-    // Manejar eventos de la galería
-    ['flickityt4s:ready', 'flickityt4s:change', 't4s:mediaChange'].forEach(event => {
-        document.addEventListener(event, () => {
-            console.log(`🔄 Evento de galería detectado: ${event}`);
-            // Reinicializamos completamente en cambios de galería
-            isInitialized = false;
-            sliderElements = null;
-            setTimeout(initBeforeAfter, 100);
-        });
-    });
-
-    // Asegurarse de que el slider esté oculto inicialmente
-    hideSlider(elements);
-
-    isInitialized = true;
-    console.log('✅ Before/after inicializado correctamente');
+    // Remover listeners anteriores si existen
+    elements.slider.removeEventListener('input', handleSliderInput);
+    
+    // Agregar nuevo listener
+    elements.slider.addEventListener('input', handleSliderInput);
+    
+    // Mostrar el slider inicialmente
+    showSlider();
 }
 
-// Inicializar cuando el DOM esté listo
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initBeforeAfter);
-} else {
+// Manejador del botón toggle
+document.addEventListener('click', function(e) {
+    if (e.target.id === 'toggleBeforeAfter') {
+        console.log('Click en toggleBeforeAfter');
+        const elements = getSliderElements();
+        
+        if (!elements.beforeAfterWrapper) {
+            console.log('No se encontró el wrapper');
+            return;
+        }
+
+        if (elements.beforeAfterWrapper.style.visibility === 'visible') {
+            hideSlider();
+        } else {
+            showSlider();
+        }
+    }
+});
+
+// Reinicializar cuando cambia la galería
+document.addEventListener('gallery:changed', function() {
+    console.log('Galería cambió - reinicializando slider');
+    setTimeout(initBeforeAfter, 100); // Pequeño delay para asegurar que los elementos estén listos
+});
+
+// Inicialización cuando el DOM está listo
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM cargado - inicializando slider');
     initBeforeAfter();
-}
+});
+
+// Reinicializar cuando cambia la variante
+document.addEventListener('variant:changed', function() {
+    console.log('Variante cambió - reinicializando slider');
+    setTimeout(initBeforeAfter, 100);
+});
