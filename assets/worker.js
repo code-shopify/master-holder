@@ -5,7 +5,7 @@ function initBeforeAfter() {
     console.log('🔄 Iniciando before/after...');
 
     // Buscar elementos necesarios
-    const toggleButton = document.getElementById('toggleBeforeAfter');
+    const toggleButton = document.querySelector('.imagen-fija');
     console.log('🔍 Botón toggle encontrado:', !!toggleButton);
 
     if (!toggleButton) {
@@ -32,17 +32,19 @@ function initBeforeAfter() {
     }
 
     // Obtener elementos del slider
-    const slider = document.getElementById("before_after_" + productId);
-    const range = document.getElementById("before_after_slider_" + productId);
+    const beforeAfterContainer = document.getElementById('before-after-container');
+    const slider = document.getElementById(`before_after_${productId}`);
+    const range = document.getElementById(`before_after_slider_${productId}`);
     const wrapper = document.querySelector('[data-before-after-wrapper]');
 
     console.log('🔍 Elementos encontrados:', {
+        container: !!beforeAfterContainer,
         slider: !!slider,
         range: !!range,
         wrapper: !!wrapper
     });
 
-    if (!slider || !range || !wrapper) {
+    if (!beforeAfterContainer || !slider || !range || !wrapper) {
         console.error('❌ No se encontraron todos los elementos necesarios');
         return;
     }
@@ -53,6 +55,7 @@ function initBeforeAfter() {
     // Función para mostrar el slider
     function showSlider() {
         console.log('👁️ Mostrando slider');
+        beforeAfterContainer.style.display = 'block';
         range.value = 50;
         slider.style.width = "50%";
         wrapper.classList.add('is--active');
@@ -62,13 +65,15 @@ function initBeforeAfter() {
     // Función para ocultar el slider
     function hideSlider() {
         console.log('🔒 Ocultando slider');
+        beforeAfterContainer.style.display = 'none';
         wrapper.classList.remove('is--active');
         isVisible = false;
     }
 
     // Configurar eventos
-    range.addEventListener('input', () => {
-        slider.style.width = range.value + "%";
+    range.addEventListener('input', (e) => {
+        console.log('🎚️ Ajustando slider:', e.target.value);
+        slider.style.width = e.target.value + "%";
     });
 
     toggleButton.addEventListener('click', (e) => {
