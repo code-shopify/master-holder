@@ -277,7 +277,7 @@
               "remove_br_tag": false,
               "tag": "p",
               "fontf": "inherit",
-              "text_cl": "#222222",
+              "text_cl": "#fff",
               "text_fs": 14,
               "text_lh": 24,
               "text_fw": 400,
@@ -301,10 +301,10 @@
               "news_align": "start",
               "newl_size": "small",
               "btn_icon": false,
-              "input_cl": "#222222",
+              "input_cl": "#fff",
               "border_cl": "#000000",
-              "btn_cl": "#ffffff",
-              "btn_bg_cl": "#222222",
+              "btn_cl": "#fff",
+              "btn_bg_cl": "#0028a1",
               "btn_hover_cl": "#ffffff",
               "btn_hover_bg_cl": "#878787",
               "hidden_mobile": false,
@@ -374,14 +374,14 @@
           "mgb_mb": 20,
           "text_fs": 14,
           "text_fw": 400,
-          "heading_cl": "#222222",
-          "text_cl": "#222222",
-          "link_cl": "#222222",
-          "link_hover_cl": "#878787",
-          "link_active_cl": "#222222",
-          "border_cl": "#222222",
+          "heading_cl": "#fff",
+          "text_cl": "#fff",
+          "link_cl": "#fff",
+          "link_hover_cl": "#0028a1",
+          "link_active_cl": "#fff",
+          "border_cl": "#fff",
           "layout": "t4s-container-wrap",
-          "cl_bg": "#ffffff",
+          "cl_bg": "#222222",
           "cl_bg_gradient": "",
           "mg": "",
           "pd": "75px,,75px,",
@@ -594,25 +594,6 @@
               "lb_cl": ""
             }
           },
-          "drop_kqGciL": {
-            "type": "drop",
-            "settings": {
-              "title": "TIENDA",
-              "url": "shopify://collections/all",
-              "open_link": "_self",
-              "menu": "tienda",
-              "icon": "",
-              "cus_cl": false,
-              "cl": "#ec0101",
-              "lb": "",
-              "lb_cl": "",
-              "lazy_mn": true,
-              "pos_sub": "bottom",
-              "pos": "right",
-              "item_fsize": 15,
-              "sp_bettewn_item": 20
-            }
-          },
           "base_PqxPKw": {
             "type": "base",
             "settings": {
@@ -625,6 +606,26 @@
               "lb": "",
               "lb_cl": ""
             }
+          },
+          "mega_3zAq9g": {
+            "type": "mega",
+            "settings": {
+              "title": "TIENDA",
+              "url": "",
+              "open_link": "_self",
+              "icon": "",
+              "cus_cl": false,
+              "cl": "#ec0101",
+              "lb": "",
+              "lb_cl": "#00badb",
+              "pos_sub": "bottom",
+              "wid": "full nav_t4cnt",
+              "cus_wid": 1200,
+              "id": 1,
+              "enable_packery": true,
+              "r_s_h_item": "20",
+              "r_s_v_item": "30"
+            }
           }
         },
         "block_order": [
@@ -633,8 +634,8 @@
           "base_GEfPXb",
           "base_NGrBVi",
           "base_ctQWqj",
-          "drop_kqGciL",
-          "base_PqxPKw"
+          "base_PqxPKw",
+          "mega_3zAq9g"
         ],
         "custom_css": [
           ".header {box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);}"
@@ -1005,318 +1006,229 @@
       "mega-menu": {
         "type": "mega-menu",
         "blocks": {
-          "583a30c7-369d-4a64-a51d-ca53c1685206": {
+          "mega_tYbwQw": {
             "type": "mega",
             "settings": {
               "id": 1
             }
           },
-          "3abb98a1-837d-46af-b195-f5c43e7c88ee": {
-            "type": "link",
+          "banner_D3NtHa": {
+            "type": "banner",
             "settings": {
-              "tt_hd": "",
-              "url": "",
+              "image_ratio": "ratioadapt",
+              "image_size": "cover",
+              "image_position": "8",
+              "height_dk": 600,
+              "image": "shopify://shop_images/portacaguamon-pc-acero-176905.jpg",
+              "img_effect": "zoom",
+              "b_effect": "none",
+              "b_link": "",
               "open_link": "_self",
-              "menu": "tienda",
-              "item_fsize": 13,
-              "sp_bettewn_item": 20,
+              "html": "",
+              "content_align": "center",
+              "cv_pos": 50,
+              "ch_pos": 50,
+              "cl_txt": "#ffffff",
+              "cl_overlay": "#000000",
+              "cl_opacity": 5,
+              "col": "2"
+            }
+          },
+          "banner_KMD6TH": {
+            "type": "banner",
+            "settings": {
+              "image_ratio": "ratioadapt",
+              "image_size": "cover",
+              "image_position": "8",
+              "height_dk": 400,
+              "image": "shopify://shop_images/ML-ACERO.jpg",
+              "img_effect": "zoom",
+              "b_effect": "none",
+              "b_link": "",
+              "open_link": "_self",
+              "html": "",
+              "content_align": "center",
+              "cv_pos": 50,
+              "ch_pos": 50,
+              "cl_txt": "#fff",
+              "cl_overlay": "#000",
+              "cl_opacity": 5,
+              "col": "2"
+            }
+          },
+          "banner_x7TQdy": {
+            "type": "banner",
+            "settings": {
+              "image_ratio": "ratioadapt",
+              "image_size": "cover",
+              "image_position": "8",
+              "height_dk": 400,
+              "image": "shopify://shop_images/mh-portalaton-5-en-1-acero-5en1-acero-583884.jpg",
+              "img_effect": "zoom",
+              "b_effect": "none",
+              "b_link": "",
+              "open_link": "_self",
+              "html": "",
+              "content_align": "center",
+              "cv_pos": 50,
+              "ch_pos": 50,
+              "cl_txt": "#fff",
+              "cl_overlay": "#000",
+              "cl_opacity": 5,
+              "col": "2"
+            }
+          },
+          "banner_Lbn6NA": {
+            "type": "banner",
+            "settings": {
+              "image_ratio": "ratioadapt",
+              "image_size": "cover",
+              "image_position": "8",
+              "height_dk": 400,
+              "image": "shopify://shop_images/nomada.png",
+              "img_effect": "zoom",
+              "b_effect": "none",
+              "b_link": "",
+              "open_link": "_self",
+              "html": "",
+              "content_align": "center",
+              "cv_pos": 50,
+              "ch_pos": 50,
+              "cl_txt": "#fff",
+              "cl_overlay": "#000",
+              "cl_opacity": 5,
+              "col": "2"
+            }
+          },
+          "banner_edLQa8": {
+            "type": "banner",
+            "settings": {
+              "image_ratio": "ratioadapt",
+              "image_size": "cover",
+              "image_position": "8",
+              "height_dk": 400,
+              "image": "shopify://shop_images/venti.png",
+              "img_effect": "zoom",
+              "b_effect": "none",
+              "b_link": "",
+              "open_link": "_self",
+              "html": "",
+              "content_align": "center",
+              "cv_pos": 50,
+              "ch_pos": 50,
+              "cl_txt": "#fff",
+              "cl_overlay": "#000",
+              "cl_opacity": 5,
+              "col": "2"
+            }
+          },
+          "banner_UjhFWH": {
+            "type": "banner",
+            "settings": {
+              "image_ratio": "ratioadapt",
+              "image_size": "cover",
+              "image_position": "8",
+              "height_dk": 400,
+              "image": "shopify://shop_images/sport.png",
+              "img_effect": "zoom",
+              "b_effect": "none",
+              "b_link": "",
+              "open_link": "_self",
+              "html": "",
+              "content_align": "center",
+              "cv_pos": 50,
+              "ch_pos": 50,
+              "cl_txt": "#fff",
+              "cl_overlay": "#000",
+              "cl_opacity": 5,
+              "col": "2"
+            }
+          },
+          "banner_QWtAB3": {
+            "type": "banner",
+            "settings": {
+              "image_ratio": "ratioadapt",
+              "image_size": "cover",
+              "image_position": "8",
+              "height_dk": 400,
+              "image": "shopify://shop_images/tazas-20-oz.png",
+              "img_effect": "zoom",
+              "b_effect": "none",
+              "b_link": "",
+              "open_link": "_self",
+              "html": "",
+              "content_align": "center",
+              "cv_pos": 50,
+              "ch_pos": 50,
+              "cl_txt": "#fff",
+              "cl_overlay": "#000",
+              "cl_opacity": 5,
               "col": "1"
             }
           },
-          "2ceac397-4b2b-4740-a477-707dd2680e02": {
-            "type": "link",
-            "disabled": true,
+          "banner_ipcyEt": {
+            "type": "banner",
             "settings": {
-              "tt_hd": "HOME PAGES",
-              "url": "",
-              "open_link": "_self",
-              "menu": "",
-              "item_fsize": 13,
-              "sp_bettewn_item": 20,
-              "col": "3"
-            }
-          },
-          "1f90cea5-04fb-4ef3-822b-5f987845e5c4": {
-            "type": "link",
-            "disabled": true,
-            "settings": {
-              "tt_hd": "HEADER LAYOUTS",
-              "url": "",
-              "open_link": "_self",
-              "menu": "",
-              "item_fsize": 13,
-              "sp_bettewn_item": 20,
-              "col": "3"
-            }
-          },
-          "6122e966-0272-4c46-a1a0-051bdc2ae08c": {
-            "type": "link",
-            "disabled": true,
-            "settings": {
-              "tt_hd": "FEATURES",
-              "url": "",
-              "open_link": "_self",
-              "menu": "",
-              "item_fsize": 13,
-              "sp_bettewn_item": 20,
-              "col": "3"
-            }
-          },
-          "45fa281e-2be5-4727-bd01-942824713769": {
-            "type": "mega",
-            "settings": {
-              "id": 2
-            }
-          },
-          "02beea21-3cb9-41ce-a1ab-04ae44b7f47e": {
-            "type": "link",
-            "settings": {
-              "tt_hd": "SHOP PAGES",
-              "url": "",
-              "open_link": "_self",
-              "menu": "",
-              "item_fsize": 13,
-              "sp_bettewn_item": 20,
-              "col": "2"
-            }
-          },
-          "ff494243-e58b-40e9-a2ea-e64ccd58a624": {
-            "type": "link",
-            "settings": {
-              "tt_hd": "FEATURES",
-              "url": "",
-              "open_link": "_self",
-              "menu": "",
-              "item_fsize": 13,
-              "sp_bettewn_item": 20,
-              "col": "2"
-            }
-          },
-          "cec6a189-3084-497a-b4a8-b391531b2503": {
-            "type": "cat",
-            "settings": {
-              "collection": "women",
-              "collection_title": "",
-              "collection_subtitle": "",
-              "collection_des": "1",
-              "title_cl": "#ffffff",
-              "title_cl_hover": "#222222",
-              "subtitle_cl": "#878787",
-              "count_cl": "#222222",
-              "border_cl": "#e5e5e5",
-              "open_link": "_self",
-              "space_bottom": 20,
-              "space_bottom_mb": 10,
-              "border": false,
-              "item_pd": 0,
-              "item_rd": 0,
+              "image_ratio": "ratioadapt",
+              "image_size": "cover",
+              "image_position": "8",
+              "height_dk": 400,
+              "image": "shopify://shop_images/vaso-termico-30oz-negro-30-negro-826703.jpg",
               "img_effect": "zoom",
               "b_effect": "none",
-              "image_ratio": "rationt",
+              "b_link": "",
+              "open_link": "_self",
+              "html": "",
+              "content_align": "center",
+              "cv_pos": 50,
+              "ch_pos": 50,
+              "cl_txt": "#fff",
+              "cl_overlay": "#000",
+              "cl_opacity": 5,
+              "col": "1"
+            }
+          },
+          "banner_hDpxxm": {
+            "type": "banner",
+            "settings": {
+              "image_ratio": "ratioadapt",
               "image_size": "cover",
               "image_position": "8",
-              "collection_link": "",
-              "col": "4"
-            }
-          },
-          "95da8d7e-67f2-4ebd-b1ad-e83d518cb37e": {
-            "type": "cat",
-            "settings": {
-              "collection": "frontpage",
-              "collection_title": "",
-              "collection_subtitle": "",
-              "collection_des": "1",
-              "title_cl": "#ffffff",
-              "title_cl_hover": "#222222",
-              "subtitle_cl": "#878787",
-              "count_cl": "#222222",
-              "border_cl": "#e5e5e5",
-              "open_link": "_self",
-              "space_bottom": 20,
-              "space_bottom_mb": 10,
-              "border": false,
-              "item_pd": 0,
-              "item_rd": 0,
-              "img_effect": "none",
-              "b_effect": "none",
-              "image_ratio": "rationt",
-              "image_size": "cover",
-              "image_position": "8",
-              "collection_link": "",
-              "col": "4"
-            }
-          },
-          "5bdb6eec-e820-4415-ac9b-9c6096eb20c1": {
-            "type": "mega",
-            "settings": {
-              "id": 3
-            }
-          },
-          "cc1a7875-8010-421e-b69c-efc19a6043d6": {
-            "type": "link",
-            "settings": {
-              "tt_hd": "PRODUCT LAYOUTS",
-              "url": "",
-              "open_link": "_self",
-              "menu": "",
-              "item_fsize": 13,
-              "sp_bettewn_item": 20,
-              "col": "3"
-            }
-          },
-          "e17e717c-01e0-4704-92bc-92c339ee6148": {
-            "type": "link",
-            "settings": {
-              "tt_hd": "PRODUCT DETAILS",
-              "url": "",
-              "open_link": "_self",
-              "menu": "",
-              "item_fsize": 13,
-              "sp_bettewn_item": 20,
-              "col": "3"
-            }
-          },
-          "27ca598d-2e3f-44fc-a790-64783d37de5e": {
-            "type": "link",
-            "settings": {
-              "tt_hd": "PRODUCT SWATCH",
-              "url": "",
-              "open_link": "_self",
-              "menu": "",
-              "item_fsize": 13,
-              "sp_bettewn_item": 20,
-              "col": "3"
-            }
-          },
-          "bdfaa837-86a3-4159-805a-668060142b0d": {
-            "type": "link",
-            "settings": {
-              "tt_hd": "PRODUCT FEATURES",
-              "url": "",
-              "open_link": "_self",
-              "menu": "",
-              "item_fsize": 13,
-              "sp_bettewn_item": 20,
-              "col": "3"
-            }
-          },
-          "5952e385-42a5-4603-9be9-64b76f15ef48": {
-            "type": "mega",
-            "settings": {
-              "id": 4
-            }
-          },
-          "400a038a-cb32-4aae-a66d-7d4cd404ccd6": {
-            "type": "link2",
-            "settings": {
-              "col": "2",
-              "menu": "",
-              "item_fsize": 13,
-              "sp_bettewn_item": 20
-            }
-          },
-          "41ee689a-9ef7-46ab-a5a6-5fa4776a9af6": {
-            "type": "pr",
-            "settings": {
-              "collection": "sale",
-              "product_des": "1",
-              "show_vendor": false,
-              "use_cdt": false,
-              "image_ratio": "rationt",
-              "image_size": "cover",
-              "image_position": "8",
-              "content_align": "default",
-              "limit": 6,
-              "col_dk": "4",
-              "space_h_item": "30",
-              "space_v_item": "30",
-              "layout_des": "2",
-              "nav_btn": true,
-              "btn_vi": "always",
-              "btn_owl": "outline",
-              "btn_shape": "round",
-              "btn_cl": "dark",
-              "btn_size": "small",
-              "btn_hidden_mobile": true,
-              "col": "10"
-            }
-          },
-          "758ddd07-8ea5-4c0e-80a1-e7eef279fa5f": {
-            "type": "mega",
-            "settings": {
-              "id": 5
-            }
-          },
-          "5665b9cc-d2a6-42e0-b267-e4b36da8a05e": {
-            "type": "link",
-            "settings": {
-              "tt_hd": "BLOG LAYOUT",
-              "url": "https://demo-kalles-4-1.myshopify.com/blogs/fashion?preview_theme_id=",
-              "open_link": "_self",
-              "menu": "",
-              "item_fsize": 13,
-              "sp_bettewn_item": 20,
-              "col": "4"
-            }
-          },
-          "552902be-02b1-40ca-8475-982bbdb75ed7": {
-            "type": "blogs",
-            "settings": {
-              "blog": "fashion",
-              "post_des": "1",
-              "show_cate": false,
-              "show_tags": true,
-              "show_cnt": false,
-              "show_au": true,
-              "show_dt": true,
-              "show_cm": true,
-              "show_rm": false,
-              "show_irm": false,
-              "date": "date",
-              "content_align": "t4s-text-center",
-              "limit": 8,
+              "height_dk": 400,
+              "image": "shopify://shop_images/destapador-automatico-acc-dest-867328.jpg",
               "img_effect": "zoom",
               "b_effect": "none",
-              "image_ratio": "ratio4_3",
-              "image_size": "cover",
-              "image_position": "8",
-              "col_dk": "2",
-              "space_h_item": "30",
-              "space_v_item": "30",
-              "layout_des": "2",
-              "nav_btn": true,
-              "btn_vi": "always",
-              "btn_owl": "outline",
-              "btn_shape": "round",
-              "btn_cl": "dark",
-              "btn_size": "small",
-              "btn_hidden_mobile": true,
-              "col": "8"
+              "b_link": "",
+              "open_link": "_self",
+              "html": "",
+              "content_align": "center",
+              "cv_pos": 50,
+              "ch_pos": 50,
+              "cl_txt": "#fff",
+              "cl_overlay": "#000",
+              "cl_opacity": 5,
+              "col": "1"
+            }
+          },
+          "mega_kWMCWz": {
+            "type": "mega",
+            "settings": {
+              "id": 11
             }
           }
         },
         "block_order": [
-          "583a30c7-369d-4a64-a51d-ca53c1685206",
-          "3abb98a1-837d-46af-b195-f5c43e7c88ee",
-          "2ceac397-4b2b-4740-a477-707dd2680e02",
-          "1f90cea5-04fb-4ef3-822b-5f987845e5c4",
-          "6122e966-0272-4c46-a1a0-051bdc2ae08c",
-          "45fa281e-2be5-4727-bd01-942824713769",
-          "02beea21-3cb9-41ce-a1ab-04ae44b7f47e",
-          "ff494243-e58b-40e9-a2ea-e64ccd58a624",
-          "cec6a189-3084-497a-b4a8-b391531b2503",
-          "95da8d7e-67f2-4ebd-b1ad-e83d518cb37e",
-          "5bdb6eec-e820-4415-ac9b-9c6096eb20c1",
-          "cc1a7875-8010-421e-b69c-efc19a6043d6",
-          "e17e717c-01e0-4704-92bc-92c339ee6148",
-          "27ca598d-2e3f-44fc-a790-64783d37de5e",
-          "bdfaa837-86a3-4159-805a-668060142b0d",
-          "5952e385-42a5-4603-9be9-64b76f15ef48",
-          "400a038a-cb32-4aae-a66d-7d4cd404ccd6",
-          "41ee689a-9ef7-46ab-a5a6-5fa4776a9af6",
-          "758ddd07-8ea5-4c0e-80a1-e7eef279fa5f",
-          "5665b9cc-d2a6-42e0-b267-e4b36da8a05e",
-          "552902be-02b1-40ca-8475-982bbdb75ed7"
+          "mega_tYbwQw",
+          "banner_D3NtHa",
+          "banner_KMD6TH",
+          "banner_x7TQdy",
+          "banner_Lbn6NA",
+          "banner_edLQa8",
+          "banner_UjhFWH",
+          "banner_QWtAB3",
+          "banner_ipcyEt",
+          "banner_hDpxxm",
+          "mega_kWMCWz"
         ],
         "settings": {
           "bg": ""
