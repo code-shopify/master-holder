@@ -449,8 +449,9 @@ endif -%}
                 {% endcomment %}
 
                 {% if product.metafields.custom.imagen_fija %}
-                  {{ 'magnific-popup.min.css' | asset_url | stylesheet_tag }}
-                  {{ 'magnific-popup.min.js' | asset_url | script_tag }}
+                  <script src="{{ 'jquery.min.js' | asset_url }}" defer="defer"></script>
+                  <script src="{{ 'magnific-popup.min.js' | asset_url }}" defer="defer"></script>
+                  <link rel="stylesheet" href="{{ 'magnific-popup.min.css' | asset_url }}">
                   
                   <div class="t4s-pr">
                     <a href="#t4s-before-after-popup-{{ product.id }}" class="imagen-fija" data-open-mfp-inline>  
@@ -466,23 +467,31 @@ endif -%}
 
                   <script>
                     document.addEventListener('DOMContentLoaded', function() {
-                      if (typeof jQuery !== 'undefined' && typeof jQuery.fn.magnificPopup !== 'undefined') {
-                        jQuery('[data-open-mfp-inline]').magnificPopup({
-                          type: 'inline',
-                          mainClass: 't4s-mfp-move-horizontal',
-                          closeOnBgClick: true,
-                          closeBtnInside: true,
-                          showCloseBtn: true,
-                          callbacks: {
-                            open: function() {
-                              // Inicializar el slider cuando se abre el popup
-                              if (typeof initBeforeAfter === 'function') {
-                                initBeforeAfter();
+                      // Esperar a que jQuery y Magnific Popup estén cargados
+                      function checkJQueryAndMagnific() {
+                        if (window.jQuery && jQuery.fn.magnificPopup) {
+                          jQuery('[data-open-mfp-inline]').magnificPopup({
+                            type: 'inline',
+                            mainClass: 't4s-mfp-move-horizontal',
+                            closeOnBgClick: true,
+                            closeBtnInside: true,
+                            showCloseBtn: true,
+                            callbacks: {
+                              open: function() {
+                                if (typeof initBeforeAfter === 'function') {
+                                  setTimeout(function() {
+                                    initBeforeAfter();
+                                  }, 100);
+                                }
                               }
                             }
-                          }
-                        });
+                          });
+                        } else {
+                          setTimeout(checkJQueryAndMagnific, 50);
+                        }
                       }
+                      
+                      checkJQueryAndMagnific();
                     });
                   </script>
                 {% endif %}
