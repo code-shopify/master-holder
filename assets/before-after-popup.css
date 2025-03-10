@@ -1,0 +1,65 @@
+.t4s-popup-before-after {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+.t4s-before-after-popup__inner {
+  position: relative;
+  width: 100%;
+}
+
+.t4s-before-after-wrapper {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.before-after-slider {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.t4s-before-after__content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-image: var(--after-image);
+  background-size: cover;
+  background-position: center;
+}
+
+.t4s-before-after__content::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 50%;
+  background-image: var(--before-image);
+  background-size: cover;
+  background-position: left center;
+  transition: width 0.1s ease-out;
+}
+
+.t4s-before-after-range {
+  width: 100%;
+  margin-top: 15px;
+  -webkit-appearance: none;
+  height: 2px;
+  background: #ddd;
+  cursor: pointer;
+}
+
+.t4s-before-after-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border: 2px solid #222;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.mfp-bg.t4s-popup-before-after {
+  opacity: 0.9;
+} 
