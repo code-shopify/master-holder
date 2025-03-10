@@ -813,10 +813,10 @@ endif -%}
               {% endif %}
             {% endcomment %}
             {% if product.metafields.custom.imagen_fija %}
-              <a href="javascript:void(0);" class="imagen-fija" data-popup-comparador data-open-mfp-inline="#popup-comparador-{{ product.id }}">  
+              <a href="javascript:void(0);" class="imagen-fija" data-popup-comparador>  
                 {% render "imagen-galeria-fix" %}
               </a>
-              <div id="popup-comparador-{{ product.id }}" class="t4s-mfp-hide">
+              <div id="PopupComparador" class="t4s-mfp-hide">
                 {% render 'after-before-2' %}
               </div>
             {% endif %}
@@ -4342,7 +4342,7 @@ endif -%}
           "id": "required",
           "default": false,
           "label": "Required",
-          "info": "If you use “Required” with a checkbox, then the checkbox will need to be checked for the customer to add the item to the cart."
+          "info": "If you use "Required" with a checkbox, then the checkbox will need to be checked for the customer to add the item to the cart."
         },
         {
           "type": "checkbox",

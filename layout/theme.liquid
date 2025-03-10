@@ -31,12 +31,17 @@ t4sp-theme t4s-wrapper__{{ settings.general_layout }}{% if settings.animations_r
  {%- render 'ecom_header' -%}
 
 
-    <!-- Swiper CSS -->
+<!-- Swiper CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
 
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
+<!-- Magnific Popup -->
+{{ 'magnific-popup.min.css' | asset_url | stylesheet_tag }}
+{{ 'magnific-popup.min.js' | asset_url | stylesheet_tag }}
+
+<!-- Custom Scripts -->
 <script src="{{ 'update-gallery.js' | asset_url }}" defer></script>
 <script src="{{ 'worker.js' | asset_url }}" defer></script>
 <script src="{{ 'popup-comparador.js' | asset_url }}" defer></script>
