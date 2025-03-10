@@ -277,7 +277,7 @@
               "remove_br_tag": false,
               "tag": "p",
               "fontf": "inherit",
-              "text_cl": "#fff",
+              "text_cl": "#ffffff",
               "text_fs": 14,
               "text_lh": 24,
               "text_fw": 400,
@@ -301,9 +301,9 @@
               "news_align": "start",
               "newl_size": "small",
               "btn_icon": false,
-              "input_cl": "#fff",
+              "input_cl": "#ffffff",
               "border_cl": "#000000",
-              "btn_cl": "#fff",
+              "btn_cl": "#ffffff",
               "btn_bg_cl": "#0028a1",
               "btn_hover_cl": "#ffffff",
               "btn_hover_bg_cl": "#878787",
@@ -374,12 +374,12 @@
           "mgb_mb": 20,
           "text_fs": 14,
           "text_fw": 400,
-          "heading_cl": "#fff",
-          "text_cl": "#fff",
-          "link_cl": "#fff",
+          "heading_cl": "#ffffff",
+          "text_cl": "#ffffff",
+          "link_cl": "#ffffff",
           "link_hover_cl": "#0028a1",
-          "link_active_cl": "#fff",
-          "border_cl": "#fff",
+          "link_active_cl": "#ffffff",
+          "border_cl": "#ffffff",
           "layout": "t4s-container-wrap",
           "cl_bg": "#222222",
           "cl_bg_gradient": "",
@@ -407,6 +407,7 @@
           },
           "announcement-bar-1": {
             "type": "announcement",
+            "disabled": true,
             "settings": {
               "link": "",
               "content": "<p>Today deal sale off <strong>70%</strong>. End in <strong>[countdown]</strong>. Hurry Up [icon_arrow]</p>",
@@ -418,6 +419,7 @@
           },
           "announcement-bar-2": {
             "type": "announcement",
+            "disabled": true,
             "settings": {
               "link": "",
               "content": "<p>Today deal sale off <strong>70%</strong>. End in <strong>[countdown]</strong>. Hurry Up [icon_arrow]</p>",
@@ -1050,8 +1052,8 @@
               "content_align": "center",
               "cv_pos": 50,
               "ch_pos": 50,
-              "cl_txt": "#fff",
-              "cl_overlay": "#000",
+              "cl_txt": "#ffffff",
+              "cl_overlay": "#000000",
               "cl_opacity": 5,
               "col": "2"
             }
@@ -1072,8 +1074,8 @@
               "content_align": "center",
               "cv_pos": 50,
               "ch_pos": 50,
-              "cl_txt": "#fff",
-              "cl_overlay": "#000",
+              "cl_txt": "#ffffff",
+              "cl_overlay": "#000000",
               "cl_opacity": 5,
               "col": "2"
             }
@@ -1094,8 +1096,8 @@
               "content_align": "center",
               "cv_pos": 50,
               "ch_pos": 50,
-              "cl_txt": "#fff",
-              "cl_overlay": "#000",
+              "cl_txt": "#ffffff",
+              "cl_overlay": "#000000",
               "cl_opacity": 5,
               "col": "2"
             }
@@ -1116,8 +1118,8 @@
               "content_align": "center",
               "cv_pos": 50,
               "ch_pos": 50,
-              "cl_txt": "#fff",
-              "cl_overlay": "#000",
+              "cl_txt": "#ffffff",
+              "cl_overlay": "#000000",
               "cl_opacity": 5,
               "col": "2"
             }
@@ -1138,8 +1140,8 @@
               "content_align": "center",
               "cv_pos": 50,
               "ch_pos": 50,
-              "cl_txt": "#fff",
-              "cl_overlay": "#000",
+              "cl_txt": "#ffffff",
+              "cl_overlay": "#000000",
               "cl_opacity": 5,
               "col": "2"
             }
@@ -1160,8 +1162,8 @@
               "content_align": "center",
               "cv_pos": 50,
               "ch_pos": 50,
-              "cl_txt": "#fff",
-              "cl_overlay": "#000",
+              "cl_txt": "#ffffff",
+              "cl_overlay": "#000000",
               "cl_opacity": 5,
               "col": "1"
             }
@@ -1182,8 +1184,8 @@
               "content_align": "center",
               "cv_pos": 50,
               "ch_pos": 50,
-              "cl_txt": "#fff",
-              "cl_overlay": "#000",
+              "cl_txt": "#ffffff",
+              "cl_overlay": "#000000",
               "cl_opacity": 5,
               "col": "1"
             }
@@ -1204,8 +1206,8 @@
               "content_align": "center",
               "cv_pos": 50,
               "ch_pos": 50,
-              "cl_txt": "#fff",
-              "cl_overlay": "#000",
+              "cl_txt": "#ffffff",
+              "cl_overlay": "#000000",
               "cl_opacity": 5,
               "col": "1"
             }
