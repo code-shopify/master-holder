@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
     jQuery(document).ready(function($) {
       // Delegación de eventos para el botón del comparador
       $(document).on('click', '[data-popup-comparador]', function(e) {
-        e.preventDefault();
+        e.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
         console.log('Click en botón del comparador');
         
         var popupId = $(this).data('open-mfp-inline');
