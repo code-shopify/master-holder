@@ -467,42 +467,39 @@ endif -%}
                   </div>
 
                   <script>
-                    // Esperar a que el DOM esté listo
                     document.addEventListener('DOMContentLoaded', function() {
-                      // Función para verificar si jQuery y Magnific están disponibles
-                      function initializePopup() {
-                        if (typeof jQuery === 'undefined') {
-                          console.log('jQuery no está cargado todavía');
-                          setTimeout(initializePopup, 100);
-                          return;
-                        }
-                        
-                        if (typeof jQuery.fn.magnificPopup === 'undefined') {
-                          console.log('Magnific Popup no está cargado todavía');
-                          setTimeout(initializePopup, 100);
-                          return;
-                        }
-
-                        // Inicializar Magnific Popup
-                        jQuery('[data-open-mfp-inline]').magnificPopup({
-                          type: 'inline',
-                          mainClass: 't4s-mfp-move-horizontal',
-                          closeOnBgClick: true,
-                          closeBtnInside: true,
-                          showCloseBtn: true,
-                          callbacks: {
-                            open: function() {
-                              console.log('Popup abierto');
-                              if (typeof initBeforeAfter === 'function') {
-                                setTimeout(initBeforeAfter, 100);
-                              }
-                            }
-                          }
-                        });
+                      // Asegurarnos que jQuery está disponible
+                      if (typeof jQuery === 'undefined') {
+                        console.error('jQuery no está cargado');
+                        return;
                       }
 
-                      // Iniciar el proceso
-                      initializePopup();
+                      // Inicializar el popup
+                      jQuery('[data-open-mfp-inline]').magnificPopup({
+                        type: 'inline',
+                        mainClass: 't4s-mfp-move-horizontal',
+                        closeOnBgClick: true,
+                        closeBtnInside: true,
+                        showCloseBtn: true,
+                        removalDelay: 300,
+                        callbacks: {
+                          beforeOpen: function() {
+                            console.log('Popup a punto de abrirse');
+                          },
+                          open: function() {
+                            console.log('Popup abierto');
+                            // Dar un pequeño tiempo para que el DOM del popup esté listo
+                            setTimeout(function() {
+                              if (typeof initBeforeAfter === 'function') {
+                                console.log('Inicializando comparador...');
+                                initBeforeAfter();
+                              } else {
+                                console.error('initBeforeAfter no está definido');
+                              }
+                            }, 100);
+                          }
+                        }
+                      });
                     });
                   </script>
                 {% endif %}
