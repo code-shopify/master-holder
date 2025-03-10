@@ -1098,6 +1098,138 @@
               "col": "2"
             }
           },
+          "banner_Lbn6NA": {
+            "type": "banner",
+            "settings": {
+              "image_ratio": "ratioadapt",
+              "image_size": "cover",
+              "image_position": "8",
+              "height_dk": 400,
+              "image": "shopify://shop_images/nomada.png",
+              "img_effect": "none",
+              "b_effect": "none",
+              "b_link": "",
+              "open_link": "_self",
+              "html": "<h3 class=\"fs__30 mg__0 lh__1 cw mb__10\">lighting collections</h3><h4 class=\"fs__16 mg__0 cw\">Explorer</h4>",
+              "content_align": "center",
+              "cv_pos": 50,
+              "ch_pos": 50,
+              "cl_txt": "#fff",
+              "cl_overlay": "#000",
+              "cl_opacity": 5,
+              "col": "2"
+            }
+          },
+          "banner_edLQa8": {
+            "type": "banner",
+            "settings": {
+              "image_ratio": "ratioadapt",
+              "image_size": "cover",
+              "image_position": "8",
+              "height_dk": 400,
+              "image": "shopify://shop_images/venti.png",
+              "img_effect": "none",
+              "b_effect": "none",
+              "b_link": "",
+              "open_link": "_self",
+              "html": "<h3 class=\"fs__30 mg__0 lh__1 cw mb__10\">lighting collections</h3><h4 class=\"fs__16 mg__0 cw\">Explorer</h4>",
+              "content_align": "center",
+              "cv_pos": 50,
+              "ch_pos": 50,
+              "cl_txt": "#fff",
+              "cl_overlay": "#000",
+              "cl_opacity": 5,
+              "col": "4"
+            }
+          },
+          "banner_UjhFWH": {
+            "type": "banner",
+            "settings": {
+              "image_ratio": "ratioadapt",
+              "image_size": "cover",
+              "image_position": "8",
+              "height_dk": 400,
+              "image": "shopify://shop_images/sport.png",
+              "img_effect": "none",
+              "b_effect": "none",
+              "b_link": "",
+              "open_link": "_self",
+              "html": "<h3 class=\"fs__30 mg__0 lh__1 cw mb__10\">lighting collections</h3><h4 class=\"fs__16 mg__0 cw\">Explorer</h4>",
+              "content_align": "center",
+              "cv_pos": 50,
+              "ch_pos": 50,
+              "cl_txt": "#fff",
+              "cl_overlay": "#000",
+              "cl_opacity": 5,
+              "col": "4"
+            }
+          },
+          "banner_QWtAB3": {
+            "type": "banner",
+            "settings": {
+              "image_ratio": "ratioadapt",
+              "image_size": "cover",
+              "image_position": "8",
+              "height_dk": 400,
+              "image": "shopify://shop_images/tazas-20-oz.png",
+              "img_effect": "none",
+              "b_effect": "none",
+              "b_link": "",
+              "open_link": "_self",
+              "html": "<h3 class=\"fs__30 mg__0 lh__1 cw mb__10\">lighting collections</h3><h4 class=\"fs__16 mg__0 cw\">Explorer</h4>",
+              "content_align": "center",
+              "cv_pos": 50,
+              "ch_pos": 50,
+              "cl_txt": "#fff",
+              "cl_overlay": "#000",
+              "cl_opacity": 5,
+              "col": "4"
+            }
+          },
+          "banner_ipcyEt": {
+            "type": "banner",
+            "settings": {
+              "image_ratio": "ratioadapt",
+              "image_size": "cover",
+              "image_position": "8",
+              "height_dk": 400,
+              "image": "shopify://shop_images/vaso-termico-30oz-negro-30-negro-826703.jpg",
+              "img_effect": "none",
+              "b_effect": "none",
+              "b_link": "",
+              "open_link": "_self",
+              "html": "<h3 class=\"fs__30 mg__0 lh__1 cw mb__10\">lighting collections</h3><h4 class=\"fs__16 mg__0 cw\">Explorer</h4>",
+              "content_align": "center",
+              "cv_pos": 50,
+              "ch_pos": 50,
+              "cl_txt": "#fff",
+              "cl_overlay": "#000",
+              "cl_opacity": 5,
+              "col": "4"
+            }
+          },
+          "banner_hDpxxm": {
+            "type": "banner",
+            "settings": {
+              "image_ratio": "ratioadapt",
+              "image_size": "cover",
+              "image_position": "8",
+              "height_dk": 400,
+              "image": "shopify://shop_images/destapador-automatico-acc-dest-867328.jpg",
+              "img_effect": "none",
+              "b_effect": "none",
+              "b_link": "",
+              "open_link": "_self",
+              "html": "<h3 class=\"fs__30 mg__0 lh__1 cw mb__10\">lighting collections</h3><h4 class=\"fs__16 mg__0 cw\">Explorer</h4>",
+              "content_align": "center",
+              "cv_pos": 50,
+              "ch_pos": 50,
+              "cl_txt": "#fff",
+              "cl_overlay": "#000",
+              "cl_opacity": 5,
+              "col": "4"
+            }
+          },
           "mega_kWMCWz": {
             "type": "mega",
             "settings": {
@@ -1110,6 +1242,12 @@
           "banner_D3NtHa",
           "banner_KMD6TH",
           "banner_x7TQdy",
+          "banner_Lbn6NA",
+          "banner_edLQa8",
+          "banner_UjhFWH",
+          "banner_QWtAB3",
+          "banner_ipcyEt",
+          "banner_hDpxxm",
           "mega_kWMCWz"
         ],
         "settings": {
