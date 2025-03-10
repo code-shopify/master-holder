@@ -251,6 +251,8 @@ endif -%}
 {{ 'main-product.css' | asset_url | stylesheet_tag }}
 {{ 'main-product-custom.css' | asset_url | stylesheet_tag }}
 
+
+
 <div class="t4s-container t4s-main-product__content is--layout_{{ se_stts.pr_layout }} t4s-product-media__{{ media_layout }} t4s-product-thumb-size__{{ se_stts.thumb_lr_size }}">
   <div class="t4s-row">
     <div class="t4s-col-item t4s-col-12 t4s-main-area">
@@ -813,11 +815,11 @@ endif -%}
               {% endif %}
             {% endcomment %}
             {% if product.metafields.custom.imagen_fija %}
-              <a href="javascript:void(0);" class="imagen-fija" data-popup-comparador>  
+              <a href="javascript:void(0);" class="imagen-fija" data-popup-comparador data-open-mfp-inline="#PopupComparador-{{ product.id }}">  
                 {% render "imagen-galeria-fix" %}
               </a>
-              <div id="PopupComparador" class="t4s-mfp-hide">
-                {% render 'after-before-2' %}
+              <div id="PopupComparador-{{ product.id }}" class="t4s-mfp-hide" style="display: none;">
+                {% render 'popup-comparador' %}
               </div>
             {% endif %}
           </div>

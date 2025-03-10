@@ -35,11 +35,11 @@ t4sp-theme t4s-wrapper__{{ settings.general_layout }}{% if settings.animations_r
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
 
 <!-- Swiper JS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js" defer></script>
 
-<!-- Magnific Popup -->
-{{ 'magnific-popup.min.css' | asset_url | stylesheet_tag }}
-{{ 'magnific-popup.min.js' | asset_url | stylesheet_tag }}
+<!-- Magnific Popup desde CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js" defer></script>
 
 <!-- Custom Scripts -->
 <script src="{{ 'update-gallery.js' | asset_url }}" defer></script>
