@@ -90,7 +90,7 @@
       "type": "blog_slider",
       "settings": {
         "blog": "{{ blog }}",
-        "limit": 6,
+        "limit": 4,
         "date": "date",
         "col_dk": "3",
         "col_tb": "2",
