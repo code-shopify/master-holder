@@ -1218,6 +1218,7 @@
           },
           "html_J6DwiQ": {
             "type": "html",
+            "disabled": true,
             "settings": {
               "html": "<p> hola </p>",
               "page": "",
