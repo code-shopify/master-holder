@@ -98,7 +98,7 @@
         "show_author": true,
         "show_date": true,
         "show_comment": false,
-        "image_ratio": "rationt",
+        "image_ratio": "ratioadapt",
         "image_position": "8",
         "image_size": "cover",
         "img_effect": "zoom",
