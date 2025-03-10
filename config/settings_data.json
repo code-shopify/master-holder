@@ -1039,7 +1039,7 @@
               "image_size": "cover",
               "image_position": "8",
               "height_dk": 400,
-              "image": "shopify://shop_images/174155542146.jpg",
+              "image": "shopify://shop_images/portacaguamon-pc-acero-176905.jpg",
               "img_effect": "none",
               "b_effect": "none",
               "b_link": "",
@@ -1054,6 +1054,50 @@
               "col": "2"
             }
           },
+          "banner_KMD6TH": {
+            "type": "banner",
+            "settings": {
+              "image_ratio": "ratioadapt",
+              "image_size": "cover",
+              "image_position": "8",
+              "height_dk": 400,
+              "image": "shopify://shop_images/ML-ACERO.jpg",
+              "img_effect": "none",
+              "b_effect": "none",
+              "b_link": "",
+              "open_link": "_self",
+              "html": "<h3 class=\"fs__30 mg__0 lh__1 cw mb__10\">lighting collections</h3><h4 class=\"fs__16 mg__0 cw\">Explorer</h4>",
+              "content_align": "center",
+              "cv_pos": 50,
+              "ch_pos": 50,
+              "cl_txt": "#fff",
+              "cl_overlay": "#000",
+              "cl_opacity": 5,
+              "col": "4"
+            }
+          },
+          "banner_x7TQdy": {
+            "type": "banner",
+            "settings": {
+              "image_ratio": "ratioadapt",
+              "image_size": "cover",
+              "image_position": "8",
+              "height_dk": 400,
+              "image": "shopify://shop_images/mh-portalaton-5-en-1-acero-5en1-acero-583884.jpg",
+              "img_effect": "none",
+              "b_effect": "none",
+              "b_link": "",
+              "open_link": "_self",
+              "html": "<h3 class=\"fs__30 mg__0 lh__1 cw mb__10\">lighting collections</h3><h4 class=\"fs__16 mg__0 cw\">Explorer</h4>",
+              "content_align": "center",
+              "cv_pos": 50,
+              "ch_pos": 50,
+              "cl_txt": "#fff",
+              "cl_overlay": "#000",
+              "cl_opacity": 5,
+              "col": "4"
+            }
+          },
           "mega_kWMCWz": {
             "type": "mega",
             "settings": {
@@ -1064,6 +1108,8 @@
         "block_order": [
           "mega_tYbwQw",
           "banner_D3NtHa",
+          "banner_KMD6TH",
+          "banner_x7TQdy",
           "mega_kWMCWz"
         ],
         "settings": {
