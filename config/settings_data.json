@@ -1023,7 +1023,7 @@
             "settings": {
               "image_ratio": "ratioadapt",
               "image_size": "cover",
-              "image_position": "8",
+              "image_position": "7",
               "height_dk": 400,
               "image": "shopify://shop_images/portacaguamon-pc-acero-176905.jpg",
               "img_effect": "zoom",
