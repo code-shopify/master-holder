@@ -1023,9 +1023,9 @@
             "settings": {
               "image_ratio": "ratioadapt",
               "image_size": "cover",
-              "image_position": "7",
+              "image_position": "5",
               "height_dk": 200,
-              "image": "shopify://shop_images/portacaguamon-pc-acero-176905.jpg",
+              "image": "shopify://shop_images/portacaguamon.png",
               "img_effect": "zoom",
               "b_effect": "none",
               "b_link": "shopify://collections/portacaguama",
@@ -1034,10 +1034,10 @@
               "content_align": "center",
               "cv_pos": 100,
               "ch_pos": 50,
-              "cl_txt": "#fff",
+              "cl_txt": "#ffffff",
               "cl_overlay": "#000000",
               "cl_opacity": 5,
-              "col": "2"
+              "col": "1"
             }
           },
           "banner_KMD6TH": {
@@ -1045,9 +1045,9 @@
             "settings": {
               "image_ratio": "ratioadapt",
               "image_size": "cover",
-              "image_position": "8",
+              "image_position": "5",
               "height_dk": 400,
-              "image": "shopify://shop_images/ML-ACERO.jpg",
+              "image": "shopify://shop_images/4-en-1-anticaida.png",
               "img_effect": "zoom",
               "b_effect": "none",
               "b_link": "shopify://collections/4-en-1-anticaida",
@@ -1059,7 +1059,7 @@
               "cl_txt": "#ffffff",
               "cl_overlay": "#000000",
               "cl_opacity": 5,
-              "col": "2"
+              "col": "1"
             }
           },
           "banner_x7TQdy": {
@@ -1067,9 +1067,9 @@
             "settings": {
               "image_ratio": "ratioadapt",
               "image_size": "cover",
-              "image_position": "8",
+              "image_position": "5",
               "height_dk": 400,
-              "image": "shopify://shop_images/mh-portalaton-5-en-1-acero-5en1-acero-583884.jpg",
+              "image": "shopify://shop_images/mh-portalaton-5-en-1-azul-navy-5en1-navy-568554.jpg",
               "img_effect": "zoom",
               "b_effect": "none",
               "b_link": "shopify://collections/portalaton-5-en-1",
@@ -1081,7 +1081,7 @@
               "cl_txt": "#ffffff",
               "cl_overlay": "#000000",
               "cl_opacity": 5,
-              "col": "2"
+              "col": "1"
             }
           },
           "banner_Lbn6NA": {
@@ -1089,7 +1089,7 @@
             "settings": {
               "image_ratio": "ratioadapt",
               "image_size": "cover",
-              "image_position": "8",
+              "image_position": "5",
               "height_dk": 400,
               "image": "shopify://shop_images/nomada.png",
               "img_effect": "zoom",
@@ -1103,7 +1103,7 @@
               "cl_txt": "#ffffff",
               "cl_overlay": "#000000",
               "cl_opacity": 5,
-              "col": "2"
+              "col": "1"
             }
           },
           "banner_edLQa8": {
@@ -1111,7 +1111,7 @@
             "settings": {
               "image_ratio": "ratioadapt",
               "image_size": "cover",
-              "image_position": "8",
+              "image_position": "5",
               "height_dk": 400,
               "image": "shopify://shop_images/venti.png",
               "img_effect": "zoom",
@@ -1125,7 +1125,7 @@
               "cl_txt": "#ffffff",
               "cl_overlay": "#000000",
               "cl_opacity": 5,
-              "col": "2"
+              "col": "1"
             }
           },
           "banner_UjhFWH": {
@@ -1133,7 +1133,7 @@
             "settings": {
               "image_ratio": "ratioadapt",
               "image_size": "cover",
-              "image_position": "8",
+              "image_position": "5",
               "height_dk": 400,
               "image": "shopify://shop_images/sport.png",
               "img_effect": "zoom",
@@ -1147,7 +1147,7 @@
               "cl_txt": "#ffffff",
               "cl_overlay": "#000000",
               "cl_opacity": 5,
-              "col": "2"
+              "col": "1"
             }
           },
           "banner_QWtAB3": {
@@ -1155,9 +1155,9 @@
             "settings": {
               "image_ratio": "ratioadapt",
               "image_size": "cover",
-              "image_position": "8",
+              "image_position": "5",
               "height_dk": 400,
-              "image": "shopify://shop_images/tazas-20-oz.png",
+              "image": "shopify://shop_images/Taza-20oz-6-negro.jpg",
               "img_effect": "zoom",
               "b_effect": "none",
               "b_link": "shopify://collections/tazas-20-oz",
@@ -1169,7 +1169,7 @@
               "cl_txt": "#ffffff",
               "cl_overlay": "#000000",
               "cl_opacity": 5,
-              "col": "2"
+              "col": "1"
             }
           },
           "banner_ipcyEt": {
@@ -1177,7 +1177,7 @@
             "settings": {
               "image_ratio": "ratioadapt",
               "image_size": "cover",
-              "image_position": "8",
+              "image_position": "5",
               "height_dk": 400,
               "image": "shopify://shop_images/vaso-termico-30oz-negro-30-negro-826703.jpg",
               "img_effect": "zoom",
@@ -1191,7 +1191,7 @@
               "cl_txt": "#ffffff",
               "cl_overlay": "#000000",
               "cl_opacity": 5,
-              "col": "2"
+              "col": "1"
             }
           },
           "banner_hDpxxm": {
@@ -1199,7 +1199,7 @@
             "settings": {
               "image_ratio": "ratioadapt",
               "image_size": "cover",
-              "image_position": "8",
+              "image_position": "5",
               "height_dk": 400,
               "image": "shopify://shop_images/destapador-automatico-acc-dest-867328.jpg",
               "img_effect": "zoom",
@@ -1213,7 +1213,7 @@
               "cl_txt": "#ffffff",
               "cl_overlay": "#000000",
               "cl_opacity": 5,
-              "col": "2"
+              "col": "1"
             }
           },
           "html_J6DwiQ": {
