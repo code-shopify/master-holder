@@ -1,6 +1,6 @@
 // Esperar a que jQuery y Magnific Popup estén disponibles
 function waitForDependencies(callback) {
-  if (window.jQuery && window.jQuery.magnificPopup) {
+  if (window.jQuery && jQuery.magnificPopup) {
     callback();
   } else {
     setTimeout(function() {
@@ -11,81 +11,68 @@ function waitForDependencies(callback) {
 
 // Inicialización principal
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('DOM Content Loaded - Iniciando configuración del popup');
+  console.log('DOM loaded, waiting for dependencies...');
   
   waitForDependencies(function() {
-    console.log('jQuery y Magnific Popup disponibles');
+    console.log('Dependencies loaded, initializing popup...');
     
-    jQuery(document).ready(function($) {
-      // Delegación de eventos para el botón del comparador
-      $(document).on('click', '[data-popup-comparador]', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log('Click en botón del comparador');
-        
-        var popupId = $(this).data('open-mfp-inline');
-        console.log('PopupID:', popupId);
-        
-        if (!popupId) {
-          console.error('No se encontró el ID del popup');
-          return;
-        }
+    $(document).on('click', '[data-popup-comparador]', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const $this = $(this);
+      const popupId = $this.data('open-mfp-inline');
+      
+      if (!popupId) {
+        console.error('No popup ID found');
+        return;
+      }
 
-        try {
-          $.magnificPopup.open({
-            type: 'inline',
-            items: {
-              src: popupId,
-              type: 'inline'
+      try {
+        $.magnificPopup.open({
+          items: {
+            src: popupId,
+            type: 'inline'
+          },
+          mainClass: 'mfp-fade',
+          removalDelay: 300,
+          fixedContentPos: true,
+          fixedBgPos: true,
+          overflowY: 'auto',
+          callbacks: {
+            beforeOpen: function() {
+              console.log('Popup opening...');
+              $(popupId).css('display', 'block');
             },
-            mainClass: 't4s-popup-comparador t4s-mfp-move-horizontal',
-            removalDelay: 300,
-            closeOnBgClick: true,
-            closeBtnInside: true,
-            showCloseBtn: true,
-            fixedContentPos: true,
-            fixedBgPos: true,
-            overflowY: 'auto',
-            callbacks: {
-              beforeOpen: function() {
-                console.log('Antes de abrir el popup');
-                $(popupId).css('display', 'block');
-              },
-              open: function() {
-                console.log('Popup abierto - inicializando comparador');
-                initComparador();
-              },
-              close: function() {
-                console.log('Popup cerrado');
-                $(popupId).css('display', 'none');
-              }
+            open: function() {
+              console.log('Popup opened');
+              initComparador();
+            },
+            close: function() {
+              console.log('Popup closed');
+              $(popupId).css('display', 'none');
             }
-          });
-        } catch (error) {
-          console.error('Error al abrir el popup:', error);
-        }
-      });
+          }
+        });
+      } catch (error) {
+        console.error('Error opening popup:', error);
+      }
     });
   });
 });
 
 function initComparador() {
-  console.log('Iniciando configuración del comparador');
+  const $container = $('.popup-comparador-content');
+  const $range = $container.find('input[type="range"]');
   
-  const range = document.querySelector('.t4s-comparador-range');
-  const beforeContainer = document.querySelector('.t4s-before-image-container');
-  
-  if (range && beforeContainer) {
-    console.log('Elementos del comparador encontrados');
-    beforeContainer.style.width = '50%';
+  if ($range.length) {
+    $range.on('input', function() {
+      const width = $(this).val() + '%';
+      $container.find('.comparison-container').css('--position', width);
+    });
     
-    range.addEventListener('input', function() {
-      beforeContainer.style.width = this.value + '%';
-    });
+    console.log('Comparador initialized');
   } else {
-    console.warn('No se encontraron los elementos necesarios para el comparador', {
-      range: !!range,
-      beforeContainer: !!beforeContainer
-    });
+    console.log('Range input not found');
   }
 } 
