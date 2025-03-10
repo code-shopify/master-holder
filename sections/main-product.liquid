@@ -449,24 +449,14 @@ endif -%}
                 {% endcomment %}
 
                 {% if product.metafields.custom.imagen_fija %}
-                  <a href="javascript:void(0);" class="imagen-fija" data-open-mfp-inline data-id="t4s-before-after-popup" data-class="t4s-popup-before-after">  
-                    {% render "imagen-galeria-fix" %}
-                  </a>
+                  <div class="t4s-pr">
+                    <a href="#t4s-before-after-popup-{{ product.id }}" class="imagen-fija" data-open-mfp-inline>  
+                      {% render "imagen-galeria-fix" %}
+                    </a>
 
-                  <div id="t4s-before-after-popup" class="t4s-d-none">
-                    <div class="t4s-before-after-popup__inner">
-                      <div class="t4s-before-after-wrapper">
-                        <figure>
-                          <div class="before-after-slider">
-                            <div class="t4s-before-after__content" 
-                              data-before-image="{{ product.metafields.custom.before_image | img_url: 'master' }}"
-                              data-after-image="{{ product.metafields.custom.after_image | img_url: 'master' }}"
-                              style="--before-image: url({{ product.metafields.custom.before_image | img_url: 'master' }});
-                                     --after-image: url({{ product.metafields.custom.after_image | img_url: 'master' }});">
-                            </div>
-                          </div>
-                          <input type="range" min="0" max="100" value="50" class="t4s-before-after-range">
-                        </figure>
+                    <div id="t4s-before-after-popup-{{ product.id }}" class="t4s-mfp-hide">
+                      <div class="t4s-before-after-popup">
+                        {% render 'after-before-2', product: product, popup: true %}
                       </div>
                     </div>
                   </div>
@@ -4447,3 +4437,4 @@ endif -%}
   }
 }
 {% endschema %}
+

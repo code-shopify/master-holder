@@ -118,3 +118,6 @@ t4sp-theme t4s-wrapper__{{ settings.general_layout }}{% if settings.animations_r
 {% else %}
 {{ content_for_layout }}
 {%- endunless -%}
+
+<!-- En la sección de scripts -->
+{{ 'popup-comparador.js' | asset_url | script_tag }}

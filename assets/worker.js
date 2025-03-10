@@ -243,19 +243,27 @@ function initBeforeAfterPopup() {
 document.addEventListener('DOMContentLoaded', initBeforeAfterPopup);
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Inicializar el slider en el popup
-  document.body.addEventListener('click', function(e) {
-    if (e.target.closest('.t4s-popup-before-after')) {
-      const popup = e.target.closest('.t4s-popup-before-after');
-      const range = popup.querySelector('.t4s-before-after-range');
-      const content = popup.querySelector('.t4s-before-after__content');
-
-      if (range && content) {
-        range.addEventListener('input', function() {
-          content.style.setProperty('--before-width', `${this.value}%`);
-          content.querySelector('::before').style.width = `${this.value}%`;
-        });
+  // Inicializar el popup
+  jQuery_T4NT('.imagen-fija').magnificPopupT4s({
+    type: 'inline',
+    mainClass: 't4s-popup-before-after',
+    removalDelay: 300,
+    callbacks: {
+      open: function() {
+        // Inicializar el slider cuando se abre el popup
+        initBeforeAfterSlider(this.content);
       }
     }
   });
 });
+
+function initBeforeAfterSlider(container) {
+  const range = container.querySelector('.before-after-range');
+  const beforeImage = container.querySelector('.before-image');
+  
+  if (!range || !beforeImage) return;
+
+  range.addEventListener('input', function() {
+    beforeImage.style.width = this.value + '%';
+  });
+}

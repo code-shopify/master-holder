@@ -6,7 +6,7 @@
 {% assign after_image = product.metafields.custom.after_image | img_url: 'master' %}
 
 {% if before_image != blank and after_image != blank %}
-  <div class="before-after-wrapper" data-before-after-wrapper>
+  <div class="before-after-wrapper{% if popup %} is--popup{% endif %}" data-before-after-wrapper>
     <div class="before-after-container">
       <figure>
         <div class="after-image"></div>
@@ -46,6 +46,21 @@
     .before-after-wrapper.is--active {
       opacity: 1;
       visibility: visible;
+    }
+
+    /* Estilos específicos para el popup */
+    .before-after-wrapper.is--popup {
+      position: relative;
+      opacity: 1;
+      visibility: visible;
+      min-height: 500px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .t4s-before-after-popup {
+      padding: 30px;
+      background: #1f1f1c;
     }
 
     .before-after-container {
@@ -137,16 +152,6 @@
       opacity: 0;
     }
 
-    .before-after-range::-moz-range-track {
-      background: transparent;
-    }
-
-    .before-after-range::-ms-track {
-      background: transparent;
-      border: none;
-      color: transparent;
-    }
-
     @keyframes first {
       0% { width: 0%; }
       50% { width: 80%; }
@@ -157,6 +162,11 @@
       0% { width: 0%; }
       50% { width: 80%; }
       100% { width: 50%; }
+    }
+
+    /* Estilos para el popup */
+    .t4s-mfp-wrap.t4s-popup-before-after .mfp-content {
+      max-width: 1000px;
     }
   </style>
 {% endif %}

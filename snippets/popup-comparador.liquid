@@ -1,0 +1,79 @@
+<div id="PopupComparador" class="t4s-mfp-hide">
+  <div class="t4s-comparador-popup">
+    <div class="t4s-comparador-container">
+      <div class="t4s-comparador-images">
+        <img class="t4s-after-image" src="{{ product.metafields.custom.after_image | img_url: 'master' }}" alt="After">
+        <div class="t4s-before-image-container">
+          <img class="t4s-before-image" src="{{ product.metafields.custom.before_image | img_url: 'master' }}" alt="Before">
+        </div>
+        <input type="range" min="0" max="100" value="50" class="t4s-comparador-range">
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .t4s-comparador-popup {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 30px;
+    background: #1f1f1c;
+  }
+  
+  .t4s-comparador-container {
+    position: relative;
+    width: 100%;
+  }
+  
+  .t4s-comparador-images {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+  }
+  
+  .t4s-after-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .t4s-before-image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .t4s-before-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .t4s-comparador-range {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-appearance: none;
+    background: transparent;
+    z-index: 100;
+  }
+  
+  .t4s-comparador-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 100%;
+    width: 2px;
+    background: white;
+    opacity: 0.5;
+    cursor: ew-resize;
+  }
+</style> 
