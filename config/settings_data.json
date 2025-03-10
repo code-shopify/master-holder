@@ -625,7 +625,7 @@
               "lb": "",
               "lb_cl": "#00badb",
               "pos_sub": "bottom",
-              "wid": "cus",
+              "wid": "full",
               "cus_wid": 1200,
               "id": 1,
               "enable_packery": true,
@@ -1023,7 +1023,7 @@
             "settings": {
               "image_ratio": "ratioadapt",
               "image_size": "cover",
-              "image_position": "5",
+              "image_position": "2",
               "height_dk": 200,
               "image": "shopify://shop_images/portacaguamon.png",
               "img_effect": "zoom",
