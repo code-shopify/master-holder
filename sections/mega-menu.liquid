@@ -60,8 +60,9 @@
                   {%- endif -%}
                 </{{ ARRhtml[0] }}>
                 <div class="t4s-banner-content t4s-content-position t4s-pa t4s-text-{{ bk_stts.content_align }}" style="{%- render 'position_content', ch_pos: bk_stts.ch_pos, cv_pos: bk_stts.cv_pos -%}">
-                  <div class="nt_promotion_html">{{ bk_stts.html }}</div>
+                  {% comment %} <div class="nt_promotion_html">{{ bk_stts.html }}</div> {% endcomment %}
                 </div>
+                  <div class="nt_promotion_html">{{ bk_stts.html }}</div>
               </div>
             </div>
             <style type="text/css">
