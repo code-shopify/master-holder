@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "heading": {
@@ -27,7 +36,7 @@
         "190dccc0-921d-4bc6-8dbb-51e27461095d": {
           "type": "2",
           "settings": {
-            "content": "<p>Sub title page content<\/p>",
+            "content": "<p>Sub title page content</p>",
             "fontf": "inherit",
             "text_cl": "#ffffff",
             "text_fs": 16,
@@ -60,6 +69,8 @@
       ],
       "disabled": true,
       "settings": {
+        "heading_fullwidth": false,
+        "use_specify_image": true,
         "parallax": false,
         "color": "#000000",
         "overlay": 54,
@@ -78,7 +89,7 @@
     "slider": {
       "type": "blog_slider",
       "settings": {
-        "blog": "fashion",
+        "blog": "{{ blog }}",
         "limit": 6,
         "date": "date",
         "col_dk": "3",
@@ -117,6 +128,8 @@
         "cl_bg_gradient": "",
         "mg": ",,,",
         "pd": "",
+        "mg_tb": "",
+        "pd_tb": "",
         "mg_mb": ",,30px,",
         "pd_mb": "",
         "use_cus_css": false,
@@ -126,7 +139,7 @@
     "main": {
       "type": "main-blog",
       "settings": {
-        "layout_des": "1",
+        "layout_des": "2",
         "art_des": "1",
         "limit": 6,
         "date": "abbreviated_date",
@@ -137,7 +150,8 @@
         "show_dt": true,
         "show_cm": false,
         "show_rm": false,
-        "text_align": "start",
+        "show_irm": false,
+        "text_align": "center",
         "col_dk": "2",
         "col_tb": "2",
         "col_mb": "1",
@@ -165,6 +179,8 @@
         "cl_bg_gradient": "",
         "mg": "60px,,60px,",
         "pd": "",
+        "mg_tb": "",
+        "pd_tb": "",
         "mg_mb": "30px,,30px,",
         "pd_mb": ""
       }
