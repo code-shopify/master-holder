@@ -92,7 +92,7 @@
         "blog": "{{ blog }}",
         "limit": 6,
         "date": "date",
-        "col_dk": "2",
+        "col_dk": "3",
         "col_tb": "2",
         "col_mb": "1",
         "show_author": true,
