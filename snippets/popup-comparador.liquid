@@ -1,10 +1,27 @@
+{%- if product.metafields.custom.before_image and product.metafields.custom.after_image -%}
 <div id="PopupComparador" class="t4s-mfp-hide">
   <div class="t4s-comparador-popup">
     <div class="t4s-comparador-container">
       <div class="t4s-comparador-images">
-        <img class="t4s-after-image" src="{{ product.metafields.custom.after_image | img_url: 'master' }}" alt="After">
+        <img 
+          class="t4s-after-image lazyloadt4s" 
+          src="{{ product.metafields.custom.after_image | image_url: width: 1 }}"
+          data-src="{{ product.metafields.custom.after_image | image_url: 'master' }}"
+          data-widths="[540, 720, 900, 1080, 1296]"
+          data-sizes="auto"
+          alt="Después"
+          loading="lazy"
+        >
         <div class="t4s-before-image-container">
-          <img class="t4s-before-image" src="{{ product.metafields.custom.before_image | img_url: 'master' }}" alt="Before">
+          <img 
+            class="t4s-before-image lazyloadt4s"
+            src="{{ product.metafields.custom.before_image | image_url: width: 1 }}"
+            data-src="{{ product.metafields.custom.before_image | image_url: 'master' }}"
+            data-widths="[540, 720, 900, 1080, 1296]"
+            data-sizes="auto"
+            alt="Antes"
+            loading="lazy"
+          >
         </div>
         <input type="range" min="0" max="100" value="50" class="t4s-comparador-range">
       </div>
@@ -16,7 +33,7 @@
   .t4s-comparador-popup {
     max-width: 1000px;
     margin: 0 auto;
-    padding: 30px;
+    padding: 20px;
     background: #1f1f1c;
   }
   
@@ -61,19 +78,42 @@
   .t4s-comparador-range {
     position: absolute;
     top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     -webkit-appearance: none;
     background: transparent;
     z-index: 100;
+    cursor: ew-resize;
   }
   
   .t4s-comparador-range::-webkit-slider-thumb {
     -webkit-appearance: none;
     height: 100%;
-    width: 2px;
+    width: 3px;
     background: white;
-    opacity: 0.5;
+    opacity: 0.7;
     cursor: ew-resize;
   }
-</style> 
+
+  .t4s-comparador-range::-moz-range-thumb {
+    height: 100%;
+    width: 3px;
+    background: white;
+    opacity: 0.7;
+    cursor: ew-resize;
+    border: none;
+  }
+
+  /* Mejoras para móviles */
+  @media (max-width: 767px) {
+    .t4s-comparador-popup {
+      padding: 10px;
+    }
+    
+    .t4s-comparador-images {
+      aspect-ratio: 4/5;
+    }
+  }
+</style>
+{%- endif -%} 
