@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
       e.stopPropagation();
       
       const $this = $(this);
-      const popupId = $this.data('popup-id');
+      const popupId = $this.attr('data-popup-id');
       
       if (!popupId) {
         console.error('No popup ID found');
@@ -40,7 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
             src: $popup,
             type: 'inline'
           },
-          mainClass: 'mfp-fade mfp-ready',
+          tClose: 'Cerrar (Esc)',
+          mainClass: 't4s-popup-wrapper',
           removalDelay: 300,
           closeOnBgClick: true,
           closeBtnInside: true,
@@ -51,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
           callbacks: {
             beforeOpen: function() {
               console.log('Popup opening...', popupId);
-              $popup.show();
+              this.st.mainClass = 'mfp-move-horizontal';
             },
             open: function() {
               console.log('Popup opened');
@@ -61,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function() {
             close: function() {
               console.log('Popup closed');
               $('body').removeClass('t4s-popup-opened');
-              $popup.hide();
             }
           }
         });
