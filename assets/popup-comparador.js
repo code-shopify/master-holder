@@ -1,11 +1,11 @@
-// Esperar a que jQuery esté disponible
-function waitForJQuery(callback) {
-  if (window.jQuery) {
+// Esperar a que jQuery y Magnific Popup estén disponibles
+function waitForDependencies(callback) {
+  if (window.jQuery && window.jQuery.magnificPopup) {
     callback();
   } else {
     setTimeout(function() {
-      waitForJQuery(callback);
-    }, 50);
+      waitForDependencies(callback);
+    }, 100);
   }
 }
 
@@ -13,26 +13,28 @@ function waitForJQuery(callback) {
 document.addEventListener('DOMContentLoaded', function() {
   console.log('DOM Content Loaded - Iniciando configuración del popup');
   
-  waitForJQuery(function() {
-    console.log('jQuery disponible - Configurando Magnific Popup');
+  waitForDependencies(function() {
+    console.log('jQuery y Magnific Popup disponibles');
     
-    const comparadorBtn = document.querySelector('[data-popup-comparador]');
-    
-    if (comparadorBtn) {
-      console.log('Botón del comparador encontrado');
-      
-      jQuery(document).ready(function($) {
-        $(document).on('click', '[data-popup-comparador]', function(e) {
-          e.preventDefault();
-          console.log('Click en botón del comparador');
-          
-          const popupId = this.getAttribute('data-open-mfp-inline');
-          console.log('PopupID:', popupId);
-          
+    jQuery(document).ready(function($) {
+      // Delegación de eventos para el botón del comparador
+      $(document).on('click', '[data-popup-comparador]', function(e) {
+        e.preventDefault();
+        console.log('Click en botón del comparador');
+        
+        var popupId = $(this).data('open-mfp-inline');
+        console.log('PopupID:', popupId);
+        
+        if (!popupId) {
+          console.error('No se encontró el ID del popup');
+          return;
+        }
+
+        try {
           $.magnificPopup.open({
+            type: 'inline',
             items: {
-              src: popupId,
-              type: 'inline'
+              src: popupId
             },
             mainClass: 't4s-popup-comparador t4s-mfp-move-horizontal',
             removalDelay: 300,
@@ -52,11 +54,11 @@ document.addEventListener('DOMContentLoaded', function() {
               }
             }
           });
-        });
+        } catch (error) {
+          console.error('Error al abrir el popup:', error);
+        }
       });
-    } else {
-      console.warn('No se encontró el botón del comparador');
-    }
+    });
   });
 });
 
