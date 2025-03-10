@@ -625,7 +625,7 @@
               "lb": "",
               "lb_cl": "#00badb",
               "pos_sub": "bottom",
-              "wid": "cus",
+              "wid": "full",
               "cus_wid": 1200,
               "id": 1,
               "enable_packery": true,
