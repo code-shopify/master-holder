@@ -1021,7 +1021,7 @@
           "banner_D3NtHa": {
             "type": "banner",
             "settings": {
-              "image_ratio": "ratio_cuspx",
+              "image_ratio": "ratioadapt",
               "image_size": "cover",
               "image_position": "7",
               "height_dk": 200,
