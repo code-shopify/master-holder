@@ -49,7 +49,10 @@ div#SHOW_SIZE_COLOR_DIV {
 /* Custom CSS for only desktop */
 @media (min-width: 1025px) {
   .t4s-container {
-    padding-left: 800px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    max-width: 1200px;
+    margin: 0 auto;
   }
   
   .t4s-product-form__variants.is-btn-full-width__false .t4s-product-form__buttons,
@@ -62,7 +65,10 @@ div#SHOW_SIZE_COLOR_DIV {
 
 /* Custom CSS for tablet, mobile */
 @media (max-width: 1024px) {
-  /* Estilos para tablet y móvil */
+  .t4s-container {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
 }
 
 /* Custom CSS for only tablet */
@@ -73,7 +79,8 @@ div#SHOW_SIZE_COLOR_DIV {
 /* Custom CSS for only mobile */
 @media (max-width: 767px) {
   .t4s-container {
-    padding-left: 0px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
   }
 }
 
@@ -96,4 +103,54 @@ div#SHOW_SIZE_COLOR_DIV {
   max-width: 800px;
   margin: 0 auto;
   position: relative;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Estilos adicionales para el popup */
+.mfp-bg {
+  opacity: 0.8;
+}
+
+.mfp-container {
+  padding: 20px;
+}
+
+.imagen-fija {
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.imagen-fija:hover {
+  opacity: 0.9;
+}
+
+/* Animación del popup */
+.mfp-fade.mfp-bg {
+  opacity: 0;
+  transition: all 0.3s ease-out;
+}
+
+.mfp-fade.mfp-bg.mfp-ready {
+  opacity: 0.8;
+}
+
+.mfp-fade.mfp-bg.mfp-removing {
+  opacity: 0;
+}
+
+.mfp-fade.mfp-wrap .mfp-content {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.3s ease-out;
+}
+
+.mfp-fade.mfp-wrap.mfp-ready .mfp-content {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.mfp-fade.mfp-wrap.mfp-removing .mfp-content {
+  opacity: 0;
+  transform: scale(0.8);
 }
