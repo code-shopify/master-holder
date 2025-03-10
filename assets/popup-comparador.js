@@ -1,6 +1,6 @@
 // Esperar a que jQuery y Magnific Popup estén disponibles
 function waitForDependencies(callback) {
-  if (window.jQuery && jQuery.magnificPopup) {
+  if (window.jQuery && typeof jQuery.magnificPopup !== 'undefined') {
     callback();
   } else {
     setTimeout(function() {
@@ -28,38 +28,40 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
 
+      const $popup = $('#' + popupId);
+      if (!$popup.length) {
+        console.error('Popup element not found:', popupId);
+        return;
+      }
+
       try {
         $.magnificPopup.open({
           items: {
-            src: '#' + popupId,
+            src: $popup,
             type: 'inline'
           },
-          mainClass: 'mfp-fade',
+          mainClass: 'mfp-fade mfp-ready',
           removalDelay: 300,
           closeOnBgClick: true,
           closeBtnInside: true,
           showCloseBtn: true,
           fixedContentPos: true,
+          preloader: false,
+          midClick: true,
           callbacks: {
             beforeOpen: function() {
               console.log('Popup opening...', popupId);
-              $('#' + popupId).css({
-                'display': 'block',
-                'opacity': '1',
-                'visibility': 'visible'
-              });
+              $popup.show();
             },
             open: function() {
               console.log('Popup opened');
+              $('body').addClass('t4s-popup-opened');
               initComparador();
             },
             close: function() {
               console.log('Popup closed');
-              $('#' + popupId).css({
-                'display': 'none',
-                'opacity': '0',
-                'visibility': 'hidden'
-              });
+              $('body').removeClass('t4s-popup-opened');
+              $popup.hide();
             }
           }
         });
