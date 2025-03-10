@@ -1034,10 +1034,10 @@
               "content_align": "center",
               "cv_pos": 100,
               "ch_pos": 50,
-              "cl_txt": "#fff",
+              "cl_txt": "#ffffff",
               "cl_overlay": "#000000",
               "cl_opacity": 5,
-              "col": "2"
+              "col": "1"
             }
           },
           "banner_KMD6TH": {
@@ -1059,7 +1059,7 @@
               "cl_txt": "#ffffff",
               "cl_overlay": "#000000",
               "cl_opacity": 5,
-              "col": "2"
+              "col": "1"
             }
           },
           "banner_x7TQdy": {
@@ -1081,7 +1081,7 @@
               "cl_txt": "#ffffff",
               "cl_overlay": "#000000",
               "cl_opacity": 5,
-              "col": "2"
+              "col": "1"
             }
           },
           "banner_Lbn6NA": {
@@ -1103,7 +1103,7 @@
               "cl_txt": "#ffffff",
               "cl_overlay": "#000000",
               "cl_opacity": 5,
-              "col": "2"
+              "col": "1"
             }
           },
           "banner_edLQa8": {
@@ -1125,7 +1125,7 @@
               "cl_txt": "#ffffff",
               "cl_overlay": "#000000",
               "cl_opacity": 5,
-              "col": "2"
+              "col": "1"
             }
           },
           "banner_UjhFWH": {
@@ -1147,7 +1147,7 @@
               "cl_txt": "#ffffff",
               "cl_overlay": "#000000",
               "cl_opacity": 5,
-              "col": "2"
+              "col": "1"
             }
           },
           "banner_QWtAB3": {
@@ -1169,7 +1169,7 @@
               "cl_txt": "#ffffff",
               "cl_overlay": "#000000",
               "cl_opacity": 5,
-              "col": "2"
+              "col": "1"
             }
           },
           "banner_ipcyEt": {
@@ -1191,7 +1191,7 @@
               "cl_txt": "#ffffff",
               "cl_overlay": "#000000",
               "cl_opacity": 5,
-              "col": "2"
+              "col": "1"
             }
           },
           "banner_hDpxxm": {
@@ -1213,7 +1213,7 @@
               "cl_txt": "#ffffff",
               "cl_overlay": "#000000",
               "cl_opacity": 5,
-              "col": "2"
+              "col": "1"
             }
           },
           "html_J6DwiQ": {
