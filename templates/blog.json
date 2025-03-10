@@ -15,7 +15,7 @@
         "3fcc5c0e-3b55-4490-bb0f-778533d18142": {
           "type": "1",
           "settings": {
-            "heading": "Prueba",
+            "heading": "",
             "fontf": "inherit",
             "text_cl": "#ffffff",
             "text_fs": 20,
@@ -36,7 +36,7 @@
         "190dccc0-921d-4bc6-8dbb-51e27461095d": {
           "type": "2",
           "settings": {
-            "content": "<p>subtitulo </p>",
+            "content": "",
             "fontf": "inherit",
             "text_cl": "#ffffff",
             "text_fs": 16,
@@ -97,14 +97,14 @@
         "show_author": true,
         "show_date": true,
         "show_comment": false,
-        "image_ratio": "ratio4_3",
+        "image_ratio": "rationt",
         "image_position": "8",
         "image_size": "cover",
         "img_effect": "zoom",
         "b_effect": "pervasive-circle",
         "cl": "#ffffff",
-        "cl2": "#878787",
-        "bg": "#000000",
+        "cl2": "#ffffff",
+        "bg": "#0028a1",
         "overlay": 80,
         "loop": true,
         "au_time": 0,
