@@ -449,59 +449,9 @@ endif -%}
                 {% endcomment %}
 
                 {% if product.metafields.custom.imagen_fija %}
-                  {%- comment -%}Asegurarnos que los recursos estén disponibles{%- endcomment -%}
-                  {{ 'jquery.min.js' | asset_url | script_tag }}
-                  {{ 'magnific-popup.min.js' | asset_url | script_tag }}
-                  {{ 'magnific-popup.min.css' | asset_url | stylesheet_tag }}
-                  
-                  <div class="t4s-pr">
-                    <a href="#t4s-before-after-popup-{{ product.id }}" class="imagen-fija" data-open-mfp-inline>  
-                      {% render "imagen-galeria-fix" %}
-                    </a>
-
-                    <div id="t4s-before-after-popup-{{ product.id }}" class="t4s-mfp-hide">
-                      <div class="t4s-before-after-popup">
-                        {% render 'after-before-2', product: product, popup: true %}
-                      </div>
-                    </div>
-                  </div>
-
-                  <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                      // Asegurarnos que jQuery está disponible
-                      if (typeof jQuery === 'undefined') {
-                        console.error('jQuery no está cargado');
-                        return;
-                      }
-
-                      // Inicializar el popup
-                      jQuery('[data-open-mfp-inline]').magnificPopup({
-                        type: 'inline',
-                        mainClass: 't4s-mfp-move-horizontal',
-                        closeOnBgClick: true,
-                        closeBtnInside: true,
-                        showCloseBtn: true,
-                        removalDelay: 300,
-                        callbacks: {
-                          beforeOpen: function() {
-                            console.log('Popup a punto de abrirse');
-                          },
-                          open: function() {
-                            console.log('Popup abierto');
-                            // Dar un pequeño tiempo para que el DOM del popup esté listo
-                            setTimeout(function() {
-                              if (typeof initBeforeAfter === 'function') {
-                                console.log('Inicializando comparador...');
-                                initBeforeAfter();
-                              } else {
-                                console.error('initBeforeAfter no está definido');
-                              }
-                            }, 100);
-                          }
-                        }
-                      });
-                    });
-                  </script>
+                  <a href="javascript:void(0);" class="imagen-fija" id="toggleBeforeAfter">  
+                    {% render "imagen-galeria-fix" %}
+                  </a>
                 {% endif %}
 
                   {%- if bk_stts.tax_ship and cart.taxes_included or shop.shipping_policy.body != blank -%}
@@ -853,7 +803,7 @@ endif -%}
             {%- endfor -%}
             {% comment %}Inicio de Renders{% endcomment %}
               {%- render 'custom-product-icons' -%}
-              {% render 'after-before-2', product: product, popup: true %}
+                {% render 'after-before-2' %}
               {% comment %}{% render "before-after" %}{% endcomment %}
             {% comment %}Fin Inicio de Renders{% endcomment %}
           </div>
@@ -4378,7 +4328,7 @@ endif -%}
           "id": "required",
           "default": false,
           "label": "Required",
-          "info": "If you use "Required" with a checkbox, then the checkbox will need to be checked for the customer to add the item to the cart."
+          "info": "If you use “Required” with a checkbox, then the checkbox will need to be checked for the customer to add the item to the cart."
         },
         {
           "type": "checkbox",
@@ -4480,4 +4430,3 @@ endif -%}
   }
 }
 {% endschema %}
-
