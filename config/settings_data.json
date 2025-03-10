@@ -625,11 +625,11 @@
               "lb": "",
               "lb_cl": "#00badb",
               "pos_sub": "bottom",
-              "wid": "full",
-              "cus_wid": 1200,
+              "wid": "cus",
+              "cus_wid": 600,
               "id": 1,
               "enable_packery": true,
-              "r_s_h_item": "20",
+              "r_s_h_item": "6",
               "r_s_v_item": "30"
             }
           }
