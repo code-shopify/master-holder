@@ -7,12 +7,9 @@
 
 {% if before_image != blank and after_image != blank %}
   <div class="before-after-wrapper" data-before-after-wrapper>
-    <div class="before-after-figure">
-      <div class="before-after-image after-image"></div>
-      <div id="before_after_{{ product.id }}" class="before-after-image before-image">
-        <div class="handle"></div>
-      </div>
-    </div>
+    <figure>
+      <div id="before_after_{{ product.id }}" class="before-after-slider"></div>
+    </figure>
     <input 
       type="range" 
       min="0" 
@@ -40,134 +37,265 @@
       touch-action: none;
       opacity: 0;
       visibility: hidden;
+      pointer-events: none;
       transition: opacity 0.3s ease;
     }
 
     .before-after-wrapper.is--active {
       opacity: 1;
       visibility: visible;
+      pointer-events: all;
     }
 
-    .before-after-figure {
+    .before-after-wrapper figure {
+      background-image: var(--after-image);
       position: relative;
       margin: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
-
-    .before-after-image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
       background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+      width: 100%;
+      height: 100%;
     }
 
-    .after-image {
-      background-image: var(--after-image);
-      z-index: 1;
-    }
-
-    .before-image {
+    .before-after-slider {
       background-image: var(--before-image);
-      z-index: 2;
-      clip-path: inset(0 0 0 50%);
-      transition: clip-path 0.1s ease-out;
-    }
-
-    .handle {
-      position: absolute;
-      left: 0;
-      top: 0;
+      background-size: cover;
       bottom: 0;
-      width: 5px;
-      background: rgba(255, 255, 255, 0.7);
-      transform: translateX(-50%);
-      cursor: col-resize;
-    }
-
-    .handle::before {
-      content: '';
+      border-right: 5px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 10px 0 15px -13px #000;
+      height: 100%;
+      width: 50%;
       position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 40px;
-      height: 40px;
-      border: 3px solid rgba(255, 255, 255, 0.7);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0, 0, 0, 0.5);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    }
-
-    .handle::after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 6px 0 6px 6px;
-      border-color: transparent transparent transparent rgba(255, 255, 255, 0.7);
-      transform: translate(-50%, -50%);
+      animation: first 2s 1 normal ease-in-out 0.1s;
     }
 
     .before-after-range {
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      border: none;
+      background: transparent;
+      cursor: col-resize;
+      height: 100%;
+      left: 0;
+      margin: 0;
+      outline: none;
+      padding: 0;
       position: absolute;
       top: 0;
-      left: 0;
       width: 100%;
-      height: 100%;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      background: transparent;
-      outline: none;
-      border: none;
-      padding: 0;
-      margin: 0;
-      cursor: col-resize;
       z-index: 20;
+      touch-action: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .before-after-range::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 40px;
       height: 100%;
-      background: transparent;
-      border: none;
+      width: 40px;
+      opacity: 0.01;
       cursor: col-resize;
     }
 
     .before-after-range::-moz-range-thumb {
-      width: 40px;
+      -moz-appearance: none;
       height: 100%;
-      background: transparent;
-      border: none;
+      width: 40px;
+      opacity: 0.01;
       cursor: col-resize;
     }
 
     .before-after-range::-ms-thumb {
-      width: 40px;
+      appearance: none;
       height: 100%;
-      background: transparent;
-      border: none;
+      width: 40px;
+      opacity: 0.01;
       cursor: col-resize;
     }
 
-    @keyframes first {
-      0% { clip-path: inset(0 0 0 0); }
-      50% { clip-path: inset(0 0 0 80%); }
-      100% { clip-path: inset(0 0 0 50%); }
+    .before-after-slider::before {
+      background: url('https://assets.codepen.io/191814/comparision.png') no-repeat center;
+      background-size: contain;
+      content: " ";
+      float: right;
+      height: 100%;
+      margin-right: -34px;
+      position: relative;
+      top: 0;
+      width: 64px;
     }
 
-    .before-image {
-      animation: first 2s 1 normal ease-in-out 0.1s;
+    @keyframes first {
+      0% { width: 0%; }
+      50% { width: 80%; }
+      100% { width: 50%; }
+    }
+
+    /* Botón para activar before-after */
+    .t4s-before-after-trigger {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 30;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
     }
   </style>
+
+  <script>
+    class BeforeAfterSlider {
+      constructor(productId) {
+        this.productId = productId;
+        this.boundHandleInput = this.handleInput.bind(this);
+        this.boundHandleToggleClick = this.handleToggleClick.bind(this);
+        this.boundHandleWrapperClick = this.handleWrapperClick.bind(this);
+        this.boundHandleKeydown = this.handleKeydown.bind(this);
+        
+        // Inicializar elementos
+        this.init();
+        
+        // Agregar listeners globales que no dependen de los elementos
+        document.addEventListener('keydown', this.boundHandleKeydown);
+      }
+
+      init() {
+        this.updateElements();
+        this.addEventListeners();
+      }
+
+      updateElements() {
+        this.slider = document.getElementById("before_after_" + this.productId);
+        this.range = document.getElementById("before_after_slider_" + this.productId);
+        this.wrapper = document.querySelector('[data-before-after-wrapper]');
+        this.toggleButton = document.getElementById('toggleBeforeAfter');
+
+        if (this.range && this.slider) {
+          this.range.value = 50;
+          this.slider.style.width = "50%";
+        }
+      }
+
+      addEventListeners() {
+        if (!this.toggleButton || !this.wrapper) return;
+
+        // Remover listeners anteriores
+        this.removeEventListeners();
+
+        // Agregar nuevos listeners
+        this.toggleButton.addEventListener('click', this.boundHandleToggleClick);
+        this.wrapper.addEventListener('click', this.boundHandleWrapperClick);
+        if (this.range) {
+          this.range.addEventListener('input', this.boundHandleInput);
+          this.range.addEventListener('change', this.boundHandleInput);
+        }
+
+        // Escuchar eventos del worker
+        window.addEventListener('message', (event) => {
+          if (event.data && event.data.type === 'beforeAfterState') {
+            if (event.data.state === 'visible') {
+              this.show();
+            } else {
+              this.hide();
+            }
+          }
+        });
+      }
+
+      removeEventListeners() {
+        if (this.toggleButton) {
+          this.toggleButton.removeEventListener('click', this.boundHandleToggleClick);
+        }
+        if (this.wrapper) {
+          this.wrapper.removeEventListener('click', this.boundHandleWrapperClick);
+        }
+        if (this.range) {
+          this.range.removeEventListener('input', this.boundHandleInput);
+          this.range.removeEventListener('change', this.boundHandleInput);
+        }
+      }
+
+      handleInput(e) {
+        if (!this.slider) return;
+        requestAnimationFrame(() => {
+          this.slider.style.width = this.range.value + "%";
+        });
+      }
+
+      handleToggleClick(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const isActive = this.wrapper.classList.contains('is--active');
+        if (isActive) {
+          this.hide();
+        } else {
+          this.show();
+        }
+      }
+
+      handleWrapperClick(e) {
+        if (e.target === this.wrapper) {
+          this.hide();
+        }
+      }
+
+      handleKeydown(e) {
+        if (e.key === 'Escape') {
+          this.hide();
+        }
+      }
+
+      show() {
+        if (!this.wrapper) return;
+        
+        // Reset slider position
+        if (this.range && this.slider) {
+          this.range.value = 50;
+          this.slider.style.width = "50%";
+        }
+
+        // Notificar al worker
+        window.postMessage({ type: 'beforeAfterAction', action: 'show' }, '*');
+        
+        // Mostrar el wrapper
+        requestAnimationFrame(() => {
+          this.wrapper.classList.add('is--active');
+        });
+      }
+
+      hide() {
+        if (!this.wrapper) return;
+        
+        // Notificar al worker
+        window.postMessage({ type: 'beforeAfterAction', action: 'hide' }, '*');
+        
+        // Ocultar el wrapper
+        requestAnimationFrame(() => {
+          this.wrapper.classList.remove('is--active');
+        });
+      }
+
+      destroy() {
+        this.removeEventListeners();
+      }
+    }
+
+    // Crear instancia cuando el DOM esté listo
+    let slider;
+    document.addEventListener('DOMContentLoaded', () => {
+      slider = new BeforeAfterSlider({{ product.id }});
+    });
+
+    // Reinicializar en eventos de la galería
+    ['flickityt4s:ready', 'flickityt4s:change', 't4s:mediaChange'].forEach(event => {
+      document.addEventListener(event, () => {
+        if (slider) {
+          slider.destroy();
+        }
+        slider = new BeforeAfterSlider({{ product.id }});
+      });
+    });
+  </script>
 {% endif %}
