@@ -99,7 +99,7 @@
         "show_comment": false,
         "image_ratio": "ratio4_3",
         "image_position": "8",
-        "image_size": "contain",
+        "image_size": "cover",
         "img_effect": "zoom",
         "b_effect": "pervasive-circle",
         "cl": "#ffffff",
