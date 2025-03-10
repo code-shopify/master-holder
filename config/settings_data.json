@@ -1051,33 +1051,7 @@
               "cl_txt": "#fff",
               "cl_overlay": "#000",
               "cl_opacity": 5,
-              "col": "4"
-            }
-          },
-          "pr_bKFihe": {
-            "type": "pr",
-            "settings": {
-              "collection": "4-en-1-anticaida",
-              "product_des": "1",
-              "show_vendor": false,
-              "use_cdt": false,
-              "image_ratio": "rationt",
-              "image_size": "cover",
-              "image_position": "8",
-              "content_align": "default",
-              "limit": 8,
-              "col_dk": "3",
-              "space_h_item": "30",
-              "space_v_item": "30",
-              "layout_des": "2",
-              "nav_btn": false,
-              "btn_vi": "hover",
-              "btn_owl": "default",
-              "btn_shape": "none",
-              "btn_cl": "dark",
-              "btn_size": "small",
-              "btn_hidden_mobile": true,
-              "col": "4"
+              "col": "1"
             }
           },
           "mega_kWMCWz": {
@@ -1090,7 +1064,6 @@
         "block_order": [
           "mega_tYbwQw",
           "banner_D3NtHa",
-          "pr_bKFihe",
           "mega_kWMCWz"
         ],
         "settings": {
