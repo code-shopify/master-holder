@@ -1023,7 +1023,7 @@
             "settings": {
               "image_ratio": "ratioadapt",
               "image_size": "cover",
-              "image_position": "5",
+              "image_position": "2",
               "height_dk": 200,
               "image": "shopify://shop_images/portacaguamon.png",
               "img_effect": "zoom",
