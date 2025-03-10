@@ -1246,9 +1246,7 @@
           "html_J6DwiQ",
           "mega_kWMCWz"
         ],
-        "custom_css": [
-          ".t4s-row.t4s-gx-20.t4s-gy-30.t4s-lazy_menu.isotopet4s.isotopet4s-enabled {display: flex !important; justify-content: space-between !important; align-items: center !important; margin: 0 auto !important;}"
-        ],
+        "custom_css": [],
         "settings": {
           "bg": ""
         }
