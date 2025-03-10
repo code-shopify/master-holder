@@ -1216,6 +1216,14 @@
               "col": "2"
             }
           },
+          "html_J6DwiQ": {
+            "type": "html",
+            "settings": {
+              "html": "<p> hola </p>",
+              "page": "",
+              "col": "2"
+            }
+          },
           "mega_kWMCWz": {
             "type": "mega",
             "settings": {
@@ -1234,6 +1242,7 @@
           "banner_QWtAB3",
           "banner_ipcyEt",
           "banner_hDpxxm",
+          "html_J6DwiQ",
           "mega_kWMCWz"
         ],
         "settings": {
