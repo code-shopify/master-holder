@@ -437,7 +437,7 @@
           "announcement-bar-2"
         ],
         "settings": {
-          "show_announcement": true,
+          "show_announcement": false,
           "design": "slider",
           "effect": "1",
           "au_time": 3.5,
@@ -591,7 +591,7 @@
             "type": "base",
             "settings": {
               "title": "BLOG",
-              "url": "shopify://blogs/news",
+              "url": "shopify://blogs/nuestra-seccion-de-noticias",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
