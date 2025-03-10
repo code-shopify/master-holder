@@ -337,7 +337,7 @@ endif -%}
                   {% render "imagen-galeria-fix" %}
                 </a>
               {% endif %}
-               {% endcomment %}
+              {% endcomment %}
 
               
               <button type="button" data-thumb-btn__prev="{{ se_id }}" aria-label="Previous" class="btn_pnav_prev t4s-pa t4s-pe-none t4s-op-0"></button>
@@ -806,12 +806,18 @@ endif -%}
             {% comment %}Fin Inicio de Renders{% endcomment %}
             {% comment %}
             {% if product.metafields.custom.imagen_fija %}
-                  <a href="javascript:void(0);" class="imagen-fija" id="toggleBeforeAfter">  
-                    {% render "imagen-galeria-fix" %}
-                  </a>
+              <a href="javascript:void(0);" class="imagen-fija" id="toggleBeforeAfter">  
+                {% render "imagen-galeria-fix" %}
+              </a>
+                {% render 'after-before-2' %}
+              {% endif %}
+            {% endcomment %}
+            {% if product.metafields.custom.imagen_fija %}
+              <a href="javascript:void(0);" class="imagen-fija" data-popup-comparador>  
+                {% render "imagen-galeria-fix" %}
+              </a>
               {% render 'after-before-2' %}
-                {% endif %}
-                {% endcomment %}
+            {% endif %}
           </div>
         </div>
       </div> 
