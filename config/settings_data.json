@@ -377,7 +377,7 @@
           "heading_cl": "#fff",
           "text_cl": "#fff",
           "link_cl": "#fff",
-          "link_hover_cl": "#fff",
+          "link_hover_cl": "#0028a1",
           "link_active_cl": "#fff",
           "border_cl": "#fff",
           "layout": "t4s-container-wrap",
