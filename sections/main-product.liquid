@@ -449,11 +449,7 @@ endif -%}
                 {% render 'after-before-2' %}
                 {% endcomment %}
 
-                {% if product.metafields.custom.imagen_fija %}
-                  <a href="javascript:void(0);" class="imagen-fija" id="toggleBeforeAfter">  
-                    {% render "imagen-galeria-fix" %}
-                  </a>
-                {% endif %}
+                
 
                 
 
@@ -808,6 +804,11 @@ endif -%}
               {%- render 'custom-product-icons' -%}
               {% comment %}{% render "before-after" %}{% endcomment %}
             {% comment %}Fin Inicio de Renders{% endcomment %}
+            {% if product.metafields.custom.imagen_fija %}
+                  <a href="javascript:void(0);" class="imagen-fija" id="toggleBeforeAfter">  
+                    {% render "imagen-galeria-fix" %}
+                  </a>
+                {% endif %}
           </div>
         </div>
       </div> 
