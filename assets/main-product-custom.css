@@ -10,88 +10,11 @@
   border-radius: 0.2rem;*/
   z-index: 10;
   height: 110px;
-  cursor: pointer;
-  transition: opacity 0.3s ease;
-}
-
-.imagen-fija:hover {
-  opacity: 0.8;
+  /*display:none;*/
 }
 
 .before-after-hidden {
   display: none;
-}
-
-/* Estilos del nuevo modal comparador */
-.t4s-comparador-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 9999;
-  background: rgba(0, 0, 0, 0.75);
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-}
-
-.t4s-comparador-modal.is-active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.t4s-comparador-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.popup-comparador-content {
-  position: relative;
-  background: #fff;
-  width: 95%;
-  max-width: 850px;
-  margin: 40px auto;
-  padding: 25px;
-  border-radius: 8px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-  transform: translateY(20px);
-  opacity: 0;
-  transition: all 0.3s ease;
-}
-
-.is-active .popup-comparador-content {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.t4s-comparador-close {
-  position: absolute;
-  right: 15px;
-  top: 15px;
-  width: 30px;
-  height: 30px;
-  background: none;
-  border: none;
-  font-size: 24px;
-  line-height: 24px;
-  padding: 0;
-  cursor: pointer;
-  color: #333;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transition: all 0.3s ease;
-}
-
-.t4s-comparador-close:hover {
-  background: rgba(0,0,0,0.1);
-  transform: rotate(90deg);
 }
 
 /* Acomoda el tamaño de los botones del producto para que se vean mas largos */
@@ -174,6 +97,17 @@ div#SHOW_SIZE_COLOR_DIV {
   visibility: visible !important;
 }
 
+.popup-comparador-content {
+  background: #fff;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Estilos adicionales para el popup */
 .mfp-bg {
   opacity: 0.8;
 }
@@ -182,6 +116,16 @@ div#SHOW_SIZE_COLOR_DIV {
   padding: 20px;
 }
 
+.imagen-fija {
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.imagen-fija:hover {
+  opacity: 0.9;
+}
+
+/* Animación del popup */
 .mfp-fade.mfp-bg {
   opacity: 0;
   transition: all 0.3s ease-out;

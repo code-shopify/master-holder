@@ -817,10 +817,8 @@ endif -%}
               <a href="#!" class="imagen-fija t4s-d-block" data-popup-comparador data-popup-id="popup-comparador-{{ product.id }}">  
                 {% render "imagen-galeria-fix" %}
               </a>
-              <div id="popup-comparador-{{ product.id }}" class="t4s-mfp-hide t4s-popup-content t4s-comparador-modal">
-                <div class="t4s-comparador-overlay"></div>
+              <div id="popup-comparador-{{ product.id }}" class="t4s-mfp-hide t4s-popup-content" style="position: relative; max-width: 850px; margin: 20px auto; display: none;">
                 <div class="popup-comparador-content">
-                  <button type="button" class="t4s-comparador-close" aria-label="Cerrar">&times;</button>
                   {% render 'after-before-2' %}
                 </div>
               </div>
