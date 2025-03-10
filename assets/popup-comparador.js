@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
       e.stopPropagation();
       
       const $this = $(this);
-      const popupId = $this.data('open-mfp-inline');
+      const popupId = $this.data('popup-id');
       
       if (!popupId) {
         console.error('No popup ID found');
@@ -31,18 +31,23 @@ document.addEventListener('DOMContentLoaded', function() {
       try {
         $.magnificPopup.open({
           items: {
-            src: popupId,
+            src: '#' + popupId,
             type: 'inline'
           },
           mainClass: 'mfp-fade',
           removalDelay: 300,
+          closeOnBgClick: true,
+          closeBtnInside: true,
+          showCloseBtn: true,
           fixedContentPos: true,
-          fixedBgPos: true,
-          overflowY: 'auto',
           callbacks: {
             beforeOpen: function() {
-              console.log('Popup opening...');
-              $(popupId).css('display', 'block');
+              console.log('Popup opening...', popupId);
+              $('#' + popupId).css({
+                'display': 'block',
+                'opacity': '1',
+                'visibility': 'visible'
+              });
             },
             open: function() {
               console.log('Popup opened');
@@ -50,7 +55,11 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             close: function() {
               console.log('Popup closed');
-              $(popupId).css('display', 'none');
+              $('#' + popupId).css({
+                'display': 'none',
+                'opacity': '0',
+                'visibility': 'hidden'
+              });
             }
           }
         });
