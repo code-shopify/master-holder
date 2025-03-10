@@ -625,7 +625,7 @@
               "lb": "",
               "lb_cl": "#00badb",
               "pos_sub": "bottom",
-              "wid": "cus",
+              "wid": "full nav_t4cnt",
               "cus_wid": 600,
               "id": 1,
               "enable_packery": true,
