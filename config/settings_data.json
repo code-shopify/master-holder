@@ -1030,7 +1030,7 @@
               "b_effect": "none",
               "b_link": "shopify://collections/portacaguama",
               "open_link": "_self",
-              "html": "<h3>Porta Caguamon</h3>",
+              "html": "<p>Porta Caguamon</p>",
               "content_align": "center",
               "cv_pos": 100,
               "ch_pos": 50,
