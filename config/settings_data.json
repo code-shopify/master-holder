@@ -1021,8 +1021,8 @@
           "banner_D3NtHa": {
             "type": "banner",
             "settings": {
-              "image_ratio": "ratioadapt",
-              "image_size": "cover",
+              "image_ratio": "ratio_cuspx",
+              "image_size": "contain",
               "image_position": "7",
               "height_dk": 400,
               "image": "shopify://shop_images/portacaguamon-pc-acero-176905.jpg",
