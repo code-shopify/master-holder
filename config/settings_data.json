@@ -594,25 +594,6 @@
               "lb_cl": ""
             }
           },
-          "drop_kqGciL": {
-            "type": "drop",
-            "settings": {
-              "title": "TIENDA",
-              "url": "shopify://collections/all",
-              "open_link": "_self",
-              "menu": "tienda",
-              "icon": "",
-              "cus_cl": false,
-              "cl": "#ec0101",
-              "lb": "",
-              "lb_cl": "",
-              "lazy_mn": true,
-              "pos_sub": "bottom",
-              "pos": "right",
-              "item_fsize": 15,
-              "sp_bettewn_item": 20
-            }
-          },
           "base_PqxPKw": {
             "type": "base",
             "settings": {
@@ -629,7 +610,7 @@
           "mega_3zAq9g": {
             "type": "mega",
             "settings": {
-              "title": "TTIENDA",
+              "title": "TIENDA",
               "url": "",
               "open_link": "_self",
               "icon": "",
@@ -653,7 +634,6 @@
           "base_GEfPXb",
           "base_NGrBVi",
           "base_ctQWqj",
-          "drop_kqGciL",
           "base_PqxPKw",
           "mega_3zAq9g"
         ],
