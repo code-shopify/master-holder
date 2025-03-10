@@ -19,7 +19,8 @@ document.addEventListener('DOMContentLoaded', function() {
     jQuery(document).ready(function($) {
       // Delegación de eventos para el botón del comparador
       $(document).on('click', '[data-popup-comparador]', function(e) {
-        e.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
+        e.preventDefault();
+        e.stopPropagation();
         console.log('Click en botón del comparador');
         
         var popupId = $(this).data('open-mfp-inline');
@@ -34,16 +35,21 @@ document.addEventListener('DOMContentLoaded', function() {
           $.magnificPopup.open({
             type: 'inline',
             items: {
-              src: popupId
+              src: popupId,
+              type: 'inline'
             },
             mainClass: 't4s-popup-comparador t4s-mfp-move-horizontal',
             removalDelay: 300,
             closeOnBgClick: true,
             closeBtnInside: true,
             showCloseBtn: true,
+            fixedContentPos: true,
+            fixedBgPos: true,
+            overflowY: 'auto',
             callbacks: {
               beforeOpen: function() {
                 console.log('Antes de abrir el popup');
+                $(popupId).css('display', 'block');
               },
               open: function() {
                 console.log('Popup abierto - inicializando comparador');
@@ -51,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
               },
               close: function() {
                 console.log('Popup cerrado');
+                $(popupId).css('display', 'none');
               }
             }
           });
