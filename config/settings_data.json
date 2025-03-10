@@ -1026,7 +1026,7 @@
               "image_position": "7",
               "height_dk": 200,
               "image": "shopify://shop_images/portacaguamon-pc-acero-176905.jpg",
-              "img_effect": "zoom",
+              "img_effect": "none",
               "b_effect": "none",
               "b_link": "shopify://collections/portacaguama",
               "open_link": "_self",
