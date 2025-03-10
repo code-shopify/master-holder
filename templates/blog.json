@@ -88,7 +88,7 @@
     "slider": {
       "type": "blog_slider",
       "settings": {
-        "blog": "{{ blog }}",
+        "blog": "nuestra-seccion-de-noticias",
         "limit": 4,
         "date": "date",
         "col_dk": "3",
