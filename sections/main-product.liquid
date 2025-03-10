@@ -449,9 +449,10 @@ endif -%}
                 {% endcomment %}
 
                 {% if product.metafields.custom.imagen_fija %}
-                  <script src="{{ 'jquery.min.js' | asset_url }}" defer="defer"></script>
-                  <script src="{{ 'magnific-popup.min.js' | asset_url }}" defer="defer"></script>
-                  <link rel="stylesheet" href="{{ 'magnific-popup.min.css' | asset_url }}">
+                  {%- comment -%}Asegurarnos que los recursos estén disponibles{%- endcomment -%}
+                  {{ 'jquery.min.js' | asset_url | script_tag }}
+                  {{ 'magnific-popup.min.js' | asset_url | script_tag }}
+                  {{ 'magnific-popup.min.css' | asset_url | stylesheet_tag }}
                   
                   <div class="t4s-pr">
                     <a href="#t4s-before-after-popup-{{ product.id }}" class="imagen-fija" data-open-mfp-inline>  
@@ -466,32 +467,42 @@ endif -%}
                   </div>
 
                   <script>
+                    // Esperar a que el DOM esté listo
                     document.addEventListener('DOMContentLoaded', function() {
-                      // Esperar a que jQuery y Magnific Popup estén cargados
-                      function checkJQueryAndMagnific() {
-                        if (window.jQuery && jQuery.fn.magnificPopup) {
-                          jQuery('[data-open-mfp-inline]').magnificPopup({
-                            type: 'inline',
-                            mainClass: 't4s-mfp-move-horizontal',
-                            closeOnBgClick: true,
-                            closeBtnInside: true,
-                            showCloseBtn: true,
-                            callbacks: {
-                              open: function() {
-                                if (typeof initBeforeAfter === 'function') {
-                                  setTimeout(function() {
-                                    initBeforeAfter();
-                                  }, 100);
-                                }
+                      // Función para verificar si jQuery y Magnific están disponibles
+                      function initializePopup() {
+                        if (typeof jQuery === 'undefined') {
+                          console.log('jQuery no está cargado todavía');
+                          setTimeout(initializePopup, 100);
+                          return;
+                        }
+                        
+                        if (typeof jQuery.fn.magnificPopup === 'undefined') {
+                          console.log('Magnific Popup no está cargado todavía');
+                          setTimeout(initializePopup, 100);
+                          return;
+                        }
+
+                        // Inicializar Magnific Popup
+                        jQuery('[data-open-mfp-inline]').magnificPopup({
+                          type: 'inline',
+                          mainClass: 't4s-mfp-move-horizontal',
+                          closeOnBgClick: true,
+                          closeBtnInside: true,
+                          showCloseBtn: true,
+                          callbacks: {
+                            open: function() {
+                              console.log('Popup abierto');
+                              if (typeof initBeforeAfter === 'function') {
+                                setTimeout(initBeforeAfter, 100);
                               }
                             }
-                          });
-                        } else {
-                          setTimeout(checkJQueryAndMagnific, 50);
-                        }
+                          }
+                        });
                       }
-                      
-                      checkJQueryAndMagnific();
+
+                      // Iniciar el proceso
+                      initializePopup();
                     });
                   </script>
                 {% endif %}
