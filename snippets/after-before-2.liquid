@@ -120,40 +120,70 @@
     }
   </style>
 
- <script>
-  function initializeBeforeAfter(productId) {
-    let slider = document.getElementById("before_after_" + productId);
-    let range = document.getElementById("before_after_slider_" + productId);
-    
-    if (!slider || !range) return;
-
-    // Establecer valor inicial
-    range.value = 50;
-    slider.style.width = "50%";
-
-    // Función simple para actualizar el slider
-    function updateSlider() {
-      slider.style.width = range.value + "%";
+  <script>
+    function beforeAfter(productId) {
+      const slider = document.getElementById("before_after_" + productId);
+      const range = document.getElementById("before_after_slider_" + productId);
+      
+      if (slider && range) {
+        function updateSlider(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          slider.style.width = this.value + "%";
+        }
+        
+        // Remover listeners anteriores si existen
+        range.removeEventListener('input', updateSlider);
+        range.removeEventListener('change', updateSlider);
+        range.removeEventListener('click', stopEvent);
+        
+        // Agregar nuevos listeners
+        range.addEventListener('input', updateSlider);
+        range.addEventListener('change', updateSlider);
+        range.addEventListener('click', stopEvent);
+        
+        // Establecer valor inicial
+        range.value = 50;
+        slider.style.width = "50%";
+      }
     }
 
-    // Remover y volver a agregar los event listeners
-    range.removeEventListener('input', updateSlider);
-    range.removeEventListener('change', updateSlider);
-    
-    range.addEventListener('input', updateSlider);
-    range.addEventListener('change', updateSlider);
-  }
+    function stopEvent(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
 
-  // Inicializar cuando se carga el DOM
-  document.addEventListener('DOMContentLoaded', () => {
-    initializeBeforeAfter({{ product.id }});
-  });
+    // Función para reinicializar el slider
+    function reinitializeSlider() {
+      setTimeout(() => {
+        beforeAfter({{ product.id }});
+      }, 100);
+    }
 
-  // Reinicializar cuando se hace clic en el botón de imagen fija
-  document.querySelector('#toggleBeforeAfter').addEventListener('click', () => {
-    setTimeout(() => {
-      initializeBeforeAfter({{ product.id }});
-    }, 100);
-  });
-</script>
+    // Inicializar el slider cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', reinitializeSlider);
+
+    // Reinicializar el slider cuando cambie el thumbnail
+    document.addEventListener('t4s:mediaChange', reinitializeSlider);
+
+    // Reinicializar cuando la galería esté lista
+    document.addEventListener('flickityt4s:ready', reinitializeSlider);
+
+    // Reinicializar cuando cambie la galería
+    document.addEventListener('flickityt4s:change', reinitializeSlider);
+
+    // Reinicializar cuando se haga clic en cualquier thumbnail
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('.t4s-product__media-item')) {
+        reinitializeSlider();
+      }
+    });
+
+    // Reinicializar cuando se haga clic en cualquier imagen del producto
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('.t4s-product__media-wrapper')) {
+        reinitializeSlider();
+      }
+    });
+  </script>
 {% endif %}
