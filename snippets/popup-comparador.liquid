@@ -2,35 +2,20 @@
   Popup para mostrar la comparación de productos
 {% endcomment %}
 
-<div class="popup-comparador-overlay">
-  <div class="popup-comparador-content">
-    <div class="popup-comparador-header">
-      <h2>{{ 'compare_popup.title' | t }}</h2>
-      <button type="button" class="popup-comparador__close" aria-label="{{ 'compare_popup.close' | t }}">×</button>
-    </div>
-    
-    <div class="popup-comparador-body">
-      <div class="popup-comparador-before-after">
-        {% render 'after-before-2' %}
-      </div>
+<div class="popup-comparador-content">
+  <div class="popup-comparador-header">
+    <h2>{{ 'compare_popup.title' | t }}</h2>
+    <button type="button" class="popup-comparador__close" aria-label="{{ 'compare_popup.close' | t }}">×</button>
+  </div>
+  
+  <div class="popup-comparador-body">
+    <div class="popup-comparador-before-after">
+      {% render 'after-before-2' %}
     </div>
   </div>
 </div>
 
 <style>
-.popup-comparador-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 999999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .popup-comparador-content {
   background: #fff;
   padding: 20px;
@@ -39,7 +24,6 @@
   margin: 20px auto;
   position: relative;
   border-radius: 8px;
-  z-index: 1000000;
 }
 
 .popup-comparador-header {
@@ -64,14 +48,11 @@
 
 .popup-comparador-body {
   width: 100%;
-  position: relative;
 }
 
 .popup-comparador-before-after {
   width: 100%;
   margin: 0 auto;
-  position: relative;
-  z-index: 1000001;
 }
 
 /* Ajustes para dispositivos móviles */
@@ -91,31 +72,6 @@
 <script>
 document.addEventListener('popup:opened', function() {
   // Reinicializar el slider cuando se abra el popup
-  setTimeout(() => {
-    beforeAfter();
-    
-    // Asegurarnos que el input range esté por encima y reciba eventos
-    const slider = document.getElementById("before_after_slider_{{ product.id }}");
-    if (slider) {
-      slider.style.zIndex = "1000002";
-      
-      // Prevenir que el popup capture los eventos del slider
-      slider.addEventListener('mousedown', function(e) {
-        e.stopPropagation();
-      });
-      
-      slider.addEventListener('touchstart', function(e) {
-        e.stopPropagation();
-      }, { passive: false });
-      
-      slider.addEventListener('mousemove', function(e) {
-        e.stopPropagation();
-      });
-      
-      slider.addEventListener('touchmove', function(e) {
-        e.stopPropagation();
-      }, { passive: false });
-    }
-  }, 100);
+  setTimeout(beforeAfter, 100);
 });
 </script>
