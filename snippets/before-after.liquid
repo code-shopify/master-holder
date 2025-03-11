@@ -1,11 +1,15 @@
+{% assign before_image = product.metafields.custom.before_image | img_url: 'master' %}
+{% assign after_image = product.metafields.custom.after_image | img_url: 'master' %}
+
+{% if before_image != blank and after_image != blank %}
 <main class="ba_main">
   <div class="container before_after">
     <div class="image-container">
       <div class="before_img">
         <img
           class="image-before slider-image"
-          src="//www.masterholder.com.mx/cdn/shop/files/mh-4en1-anticaida-negro-16-negro-269826.jpg?v=1737213793&width=600"
-          alt="color photo"
+          src="{{ before_image }}"
+          alt="Imagen antes"
         >
         <span
           class="before_badge ba_badge"
@@ -16,8 +20,8 @@
       <div class="after_img">
         <img
           class="image-after slider-image"
-          src="//www.masterholder.com.mx/cdn/shop/files/mh-4en1-anticaida-negro-16-negro-453841.jpg?v=1737213793&width=600"
-          alt="black and white"
+          src="{{ after_image }}"
+          alt="Imagen después"
         >
         <span class="after_badge ba_badge" style="display: block;"
           >Después</span
@@ -29,7 +33,7 @@
       min="0"
       max="100"
       value="50"
-      aria-label="Percentage of before photo shown"
+      aria-label="Porcentaje de imagen antes mostrada"
       class="ba-slider"
     >
     <div class="slider-line" aria-hidden="true"></div>
@@ -103,13 +107,12 @@
     overflow: hidden;
     border-radius: 1rem;
     --position: 50%;
-    width: 100%;  /* Cambiado de 50% a 100% para ocupar todo el ancho */
-    height: 100%; /* Ahora ocupa todo el alto disponible */
-    max-height: 600px; /* Ajusta según necesidad, puedes eliminarlo si quieres altura completa */
+    width: 100%;
+    height: 100%;
+    max-height: 600px;
     margin: 0 auto;
 }
 
-/* Ajustar el tamaño del contenedor de imágenes */
 .image-container {
     width: 100%;
     height: 100%;
@@ -117,7 +120,6 @@
     position: relative;
 }
 
-/* Ajustar las imágenes para que ocupen el 100% */
 .slider-image {
     width: 100%;
     height: 100%;
@@ -125,7 +127,6 @@
     object-position: center;
 }
 
-/* Ajuste de la imagen BEFORE para que se recorte correctamente */
 .image-before {
     position: absolute;
     inset: 0;
@@ -134,17 +135,16 @@
     clip-path: inset(0 calc(100% - var(--position)) 0 0);
 }
 
-/* Ajuste del slider */
 .ba-slider {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    cursor: pointer;
+    cursor: col-resize;
     opacity: 0;
+    z-index: 30;
 }
 
-/* Ajustar la línea del slider */
 .slider-line {
     position: absolute;
     width: 2px;
@@ -153,9 +153,9 @@
     left: var(--position);
     transform: translateX(-50%);
     pointer-events: none;
+    z-index: 20;
 }
 
-/* Ajustar el botón del slider */
 .slider-button {
     position: absolute;
     background-color: rgba(255, 255, 255, 0.7);
@@ -171,28 +171,63 @@
     pointer-events: none;
     width: 20px;
     height: 40px;
+    z-index: 20;
 }
 
-/* Hacerlo responsivo */
+.ba_badge {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.before_badge {
+    top: 10px;
+    left: 10px;
+}
+
+.after_badge {
+    top: 10px;
+    right: 10px;
+}
+
 @media only screen and (max-width: 768px) {
     .container {
         width: 100%;
-        height: auto; /* Ajuste automático en móviles */
+        height: auto;
+        aspect-ratio: 1/1;
     }
     .ba_main {
         padding: 0 20px;
     }
 }
-
 </style>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const container = document.querySelector(".before_after");
-    const slider = document.querySelector(".ba-slider");
+document.addEventListener("DOMContentLoaded", function () {
+  initializeBeforeAfter();
+});
 
+document.addEventListener("popup:opened", function () {
+  setTimeout(initializeBeforeAfter, 100);
+});
+
+function initializeBeforeAfter() {
+  const container = document.querySelector(".before_after");
+  const slider = document.querySelector(".ba-slider");
+  
+  if (container && slider) {
+    container.style.setProperty("--position", "50%");
+    
     slider.addEventListener("input", (e) => {
       container.style.setProperty("--position", `${e.target.value}%`);
     });
-  });
+    
+    // Asegurarse de que el slider esté en la posición inicial
+    slider.value = 50;
+  }
+}
 </script>
+{% endif %}

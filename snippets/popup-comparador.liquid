@@ -10,7 +10,7 @@
   
   <div class="popup-comparador-body">
     <div class="popup-comparador-before-after">
-      {% render 'after-before-2' %}
+      {% render 'before-after' %}
     </div>
   </div>
 </div>
@@ -24,6 +24,7 @@
   margin: 20px auto;
   position: relative;
   border-radius: 8px;
+  z-index: 1000;
 }
 
 .popup-comparador-header {
@@ -55,6 +56,14 @@
   margin: 0 auto;
 }
 
+.popup-comparador-before-after .ba_main {
+  padding: 0;
+}
+
+.popup-comparador-before-after .container {
+  border-radius: 0;
+}
+
 /* Ajustes para dispositivos móviles */
 @media (max-width: 767px) {
   .popup-comparador-content {
@@ -72,6 +81,13 @@
 <script>
 document.addEventListener('popup:opened', function() {
   // Reinicializar el slider cuando se abra el popup
-  setTimeout(beforeAfter, 100);
+  setTimeout(() => {
+    const container = document.querySelector(".before_after");
+    const slider = document.querySelector(".ba-slider");
+    if (container && slider) {
+      container.style.setProperty("--position", "50%");
+      slider.value = 50;
+    }
+  }, 100);
 });
 </script>
