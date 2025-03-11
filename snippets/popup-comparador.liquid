@@ -91,19 +91,23 @@
   height: 100%;
 }
 
+/* 🔹 Ajustar la imagen que se superpone */
 #before_after_{{ product.id }} {
   background-image: url({{ before_image }});
   background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
   bottom: 0;
+  width: 50%; /* Se actualizará dinámicamente */
+  transition: width 0.2s ease-out; /* Efecto suave de deslizamiento */
   border-right: 5px solid rgba(255, 255, 255, 0.7);
   box-shadow: 10px 0 15px -13px #000;
   height: 100%;
-  max-width: 98.6%;
   min-width: 0.6%;
-  overflow: visible;
-  position: absolute;
-  width: 50%;
-  animation: first 2s 1 normal ease-in-out 0.1s;
+  max-width: 98.6%;
 }
 
 /* 🔹 Corrección del slider dentro del popup */
@@ -113,7 +117,7 @@ input[type="range"] {
   appearance: none;
   background: transparent;
   cursor: grab; /* Cambia el cursor para indicar que es arrastrable */
-  height: 40px !important; /* Aumentamos el tamaño para facilitar la interacción */
+  height: 40px !important; /* Aumentamos el tamaño para mejorar la interacción */
   left: 0;
   margin: 0;
   outline: none;
@@ -157,13 +161,17 @@ input[type="range"]:active {
 </style>
 
 <script>
-/* 🔹 Función de comparación de imágenes */
+/* 🔹 Función mejorada para cambiar el ancho del comparador al mover el slider */
 function beforeAfter(productId) {
-  document.getElementById("before_after_" + productId).style.width =
-    document.getElementById("before_after_slider_" + productId).value + "%";
+    let slider = document.getElementById("before_after_slider_" + productId);
+    let beforeDiv = document.getElementById("before_after_" + productId);
+    
+    if (slider && beforeDiv) {
+        beforeDiv.style.width = slider.value + "%";
+    }
 }
 
-/* 🔹 Ejecutar `beforeAfter()` cuando se abre el popup */
+/* 🔹 Asegurar que el comparador se actualiza cuando el popup se abre */
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll("[data-popup-comparador]").forEach(button => {
         button.addEventListener("click", function () {
@@ -175,18 +183,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 // 🔹 Asegurar que el slider sea interactivo
                 document.querySelectorAll("input[type='range']").forEach(input => {
                     input.style.pointerEvents = "all";
-                    input.style.opacity = "1"; // Asegurar que sea visible
+                    input.style.opacity = "1";
                     input.focus();
                     input.click();
                 });
 
                 // 🔹 Forzar eventos de mouse en el slider
                 document.querySelectorAll("input[type='range']").forEach(input => {
-                    input.addEventListener("mousedown", function(event) {
-                        event.stopPropagation(); // Evita que otros elementos bloqueen el click
-                    });
-                    input.addEventListener("touchstart", function(event) {
-                        event.stopPropagation(); // Evita bloqueos en móviles
+                    input.addEventListener("input", function() {
+                        let productId = this.id.replace("before_after_slider_", "");
+                        beforeAfter(productId);
                     });
                 });
 
