@@ -1,93 +1,74 @@
+{% comment %}
+  Popup para mostrar la comparación de productos
+{% endcomment %}
+
 {% assign before_image = product.metafields.custom.before_image | img_url: 'master' %}
 {% assign after_image = product.metafields.custom.after_image | img_url: 'master' %}
 
 {% if before_image != blank and after_image != blank %}
-<!-- 🔹 Botón de imagen para abrir el popup -->
-<a href="javascript:void(0);" 
-   class="imagen-fija t4s-d-block" 
-   data-popup-comparador 
-   data-popup-id="popup-comparador-{{ product.id }}"
-   aria-label="{{ 'products.product.view_comparison' | t }}">
-   {% render "imagen-galeria-fix" %}
-</a>
-
-<!-- 🔹 Contenedor del popup -->
-<div id="popup-comparador-{{ product.id }}" class="popup-comparador-overlay">
-  <div class="popup-comparador-content">
-    <div class="popup-comparador-header">
-      <h2>{{ 'compare_popup.title' | t }}</h2>
-      <button type="button" class="popup-comparador__close" aria-label="{{ 'compare_popup.close' | t }}">×</button>
-    </div>
-    
-    <div class="popup-comparador-body">
-      <div class="popup-comparador-before-after">
-        <div class="before-after-container">
-          <figure>
-            <div class="before-image" id="before_after_{{ product.id }}"></div>
-          </figure>
-          <input 
-            type="range" 
-            min="0" 
-            max="100" 
-            value="50" 
-            id="before_after_slider_{{ product.id }}"
-            oninput="beforeAfter('{{ product.id }}')" 
-            onchange="beforeAfter('{{ product.id }}')"
-          />
-        </div>
+<div class="popup-comparador-content">
+  <div class="popup-comparador-header">
+    <h2>{{ 'compare_popup.title' | t }}</h2>
+    <button type="button" class="popup-comparador__close" aria-label="{{ 'compare_popup.close' | t }}">×</button>
+  </div>
+  
+  <div class="popup-comparador-body">
+    <div class="popup-comparador-before-after">
+      <div class="before-after-container">
+        <figure>
+          <div id="before_after_{{ product.id }}"></div>
+        </figure>
+        <input 
+          type="range" 
+          min="0" 
+          max="100" 
+          value="50" 
+          id="before_after_slider_{{ product.id }}"
+        />
       </div>
     </div>
   </div>
 </div>
 
 <style>
-/* 🔹 Fondo del popup */
-.popup-comparador-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
-  justify-content: center;
-  align-items: center;
-}
-
-/* 🔹 Contenedor del popup */
+/* 🔹 Estilos del popup */
 .popup-comparador-content {
   background: #fff;
   padding: 20px;
   max-width: 600px;
   width: 90%;
+  margin: 20px auto;
   position: relative;
   border-radius: 8px;
-  animation: fadeIn 0.3s ease-in-out;
 }
 
-/* 🔹 Animación de entrada */
-@keyframes fadeIn {
-  from {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+.popup-comparador-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-/* 🔹 Botón de cierre */
+.popup-comparador-header h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
 .popup-comparador__close {
   font-size: 28px;
   background: none;
   border: none;
   cursor: pointer;
   padding: 5px 10px;
-  position: absolute;
-  right: 15px;
-  top: 10px;
+}
+
+.popup-comparador-body {
+  width: 100%;
+}
+
+.popup-comparador-before-after {
+  width: 100%;
+  margin: 0 auto;
 }
 
 /* 🔹 Estilos del comparador */
@@ -97,7 +78,6 @@
   width: 100%;
   overflow: hidden;
   position: relative;
-  transition: all 0.3s ease-in-out;
 }
 
 .before-after-container figure {
@@ -110,7 +90,7 @@
 }
 
 /* 🔹 Ajustar la imagen superpuesta */
-.before-image {
+#before_after_{{ product.id }} {
   background-image: url({{ before_image }});
   background-size: cover;
   background-repeat: no-repeat;
@@ -119,32 +99,49 @@
   top: 0;
   left: 0;
   bottom: 0;
-  width: 0%; /* Inicia en 0% para la animación */
-  transition: width 1.5s ease-in-out;
+  width: 50%; /* Se actualizará dinámicamente */
+  transition: width 0.2s ease-out; /* Efecto suave de deslizamiento */
   border-right: 5px solid rgba(255, 255, 255, 0.7);
   box-shadow: 10px 0 15px -13px #000;
   height: 100%;
+  min-width: 0.6%;
+  max-width: 98.6%;
 }
 
-/* 🔹 Estilos del slider */
+/* 🔹 Corrección del slider dentro del popup */
 input[type="range"] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   background: transparent;
-  cursor: col-resize;
-  height: 100vw;
+  cursor: grab; /* Cambia el cursor para indicar que es arrastrable */
+  height: 40px !important; /* Aumentamos el tamaño para mejorar la interacción */
   left: 0;
   margin: 0;
   outline: none;
   padding: 0;
   position: absolute;
-  top: 50%;
+  top: 50%; /* Centrarlo correctamente */
   width: 100%;
   transform: translateY(-50%);
-  z-index: 99999;
-  pointer-events: all;
-  opacity: 1;
+  z-index: 99999 !important; /* Asegurar que esté encima */
+  pointer-events: all !important;
+  opacity: 1 !important;
+}
+
+/* 🔹 Asegurar que el slider funcione correctamente */
+input[type="range"]:active {
+  cursor: grabbing; /* Cambia el cursor cuando el usuario lo arrastra */
+}
+
+/* 🔹 Solución: Evitar que otros `div` cubran el slider */
+.before-after-container::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
 }
 
 /* 🔹 Ajustes móviles */
@@ -162,7 +159,7 @@ input[type="range"] {
 </style>
 
 <script>
-/* 🔹 Función para actualizar el comparador */
+/* 🔹 Función corregida para cambiar el ancho de la imagen superpuesta */
 function beforeAfter(productId) {
     let slider = document.getElementById("before_after_slider_" + productId);
     let beforeDiv = document.getElementById("before_after_" + productId);
@@ -172,54 +169,40 @@ function beforeAfter(productId) {
     }
 }
 
-/* 🔹 Animación inicial */
+/* 🔹 Asegurar que el comparador se actualiza cuando el popup se abre */
 document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll("[id^='before_after_']").forEach(el => {
-        setTimeout(() => {
-            el.style.width = "50%";
-        }, 300);
+    document.querySelectorAll("[data-popup-comparador]").forEach(button => {
+        button.addEventListener("click", function () {
+            setTimeout(function () {
+                document.querySelectorAll('[id^="before_after_"]').forEach(el => {
+                    beforeAfter(el.id.replace("before_after_", ""));
+                });
+
+                // 🔹 Asegurar que el slider sea interactivo
+                document.querySelectorAll("input[type='range']").forEach(input => {
+                    input.style.pointerEvents = "all";
+                    input.style.opacity = "1";
+                    input.focus();
+                    input.click();
+                });
+
+                // 🔹 Forzar eventos de mouse en el slider
+                document.querySelectorAll("input[type='range']").forEach(input => {
+                    input.addEventListener("input", function() {
+                        let productId = this.id.replace("before_after_slider_", "");
+                        beforeAfter(productId);
+                    });
+                });
+
+            }, 500);
+        });
     });
 
-    // 🔹 Hacer que el slider funcione
+    // 🔹 Asegurar que `beforeAfter()` funcione al mover el slider
     document.querySelectorAll("input[type='range']").forEach(input => {
         input.addEventListener("input", function() {
             let productId = this.id.replace("before_after_slider_", "");
             beforeAfter(productId);
-        });
-    });
-});
-
-/* 🔹 Funcionalidad del popup */
-document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll("[data-popup-comparador]").forEach(button => {
-        button.addEventListener("click", function () {
-            let popupId = this.getAttribute("data-popup-id");
-            let popupOverlay = document.getElementById(popupId);
-            if (popupOverlay) {
-                popupOverlay.style.display = "flex";
-
-                // 🔹 Reiniciar la animación del comparador cuando se abre el popup
-                setTimeout(() => {
-                    document.querySelectorAll("[id^='before_after_']").forEach(el => {
-                        el.style.width = "50%";
-                    });
-                }, 300);
-            }
-        });
-    });
-
-    document.querySelectorAll(".popup-comparador__close").forEach(closeButton => {
-        closeButton.addEventListener("click", function () {
-            this.closest(".popup-comparador-overlay").style.display = "none";
-        });
-    });
-
-    // 🔹 Cerrar el popup si se hace clic fuera de él
-    document.querySelectorAll(".popup-comparador-overlay").forEach(popup => {
-        popup.addEventListener("click", function (event) {
-            if (event.target === popup) {
-                popup.style.display = "none";
-            }
         });
     });
 });
