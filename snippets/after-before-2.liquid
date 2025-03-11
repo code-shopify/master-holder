@@ -17,8 +17,6 @@
       value="50" 
       id="before_after_slider_{{ product.id }}" 
       class="before-after-slider"
-      oninput="updateBeforeAfter(this)"
-      onchange="updateBeforeAfter(this)"
     />
   </div>
 
@@ -30,8 +28,6 @@
       background: #1f1f1c;
       overflow: hidden;
       touch-action: none;
-      user-select: none;
-      -webkit-user-select: none;
     }
 
     .before-after-container figure {
@@ -59,7 +55,6 @@
       box-shadow: 10px 0 15px -13px #000;
       animation: slider-init 2s ease-in-out;
       pointer-events: none;
-      will-change: width;
     }
 
     .before-after::before {
@@ -82,23 +77,15 @@
       width: 100%;
       height: 100%;
       -webkit-appearance: none;
-      -moz-appearance: none;
       appearance: none;
       background: transparent;
       cursor: col-resize;
       margin: 0;
-      padding: 0;
       z-index: 10;
-      touch-action: none;
-    }
-
-    .before-after-slider:focus {
-      outline: none;
     }
 
     .before-after-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
-      appearance: none;
       width: 40px;
       height: 100%;
       background: transparent;
@@ -106,14 +93,6 @@
     }
 
     .before-after-slider::-moz-range-thumb {
-      width: 40px;
-      height: 100%;
-      background: transparent;
-      cursor: col-resize;
-      border: none;
-    }
-
-    .before-after-slider::-ms-thumb {
       width: 40px;
       height: 100%;
       background: transparent;
@@ -129,47 +108,38 @@
   </style>
 
   <script>
-    function updateBeforeAfter(input) {
-      const slider = document.getElementById("before_after_" + {{ product.id }});
-      if (slider) {
-        slider.style.width = input.value + "%";
-      }
-    }
-
     function initBeforeAfter(productId) {
       const slider = document.getElementById("before_after_" + productId);
       const range = document.getElementById("before_after_slider_" + productId);
       
-      if (!slider || !range) return;
-
-      // Prevenir eventos de scroll y otros comportamientos por defecto
-      range.addEventListener('touchstart', function(e) {
-        e.stopPropagation();
-      }, { passive: false });
-
-      range.addEventListener('touchmove', function(e) {
-        e.stopPropagation();
-      }, { passive: false });
-
-      range.addEventListener('mousedown', function(e) {
-        e.stopPropagation();
-      }, { passive: false });
-
-      // Valor inicial
-      range.value = 50;
-      slider.style.width = "50%";
+      if (slider && range) {
+        const updateSlider = (e) => {
+          e.preventDefault();
+          slider.style.width = range.value + "%";
+        };
+        
+        // Eliminar listeners anteriores si existen
+        range.removeEventListener('input', updateSlider);
+        range.removeEventListener('change', updateSlider);
+        
+        // Agregar nuevos listeners
+        range.addEventListener('input', updateSlider);
+        range.addEventListener('change', updateSlider);
+        
+        // Prevenir eventos de scroll en móviles
+        range.addEventListener('touchmove', function(e) {
+          e.stopPropagation();
+        }, { passive: false });
+        
+        // Valor inicial
+        range.value = 50;
+        slider.style.width = "50%";
+      }
     }
 
     // Inicializar cuando el DOM esté listo
     document.addEventListener('DOMContentLoaded', function() {
       initBeforeAfter({{ product.id }});
-    });
-
-    // Reinicializar cuando el popup se abra
-    document.addEventListener('popup:opened', function() {
-      setTimeout(() => {
-        initBeforeAfter({{ product.id }});
-      }, 100);
     });
   </script>
 {% endif %}
