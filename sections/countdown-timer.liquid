@@ -1,6 +1,162 @@
-{% schema %}
+{% assign namespace = "custom" %}
+{% assign key_cold = "cold_hours" %}
+{% assign key_hot = "hot_hours" %}
+
+{% if section.settings.cold_hours != blank %}
+  {% assign cold_hours = section.settings.cold_hours %}
+  {% assign hot_hours = section.settings.hot_hours %}
+{% endif %}
+
+<script type="application/json" data-section-type="countdown-timer" data-section-id="{{ section.id }}">
   {
-    "name": "Section name",
-    "settings": []
+    "cold_hours": {{ cold_hours | default: 50 }},
+    "hot_hours": {{ hot_hours | default: 10 }}
   }
+</script>
+
+<section class="count-hours-section" 
+  data-cold-hours="{{ section.settings.cold_hours }}" 
+  data-hot-hours="{{ section.settings.hot_hours }}">
+ 
+  
+  <div class="count-hours-section" class=" t4s-section t4s-section-all">
+    <div  class="t4s-row"> 
+  <div class="t4s-container">
+    <div class="count-hours-item cold">
+      <strong><span id="cold-counter">0</span> HORAS FRIO</strong>
+    </div>
+    <div class="count-hours-item hot">
+      <strong><span id="hot-counter">0</span> HORAS CALIENTE</strong>
+    </div>
+  </div>
+  </div>
+    </div>
+    
+</section>
+
+
+{% schema %}
+{
+  "name": "Countdown Frio-Calor",
+  "settings": [
+    {
+      "type": "range",
+      "id": "cold_hours",
+      "label": "Horas frías",
+      "default": 50,
+      "min": 1,
+      "max": 100,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "hot_hours",
+      "label": "Horas calientes",
+      "default": 10,
+      "min": 1,
+      "max": 100,
+      "step": 1
+    }
+  ],
+  "presets": [
+    {
+      "name": "Countdown Timer",
+      "category": "Custom"
+    }
+  ]
+}
 {% endschema %}
+
+
+
+{% stylesheet %}
+  .count-hours-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .count-hours-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    background-color: #fff;
+    overflow: hidden;
+    margin-top: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .count-hours-item {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    font-size: 40px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    line-height: 4.375rem;
+  }
+
+  .cold {
+    color: #007BFF;
+    border-right: 2px solid #eee;
+  }
+
+  .hot {
+    color: #DC3545;
+  }
+
+  @media (max-width: 768px) {
+    .count-hours-container {
+      flex-direction: row;
+    }
+    .count-hours-item {
+      font-size: 24px;
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  function startCounter(id, maxValue, duration) {
+    let counter = document.getElementById(id);
+    let start = 0;
+    let stepTime = Math.abs(Math.floor(duration / maxValue));
+
+    let timer = setInterval(() => {
+      start++;
+      counter.innerText = start;
+      if (start >= maxValue) {
+        clearInterval(timer);
+      }
+    }, stepTime);
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    let section = document.querySelector(".count-hours-section");
+
+    if (section) {
+      let coldHours = parseInt(section.getAttribute("data-cold-hours"), 10);
+      let hotHours = parseInt(section.getAttribute("data-hot-hours"), 10);
+
+      let observer = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              startCounter("cold-counter", coldHours, 2000);
+              startCounter("hot-counter", hotHours, 2000);
+              observer.disconnect(); // Evita que el contador se reinicie
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+
+      observer.observe(section);
+    }
+  });
+{% endjavascript %}
