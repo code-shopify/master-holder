@@ -2,115 +2,90 @@
   Popup para mostrar la comparación de productos
 {% endcomment %}
 
-<div id="popup-comparador-{{ product.id }}" class="popup-comparador t4s-mfp-hide">
-  <div class="popup-comparador__content">
-    <button type="button" class="popup-comparador__close" aria-label="{{ 'compare_popup.close' | t }}">&times;</button>
-    <div class="popup-comparador__body">
+<div class="popup-comparador-content">
+  <div class="popup-comparador-header">
+    <h2>{{ 'compare_popup.title' | t }}</h2>
+    <button type="button" class="popup-comparador__close" aria-label="{{ 'compare_popup.close' | t }}">×</button>
+  </div>
+  
+  <div class="popup-comparador-body">
+    <div class="popup-comparador-before-after">
       {% render 'after-before-2' %}
     </div>
   </div>
 </div>
 
 <style>
-.popup-comparador {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  z-index: 9999;
-  display: none;
-  align-items: center;
-  justify-content: center;
-}
-
-.popup-comparador.active {
-  display: flex;
-}
-
-.popup-comparador__content {
-  background: white;
+.popup-comparador-content {
+  background: #fff;
   padding: 20px;
-  border-radius: 8px;
-  position: relative;
+  max-width: 600px;
   width: 90%;
-  max-width: 800px;
+  margin: 20px auto;
+  position: relative;
+  border-radius: 8px;
+}
+
+.popup-comparador-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.popup-comparador-header h2 {
+  margin: 0;
+  font-size: 24px;
 }
 
 .popup-comparador__close {
-  position: absolute;
-  right: 10px;
-  top: 10px;
+  font-size: 28px;
   background: none;
   border: none;
-  font-size: 24px;
   cursor: pointer;
-  z-index: 10000;
-  width: 30px;
-  height: 30px;
+  padding: 5px 10px;
+}
+
+.popup-comparador-body {
+  width: 100%;
+}
+
+.popup-comparador-before-after {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Asegurar que el popup tenga suficiente z-index */
+.popup-comparador-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999999;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #333;
 }
 
-.popup-comparador__body {
-  width: 100%;
-  aspect-ratio: 1;
-  position: relative;
-  overflow: hidden;
-}
-
+/* Ajustes para dispositivos móviles */
 @media (max-width: 767px) {
-  .popup-comparador__content {
-    width: calc(100% - 30px);
+  .popup-comparador-content {
     padding: 15px;
+    margin: 15px;
+    width: calc(100% - 30px);
+  }
+  
+  .popup-comparador-header h2 {
+    font-size: 20px;
   }
 }
 </style>
 
 <script>
-// Escuchar clicks en elementos con data-popup-comparador
-document.addEventListener('click', function(e) {
-  const trigger = e.target.closest('[data-popup-comparador]');
-  if (trigger) {
-    e.preventDefault();
-    const popupId = trigger.getAttribute('data-popup-id');
-    const popup = document.getElementById(popupId);
-    if (popup) {
-      popup.classList.add('active');
-      document.body.style.overflow = 'hidden';
-      setTimeout(beforeAfter, 100);
-    }
-  }
-});
-
-// Cerrar con el botón
-document.querySelectorAll('.popup-comparador__close').forEach(button => {
-  button.addEventListener('click', function() {
-    const popup = this.closest('.popup-comparador');
-    if (popup) {
-      popup.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-  });
-});
-
-// Cerrar al hacer clic fuera del contenido
-document.querySelectorAll('.popup-comparador').forEach(popup => {
-  popup.addEventListener('click', function(e) {
-    if (e.target === this) {
-      this.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-  });
-});
-
-// Prevenir que el popup se cierre al interactuar con el slider
-document.querySelectorAll('.popup-comparador__body').forEach(body => {
-  body.addEventListener('click', function(e) {
-    e.stopPropagation();
-  });
+document.addEventListener('popup:opened', function() {
+  // Reinicializar el slider cuando se abra el popup
+  setTimeout(beforeAfter, 100);
 });
 </script>
