@@ -66,37 +66,38 @@
 </style>
 <script>
   function startCounter(id, maxValue, duration) {
-    let counter = document.getElementById(id);
+    const counter = document.getElementById(id);
     let start = 0;
+    const stepTime = Math.floor(duration / maxValue);
     
-    // Calcular el tiempo entre cada incremento
-    let stepTime = Math.floor(duration / maxValue);
-
-    let timer = setInterval(() => {
-      start++; // Primero se incrementa el valor
-
-      counter.innerText = start; // Luego se actualiza en la interfaz
-
-      if (start >= maxValue) { // Se detiene en el número exacto
+    const timer = setInterval(() => {
+      // Incrementa el contador
+      start++;
+      
+      // Si se alcanzó o superó el valor máximo, fija el valor exacto y detén el timer
+      if (start >= maxValue) {
+        counter.innerText = maxValue;
         clearInterval(timer);
+      } else {
+        counter.innerText = start;
       }
     }, stepTime);
   }
 
   document.addEventListener("DOMContentLoaded", function () {
-    let section = document.querySelector(".count-hours-section");
+    const section = document.querySelector(".count-hours-section");
     if (section) {
-      let coldHours = 12; // Se detendrá en 12
-      let hotHours = 8;   // Se detendrá en 8
-      let totalDuration = 2000; // Tiempo total en milisegundos (3s para efecto visual)
+      const coldHours = 12; // Se detendrá en 12
+      const hotHours = 8;   // Se detendrá en 8
+      const totalDuration = 2000; // Duración total en milisegundos
 
-      let observer = new IntersectionObserver(
+      const observer = new IntersectionObserver(
         (entries, observer) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               startCounter("cold-counter", coldHours, totalDuration);
               startCounter("hot-counter", hotHours, totalDuration);
-              observer.disconnect(); // Se desconecta para evitar reinicio
+              observer.disconnect(); // Evita que se reinicie el contador
             }
           });
         },
