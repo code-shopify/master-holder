@@ -14,41 +14,19 @@
   
   <div class="popup-comparador-body">
     <div class="popup-comparador-before-after">
-      <div class="container before_after">
-        <div class="image-container">
-          <div class="before_img">
-            <img
-              class="image-before slider-image"
-              src="{{ before_image }}"
-              alt="Imagen antes"
-            >
-            <span class="before_badge ba_badge">Antes</span>
-          </div>
-          <div class="after_img">
-            <img
-              class="image-after slider-image"
-              src="{{ after_image }}"
-              alt="Imagen después"
-            >
-            <span class="after_badge ba_badge">Después</span>
-          </div>
-        </div>
-        <input
-          type="range"
-          min="0"
-          max="100"
-          value="50"
-          class="ba-slider"
-        >
-        <div class="slider-line" aria-hidden="true"></div>
-        <div class="slider-button" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#fff" viewBox="0 0 256 256">
-            <rect width="256" height="256" fill="none"></rect>
-            <line x1="128" y1="40" x2="128" y2="216" stroke="currentColor" stroke-width="16" stroke-linecap="round"></line>
-            <line x1="96" y1="128" x2="16" y2="128" stroke="currentColor" stroke-width="16" stroke-linecap="round"></line>
-            <line x1="160" y1="128" x2="240" y2="128" stroke="currentColor" stroke-width="16" stroke-linecap="round"></line>
-          </svg>
-        </div>
+      <div class="before-after-container">
+        <figure>
+          <div id="before_after_{{ product.id }}"></div>
+        </figure>
+        <input 
+          oninput="beforeAfter()"
+          onchange="beforeAfter()"
+          type="range" 
+          min="0" 
+          max="100" 
+          value="50" 
+          id="before_after_slider_{{ product.id }}"
+        />
       </div>
     </div>
   </div>
@@ -95,94 +73,89 @@
 }
 
 /* Estilos del comparador */
-.container.before_after {
-  position: relative;
+.before-after-container {
+  aspect-ratio: 1 / 1;
+  background: #1f1f1c;
+  width: 100%;
   overflow: hidden;
-  aspect-ratio: 1/1;
-  width: 100%;
-  border-radius: 8px;
-  --position: 50%;
-}
-
-.image-container {
-  width: 100%;
-  height: 100%;
   position: relative;
 }
 
-.slider-image {
+.before-after-container figure {
+  background-image: url({{ after_image }});
+  position: relative;
+  margin: 0;
+  background-size: cover;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
 }
 
-.before_img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
+#before_after_{{ product.id }} {
+  background-image: url({{ before_image }});
+  background-size: cover;
+  bottom: 0;
+  border-right: 5px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 10px 0 15px -13px #000;
   height: 100%;
-  clip-path: inset(0 calc(100% - var(--position)) 0 0);
+  max-width: 98.6%;
+  min-width: 0.6%;
+  overflow: visible;
+  position: absolute;
+  width: 50%;
+  animation: first 2s 1 normal ease-in-out 0.1s;
 }
 
-.ba-slider {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+input[type="range"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
   cursor: col-resize;
-  opacity: 0;
-  z-index: 30;
-}
-
-.slider-line {
-  position: absolute;
-  width: 2px;
   height: 100%;
-  background-color: white;
-  left: var(--position);
-  transform: translateX(-50%);
-  pointer-events: none;
-  z-index: 20;
-}
-
-.slider-button {
+  left: 0;
+  margin: 0;
+  outline: none;
+  padding: 0;
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.7);
-  color: black;
-  padding: 10px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  top: 50%;
-  left: var(--position);
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  width: 20px;
-  height: 40px;
-  z-index: 20;
+  top: 0;
+  width: 100%;
+  z-index: 10;
 }
 
-.ba_badge {
-  position: absolute;
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  padding: 5px 10px;
-  border-radius: 4px;
-  font-size: 14px;
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 100%;
+  width: 40px;
+  opacity: 0;
 }
 
-.before_badge {
-  top: 10px;
-  left: 10px;
+input[type="range"]::-moz-range-thumb {
+  -moz-appearance: none;
+  height: 100%;
+  width: 40px;
+  opacity: 0;
+  border: none;
 }
 
-.after_badge {
-  top: 10px;
-  right: 10px;
+#before_after_{{ product.id }}::before {
+  background: url('https://assets.codepen.io/191814/comparision.png') no-repeat scroll 0 center transparent;
+  background-size: contain;
+  content: " ";
+  float: right;
+  height: 100%;
+  margin-right: -34px;
+  position: relative;
+  top: 0;
+  width: 64px;
 }
 
+@keyframes first {
+  0% { width: 0%; }
+  50% { width: 80%; }
+  100% { width: 50%; }
+}
+
+/* Ajustes para dispositivos móviles */
 @media (max-width: 767px) {
   .popup-comparador-content {
     padding: 15px;
@@ -197,28 +170,13 @@
 </style>
 
 <script>
+function beforeAfter() {
+  document.getElementById("before_after_{{ product.id }}").style.width =
+    document.getElementById("before_after_slider_{{ product.id }}").value + "%";
+}
+
 document.addEventListener('popup:opened', function() {
-  setTimeout(() => {
-    const container = document.querySelector(".before_after");
-    const slider = document.querySelector(".ba-slider");
-    
-    if (container && slider) {
-      // Limpiar eventos anteriores
-      slider.removeEventListener('input', handleSlider);
-      
-      // Agregar nuevo evento
-      slider.addEventListener('input', handleSlider);
-      
-      // Función para manejar el slider
-      function handleSlider(e) {
-        container.style.setProperty("--position", `${e.target.value}%`);
-      }
-      
-      // Inicializar posición
-      container.style.setProperty("--position", "50%");
-      slider.value = 50;
-    }
-  }, 100);
+  setTimeout(beforeAfter, 100);
 });
 </script>
 {% endif %}
