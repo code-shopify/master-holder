@@ -3,22 +3,22 @@
 
 <style>
 :root {
-  --comp-before-after-ratio: 1 / 1;
-  --comp-before-img: url({{ before_image }});
-  --comp-after-img: url({{ after_image }});
-  --comp-bg-color: #1f1f1c;
+  --codefy-aspect-ratio: 1 / 1;
+  --codefy-before-image: url({{ before_image }});
+  --codefy-after-image: url({{ after_image }});
+  --codefy-bg-color: #1f1f1c;
 }
 
-.comp-image-container {
-  aspect-ratio: var(--comp-before-after-ratio);
-  background: var(--comp-bg-color);
+.codefy-comparison-wrapper {
+  aspect-ratio: var(--codefy-aspect-ratio);
+  background: var(--codefy-bg-color);
   width: 100%;
   overflow: hidden;
   transition: all 0.3s ease-in-out;
 }
 
-.comp-image-container figure {
-  background-image: var(--comp-after-img);
+.codefy-comparison-wrapper figure {
+  background-image: var(--codefy-after-image);
   position: relative;
   margin: 0;
   background-size: cover;
@@ -26,8 +26,8 @@
   height: 100%;
 }
 
-#comp_image_before {
-  background-image: var(--comp-before-img);
+#codefy_comparison_slider {
+  background-image: var(--codefy-before-image);
   background-size: cover;
   bottom: 0;
   border-right: 5px solid rgba(255, 255, 255, 0.7);
@@ -38,11 +38,11 @@
   overflow: visible;
   position: absolute;
   width: 50%;
-  animation: comp_first 2s 1 normal ease-in-out 0.1s;
-  -webkit-animation: comp_first 2s 1 normal ease-in-out 0.1s;
+  animation: codefyFirst 2s 1 normal ease-in-out 0.1s;
+  -webkit-animation: codefyFirst 2s 1 normal ease-in-out 0.1s;
 }
 
-input#comp_image_slider {
+input#codefy_range_input {
   -moz-appearance: none;
   -webkit-appearance: none;
   border: none;
@@ -58,11 +58,11 @@ input#comp_image_slider {
   width: 100%;
 }
 
-input#comp_image_slider::-moz-range-track {
+input#codefy_range_input::-moz-range-track {
   background: transparent;
 }
 
-input#comp_image_slider::-ms-track {
+input#codefy_range_input::-ms-track {
   border: none;
   background-color: transparent;
   height: 100vw;
@@ -77,35 +77,35 @@ input#comp_image_slider::-ms-track {
   color: transparent;
 }
 
-input#comp_image_slider::-ms-fill-lower {
+input#codefy_range_input::-ms-fill-lower {
   background-color: transparent;
 }
 
-input#comp_image_slider::-webkit-slider-thumb {
+input#codefy_range_input::-webkit-slider-thumb {
   -webkit-appearance: none;
   height: 100vw;
   width: 0.5%;
   opacity: 0;
 }
 
-input#comp_image_slider::-moz-range-thumb {
+input#codefy_range_input::-moz-range-thumb {
   -moz-appearance: none;
   height: 100vw;
   width: 0.5%;
   opacity: 0;
 }
 
-input#comp_image_slider::-ms-thumb {
+input#codefy_range_input::-ms-thumb {
   height: 100vw;
   width: 0.5%;
   opacity: 0;
 }
 
-input#comp_image_slider::-ms-tooltip {
+input#codefy_range_input::-ms-tooltip {
   display: none;
 }
 
-#comp_image_before::before {
+#codefy_comparison_slider::before {
   background: url(https://assets.codepen.io/191814/comparision.png) no-repeat scroll 0 center transparent;
   background-size: contain;
   content: " ";
@@ -117,30 +117,30 @@ input#comp_image_slider::-ms-tooltip {
   width: 64px;
 }
 
-@keyframes comp_first {
+@keyframes first {
   0% { width: 0%; }
   50% { width: 80%; }
   100% { width: 50%; }
 }
 
-@-webkit-keyframes comp_first {
+@-webkit-keyframes first {
   0% { width: 0%; }
   50% { width: 80%; }
   100% { width: 50%; }
 }
 </style>
 
-<div class="comp-image-container">
+<div class="codefy-comparison-wrapper">
   <figure>
-    <div id="comp_image_before"></div>
+    <div id="codefy_comparison_slider"></div>
   </figure>
-  <input oninput="compBeforeAfter()" onchange="compBeforeAfter()" type="range" min="0" max="100" value="50" id="comp_image_slider" />
+  <input oninput="codefyCompare()" onchange="codefyCompare()" type="range" min="0" max="100" value="50" id="codefy_range_input" />
 </div>
 
 <script>
-function compBeforeAfter() {
-  document.getElementById("comp_image_before").style.width = 
-    document.getElementById("comp_image_slider").value + "%";
+function codefyCompare() {
+  document.getElementById("codefy_comparison_slider").style.width = 
+    document.getElementById("codefy_range_input").value + "%";
 }
 </script>
 
