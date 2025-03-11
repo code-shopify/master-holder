@@ -1,19 +1,19 @@
 <section class="count-hours-section" 
-  data-cold-hours="{{ section.settings.cold_hours }}" 
-  data-hot-hours="{{ section.settings.hot_hours }}">
+  data-cold-hours="{{ cold_hours }}" 
+  data-hot-hours="{{ hot_hours }}">
   <div class="t4s-container t4s-main-product__content is--layout_default t4s-product-media__thumbnails_bottom t4s-product-thumb-size__medium"> 
   <div class="count-hours-container">
     <div class="count-hours-item cold">
-      <strong>HASTA <span id="cold-counter">12</span> HRS FRÍO</strong>
+      <strong>HASTA <span id="cold-counter">0</span> HRS FRÍO</strong>
     </div>
     <div class="count-hours-item hot">
-      <strong>HASTA <span id="hot-counter">8</span> HRS CALIENTE</strong>
+      <strong>HASTA <span id="hot-counter">0</span> HRS CALIENTE</strong>
     </div>
   </div>
-    </div>
+  </div>
 </section>
 
-{% stylesheet %}
+<style>
   .count-hours-section {
     display: flex;
     justify-content: center;
@@ -63,9 +63,9 @@
       font-size: 24px;
     }
   }
-{% endstylesheet %}
+</style>
 
-{% javascript %}
+<script>
   function startCounter(id, maxValue, duration) {
     let counter = document.getElementById(id);
     let start = 0;
@@ -103,4 +103,4 @@
       observer.observe(section);
     }
   });
-{% endjavascript %}
+</script>
