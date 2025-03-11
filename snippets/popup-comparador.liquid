@@ -33,7 +33,7 @@
 </div>
 
 <style>
-/* Estilos del popup */
+/* 🔹 Estilos del popup */
 .popup-comparador-content {
   background: #fff;
   padding: 20px;
@@ -73,7 +73,7 @@
   margin: 0 auto;
 }
 
-/* Estilos del comparador */
+/* 🔹 Estilos del comparador */
 .before-after-container {
   aspect-ratio: 1 / 1;
   background: #1f1f1c;
@@ -106,70 +106,43 @@
   animation: first 2s 1 normal ease-in-out 0.1s;
 }
 
-/* 🔹 Solución: Asegurar que el slider sea interactivo */
+/* 🔹 Corrección del slider dentro del popup */
 input[type="range"] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   background: transparent;
   cursor: col-resize;
-  height: 100%;
+  height: 20px !important; /* Ajustamos la altura para mejorar la interacción */
   left: 0;
   margin: 0;
   outline: none;
   padding: 0;
   position: absolute;
-  top: 0;
+  top: 50%; /* Lo centramos correctamente */
   width: 100%;
-  z-index: 9999 !important;
+  transform: translateY(-50%);
+  z-index: 99999 !important; /* Asegurar que esté encima */
   pointer-events: all !important;
+  opacity: 1 !important;
 }
 
-/* 🔹 Hacer el slider visible temporalmente para pruebas */
-input[type="range"] {
-  background: red !important; 
-  height: 10px !important;
+/* 🔹 Evitar que otros `div` bloqueen la interacción */
+.before-after-container::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
 }
 
-/* 🔹 Depurar: Verificar si hay un `div` cubriendo el slider */
+/* 🔹 Depuración visual: Ver si hay elementos bloqueando */
 .before-after-container * {
-  outline: 2px solid red !important; /* Resalta los elementos para ver si algo lo tapa */
+  outline: 2px solid red !important; /* Borrar después de la prueba */
 }
 
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  height: 100%;
-  width: 40px;
-  opacity: 0;
-}
-
-input[type="range"]::-moz-range-thumb {
-  -moz-appearance: none;
-  height: 100%;
-  width: 40px;
-  opacity: 0;
-  border: none;
-}
-
-#before_after_{{ product.id }}::before {
-  background: url('https://assets.codepen.io/191814/comparision.png') no-repeat scroll 0 center transparent;
-  background-size: contain;
-  content: " ";
-  float: right;
-  height: 100%;
-  margin-right: -34px;
-  position: relative;
-  top: 0;
-  width: 64px;
-}
-
-@keyframes first {
-  0% { width: 0%; }
-  50% { width: 80%; }
-  100% { width: 50%; }
-}
-
-/* Ajustes para dispositivos móviles */
+/* 🔹 Ajustes móviles */
 @media (max-width: 767px) {
   .popup-comparador-content {
     padding: 15px;
@@ -184,28 +157,32 @@ input[type="range"]::-moz-range-thumb {
 </style>
 
 <script>
+/* 🔹 Función de comparación de imágenes */
 function beforeAfter(productId) {
   document.getElementById("before_after_" + productId).style.width =
     document.getElementById("before_after_slider_" + productId).value + "%";
 }
 
-/* 🔹 Asegurar que `beforeAfter()` se ejecute al abrir el popup */
+/* 🔹 Ejecutar `beforeAfter()` cuando se abre el popup */
 document.addEventListener("DOMContentLoaded", function () {
-  document.querySelectorAll("[data-popup-comparador]").forEach(button => {
-    button.addEventListener("click", function () {
-      setTimeout(function () {
-        document.querySelectorAll('[id^="before_after_"]').forEach(el => {
-          beforeAfter(el.id.replace("before_after_", ""));
-        });
+    document.querySelectorAll("[data-popup-comparador]").forEach(button => {
+        button.addEventListener("click", function () {
+            setTimeout(function () {
+                document.querySelectorAll('[id^="before_after_"]').forEach(el => {
+                    beforeAfter(el.id.replace("before_after_", ""));
+                });
 
-        // 🔹 Forzar el foco en el slider para hacerlo interactivo
-        document.querySelectorAll("input[type='range']").forEach(input => {
-          input.focus();
-        });
+                // 🔹 Forzar el foco en el slider para hacerlo interactivo
+                document.querySelectorAll("input[type='range']").forEach(input => {
+                    input.style.pointerEvents = "all";
+                    input.style.opacity = "1"; // Asegurar que sea visible
+                    input.focus();
+                    input.click();
+                });
 
-      }, 500);
+            }, 500);
+        });
     });
-  });
 });
 </script>
 {% endif %}
