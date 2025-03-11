@@ -19,8 +19,8 @@
           <div id="before_after_{{ product.id }}"></div>
         </figure>
         <input 
-          oninput="beforeAfter()"
-          onchange="beforeAfter()"
+          oninput="beforeAfter({{ product.id }})"
+          onchange="beforeAfter({{ product.id }})"
           type="range" 
           min="0" 
           max="100" 
@@ -33,6 +33,7 @@
 </div>
 
 <style>
+/* Estilos del popup */
 .popup-comparador-content {
   background: #fff;
   padding: 20px;
@@ -105,6 +106,7 @@
   animation: first 2s 1 normal ease-in-out 0.1s;
 }
 
+/* 🔹 Solución: Asegurar que el slider sea interactivo */
 input[type="range"] {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -119,7 +121,19 @@ input[type="range"] {
   position: absolute;
   top: 0;
   width: 100%;
-  z-index: 10;
+  z-index: 9999 !important;
+  pointer-events: all !important;
+}
+
+/* 🔹 Hacer el slider visible temporalmente para pruebas */
+input[type="range"] {
+  background: red !important; 
+  height: 10px !important;
+}
+
+/* 🔹 Depurar: Verificar si hay un `div` cubriendo el slider */
+.before-after-container * {
+  outline: 2px solid red !important; /* Resalta los elementos para ver si algo lo tapa */
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -167,36 +181,31 @@ input[type="range"]::-moz-range-thumb {
     font-size: 20px;
   }
 }
-
-  .popup-comparador-content input[type="range"] {
-  pointer-events: all !important;
-  z-index: 1000 !important;
-  position: relative;
-}
-
-  input[type="range"] {
-  background: red !important; /* Para hacer visible el slider */
-  height: 10px !important;
-}
 </style>
 
 <script>
-function beforeAfter() {
-  document.getElementById("before_after_{{ product.id }}").style.width =
-    document.getElementById("before_after_slider_{{ product.id }}").value + "%";
+function beforeAfter(productId) {
+  document.getElementById("before_after_" + productId).style.width =
+    document.getElementById("before_after_slider_" + productId).value + "%";
 }
 
+/* 🔹 Asegurar que `beforeAfter()` se ejecute al abrir el popup */
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll("[data-popup-comparador]").forEach(button => {
     button.addEventListener("click", function () {
       setTimeout(function () {
         document.querySelectorAll('[id^="before_after_"]').forEach(el => {
-          beforeAfter();
+          beforeAfter(el.id.replace("before_after_", ""));
         });
-      }, 500); // Espera para que el popup se abra antes de ejecutar la función
+
+        // 🔹 Forzar el foco en el slider para hacerlo interactivo
+        document.querySelectorAll("input[type='range']").forEach(input => {
+          input.focus();
+        });
+
+      }, 500);
     });
   });
 });
-
 </script>
 {% endif %}
