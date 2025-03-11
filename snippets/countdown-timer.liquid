@@ -1,0 +1,105 @@
+<div class="count-hours-section">
+  <div class="t4s-row"> 
+    <div class="t4s-container">
+      <div class="count-hours-item cold">
+        <strong><span id="cold-counter">0</span> HORAS FRIO</strong>
+      </div>
+      <div class="count-hours-item hot">
+        <strong><span id="hot-counter">0</span> HORAS CALIENTE</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .count-hours-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .count-hours-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    background-color: #fff;
+    overflow: hidden;
+    margin-top: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .count-hours-item {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    font-size: 40px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    line-height: 4.375rem;
+  }
+
+  .cold {
+    color: #007BFF;
+    border-right: 2px solid #eee;
+  }
+
+  .hot {
+    color: #DC3545;
+  }
+
+  @media (max-width: 768px) {
+    .count-hours-container {
+      flex-direction: row;
+    }
+    .count-hours-item {
+      font-size: 24px;
+    }
+  }
+</style>
+
+<script>
+  function startCounter(id, maxValue, duration) {
+    let counter = document.getElementById(id);
+    let start = 0;
+    let stepTime = Math.abs(Math.floor(duration / maxValue));
+
+    let timer = setInterval(() => {
+      start++;
+      counter.innerText = start;
+      if (start >= maxValue) {
+        clearInterval(timer);
+      }
+    }, stepTime);
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    let section = document.querySelector(".count-hours-section");
+
+    if (section) {
+      // Valores hardcodeados por ahora - puedes pasarlos como parámetros si lo necesitas
+      let coldHours = 50;
+      let hotHours = 10;
+
+      let observer = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              startCounter("cold-counter", coldHours, 2000);
+              startCounter("hot-counter", hotHours, 2000);
+              observer.disconnect();
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+
+      observer.observe(section);
+    }
+  });
+</script> 
