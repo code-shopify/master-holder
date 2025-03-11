@@ -807,6 +807,7 @@ endif -%}
             
               {% endif %}
             {% endcomment %}
+            {% comment %}
             {% render 'after-before-2' %}
             <a href="#popup-comparador-{{ product.id }}" 
               class="imagen-fija t4s-d-block" 
@@ -815,6 +816,16 @@ endif -%}
               aria-label="{{ 'products.product.view_comparison' | t }}">
               {% render "imagen-galeria-fix" %}
             </a>
+            {% endcomment %}
+            
+            <a href="javascript:void(0);" 
+               class="btn-comparador imagen-fija t4s-d-block" 
+               data-popup-comparador 
+               data-popup-id="popup-comparador-{{ product.id }}"
+               aria-label="{{ 'products.product.view_comparison' | t }}">
+               <img src="{{ 'icono-comparador.png' | asset_url }}" alt="Comparar Producto">
+            </a>
+
           </div>
         </div>
       </div> 
