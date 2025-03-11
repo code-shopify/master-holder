@@ -68,6 +68,15 @@ class PopupComparador {
     if (closeBtn) {
       closeBtn.onclick = () => this.closePopup(popup);
     }
+
+    setTimeout(() => {
+      beforeAfter();
+      const slider = document.getElementById("before_after_slider_{{ product.id }}");
+      if (slider) {
+        slider.style.pointerEvents = 'auto';
+        slider.style.cursor = 'col-resize';
+      }
+    }, 100);
   }
 
   closePopup(popup) {
