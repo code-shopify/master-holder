@@ -10,6 +10,9 @@
     <button title="{{ 'general.popup.close' | t }}" type="button" class="t4s-btn-close">×</button>
     <div class="t4s-popup-content">
       <div class="before-after-container">
+        <div class="loading-overlay" style="display: none;">
+          <div class="loading-spinner"></div>
+        </div>
         <figure>
           <div id="before_after_{{ product.id }}"></div>
         </figure>
@@ -21,6 +24,7 @@
           max="100" 
           value="50" 
           id="before_after_slider_{{ product.id }}" 
+          aria-label="{{ 'products.product.before_after_slider' | t }}"
         />
       </div>
     </div>
@@ -33,14 +37,33 @@
     --after-image: url({{ product.metafields.custom.after_image | image_url: 'master' }});
     --before-after-aspect-ratio: 1;
     --before-after-background-color: #1f1f1c;
+    --slider-handle-size: 64px;
+    --slider-border-width: 5px;
   }
 
   .before-after-container {
     aspect-ratio: var(--before-after-aspect-ratio);
     background: var(--before-after-background-color);
     width: 100%;
+    max-width: 100vw;
     overflow: hidden;
     transition: all 0.3s ease-in-out;
+    position: relative;
+  }
+
+  @media (max-width: 767px) {
+    .before-after-container {
+      aspect-ratio: 0.75;
+    }
+    
+    #before_after_{{ product.id }}::before {
+      width: 32px;
+      margin-right: -17px;
+    }
+    
+    :root {
+      --slider-handle-size: 32px;
+    }
   }
 
   .before-after-container figure {
@@ -125,12 +148,48 @@
     50% { width: 80%; }
     100% { width: 50%; }
   }
+
+  .loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+  
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 </style>
 
 <script>
   console.log('Popup comparador script loaded for product:', '{{ product.id }}');
   
-  // Inicializar Magnific Popup
+  function showLoading(productId) {
+    const container = document.querySelector(`#popup-comparador-${productId} .loading-overlay`);
+    if (container) container.style.display = 'flex';
+  }
+  
+  function hideLoading(productId) {
+    const container = document.querySelector(`#popup-comparador-${productId} .loading-overlay`);
+    if (container) container.style.display = 'none';
+  }
+  
   document.addEventListener('DOMContentLoaded', function() {
     if (typeof jQuery !== 'undefined' && typeof jQuery.magnificPopup !== 'undefined') {
       console.log('Initializing Magnific Popup');
@@ -144,10 +203,16 @@
           beforeOpen: function() {
             console.log('Popup beforeOpen');
             this.st.mainClass = 'mfp-move-horizontal';
+            showLoading('{{ product.id }}');
           },
           open: function() {
             console.log('Popup opened');
             beforeAfter('{{ product.id }}');
+            hideLoading('{{ product.id }}');
+          },
+          error: function() {
+            console.error('Error al abrir el popup');
+            hideLoading('{{ product.id }}');
           }
         }
       });
@@ -157,19 +222,20 @@
   });
 
   function beforeAfter(productId) {
-    console.log('beforeAfter function called with productId:', productId);
-    const slider = document.getElementById("before_after_" + productId);
-    const range = document.getElementById("before_after_slider_" + productId);
-    
-    if (slider && range) {
+    try {
+      console.log('beforeAfter function called with productId:', productId);
+      const slider = document.getElementById("before_after_" + productId);
+      const range = document.getElementById("before_after_slider_" + productId);
+      
+      if (!slider || !range) {
+        throw new Error('No se encontraron los elementos necesarios');
+      }
+      
       slider.style.width = range.value + "%";
+    } catch (error) {
+      console.error('Error en beforeAfter:', error);
+      hideLoading(productId);
     }
   }
 </script>
 {%- endif -%} 
-
-<a href="#popup-comparador-{{ product.id }}" 
-   class="imagen-fija t4s-d-block" 
-   data-popup-comparador>
-  {% render "imagen-galeria-fix" %}
-</a> 

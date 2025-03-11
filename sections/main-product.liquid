@@ -815,9 +815,11 @@ endif -%}
             {% endcomment %}
             <a href="#popup-comparador-{{ product.id }}" 
               class="imagen-fija t4s-d-block" 
-              data-popup-comparador>
-             {% render "imagen-galeria-fix" %}
-           </a> 
+              data-popup-comparador 
+              data-popup-id="popup-comparador-{{ product.id }}"
+              aria-label="{{ 'products.product.view_comparison' | t }}">
+              {% render "imagen-galeria-fix" %}
+            </a>
           </div>
         </div>
       </div> 
