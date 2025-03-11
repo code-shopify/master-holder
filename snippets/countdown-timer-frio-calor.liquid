@@ -65,49 +65,7 @@
   }
 </style>
 
-<script>
-  function startCounter(id, maxValue, duration) {
-    let counter = document.getElementById(id);
-    let start = 0;
-    
-    // Calcular el tiempo entre cada incremento
-    let stepTime = Math.floor(duration / maxValue);
 
-    let timer = setInterval(() => {
-      start++; // Primero se incrementa el valor
-
-      counter.innerText = start; // Luego se actualiza en la interfaz
-
-      if (start >= maxValue) { // Se detiene en el número exacto
-        clearInterval(timer);
-      }
-    }, stepTime);
-  }
-
-  document.addEventListener("DOMContentLoaded", function () {
-    let section = document.querySelector(".count-hours-section");
-    if (section) {
-      let coldHours = 12; // Fijo en 12
-      let hotHours = 8;   // Fijo en 8
-      let totalDuration = 3000; // Tiempo total en milisegundos (3s para efecto visual)
-
-      let observer = new IntersectionObserver(
-        (entries, observer) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              startCounter("cold-counter", coldHours, totalDuration);
-              startCounter("hot-counter", hotHours, totalDuration);
-              observer.disconnect(); // Se desconecta para evitar reinicio
-            }
-          });
-        },
-        { threshold: 0.5 }
-      );
-
-      observer.observe(section);
-    }
-  });
-</script>
 
 
 
