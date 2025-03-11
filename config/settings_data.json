@@ -1503,14 +1503,17 @@
           },
           "mini_cart-1": {
             "type": "tax",
+            "disabled": true,
             "settings": {}
           },
           "mini_cart-2": {
             "type": "agree",
+            "disabled": true,
             "settings": {}
           },
           "mini_cart-3": {
             "type": "btnc",
+            "disabled": true,
             "settings": {
               "btn_icon": false,
               "button_style": "default",
@@ -1560,10 +1563,10 @@
           "pos": "2",
           "enable_pr": true,
           "enable_calc_ship": true,
-          "enable_note": true,
-          "enable_rates": true,
-          "enable_discount": true,
-          "enable_gift_wrap": true,
+          "enable_note": false,
+          "enable_rates": false,
+          "enable_discount": false,
+          "enable_gift_wrap": false,
           "ship_df_country": "United States"
         }
       },
