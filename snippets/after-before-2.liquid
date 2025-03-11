@@ -121,6 +121,9 @@
   </style>
 
   <script>
+    let currentSlider = null;
+    let currentRange = null;
+
     function beforeAfter(productId) {
       const slider = document.getElementById("before_after_" + productId);
       const range = document.getElementById("before_after_slider_" + productId);
@@ -133,9 +136,11 @@
         }
         
         // Remover listeners anteriores si existen
-        range.removeEventListener('input', updateSlider);
-        range.removeEventListener('change', updateSlider);
-        range.removeEventListener('click', stopEvent);
+        if (currentRange) {
+          currentRange.removeEventListener('input', updateSlider);
+          currentRange.removeEventListener('change', updateSlider);
+          currentRange.removeEventListener('click', stopEvent);
+        }
         
         // Agregar nuevos listeners
         range.addEventListener('input', updateSlider);
@@ -145,6 +150,10 @@
         // Establecer valor inicial
         range.value = 50;
         slider.style.width = "50%";
+
+        // Actualizar referencias actuales
+        currentSlider = slider;
+        currentRange = range;
       }
     }
 
@@ -153,37 +162,39 @@
       e.stopPropagation();
     }
 
-    // Función para reinicializar el slider
-    function reinitializeSlider() {
+    // Inicializar el slider cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', function() {
+      beforeAfter({{ product.id }});
+    });
+
+    // Reinicializar el slider cuando cambie el thumbnail
+    document.addEventListener('t4s:mediaChange', function() {
       setTimeout(() => {
         beforeAfter({{ product.id }});
       }, 100);
-    }
-
-    // Inicializar el slider cuando el DOM esté listo
-    document.addEventListener('DOMContentLoaded', reinitializeSlider);
-
-    // Reinicializar el slider cuando cambie el thumbnail
-    document.addEventListener('t4s:mediaChange', reinitializeSlider);
+    });
 
     // Reinicializar cuando la galería esté lista
-    document.addEventListener('flickityt4s:ready', reinitializeSlider);
+    document.addEventListener('flickityt4s:ready', function() {
+      setTimeout(() => {
+        beforeAfter({{ product.id }});
+      }, 100);
+    });
 
     // Reinicializar cuando cambie la galería
-    document.addEventListener('flickityt4s:change', reinitializeSlider);
+    document.addEventListener('flickityt4s:change', function() {
+      setTimeout(() => {
+        beforeAfter({{ product.id }});
+      }, 100);
+    });
 
     // Reinicializar cuando se haga clic en cualquier thumbnail
     document.addEventListener('click', function(e) {
       if (e.target.closest('.t4s-product__media-item')) {
-        reinitializeSlider();
-      }
-    });
-
-    // Reinicializar cuando se haga clic en cualquier imagen del producto
-    document.addEventListener('click', function(e) {
-      if (e.target.closest('.t4s-product__media-wrapper')) {
-        reinitializeSlider();
+        setTimeout(() => {
+          beforeAfter({{ product.id }});
+        }, 100);
       }
     });
   </script>
-{% endif %}
+{% endif %} 
