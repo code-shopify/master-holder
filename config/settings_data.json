@@ -104,10 +104,10 @@
             "settings": {
               "col_heading": "",
               "menu": "",
-              "col_dk": "7",
+              "col_dk": "12",
               "col_tb": "6",
               "col_mb": "12",
-              "content_align": "t4s-text-md-start",
+              "content_align": "t4s-text-md-center",
               "padding_inner": "",
               "col_heading_mobile": "",
               "content_align_mb": "t4s-text-center",
@@ -121,27 +121,11 @@
               "mgb": 0,
               "mgb_mb": 0
             }
-          },
-          "47f5eb4c-1063-495d-bfc4-a54c62d219aa": {
-            "type": "bl_col",
-            "settings": {
-              "col_heading": "",
-              "menu": "",
-              "col_dk": "4",
-              "col_tb": "5",
-              "col_mb": "12",
-              "content_align": "t4s-text-md-end",
-              "padding_inner": "",
-              "col_heading_mobile": "",
-              "content_align_mb": "t4s-text-center",
-              "padding_inner_mb": ""
-            }
           }
         },
         "block_order": [
           "2433b4f1-5bdc-49a9-ba42-a51f4eb6d8e3",
-          "b3c6ceca-2d54-4a14-b482-bb86cbf25f08",
-          "47f5eb4c-1063-495d-bfc4-a54c62d219aa"
+          "b3c6ceca-2d54-4a14-b482-bb86cbf25f08"
         ],
         "settings": {
           "hidden_bottombar": false,
@@ -160,13 +144,13 @@
           "mgb_mb": 20,
           "text_fs": 14,
           "text_fw": 400,
-          "heading_cl": "#222222",
-          "text_cl": "#878787",
-          "link_cl": "#878787",
+          "heading_cl": "#ffffff",
+          "text_cl": "#ffffff",
+          "link_cl": "#ffffff",
           "link_hover_cl": "#56cfe1",
-          "border_cl": "#e6e6e6",
+          "border_cl": "#ffffff",
           "layout": "t4s-container-wrap",
-          "cl_bg": "",
+          "cl_bg": "#0028a1",
           "cl_bg_gradient": "",
           "mg": "",
           "pd": "20px,,5px,",
