@@ -2,129 +2,115 @@
   Popup para mostrar la comparación de productos
 {% endcomment %}
 
-<div class="popup-comparador-overlay">
-  <div class="popup-comparador-content">
-    <div class="popup-comparador-header">
-      <h2>{{ 'compare_popup.title' | t }}</h2>
-      <button type="button" class="popup-comparador__close" aria-label="{{ 'compare_popup.close' | t }}">×</button>
-    </div>
-    
-    <div class="popup-comparador-body">
-      <div class="popup-comparador-before-after">
-        {% render 'after-before-2' %}
-      </div>
+<div id="popup-comparador-{{ product.id }}" class="popup-comparador t4s-mfp-hide">
+  <div class="popup-comparador__content">
+    <button type="button" class="popup-comparador__close" aria-label="{{ 'compare_popup.close' | t }}">&times;</button>
+    <div class="popup-comparador__body">
+      {% render 'after-before-2' %}
     </div>
   </div>
 </div>
 
 <style>
-.popup-comparador-overlay {
+.popup-comparador {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 999999;
-  display: flex;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+  display: none;
   align-items: center;
   justify-content: center;
 }
 
-.popup-comparador-content {
-  background: #fff;
-  padding: 20px;
-  max-width: 600px;
-  width: 90%;
-  position: relative;
-  border-radius: 8px;
-  z-index: 1000000;
-}
-
-.popup-comparador-header {
+.popup-comparador.active {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
 }
 
-.popup-comparador-header h2 {
-  margin: 0;
-  font-size: 24px;
+.popup-comparador__content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+  width: 90%;
+  max-width: 800px;
 }
 
 .popup-comparador__close {
-  font-size: 28px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
   background: none;
   border: none;
+  font-size: 24px;
   cursor: pointer;
-  padding: 5px 10px;
+  z-index: 10000;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
 }
 
-.popup-comparador-body {
+.popup-comparador__body {
   width: 100%;
+  aspect-ratio: 1;
   position: relative;
+  overflow: hidden;
 }
 
-.popup-comparador-before-after {
-  width: 100%;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1000001;
-}
-
-.popup-comparador-before-after .before-after-container {
-  position: relative;
-  z-index: 1000002;
-}
-
-.popup-comparador-before-after input[type="range"] {
-  position: absolute !important;
-  z-index: 1000003 !important;
-  pointer-events: auto !important;
-  cursor: col-resize !important;
-  touch-action: none !important;
-}
-
-/* Ajustes para dispositivos móviles */
 @media (max-width: 767px) {
-  .popup-comparador-content {
-    padding: 15px;
-    margin: 15px;
+  .popup-comparador__content {
     width: calc(100% - 30px);
-  }
-  
-  .popup-comparador-header h2 {
-    font-size: 20px;
+    padding: 15px;
   }
 }
 </style>
 
 <script>
-document.addEventListener('popup:opened', function() {
-  // Reinicializar el slider cuando se abra el popup
-  setTimeout(() => {
-    beforeAfter();
-    
-    // Asegurarnos que el input del slider sea interactivo
-    const slider = document.getElementById("before_after_slider_{{ product.id }}");
-    if (slider) {
-      slider.style.pointerEvents = 'auto';
-      slider.style.cursor = 'col-resize';
+// Escuchar clicks en elementos con data-popup-comparador
+document.addEventListener('click', function(e) {
+  const trigger = e.target.closest('[data-popup-comparador]');
+  if (trigger) {
+    e.preventDefault();
+    const popupId = trigger.getAttribute('data-popup-id');
+    const popup = document.getElementById(popupId);
+    if (popup) {
+      popup.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      setTimeout(beforeAfter, 100);
     }
-  }, 100);
+  }
+});
+
+// Cerrar con el botón
+document.querySelectorAll('.popup-comparador__close').forEach(button => {
+  button.addEventListener('click', function() {
+    const popup = this.closest('.popup-comparador');
+    if (popup) {
+      popup.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
+});
+
+// Cerrar al hacer clic fuera del contenido
+document.querySelectorAll('.popup-comparador').forEach(popup => {
+  popup.addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
 });
 
 // Prevenir que el popup se cierre al interactuar con el slider
-document.querySelector('.popup-comparador-before-after').addEventListener('click', function(e) {
-  e.stopPropagation();
+document.querySelectorAll('.popup-comparador__body').forEach(body => {
+  body.addEventListener('click', function(e) {
+    e.stopPropagation();
+  });
 });
-
-document.querySelector('.popup-comparador-before-after').addEventListener('touchstart', function(e) {
-  e.stopPropagation();
-}, { passive: false });
-
-document.querySelector('.popup-comparador-before-after').addEventListener('touchmove', function(e) {
-  e.stopPropagation();
-}, { passive: false });
 </script>
