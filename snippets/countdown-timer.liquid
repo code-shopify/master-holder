@@ -69,13 +69,14 @@
   function startCounter(id, maxValue, totalDuration) {
     let counter = document.getElementById(id);
     let start = 0;
-    
-    // Calculamos el tiempo entre cada incremento
+
+    // Asegurar que el tiempo se distribuya correctamente
     let stepTime = Math.floor(totalDuration / maxValue);
 
     let timer = setInterval(() => {
       start++;
       counter.innerText = start;
+
       if (start >= maxValue) {
         clearInterval(timer);
       }
@@ -89,7 +90,7 @@
       let coldHours = 12; // Se detendrá en 12
       let hotHours = 8;   // Se detendrá en 8
 
-      let totalDuration = 3000; // Tiempo total en milisegundos
+      let totalDuration = 3000; // Tiempo total en milisegundos (ajustado)
 
       let observer = new IntersectionObserver(
         (entries, observer) => {
@@ -97,7 +98,7 @@
             if (entry.isIntersecting) {
               startCounter("cold-counter", coldHours, totalDuration);
               startCounter("hot-counter", hotHours, totalDuration);
-              observer.disconnect(); // Evita reiniciar el contador
+              observer.disconnect(); // Evita que el contador se reinicie
             }
           });
         },
@@ -108,5 +109,6 @@
     }
   });
 </script>
+
 
 
