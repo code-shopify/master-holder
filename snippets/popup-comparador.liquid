@@ -16,7 +16,7 @@
     <div class="popup-comparador-before-after">
       <div class="before-after-container">
         <figure>
-          <div id="before_after_{{ product.id }}"></div>
+          <div class="before-image" id="before_after_{{ product.id }}"></div>
         </figure>
         <input 
           type="range" 
@@ -90,7 +90,7 @@
 }
 
 /* 🔹 Ajustar la imagen superpuesta */
-#before_after_{{ product.id }} {
+.before-image {
   background-image: url({{ before_image }});
   background-size: cover;
   background-repeat: no-repeat;
@@ -100,12 +100,10 @@
   left: 0;
   bottom: 0;
   width: 50%; /* Se actualizará dinámicamente */
-  transition: width 0.2s ease-out; /* Efecto suave de deslizamiento */
+  transition: width 0.1s linear; /* Ajuste más suave */
   border-right: 5px solid rgba(255, 255, 255, 0.7);
   box-shadow: 10px 0 15px -13px #000;
   height: 100%;
-  min-width: 0.6%;
-  max-width: 98.6%;
 }
 
 /* 🔹 Corrección del slider dentro del popup */
@@ -114,8 +112,8 @@ input[type="range"] {
   -moz-appearance: none;
   appearance: none;
   background: transparent;
-  cursor: grab; /* Cambia el cursor para indicar que es arrastrable */
-  height: 40px !important; /* Aumentamos el tamaño para mejorar la interacción */
+  cursor: grab;
+  height: 30px !important; /* Aumentamos el tamaño para mejorar la interacción */
   left: 0;
   margin: 0;
   outline: none;
