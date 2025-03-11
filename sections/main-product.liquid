@@ -806,8 +806,9 @@ endif -%}
                 {% render 'after-before-2' %}
             
               {% endif %}
-            {% endcomment %}
+            
             {% render 'after-before-2' %}
+             {% endcomment %}
             <a href="#popup-comparador-{{ product.id }}" 
               class="imagen-fija t4s-d-block" 
               data-popup-comparador 
@@ -4440,7 +4441,8 @@ endif -%}
 }
 {% endschema %}
 
-<!-- Contenedor del popup -->
+{% comment %}
 <div id="popup-comparador-{{ product.id }}" class="t4s-mfp-hide">
   {% render 'popup-comparador' %}
 </div>
+{% endcomment %}
