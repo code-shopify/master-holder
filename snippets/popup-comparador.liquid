@@ -108,31 +108,7 @@
   max-width: 98.6%;
 }
 
-/* 🔹 Corrección del slider dentro del popup */
-input[type="range"] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: transparent;
-  cursor: grab;
-  height: 40px !important;
-  left: 0;
-  margin: 0;
-  outline: none;
-  padding: 0;
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  transform: translateY(-50%);
-  z-index: 99999 !important;
-  pointer-events: all !important;
-  opacity: 1 !important;
-}
 
-/* 🔹 Asegurar que el slider funcione correctamente */
-input[type="range"]:active {
-  cursor: grabbing;
-}
 
 /* 🔹 Solución: Evitar que otros `div` cubran el slider */
 .before-after-container::before {
