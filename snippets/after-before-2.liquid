@@ -13,9 +13,6 @@
     <input 
       oninput="beforeAfter()"
       onchange="beforeAfter()"
-      onclick="event.stopPropagation()"
-      onmousedown="event.stopPropagation()"
-      ontouchstart="event.stopPropagation()"
       type="range" 
       min="0" 
       max="100" 
@@ -30,8 +27,6 @@
       background: #1f1f1c;
       width: 100%;
       overflow: hidden;
-      position: relative;
-      touch-action: none;
     }
 
     .before-after-container figure {
@@ -73,8 +68,6 @@
       top: 0;
       width: 100%;
       z-index: 2;
-      touch-action: none;
-      pointer-events: auto;
     }
 
     input[type="range"]::-webkit-slider-thumb {
@@ -82,7 +75,6 @@
       height: 100%;
       width: 0.5%;
       opacity: 0;
-      pointer-events: auto;
     }
 
     input[type="range"]::-moz-range-thumb {
@@ -90,7 +82,6 @@
       height: 100%;
       width: 0.5%;
       opacity: 0;
-      pointer-events: auto;
     }
 
     #before_after_{{ product.id }}::before {
@@ -103,7 +94,6 @@
       position: relative;
       top: 0;
       width: 64px;
-      pointer-events: none;
     }
 
     @keyframes first {
@@ -115,14 +105,8 @@
 
   <script>
     function beforeAfter() {
-      const slider = document.getElementById("before_after_{{ product.id }}");
-      const range = document.getElementById("before_after_slider_{{ product.id }}");
-      if (slider && range) {
-        slider.style.width = range.value + "%";
-      }
+      document.getElementById("before_after_{{ product.id }}").style.width =
+        document.getElementById("before_after_slider_{{ product.id }}").value + "%";
     }
-
-    // Asegurarnos que el slider funcione al cargar
-    document.addEventListener('DOMContentLoaded', beforeAfter);
   </script>
 {% endif %}
