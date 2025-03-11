@@ -21,40 +21,40 @@
   </div>
 
   <style>
-    :root {
-      --before-image: url({{ before_image }});
-      --after-image: url({{ after_image }});
-      --before-after-background: #1f1f1c;
+    .before-after-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #1f1f1c;
+      overflow: hidden;
+      touch-action: none;
     }
 
-    .before-after-container {
+    .before-after-container figure {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: var(--before-after-background);
-      overflow: hidden;
-    }
-
-    .before-after-container figure {
-      background-image: var(--after-image);
-      position: relative;
       margin: 0;
+      background-image: url({{ after_image }});
       background-size: cover;
-      width: 100%;
-      height: 100%;
+      background-position: center;
     }
 
     .before-after {
-      background-image: var(--before-image);
-      background-size: cover;
-      height: 100%;
-      width: 50%;
       position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%;
+      height: 100%;
+      background-image: url({{ before_image }});
+      background-size: cover;
+      background-position: center;
       border-right: 5px solid rgba(255, 255, 255, 0.7);
       box-shadow: 10px 0 15px -13px #000;
       animation: slider-init 2s ease-in-out;
+      pointer-events: none;
     }
 
     .before-after::before {
@@ -67,6 +67,7 @@
       height: 40px;
       background: url('https://assets.codepen.io/191814/comparision.png') no-repeat center;
       background-size: contain;
+      pointer-events: none;
     }
 
     .before-after-slider {
@@ -79,6 +80,8 @@
       appearance: none;
       background: transparent;
       cursor: col-resize;
+      margin: 0;
+      z-index: 10;
     }
 
     .before-after-slider::-webkit-slider-thumb {
@@ -105,26 +108,38 @@
   </style>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      initBeforeAfter({{ product.id }});
-    });
-
     function initBeforeAfter(productId) {
       const slider = document.getElementById("before_after_" + productId);
       const range = document.getElementById("before_after_slider_" + productId);
       
       if (slider && range) {
         const updateSlider = (e) => {
+          e.preventDefault();
           slider.style.width = range.value + "%";
         };
         
+        // Eliminar listeners anteriores si existen
+        range.removeEventListener('input', updateSlider);
+        range.removeEventListener('change', updateSlider);
+        
+        // Agregar nuevos listeners
         range.addEventListener('input', updateSlider);
         range.addEventListener('change', updateSlider);
+        
+        // Prevenir eventos de scroll en móviles
+        range.addEventListener('touchmove', function(e) {
+          e.stopPropagation();
+        }, { passive: false });
         
         // Valor inicial
         range.value = 50;
         slider.style.width = "50%";
       }
     }
+
+    // Inicializar cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', function() {
+      initBeforeAfter({{ product.id }});
+    });
   </script>
 {% endif %}

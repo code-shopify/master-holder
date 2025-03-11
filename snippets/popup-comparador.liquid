@@ -37,39 +37,60 @@
   font-size: 24px;
 }
 
+.popup-comparador__close {
+  font-size: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
 .popup-comparador-body {
   max-height: 70vh;
   overflow-y: auto;
 }
 
 .popup-comparador-before-after {
+  position: relative;
   width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
+  padding-bottom: 100%; /* Aspecto cuadrado 1:1 */
+  height: 0;
+  overflow: hidden;
 }
 
-/* Asegurarnos que el contenido del before-after se muestre correctamente dentro del popup */
+/* Ajustes específicos para el contenedor del before-after dentro del popup */
 .popup-comparador-before-after .before-after-container {
+  position: absolute !important;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: 100%;
+  height: 100%;
   margin: 0;
+  background: var(--before-after-background, #1f1f1c);
 }
 
-.popup-comparador-before-after img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* Ajustes específicos para el slider dentro del popup */
+.popup-comparador-before-after figure,
+.popup-comparador-before-after .before-after,
 .popup-comparador-before-after .before-after-slider {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  z-index: 100;
+  height: 100%;
 }
 
 /* Asegurar que el popup tenga suficiente z-index */
 .popup-comparador-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
   z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Ajustes para dispositivos móviles */
@@ -83,14 +104,18 @@
   .popup-comparador-header h2 {
     font-size: 20px;
   }
+
+  .popup-comparador-before-after {
+    padding-bottom: 100%; /* Mantener aspecto cuadrado en móvil */
+  }
 }
 </style>
 
 <script>
-// Reinicializar el before-after cuando el popup se abra
 document.addEventListener('popup:opened', function() {
-  if (typeof beforeAfter === 'function') {
-    beforeAfter({{ product.id }});
-  }
+  // Asegurarse de que el slider se inicialice cuando el popup se abra
+  setTimeout(() => {
+    initBeforeAfter({{ product.id }});
+  }, 100);
 });
 </script>
