@@ -445,11 +445,14 @@ endif -%}
                     </a>
                     {%- endif -%}
                   </div>
-                {% comment %}
+                
                 {% render 'after-before-2' %}
-                {% endcomment %}
+                
 
-  
+                
+
+                
+
                   {%- if bk_stts.tax_ship and cart.taxes_included or shop.shipping_policy.body != blank -%}
                     <div class="t4s-product__policies t4s-rte" data-product-policies>
                       {%- if cart.taxes_included -%}
@@ -799,7 +802,6 @@ endif -%}
             {%- endfor -%}
             {% comment %}Inicio de Renders{% endcomment %}
               {%- render 'custom-product-icons' -%}
-              {%- render 'countdown-timer', section: section -%}
               {% comment %}{% render "before-after" %}{% endcomment %}
             {% comment %}Fin Inicio de Renders{% endcomment %}
             {% comment %}
