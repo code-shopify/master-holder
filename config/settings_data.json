@@ -1507,6 +1507,7 @@
           },
           "mini_cart-2": {
             "type": "agree",
+            "disabled": true,
             "settings": {}
           },
           "mini_cart-3": {
