@@ -1,3 +1,18 @@
+{% assign namespace = "custom" %}
+{% assign key_cold = "cold_hours" %}
+{% assign key_hot = "hot_hours" %}
+
+{% if section.settings.cold_hours != blank %}
+  {% assign cold_hours = section.settings.cold_hours %}
+  {% assign hot_hours = section.settings.hot_hours %}
+{% endif %}
+
+<script type="application/json" data-section-type="countdown-timer" data-section-id="{{ section.id }}">
+  {
+    "cold_hours": {{ cold_hours | default: 50 }},
+    "hot_hours": {{ hot_hours | default: 10 }}
+  }
+</script>
 
 <section class="count-hours-section" 
   data-cold-hours="{{ section.settings.cold_hours }}" 
