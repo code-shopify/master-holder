@@ -2,14 +2,7 @@
 {% assign after_image = product.metafields.custom.after_image | img_url: 'master' %}
 
 {% if before_image != blank and after_image != blank %}
-<div class="popup-comparador-content">
-  <div class="popup-comparador-header">
-    <h2>Comparar productos</h2>
-    <button type="button" class="popup-comparador__close" aria-label="Cerrar">×</button>
-  </div>
-  
-  <div class="popup-comparador-body">
-    <div class="before-after-container">
+<div class="before-after-container">
       <figure>
         <div class="before-image" id="before_after_{{ product.id }}"></div>
       </figure>
@@ -23,8 +16,6 @@
         onchange="beforeAfter('{{ product.id }}')"
       />
     </div>
-  </div>
-</div>
 
 <style>
 /* 🔹 Contenedor del comparador */
