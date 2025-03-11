@@ -80,7 +80,6 @@
   width: 100%;
   overflow: hidden;
   position: relative;
-  transition: all 0.3s ease-in-out;
 }
 
 .before-after-container figure {
@@ -92,7 +91,7 @@
   height: 100%;
 }
 
-/* 🔹 Ajustar la imagen superpuesta */
+/* 🔹 Imagen superpuesta */
 .before-image {
   background-image: url({{ before_image }});
   background-size: cover;
@@ -102,68 +101,80 @@
   top: 0;
   left: 0;
   bottom: 0;
-  width: 0%; /* Inicia en 0% para la animación */
-  transition: width 1.5s ease-in-out;
+  width: 50%;
+  transition: width 0.1s linear;
   border-right: 5px solid rgba(255, 255, 255, 0.7);
   box-shadow: 10px 0 15px -13px #000;
   height: 100%;
 }
 
-/* 🔹 Corrección del slider dentro del popup */
+/* 🔹 Estilos del slider */
 input[type="range"] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: transparent;
   cursor: col-resize;
-  height: 100vw;
-  left: 0;
-  margin: 0;
-  outline: none;
-  padding: 0;
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  transform: translateY(-50%);
-  z-index: 99999;
-  pointer-events: all;
-  opacity: 1;
+  z-index: 10;
 }
 
-/* 🔹 Estilos del track (barra) del slider */
+/* 🔹 Track del slider (invisible) */
 input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 100%;
   background: transparent;
 }
 
 input[type="range"]::-moz-range-track {
+  width: 100%;
+  height: 100%;
   background: transparent;
 }
 
-input[type="range"]::-ms-track {
-  border: none;
-  background-color: transparent;
-  height: 100vw;
-  width: 100%;
-}
-
-/* 🔹 Estilos del thumb (control del slider) */
+/* 🔹 Thumb del slider (visible) */
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  height: 100vw;
-  width: 0.5%;
-  opacity: 0;
+  width: 15px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  cursor: col-resize;
+  position: relative;
+  z-index: 99999;
 }
 
 input[type="range"]::-moz-range-thumb {
-  height: 100vw;
-  width: 0.5%;
-  opacity: 0;
+  width: 15px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  cursor: col-resize;
 }
 
 input[type="range"]::-ms-thumb {
-  height: 100vw;
-  width: 0.5%;
-  opacity: 0;
+  width: 15px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  cursor: col-resize;
+}
+
+/* 🔹 Línea de separación central */
+.before-image::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -7px;
+  width: 15px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  z-index: 99;
 }
 
 /* 🔹 Ajustes móviles */
