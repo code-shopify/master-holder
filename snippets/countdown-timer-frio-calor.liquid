@@ -70,16 +70,18 @@
     let counter = document.getElementById(id);
     let start = 0;
 
-    // Asegurar que el tiempo entre cada incremento se distribuya bien
-    let stepTime = totalDuration / maxValue;
+    // Calcular el tiempo entre cada incremento
+    let stepTime = Math.floor(totalDuration / maxValue);
 
     let timer = setInterval(() => {
       counter.innerText = start;
-      start++;
-
-      if (start > maxValue) {
-        clearInterval(timer);
+      
+      if (start >= maxValue) { 
+        clearInterval(timer); // Se detiene exactamente en el valor deseado
+      } else {
+        start++; // Solo incrementa si no ha alcanzado el máximo
       }
+      
     }, stepTime);
   }
 
@@ -87,10 +89,9 @@
     let section = document.querySelector(".count-hours-section");
 
     if (section) {
-      let coldHours = 12; // Frío se detendrá en 12
-      let hotHours = 8;   // Caliente se detendrá en 8
-
-      let totalDuration = 3000; // Duración total de la animación en milisegundos
+      let coldHours = 12; // Se detiene en 12
+      let hotHours = 8;   // Se detiene en 8
+      let totalDuration = 3000; // Duración total de la animación en ms
 
       let observer = new IntersectionObserver(
         (entries, observer) => {
@@ -98,7 +99,7 @@
             if (entry.isIntersecting) {
               startCounter("cold-counter", coldHours, totalDuration);
               startCounter("hot-counter", hotHours, totalDuration);
-              observer.disconnect(); // Evita que se reinicie el contador
+              observer.disconnect(); // Evita que el contador se reinicie
             }
           });
         },
