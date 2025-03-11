@@ -20,9 +20,23 @@ class PopupComparador {
         this.closePopup(e.target.querySelector('.popup-comparador'));
       }
     });
+
+    // Cerrar con la tecla ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const popup = document.querySelector('.popup-comparador');
+        if (popup) {
+          this.closePopup(popup);
+        }
+      }
+    });
   }
 
   openPopup(popupId) {
+    // Obtener el contenido del popup existente
+    const popupTemplate = document.getElementById(popupId);
+    if (!popupTemplate) return;
+
     // Crear el overlay
     const overlay = document.createElement('div');
     overlay.className = 'popup-comparador-overlay';
@@ -30,20 +44,13 @@ class PopupComparador {
     // Crear el contenedor del popup
     const popup = document.createElement('div');
     popup.className = 'popup-comparador';
-    popup.id = popupId;
-
-    // Agregar botón de cerrar
-    const closeBtn = document.createElement('button');
-    closeBtn.className = 'popup-comparador__close';
-    closeBtn.innerHTML = '×';
-    closeBtn.onclick = () => this.closePopup(popup);
-
-    // Contenedor para el contenido
-    const content = document.createElement('div');
-    content.className = 'popup-comparador__content';
+    
+    // Clonar el contenido del template
+    const content = popupTemplate.cloneNode(true);
+    content.classList.remove('t4s-mfp-hide');
+    content.removeAttribute('id');
     
     // Agregar los elementos al DOM
-    popup.appendChild(closeBtn);
     popup.appendChild(content);
     overlay.appendChild(popup);
     document.body.appendChild(overlay);
@@ -51,29 +58,28 @@ class PopupComparador {
     // Agregar clase para la animación de entrada
     requestAnimationFrame(() => {
       overlay.classList.add('is-active');
+      
+      // Disparar evento de popup abierto
+      document.dispatchEvent(new CustomEvent('popup:opened'));
     });
 
-    // Cargar el contenido del snippet
-    this.loadContent(content);
+    // Agregar manejador para el botón de cerrar
+    const closeBtn = popup.querySelector('.popup-comparador__close');
+    if (closeBtn) {
+      closeBtn.onclick = () => this.closePopup(popup);
+    }
   }
 
   closePopup(popup) {
-    const overlay = popup.parentElement;
+    const overlay = popup.closest('.popup-comparador-overlay');
+    if (!overlay) return;
+
     overlay.classList.remove('is-active');
     
     // Remover del DOM después de la animación
     setTimeout(() => {
       overlay.remove();
     }, 300);
-  }
-
-  loadContent(container) {
-    // Aquí puedes cargar el contenido del snippet
-    // Por ahora solo mostraremos un mensaje de carga
-    container.innerHTML = 'Cargando...';
-    
-    // TODO: Implementar la carga del snippet real
-    // Esto dependerá de cómo quieras cargar el contenido del snippet
   }
 }
 
@@ -94,7 +100,7 @@ const styles = `
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  z-index: 999999;
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -108,7 +114,8 @@ const styles = `
   padding: 20px;
   border-radius: 8px;
   position: relative;
-  max-width: 90%;
+  width: 90%;
+  max-width: 800px;
   max-height: 90vh;
   overflow: auto;
   transform: translateY(20px);
@@ -129,10 +136,19 @@ const styles = `
   cursor: pointer;
   padding: 5px;
   line-height: 1;
+  z-index: 10;
 }
 
 .popup-comparador__content {
   margin-top: 20px;
+}
+
+@media (max-width: 767px) {
+  .popup-comparador {
+    width: calc(100% - 30px);
+    margin: 15px;
+    padding: 15px;
+  }
 }
 `;
 

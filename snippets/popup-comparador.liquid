@@ -9,23 +9,9 @@
   </div>
   
   <div class="popup-comparador-body">
-    {% comment %}
-    Aquí puedes agregar el contenido específico que quieras mostrar en el popup
-    Por ejemplo, puedes incluir otros snippets o contenido personalizado
-    {% endcomment %}
-    
-    {% if product.metafields.custom.imagen_fija %}
-      <div class="popup-comparador-image">
-        <img src="{{ product.metafields.custom.imagen_fija | file_url }}" alt="{{ product.title }}">
-      </div>
-    {% endif %}
-    
-    {% comment %}
-    Aquí puedes agregar más contenido como:
-    - Características del producto
-    - Comparaciones
-    - Otros elementos
-    {% endcomment %}
+    <div class="popup-comparador-before-after">
+      {% render 'after-before-2' %}
+    </div>
   </div>
 </div>
 
@@ -56,13 +42,55 @@
   overflow-y: auto;
 }
 
-.popup-comparador-image {
-  text-align: center;
-  margin-bottom: 20px;
+.popup-comparador-before-after {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
-.popup-comparador-image img {
+/* Asegurarnos que el contenido del before-after se muestre correctamente dentro del popup */
+.popup-comparador-before-after .before-after-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
+.popup-comparador-before-after img {
   max-width: 100%;
   height: auto;
+  display: block;
+}
+
+/* Ajustes específicos para el slider dentro del popup */
+.popup-comparador-before-after .before-after-slider {
+  width: 100%;
+  z-index: 100;
+}
+
+/* Asegurar que el popup tenga suficiente z-index */
+.popup-comparador-overlay {
+  z-index: 999999;
+}
+
+/* Ajustes para dispositivos móviles */
+@media (max-width: 767px) {
+  .popup-comparador-content {
+    padding: 15px;
+    margin: 15px;
+    width: calc(100% - 30px);
+  }
+  
+  .popup-comparador-header h2 {
+    font-size: 20px;
+  }
 }
 </style>
+
+<script>
+// Reinicializar el before-after cuando el popup se abra
+document.addEventListener('popup:opened', function() {
+  if (typeof beforeAfter === 'function') {
+    beforeAfter({{ product.id }});
+  }
+});
+</script>
