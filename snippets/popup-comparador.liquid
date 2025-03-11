@@ -39,6 +39,7 @@
   margin: 20px auto;
   position: relative;
   border-radius: 8px;
+  z-index: 1000000;
 }
 
 .popup-comparador-header {
@@ -70,18 +71,7 @@
   width: 100%;
   margin: 0 auto;
   position: relative;
-}
-
-/* Asegurarnos que el slider dentro del popup sea interactivo */
-.popup-comparador-before-after .before-after-container {
-  position: relative;
-  z-index: 1000000;
-}
-
-.popup-comparador-before-after input[type="range"] {
-  position: absolute !important;
-  z-index: 1000001 !important;
-  pointer-events: auto !important;
+  z-index: 1000001;
 }
 
 /* Ajustes para dispositivos móviles */
@@ -103,10 +93,28 @@ document.addEventListener('popup:opened', function() {
   // Reinicializar el slider cuando se abra el popup
   setTimeout(() => {
     beforeAfter();
-    // Asegurarnos que el slider sea interactivo
+    
+    // Asegurarnos que el input range esté por encima y reciba eventos
     const slider = document.getElementById("before_after_slider_{{ product.id }}");
     if (slider) {
-      slider.style.pointerEvents = 'auto';
+      slider.style.zIndex = "1000002";
+      
+      // Prevenir que el popup capture los eventos del slider
+      slider.addEventListener('mousedown', function(e) {
+        e.stopPropagation();
+      });
+      
+      slider.addEventListener('touchstart', function(e) {
+        e.stopPropagation();
+      }, { passive: false });
+      
+      slider.addEventListener('mousemove', function(e) {
+        e.stopPropagation();
+      });
+      
+      slider.addEventListener('touchmove', function(e) {
+        e.stopPropagation();
+      }, { passive: false });
     }
   }, 100);
 });

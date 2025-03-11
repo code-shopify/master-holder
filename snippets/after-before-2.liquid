@@ -11,11 +11,10 @@
       <div id="before_after_{{ product.id }}"></div>
     </figure>
     <input 
-      oninput="beforeAfter()"
-      onchange="beforeAfter()"
-      onclick="event.stopPropagation()"
-      onmousedown="event.stopPropagation()"
-      ontouchstart="event.stopPropagation()"
+      oninput="beforeAfter(event)"
+      onchange="beforeAfter(event)"
+      onmousedown="handleSliderInteraction(event)"
+      ontouchstart="handleSliderInteraction(event)"
       type="range" 
       min="0" 
       max="100" 
@@ -32,6 +31,9 @@
       overflow: hidden;
       position: relative;
       touch-action: none;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
     }
 
     .before-after-container figure {
@@ -56,6 +58,7 @@
       position: absolute;
       width: 50%;
       animation: first 2s 1 normal ease-in-out 0.1s;
+      pointer-events: none;
     }
 
     input[type="range"] {
@@ -63,7 +66,7 @@
       -moz-appearance: none;
       appearance: none;
       background: transparent;
-      cursor: col-resize;
+      cursor: col-resize !important;
       height: 100%;
       left: 0;
       margin: 0;
@@ -74,23 +77,23 @@
       width: 100%;
       z-index: 2;
       touch-action: none;
-      pointer-events: auto;
     }
 
     input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
       height: 100%;
-      width: 0.5%;
+      width: 40px;
       opacity: 0;
-      pointer-events: auto;
+      cursor: col-resize !important;
     }
 
     input[type="range"]::-moz-range-thumb {
       -moz-appearance: none;
       height: 100%;
-      width: 0.5%;
+      width: 40px;
       opacity: 0;
-      pointer-events: auto;
+      cursor: col-resize !important;
+      border: none;
     }
 
     #before_after_{{ product.id }}::before {
@@ -114,7 +117,10 @@
   </style>
 
   <script>
-    function beforeAfter() {
+    function beforeAfter(event) {
+      if (event) {
+        event.stopPropagation();
+      }
       const slider = document.getElementById("before_after_{{ product.id }}");
       const range = document.getElementById("before_after_slider_{{ product.id }}");
       if (slider && range) {
@@ -122,7 +128,17 @@
       }
     }
 
-    // Asegurarnos que el slider funcione al cargar
-    document.addEventListener('DOMContentLoaded', beforeAfter);
+    function handleSliderInteraction(event) {
+      event.stopPropagation();
+      const slider = event.target;
+      
+      // Asegurarse que el slider esté por encima
+      slider.style.zIndex = "1000002";
+      
+      // Prevenir cualquier comportamiento por defecto
+      if (event.type === 'touchstart') {
+        event.preventDefault();
+      }
+    }
   </script>
 {% endif %}
