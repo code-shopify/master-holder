@@ -112,8 +112,8 @@ input[type="range"] {
   -moz-appearance: none;
   appearance: none;
   background: transparent;
-  cursor: col-resize;
-  height: 30px !important; /* Ajustamos la altura para mejorar la interacción */
+  cursor: grab; /* Cambia el cursor para indicar que es arrastrable */
+  height: 40px !important; /* Aumentamos el tamaño para facilitar la interacción */
   left: 0;
   margin: 0;
   outline: none;
@@ -127,7 +127,12 @@ input[type="range"] {
   opacity: 1 !important;
 }
 
-/* 🔹 Evitar que otros `div` bloqueen la interacción */
+/* 🔹 Asegurar que el slider funcione correctamente */
+input[type="range"]:active {
+  cursor: grabbing; /* Cambia el cursor cuando el usuario lo arrastra */
+}
+
+/* 🔹 Solución: Evitar que otros `div` cubran el slider */
 .before-after-container::before {
   content: "";
   position: absolute;
@@ -135,11 +140,6 @@ input[type="range"] {
   height: 100%;
   z-index: 1;
   pointer-events: none;
-}
-
-/* 🔹 Depuración visual: Ver si hay elementos bloqueando */
-.before-after-container * {
-  outline: 2px solid blue !important; /* Borrar después de la prueba */
 }
 
 /* 🔹 Ajustes móviles */
