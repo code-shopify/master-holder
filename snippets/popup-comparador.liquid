@@ -7,13 +7,8 @@
 
 {% if before_image != blank and after_image != blank %}
 <div class="popup-comparador-content">
-  <div class="popup-comparador-header">
-    <h2>{{ 'compare_popup.title' | t }}</h2>
-    <button type="button" class="popup-comparador__close" aria-label="{{ 'compare_popup.close' | t }}">×</button>
-  </div>
   
-  <div class="popup-comparador-body">
-    <div class="popup-comparador-before-after">
+  <div class="popup-comparador-before-after">
       <div class="before-after-container">
         <figure>
           <div id="before_after_{{ product.id }}"></div>
@@ -29,6 +24,8 @@
         />
       </div>
     </div>
+  <div class="popup-comparador-body">
+    
   </div>
 </div>
 
