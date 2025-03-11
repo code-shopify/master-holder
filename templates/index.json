@@ -53,6 +53,7 @@
         },
         "image_parent_wDnhC3": {
           "type": "image_parent",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/CAGUAMON.webp",
             "image_position": "default",
