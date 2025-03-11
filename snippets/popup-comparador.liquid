@@ -6,7 +6,7 @@
 {% assign after_image = product.metafields.custom.after_image | img_url: 'master' %}
 
 {% if before_image != blank and after_image != blank %}
-<div class="popup-comparador-content">
+<div id="popup-comparador-{{ product.id }}" class="popup-comparador-content t4s-mfp-hide">
   <div class="popup-comparador-header">
     <h2>{{ 'compare_popup.title' | t }}</h2>
     <button type="button" class="popup-comparador__close" aria-label="{{ 'compare_popup.close' | t }}">×</button>
@@ -114,24 +114,24 @@ input[type="range"] {
   -moz-appearance: none;
   appearance: none;
   background: transparent;
-  cursor: grab; /* Cambia el cursor para indicar que es arrastrable */
-  height: 40px !important; /* Aumentamos el tamaño para mejorar la interacción */
+  cursor: grab;
+  height: 40px !important;
   left: 0;
   margin: 0;
   outline: none;
   padding: 0;
   position: absolute;
-  top: 50%; /* Centrarlo correctamente */
+  top: 50%;
   width: 100%;
   transform: translateY(-50%);
-  z-index: 99999 !important; /* Asegurar que esté encima */
+  z-index: 99999 !important;
   pointer-events: all !important;
   opacity: 1 !important;
 }
 
 /* 🔹 Asegurar que el slider funcione correctamente */
 input[type="range"]:active {
-  cursor: grabbing; /* Cambia el cursor cuando el usuario lo arrastra */
+  cursor: grabbing;
 }
 
 /* 🔹 Solución: Evitar que otros `div` cubran el slider */
@@ -159,48 +159,60 @@ input[type="range"]:active {
 </style>
 
 <script>
-/* 🔹 Función corregida para cambiar el ancho de la imagen superpuesta */
+/* 🔹 Función para cambiar el ancho de la imagen superpuesta */
 function beforeAfter(productId) {
-    let slider = document.getElementById("before_after_slider_" + productId);
-    let beforeDiv = document.getElementById("before_after_" + productId);
+    let slider = document.getElementById(`before_after_slider_${productId}`);
+    let beforeDiv = document.getElementById(`before_after_${productId}`);
     
     if (slider && beforeDiv) {
         beforeDiv.style.width = slider.value + "%";
     }
 }
 
-/* 🔹 Asegurar que el comparador se actualiza cuando el popup se abre */
+/* 🔹 Inicializar el popup solo para el comparador */
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll("[data-popup-comparador]").forEach(button => {
-        button.addEventListener("click", function () {
-            setTimeout(function () {
-                document.querySelectorAll('[id^="before_after_"]').forEach(el => {
-                    beforeAfter(el.id.replace("before_after_", ""));
-                });
+        button.addEventListener("click", function (event) {
+            event.preventDefault(); // Evita que la página haga scroll
 
-                // 🔹 Asegurar que el slider sea interactivo
-                document.querySelectorAll("input[type='range']").forEach(input => {
-                    input.style.pointerEvents = "all";
-                    input.style.opacity = "1";
-                    input.focus();
-                    input.click();
-                });
+            let popupId = this.getAttribute("data-popup-id"); // Obtiene el ID del popup
 
-                // 🔹 Forzar eventos de mouse en el slider
-                document.querySelectorAll("input[type='range']").forEach(input => {
-                    input.addEventListener("input", function() {
-                        let productId = this.id.replace("before_after_slider_", "");
-                        beforeAfter(productId);
-                    });
-                });
+            if (popupId && popupId.startsWith("popup-comparador")) { // 🔹 Solo abrir si es el comparador
+                console.log("Abriendo popup del comparador:", popupId);
 
-            }, 500);
+                // 🔹 Usar la inicialización de MagnificPopup SOLO para el comparador
+                magnificPopupT4s.open({
+                    items: {
+                        src: "#" + popupId
+                    },
+                    type: "inline",
+                    midClick: true,
+                    closeOnBgClick: false,
+                    modal: false,
+                    callbacks: {
+                        open: function () {
+                            console.log("Popup del comparador abierto:", popupId);
+
+                            // 🔹 Asegurar que el comparador se actualiza
+                            let productId = popupId.replace("popup-comparador-", "");
+                            beforeAfter(productId);
+
+                            // 🔹 Habilitar la interacción en el slider dentro del popup
+                            let slider = document.getElementById(`before_after_slider_${productId}`);
+                            if (slider) {
+                                slider.style.pointerEvents = "all";
+                                slider.style.opacity = "1";
+                            }
+                        }
+                    }
+                });
+            }
         });
     });
 
-    // 🔹 Asegurar que `beforeAfter()` funcione al mover el slider
+    // 🔹 Evento para actualizar el comparador cuando el slider se mueve
     document.querySelectorAll("input[type='range']").forEach(input => {
-        input.addEventListener("input", function() {
+        input.addEventListener("input", function () {
             let productId = this.id.replace("before_after_slider_", "");
             beforeAfter(productId);
         });
