@@ -167,6 +167,17 @@ input[type="range"]::-moz-range-thumb {
     font-size: 20px;
   }
 }
+
+  .popup-comparador-content input[type="range"] {
+  pointer-events: all !important;
+  z-index: 1000 !important;
+  position: relative;
+}
+
+  input[type="range"] {
+  background: red !important; /* Para hacer visible el slider */
+  height: 10px !important;
+}
 </style>
 
 <script>
@@ -175,8 +186,17 @@ function beforeAfter() {
     document.getElementById("before_after_slider_{{ product.id }}").value + "%";
 }
 
-document.addEventListener('popup:opened', function() {
-  setTimeout(beforeAfter, 100);
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll("[data-popup-comparador]").forEach(button => {
+    button.addEventListener("click", function () {
+      setTimeout(function () {
+        document.querySelectorAll('[id^="before_after_"]').forEach(el => {
+          beforeAfter();
+        });
+      }, 500); // Espera para que el popup se abra antes de ejecutar la función
+    });
+  });
 });
+
 </script>
 {% endif %}
