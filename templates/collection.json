@@ -216,6 +216,7 @@
         },
         "740319a4-8e19-4c70-b8a9-ada7cf235cbc": {
           "type": "layout",
+          "disabled": true,
           "settings": {}
         },
         "30594d23-d644-4653-9545-9ff769d2e6ab": {
