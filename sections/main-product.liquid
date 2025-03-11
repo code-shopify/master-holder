@@ -823,7 +823,7 @@ endif -%}
                data-popup-comparador 
                data-popup-id="popup-comparador-{{ product.id }}"
                aria-label="{{ 'products.product.view_comparison' | t }}">
-               <img src="{{ 'icono-comparador.png' | asset_url }}" alt="Comparar Producto">
+               {% render "imagen-galeria-fix" %}
             </a>
 
           </div>
