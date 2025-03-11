@@ -84,8 +84,8 @@
     let section = document.querySelector(".count-hours-section");
 
     if (section) {
-      let coldHours = parseInt(section.getAttribute("data-cold-hours"), 10);
-      let hotHours = parseInt(section.getAttribute("data-hot-hours"), 10);
+      let coldHours = 12; // Fijamos a 12 horas máximo
+      let hotHours = 8;   // Fijamos a 8 horas máximo
 
       let observer = new IntersectionObserver(
         (entries, observer) => {
@@ -104,3 +104,4 @@
     }
   });
 </script>
+
