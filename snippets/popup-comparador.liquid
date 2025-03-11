@@ -19,8 +19,6 @@
           <div id="before_after_{{ product.id }}"></div>
         </figure>
         <input 
-          oninput="beforeAfter({{ product.id }})"
-          onchange="beforeAfter({{ product.id }})"
           type="range" 
           min="0" 
           max="100" 
@@ -91,7 +89,7 @@
   height: 100%;
 }
 
-/* 🔹 Ajustar la imagen que se superpone */
+/* 🔹 Ajustar la imagen superpuesta */
 #before_after_{{ product.id }} {
   background-image: url({{ before_image }});
   background-size: cover;
@@ -161,7 +159,7 @@ input[type="range"]:active {
 </style>
 
 <script>
-/* 🔹 Función mejorada para cambiar el ancho del comparador al mover el slider */
+/* 🔹 Función corregida para cambiar el ancho de la imagen superpuesta */
 function beforeAfter(productId) {
     let slider = document.getElementById("before_after_slider_" + productId);
     let beforeDiv = document.getElementById("before_after_" + productId);
@@ -197,6 +195,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
 
             }, 500);
+        });
+    });
+
+    // 🔹 Asegurar que `beforeAfter()` funcione al mover el slider
+    document.querySelectorAll("input[type='range']").forEach(input => {
+        input.addEventListener("input", function() {
+            let productId = this.id.replace("before_after_slider_", "");
+            beforeAfter(productId);
         });
     });
 });
