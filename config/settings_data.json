@@ -1565,7 +1565,7 @@
           "enable_calc_ship": true,
           "enable_note": false,
           "enable_rates": false,
-          "enable_discount": true,
+          "enable_discount": false,
           "enable_gift_wrap": false,
           "ship_df_country": "United States"
         }
