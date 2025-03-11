@@ -1,17 +1,19 @@
-<div class="count-hours-section">
-  <div class="t4s-row"> 
-    <div class="t4s-container">
-      <div class="count-hours-item cold">
-        <strong><span id="cold-counter">0</span> HORAS FRIO</strong>
-      </div>
-      <div class="count-hours-item hot">
-        <strong><span id="hot-counter">0</span> HORAS CALIENTE</strong>
-      </div>
+<section class="count-hours-section" 
+  data-cold-hours="{{ section.settings.cold_hours }}" 
+  data-hot-hours="{{ section.settings.hot_hours }}">
+  <div class="t4s-container t4s-main-product__content is--layout_default t4s-product-media__thumbnails_bottom t4s-product-thumb-size__medium"> 
+  <div class="count-hours-container">
+    <div class="count-hours-item cold">
+      <strong>HASTA <span id="cold-counter">12</span> HRS FRÍO</strong>
+    </div>
+    <div class="count-hours-item hot">
+      <strong>HASTA <span id="hot-counter">8</span> HRS CALIENTE</strong>
     </div>
   </div>
-</div>
+    </div>
+</section>
 
-<style>
+{% stylesheet %}
   .count-hours-section {
     display: flex;
     justify-content: center;
@@ -61,9 +63,9 @@
       font-size: 24px;
     }
   }
-</style>
+{% endstylesheet %}
 
-<script>
+{% javascript %}
   function startCounter(id, maxValue, duration) {
     let counter = document.getElementById(id);
     let start = 0;
@@ -82,9 +84,8 @@
     let section = document.querySelector(".count-hours-section");
 
     if (section) {
-      // Valores hardcodeados por ahora - puedes pasarlos como parámetros si lo necesitas
-      let coldHours = 50;
-      let hotHours = 10;
+      let coldHours = parseInt(section.getAttribute("data-cold-hours"), 10);
+      let hotHours = parseInt(section.getAttribute("data-hot-hours"), 10);
 
       let observer = new IntersectionObserver(
         (entries, observer) => {
@@ -92,7 +93,7 @@
             if (entry.isIntersecting) {
               startCounter("cold-counter", coldHours, 2000);
               startCounter("hot-counter", hotHours, 2000);
-              observer.disconnect();
+              observer.disconnect(); // Evita que el contador se reinicie
             }
           });
         },
@@ -102,4 +103,4 @@
       observer.observe(section);
     }
   });
-</script> 
+{% endjavascript %}
