@@ -1,23 +1,14 @@
 {% assign before_image = product.metafields.custom.before_image | img_url: 'master' %}
 {% assign after_image = product.metafields.custom.after_image | img_url: 'master' %}
 
-{% if before_image != blank and after_image != blank %}
-<div class="before-after-container">
-      <figure>
-        <div id="before_after_{{ product.id }}"></div>
-      </figure>
-      <input 
-        type="range" 
-        min="0" 
-        max="100" 
-        value="50" 
-        id="before_after_slider_{{ product.id }}"
-        oninput="beforeAfter('{{ product.id }}')" 
-        onchange="beforeAfter('{{ product.id }}')"
-      />
-    </div>
-
 <style>
+:root {
+  --before-after-aspect-ratio: 1 / 1;
+  --before-image: url({{ before_image }});
+  --after-image: url({{ after_image }});
+  --before-after-background-color: #1f1f1c;
+}
+
 .before-after-container {
   aspect-ratio: var(--before-after-aspect-ratio);
   background: var(--before-after-background-color);
@@ -25,6 +16,7 @@
   overflow: hidden;
   transition: all 0.3s ease-in-out;
 }
+
 .before-after-container figure {
   background-image: var(--after-image);
   position: relative;
@@ -33,6 +25,7 @@
   width: 100%;
   height: 100%;
 }
+
 #before_after {
   background-image: var(--before-image);
   background-size: cover;
@@ -48,6 +41,7 @@
   animation: first 2s 1 normal ease-in-out 0.1s;
   -webkit-animation: first 2s 1 normal ease-in-out 0.1s;
 }
+
 input#before_after_slider {
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -63,9 +57,11 @@ input#before_after_slider {
   top: -100vw;
   width: 100%;
 }
+
 input#before_after_slider::-moz-range-track {
   background: transparent;
 }
+
 input#before_after_slider::-ms-track {
   border: none;
   background-color: transparent;
@@ -75,37 +71,42 @@ input#before_after_slider::-ms-track {
   width: 100%;
   margin: 0;
   padding: 0;
-    outline: none;
+  outline: none;
   position: relative;
   cursor: col-resize;
   color: transparent;
 }
+
 input#before_after_slider::-ms-fill-lower {
   background-color: transparent;
 }
+
 input#before_after_slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   height: 100vw;
   width: 0.5%;
   opacity: 0;
 }
+
 input#before_after_slider::-moz-range-thumb {
   -moz-appearance: none;
   height: 100vw;
   width: 0.5%;
   opacity: 0;
 }
+
 input#before_after_slider::-ms-thumb {
   height: 100vw;
   width: 0.5%;
   opacity: 0;
 }
+
 input#before_after_slider::-ms-tooltip {
   display: none;
 }
+
 #before_after::before {
-  background: url(https://assets.codepen.io/191814/comparision.png) no-repeat
-    scroll 0 center transparent;
+  background: url(https://assets.codepen.io/191814/comparision.png) no-repeat scroll 0 center transparent;
   background-size: contain;
   content: " ";
   float: right;
@@ -115,34 +116,31 @@ input#before_after_slider::-ms-tooltip {
   top: 0;
   width: 64px;
 }
+
 @keyframes first {
-  0% {
-    width: 0%;
-  }
-  50% {
-    width: 80%;
-  }
-  100% {
-    width: 50%;
-  }
+  0% { width: 0%; }
+  50% { width: 80%; }
+  100% { width: 50%; }
 }
+
 @-webkit-keyframes first {
-  0% {
-    width: 0%;
-  }
-  50% {
-    width: 80%;
-  }
-  100% {
-    width: 50%;
-  }
+  0% { width: 0%; }
+  50% { width: 80%; }
+  100% { width: 50%; }
 }
 </style>
 
+<div class="before-after-container">
+  <figure>
+    <div id="before_after"></div>
+  </figure>
+  <input oninput="beforeAfter()" onchange="beforeAfter()" type="range" min="0" max="100" value="50" id="before_after_slider" />
+</div>
+
 <script>
 function beforeAfter() {
-      document.getElementById("before_after").style.width =
+  document.getElementById("before_after").style.width = 
     document.getElementById("before_after_slider").value + "%";
 }
 </script>
-{% endif %}
+
