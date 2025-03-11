@@ -127,14 +127,47 @@
 </style>
 
 <script>
+  console.log('Popup comparador script loaded for product:', '{{ product.id }}');
+  console.log('Before image:', '{{ product.metafields.custom.before_image | image_url: 'master' }}');
+  console.log('After image:', '{{ product.metafields.custom.after_image | image_url: 'master' }}');
+
   function beforeAfter(productId) {
-    document.getElementById("before_after_" + productId).style.width =
-      document.getElementById("before_after_slider_" + productId).value + "%";
+    console.log('beforeAfter function called with productId:', productId);
+    const slider = document.getElementById("before_after_" + productId);
+    const range = document.getElementById("before_after_slider_" + productId);
+    
+    console.log('Slider element:', slider);
+    console.log('Range element:', range);
+    
+    if (slider && range) {
+      const width = range.value + "%";
+      console.log('Setting width to:', width);
+      slider.style.width = width;
+    } else {
+      console.error('Slider or range element not found');
+    }
   }
 
-  // Inicializar cuando el popup se abra usando el evento del tema T4S
-  document.addEventListener('t4s:magnific:open', function() {
+  // Inicializar cuando el popup se abra
+  document.addEventListener('t4s:magnific:open', function(e) {
+    console.log('Popup open event triggered');
+    console.log('Event details:', e);
     beforeAfter('{{ product.id }}');
+  });
+
+  // Agregar listener para cuando el DOM esté listo
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, checking elements');
+    const popup = document.getElementById('popup-comparador-{{ product.id }}');
+    console.log('Popup element:', popup);
+  });
+
+  // Verificar si el popup está siendo activado
+  document.addEventListener('click', function(e) {
+    if (e.target.closest('[data-popup-comparador]')) {
+      console.log('Popup trigger clicked');
+      console.log('Click event:', e);
+    }
   });
 </script>
 {%- endif -%} 
