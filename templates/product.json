@@ -210,6 +210,13 @@
         "hot_hours": 10
       }
     },
+    "countdown_timer_t7Tw6A": {
+      "type": "countdown-timer",
+      "settings": {
+        "cold_hours": 50,
+        "hot_hours": 10
+      }
+    },
     "image_gallery_PK7ibx": {
       "type": "image-gallery",
       "blocks": {
@@ -628,6 +635,7 @@
     "1740165716b9eb0884",
     "main",
     "accordion_aEdD6E",
+    "countdown_timer_t7Tw6A",
     "image_gallery_PK7ibx",
     "collections_list_63HmLj",
     "sidebar",
