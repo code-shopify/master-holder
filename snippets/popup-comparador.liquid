@@ -113,13 +113,13 @@ input[type="range"] {
   appearance: none;
   background: transparent;
   cursor: col-resize;
-  height: 20px !important; /* Ajustamos la altura para mejorar la interacción */
+  height: 30px !important; /* Ajustamos la altura para mejorar la interacción */
   left: 0;
   margin: 0;
   outline: none;
   padding: 0;
   position: absolute;
-  top: 50%; /* Lo centramos correctamente */
+  top: 50%; /* Centrarlo correctamente */
   width: 100%;
   transform: translateY(-50%);
   z-index: 99999 !important; /* Asegurar que esté encima */
@@ -139,7 +139,7 @@ input[type="range"] {
 
 /* 🔹 Depuración visual: Ver si hay elementos bloqueando */
 .before-after-container * {
-  outline: 2px solid red !important; /* Borrar después de la prueba */
+  outline: 2px solid blue !important; /* Borrar después de la prueba */
 }
 
 /* 🔹 Ajustes móviles */
@@ -172,12 +172,22 @@ document.addEventListener("DOMContentLoaded", function () {
                     beforeAfter(el.id.replace("before_after_", ""));
                 });
 
-                // 🔹 Forzar el foco en el slider para hacerlo interactivo
+                // 🔹 Asegurar que el slider sea interactivo
                 document.querySelectorAll("input[type='range']").forEach(input => {
                     input.style.pointerEvents = "all";
                     input.style.opacity = "1"; // Asegurar que sea visible
                     input.focus();
                     input.click();
+                });
+
+                // 🔹 Forzar eventos de mouse en el slider
+                document.querySelectorAll("input[type='range']").forEach(input => {
+                    input.addEventListener("mousedown", function(event) {
+                        event.stopPropagation(); // Evita que otros elementos bloqueen el click
+                    });
+                    input.addEventListener("touchstart", function(event) {
+                        event.stopPropagation(); // Evita bloqueos en móviles
+                    });
                 });
 
             }, 500);
