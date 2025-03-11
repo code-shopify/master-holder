@@ -813,12 +813,11 @@ endif -%}
             
               {% endif %}
             {% endcomment %}
-            {% if product.metafields.custom.imagen_fija %}
-              <a href="#!" class="imagen-fija t4s-d-block" data-popup-comparador data-popup-id="popup-comparador-{{ product.id }}">  
-                {% render "imagen-galeria-fix" %}
-              </a>
-              {% render 'popup-comparador', product: product %}
-            {% endif %}
+            <a href="#popup-comparador-{{ product.id }}" 
+              class="imagen-fija t4s-d-block" 
+              data-popup-comparador>
+             {% render "imagen-galeria-fix" %}
+           </a> 
           </div>
         </div>
       </div> 

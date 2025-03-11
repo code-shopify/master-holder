@@ -5,23 +5,24 @@
 {% endcomment %}
 
 {%- if product.metafields.custom.before_image and product.metafields.custom.after_image -%}
-<div id="popup-comparador-{{ product.id }}" class="t4s-mfp-hide t4s-popup t4s-pr">
-  <button title="{{ 'general.popup.close' | t }}" type="button" class="t4s-mfp-close">×</button>
-  <div class="t4s-popup__content">
-    <!-- Contenedor principal del comparador -->
-    <div class="before-after-container">
-      <figure>
-        <div id="before_after_{{ product.id }}"></div>
-      </figure>
-      <input 
-        oninput="beforeAfter('{{ product.id }}')" 
-        onchange="beforeAfter('{{ product.id }}')" 
-        type="range" 
-        min="0" 
-        max="100" 
-        value="50" 
-        id="before_after_slider_{{ product.id }}" 
-      />
+<div id="popup-comparador-{{ product.id }}" class="t4s-mfp-hide">
+  <div class="t4s-popup-wrapper">
+    <button title="{{ 'general.popup.close' | t }}" type="button" class="t4s-btn-close">×</button>
+    <div class="t4s-popup-content">
+      <div class="before-after-container">
+        <figure>
+          <div id="before_after_{{ product.id }}"></div>
+        </figure>
+        <input 
+          oninput="beforeAfter('{{ product.id }}')" 
+          onchange="beforeAfter('{{ product.id }}')" 
+          type="range" 
+          min="0" 
+          max="100" 
+          value="50" 
+          id="before_after_slider_{{ product.id }}" 
+        />
+      </div>
     </div>
   </div>
 </div>
@@ -128,46 +129,47 @@
 
 <script>
   console.log('Popup comparador script loaded for product:', '{{ product.id }}');
-  console.log('Before image:', '{{ product.metafields.custom.before_image | image_url: 'master' }}');
-  console.log('After image:', '{{ product.metafields.custom.after_image | image_url: 'master' }}');
+  
+  // Inicializar Magnific Popup
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof jQuery !== 'undefined' && typeof jQuery.magnificPopup !== 'undefined') {
+      console.log('Initializing Magnific Popup');
+      
+      jQuery('[data-popup-comparador]').magnificPopup({
+        type: 'inline',
+        mainClass: 't4s-popup-wrapper',
+        closeMarkup: '<button title="Close (Esc)" type="button" class="t4s-btn-close">×</button>',
+        removalDelay: 500,
+        callbacks: {
+          beforeOpen: function() {
+            console.log('Popup beforeOpen');
+            this.st.mainClass = 'mfp-move-horizontal';
+          },
+          open: function() {
+            console.log('Popup opened');
+            beforeAfter('{{ product.id }}');
+          }
+        }
+      });
+    } else {
+      console.error('jQuery or Magnific Popup not loaded');
+    }
+  });
 
   function beforeAfter(productId) {
     console.log('beforeAfter function called with productId:', productId);
     const slider = document.getElementById("before_after_" + productId);
     const range = document.getElementById("before_after_slider_" + productId);
     
-    console.log('Slider element:', slider);
-    console.log('Range element:', range);
-    
     if (slider && range) {
-      const width = range.value + "%";
-      console.log('Setting width to:', width);
-      slider.style.width = width;
-    } else {
-      console.error('Slider or range element not found');
+      slider.style.width = range.value + "%";
     }
   }
-
-  // Inicializar cuando el popup se abra
-  document.addEventListener('t4s:magnific:open', function(e) {
-    console.log('Popup open event triggered');
-    console.log('Event details:', e);
-    beforeAfter('{{ product.id }}');
-  });
-
-  // Agregar listener para cuando el DOM esté listo
-  document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded, checking elements');
-    const popup = document.getElementById('popup-comparador-{{ product.id }}');
-    console.log('Popup element:', popup);
-  });
-
-  // Verificar si el popup está siendo activado
-  document.addEventListener('click', function(e) {
-    if (e.target.closest('[data-popup-comparador]')) {
-      console.log('Popup trigger clicked');
-      console.log('Click event:', e);
-    }
-  });
 </script>
 {%- endif -%} 
+
+<a href="#popup-comparador-{{ product.id }}" 
+   class="imagen-fija t4s-d-block" 
+   data-popup-comparador>
+  {% render "imagen-galeria-fix" %}
+</a> 
