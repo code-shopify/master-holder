@@ -43,6 +43,7 @@
     "enable_quickview": false,
     "type_qv": "2",
     "enable_quickshop": false,
+    "enable_atc": false,
     "show_qty": false,
     "pr_border_style": "1",
     "enable_pr_color": true,
