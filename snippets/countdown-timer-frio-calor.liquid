@@ -64,47 +64,4 @@
     }
   }
 </style>
-<script>
- function startCounter(id, maxValue, duration) {
-  let counter = document.getElementById(id);
-  if (!counter) return;
 
-  let start = 0;
-  let steps = maxValue; // El número de incrementos que debe hacer
-  let stepTime = duration / steps; // Tiempo entre cada incremento
-
-  let timer = setInterval(() => {
-    if (start < maxValue) {
-      start++;
-      counter.innerText = start;
-    } else {
-      clearInterval(timer); // Detiene el contador cuando llega al límite
-    }
-  }, stepTime);
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-  let section = document.querySelector(".count-hours-section");
-  if (section) {
-    let coldHours = 12; // Se detendrá en 12
-    let hotHours = 8;   // Se detendrá en 8
-    let totalDuration = 2000; // Tiempo total en milisegundos (2s para efecto visual)
-
-    let observer = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            startCounter("cold-counter", coldHours, totalDuration);
-            startCounter("hot-counter", hotHours, totalDuration);
-            observer.disconnect(); // Se desconecta para evitar reinicio
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    observer.observe(section);
-  }
-});
-
-</script>
