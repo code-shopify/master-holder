@@ -1,20 +1,20 @@
-<section class="count-hours-section" 
+<section class="timer-section" 
   data-cold-hours="{{ cold_hours }}" 
   data-hot-hours="{{ hot_hours }}">
   <div class="t4s-container t4s-main-product__content is--layout_default t4s-product-media__thumbnails_bottom t4s-product-thumb-size__medium"> 
-  <div class="count-hours-container">
-    <div class="count-hours-item cold">
-      <strong>HASTA <span id="cold-counters">0</span> HRS FRÍO</strong>
+    <div class="timer-container">
+      <div class="timer-item timer-cold">
+        <strong>HASTA <span id="cold-timer">0</span> HRS FRÍO</strong>
+      </div>
+      <div class="timer-item timer-hot">
+        <strong>HASTA <span id="hot-timer">0</span> HRS CALIENTE</strong>
+      </div>
     </div>
-    <div class="count-hours-item hot">
-      <strong>HASTA <span id="hot-counters">0</span> HRS CALIENTE</strong>
-    </div>
-  </div>
   </div>
 </section>
 
 <style>
-  .count-hours-section {
+  .timer-section {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,7 +22,7 @@
     padding: 20px;
   }
 
-  .count-hours-container {
+  .timer-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -34,7 +34,7 @@
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   }
 
-  .count-hours-item {
+  .timer-item {
     width: 50%;
     display: flex;
     align-items: center;
@@ -46,22 +46,63 @@
     line-height: 4.375rem;
   }
 
-  .cold {
+  .timer-cold {
     color: #007BFF;
     border-right: 2px solid #eee;
   }
 
-  .hot {
+  .timer-hot {
     color: #DC3545;
   }
 
   @media (max-width: 768px) {
-    .count-hours-container {
+    .timer-container {
       flex-direction: row;
     }
-    .count-hours-item {
+    .timer-item {
       font-size: 24px;
     }
   }
 </style>
 
+<script>
+  function startCounter(id, maxValue, duration) {
+    const counter = document.getElementById(id);
+    let start = 0;
+    const stepTime = Math.floor(duration / maxValue);
+    
+    const timer = setInterval(() => {
+      start++;
+      if (start >= maxValue) {
+        counter.innerText = maxValue;
+        clearInterval(timer);
+      } else {
+        counter.innerText = start;
+      }
+    }, stepTime);
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const section = document.querySelector(".timer-section");
+    if (section) {
+      const coldHours = 12; // Se detendrá en 12
+      const hotHours = 8;   // Se detendrá en 8
+      const totalDuration = 2000; // Duración total en milisegundos
+
+      const observer = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              startCounter("cold-timer", coldHours, totalDuration);
+              startCounter("hot-timer", hotHours, totalDuration);
+              observer.disconnect(); // Evita que se reinicie el contador
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+
+      observer.observe(section);
+    }
+  });
+</script>
