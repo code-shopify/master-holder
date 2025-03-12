@@ -55,7 +55,7 @@
     "show_img": "2",
     "pr_img_effect": "1",
     "enable_eff_img1": false,
-    "enable_shadow_round_img": true,
+    "enable_shadow_round_img": false,
     "enable_pr_ellipsis": true,
     "pr_curent": "3",
     "use_group_media": true,
