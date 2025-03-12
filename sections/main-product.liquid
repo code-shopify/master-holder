@@ -330,14 +330,6 @@ endif -%}
                   
                 </div>
               </div>
-
-              {% comment %}
-              {% if product.metafields.custom.imagen_fija %}
-                <a href="javascript:void(0);" class="imagen-fija" id="toggleBeforeAfter">  
-                  {% render "imagen-galeria-fix" %}
-                </a>
-              {% endif %}
-              {% endcomment %}
               {% if product.metafields.custom.imagen_fija %}
                 <a href="javascript:void(0);" 
                   class="imagen-fija t4s-d-block" 
@@ -800,41 +792,6 @@ endif -%}
                   </div>
               {%- endcase -%}
             {%- endfor -%}
-            {% comment %}Inicio de Renders{% endcomment %}
-              {%- render 'custom-product-icons' -%}
-              
-              {% comment %}
-               {%- render 'countdown-timer-frio-calor' -%}
-               {% render "before-after" %}
-                {% endcomment %}
-            {% comment %}Fin Inicio de Renders{% endcomment %}
-            {% comment %}
-              {% if product.metafields.custom.imagen_fija %}
-                <a href="javascript:void(0);" class="imagen-fija" id="toggleBeforeAfter">  
-                  {% render "imagen-galeria-fix" %}
-                </a>
-                  {% render 'after-before-2' %}
-              {% endif %}
-            
-              {% render 'after-before-2' %}
-                <a href="#popup-comparador-{{ product.id }}" 
-                  class="imagen-fija t4s-d-block" 
-                  data-popup-comparador 
-                  data-popup-id="popup-comparador-{{ product.id }}"
-                  aria-label="{{ 'products.product.view_comparison' | t }}">
-                  {% render "imagen-galeria-fix" %}
-                </a>
-             
-              {% render 'after-before-2' %}
-              {% render 'popup-comparador' %}
-             
-              <a href="javascript:void(0);" 
-                class="imagen-fija t4s-d-block" 
-                data-micromodal-trigger="modal-comparador-{{ product.id }}"
-                aria-label="{{ 'products.product.view_comparison' | t }}">
-                {% render "imagen-galeria-fix" %}
-              </a>
-            {% endcomment %}
           </div>
         </div>
       </div> 
