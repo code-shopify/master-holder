@@ -534,6 +534,26 @@
       "header-inline": {
         "type": "header-inline",
         "blocks": {
+          "mega_3zAq9g": {
+            "type": "mega",
+            "settings": {
+              "title": "TIENDA",
+              "url": "",
+              "open_link": "_self",
+              "icon": "",
+              "cus_cl": false,
+              "cl": "#ec0101",
+              "lb": "",
+              "lb_cl": "#00badb",
+              "pos_sub": "bottom",
+              "wid": "full nav_t4cnt",
+              "cus_wid": 900,
+              "id": 1,
+              "enable_packery": true,
+              "r_s_h_item": "6",
+              "r_s_v_item": "30"
+            }
+          },
           "base_BzUAYh": {
             "type": "base",
             "settings": {
@@ -611,36 +631,16 @@
               "lb": "",
               "lb_cl": ""
             }
-          },
-          "mega_3zAq9g": {
-            "type": "mega",
-            "settings": {
-              "title": "TIENDA",
-              "url": "",
-              "open_link": "_self",
-              "icon": "",
-              "cus_cl": false,
-              "cl": "#ec0101",
-              "lb": "",
-              "lb_cl": "#00badb",
-              "pos_sub": "bottom",
-              "wid": "full nav_t4cnt",
-              "cus_wid": 600,
-              "id": 1,
-              "enable_packery": true,
-              "r_s_h_item": "6",
-              "r_s_v_item": "30"
-            }
           }
         },
         "block_order": [
+          "mega_3zAq9g",
           "base_BzUAYh",
           "base_QkTzBR",
           "base_GEfPXb",
           "base_NGrBVi",
           "base_ctQWqj",
-          "base_PqxPKw",
-          "mega_3zAq9g"
+          "base_PqxPKw"
         ],
         "custom_css": [
           ".header {box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);}"
@@ -657,7 +657,7 @@
           "bgnav": "#ffffff",
           "opnav": 0,
           "clnav": "#222222",
-          "clnav_hover": "#56cfe1",
+          "clnav_hover": "#00449e",
           "h_icon": "kalles",
           "hover_icon": "2",
           "show_search": true,
@@ -1247,7 +1247,7 @@
         ],
         "custom_css": [],
         "settings": {
-          "bg": ""
+          "bg": "#fff"
         }
       },
       "mb_nav": {
