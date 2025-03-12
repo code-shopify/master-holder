@@ -1750,7 +1750,7 @@
         ],
         "settings": {
           "btn_vi": "hover",
-          "btn_owl": "default",
+          "btn_owl": "outline",
           "btn_shape": "round",
           "btn_size": "medium",
           "dot_owl": "elessi",
