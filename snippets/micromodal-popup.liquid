@@ -4,13 +4,16 @@
     <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-comparador-{{ product.id }}-title">
       <header class="modal__header">
         <h2 class="modal__title" id="modal-comparador-{{ product.id }}-title">
-          {{ product.title }}
+          La diferencia
         </h2>
         <button class="modal__close" aria-label="Cerrar" data-micromodal-close></button>
       </header>
       <main class="modal__content" id="modal-comparador-{{ product.id }}-content">
         <!-- Aquí va el contenido del popup -->
+        {% comment %}
         {% render 'imagen-galeria-fix' %}
+         {% endcomment %}
+         {% render 'popup-comparador' %}
       </main>
       <footer class="modal__footer">
         <button class="modal__btn" data-micromodal-close aria-label="Cerrar">Cerrar</button>
