@@ -1749,9 +1749,9 @@
         "settings": {
           "btn_vi": "hover",
           "btn_owl": "default",
-          "btn_shape": "none",
-          "btn_size": "small",
-          "dot_owl": "default",
+          "btn_shape": "round",
+          "btn_size": "medium",
+          "dot_owl": "elessi",
           "dots_round": true,
           "dots_space": 10
         }
