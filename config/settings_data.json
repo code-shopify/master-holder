@@ -894,9 +894,9 @@
           "vendors_color": "#878787",
           "vendors_color_hover": "#56cfe1",
           "countdown_color": "#56cfe1",
-          "countdown_overlay": 100,
+          "countdown_overlay": 0,
           "pr_bg_overlay": "#000000",
-          "pr_overlay": 10
+          "pr_overlay": 0
         }
       },
       "btn_config": {
