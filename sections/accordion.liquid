@@ -6,7 +6,7 @@
       "type": "range",
       "id": "cold_hours",
       "label": "Horas frías",
-      "default": 50,
+      "default": 12,
       "min": 1,
       "max": 100,
       "step": 1
@@ -15,7 +15,7 @@
       "type": "range",
       "id": "hot_hours",
       "label": "Horas calientes",
-      "default": 10,
+      "default": 8,
       "min": 1,
       "max": 100,
       "step": 1
@@ -33,19 +33,17 @@
 <section class="count-hours-section" 
   data-cold-hours="{{ section.settings.cold_hours }}" 
   data-hot-hours="{{ section.settings.hot_hours }}">
-  <div class="t4s-container t4s-main-product__content is--layout_default t4s-product-media__thumbnails_bottom t4s-product-thumb-size__medium"> 
+  <div class="t4s-container">
     <div class="count-hours-container">
       <div class="count-hours-item cold">
-        <strong>HASTA <span id="cold-counter">12</span> HRS FRÍO</strong>
+        <strong>HASTA <span id="cold-counter">{{ section.settings.cold_hours }}</span> HRS FRÍO</strong>
       </div>
-      <div>
-        {%- render 'custom-product-icons' -%}
-      </div>
-      {% comment %}
       <div class="count-hours-item hot">
-        <strong>HASTA <span id="hot-counter">8</span> HRS CALIENTE</strong>
+        <strong>HASTA <span id="hot-counter">{{ section.settings.hot_hours }}</span> HRS CALIENTE</strong>
       </div>
-      {% endcomment %}
+    </div>
+    <div class="count-hours-icons">
+      {%- render 'custom-product-icons' -%}
     </div>
   </div>
 </section>
@@ -61,20 +59,17 @@
 
   .count-hours-container {
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
     background-color: #fff;
     overflow: hidden;
     margin-top: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     max-width: 100%;
-    flex-wrap: wrap;
   }
 
   .count-hours-item {
     flex: 1;
-    min-width: 45%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -83,18 +78,28 @@
     font-weight: bold;
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #00449e;
-    color: #fff;
     border-radius: 15px;
     margin: 10px;
   }
 
   .cold {
+    background-color: #00449e;
+    color: #fff;
     border-right: 2px solid #eee;
   }
 
   .hot {
-    color: #DC3545;
+    background-color: #dc3545;
+    color: #fff;
+  }
+
+  /* Íconos */
+  .count-hours-icons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
   }
 
   /* Responsive ajustes */
@@ -108,14 +113,13 @@
   @media (max-width: 768px) {
     .count-hours-container {
       flex-direction: column;
-      align-items: center;
     }
     
     .count-hours-item {
       font-size: 1.5rem;
       padding: 20px;
-      width: 80%;
-      min-width: unset;
+      width: 90%;
+      margin: 5px auto;
       border-right: none;
     }
   }
@@ -124,7 +128,7 @@
     .count-hours-item {
       font-size: 1.2rem;
       padding: 15px;
-      width: 90%;
+      width: 95%;
     }
   }
 {% endstylesheet %}
