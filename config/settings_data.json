@@ -546,11 +546,11 @@
               "lb": "",
               "lb_cl": "#00badb",
               "pos_sub": "bottom",
-              "wid": "full nav_t4cnt",
+              "wid": "cus",
               "cus_wid": 900,
               "id": 1,
               "enable_packery": true,
-              "r_s_h_item": "6",
+              "r_s_h_item": "30",
               "r_s_v_item": "30"
             }
           },
