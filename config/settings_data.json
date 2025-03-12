@@ -547,7 +547,7 @@
               "lb_cl": "#00badb",
               "pos_sub": "bottom",
               "wid": "full nav_t4cnt",
-              "cus_wid": 600,
+              "cus_wid": 900,
               "id": 1,
               "enable_packery": true,
               "r_s_h_item": "6",
@@ -1247,7 +1247,7 @@
         ],
         "custom_css": [],
         "settings": {
-          "bg": ""
+          "bg": "#fff"
         }
       },
       "mb_nav": {
