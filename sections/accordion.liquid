@@ -34,20 +34,20 @@
   data-cold-hours="{{ section.settings.cold_hours }}" 
   data-hot-hours="{{ section.settings.hot_hours }}">
   <div class="t4s-container t4s-main-product__content is--layout_default t4s-product-media__thumbnails_bottom t4s-product-thumb-size__medium"> 
-  <div class="count-hours-container">
-    <div class="count-hours-item cold">
-      <strong>HASTA <span id="cold-counter">12</span> HRS FRÍO</strong>
+    <div class="count-hours-container">
+      <div class="count-hours-item cold">
+        <strong>HASTA <span id="cold-counter">12</span> HRS FRÍO</strong>
+      </div>
+      <div>
+        {%- render 'custom-product-icons' -%}
+      </div>
+      {% comment %}
+      <div class="count-hours-item hot">
+        <strong>HASTA <span id="hot-counter">8</span> HRS CALIENTE</strong>
+      </div>
+      {% endcomment %}
     </div>
-    <div>
-      {%- render 'custom-product-icons' -%}
-    </div>
-    {% comment %}
-    <div class="count-hours-item hot">
-      <strong>HASTA <span id="hot-counter">8</span> HRS CALIENTE</strong>
-    </div>
-    {% endcomment %}
   </div>
-    </div>
 </section>
 
 {% stylesheet %}
@@ -68,25 +68,28 @@
     overflow: hidden;
     margin-top: 50px;
     margin-bottom: 50px;
+    max-width: 100%;
+    flex-wrap: wrap;
   }
 
   .count-hours-item {
-    width: 50%;
+    flex: 1;
+    min-width: 45%;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 50px;
-    font-size: 40px;
+    padding: 40px;
+    font-size: 2rem;
     font-weight: bold;
     font-family: Arial, sans-serif;
-    line-height: 4.375rem;
+    text-align: center;
     background-color: #00449e;
+    color: #fff;
     border-radius: 15px;
+    margin: 10px;
   }
 
   .cold {
-    /*color: #007BFF;*/
-    color: #fff;
     border-right: 2px solid #eee;
   }
 
@@ -94,12 +97,34 @@
     color: #DC3545;
   }
 
+  /* Responsive ajustes */
+  @media (max-width: 1024px) {
+    .count-hours-item {
+      font-size: 1.8rem;
+      padding: 30px;
+    }
+  }
+
   @media (max-width: 768px) {
     .count-hours-container {
-      flex-direction: row;
+      flex-direction: column;
+      align-items: center;
     }
+    
     .count-hours-item {
-      font-size: 24px;
+      font-size: 1.5rem;
+      padding: 20px;
+      width: 80%;
+      min-width: unset;
+      border-right: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .count-hours-item {
+      font-size: 1.2rem;
+      padding: 15px;
+      width: 90%;
     }
   }
 {% endstylesheet %}
@@ -107,6 +132,8 @@
 {% javascript %}
   function startCounter(id, maxValue, duration) {
     let counter = document.getElementById(id);
+    if (!counter) return;
+
     let start = 0;
     let stepTime = Math.abs(Math.floor(duration / maxValue));
 
@@ -132,7 +159,7 @@
             if (entry.isIntersecting) {
               startCounter("cold-counter", coldHours, 2000);
               startCounter("hot-counter", hotHours, 2000);
-              observer.disconnect(); // Evita que el contador se reinicie
+              observer.disconnect();
             }
           });
         },
