@@ -32,28 +32,76 @@
   align-items: flex-start;
   padding: 40px 30px;
   text-align: center;
-  /*margin-left: 100px;  Ajusta este valor según necesites */
-  max-width:150%;
+  max-width: 150%;
   gap: 5rem;
+  flex-wrap: wrap;
 }
 
 .icon-item {
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex: 0 1 calc(33.333% - 5rem);
 }
 
 .icon-item img {
   min-width: 50px;
   width: 75px;
-  height: auto;
-  margin-bottom: 10px;
+  height: 75px;
+  margin-bottom: 15px;
 }
 
 .icon-item p {
-  font-size: 12px;
+  font-size: 11px;
   line-height: 1.2;
   font-weight: bold;
   margin: 0;
+}
+
+/* Media Queries */
+@media screen and (max-width: 1024px) {
+  .performance-icons {
+    gap: 3rem;
+    padding: 30px 20px;
+  }
+  
+  .icon-item {
+    flex: 0 1 calc(33.333% - 3rem);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .performance-icons {
+    gap: 2rem;
+  }
+  
+  .icon-item {
+    flex: 0 1 calc(50% - 2rem);
+  }
+  
+  .icon-item img {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .performance-icons {
+    gap: 1.5rem;
+    padding: 20px 15px;
+  }
+  
+  .icon-item {
+    flex: 0 1 calc(50% - 1.5rem);
+  }
+  
+  .icon-item img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .icon-item p {
+    font-size: 10px;
+  }
 }
 </style>
