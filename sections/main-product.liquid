@@ -808,12 +808,18 @@ endif -%}
               {% endif %}
             
             {% render 'after-before-2' %}
-             {% endcomment %}
-             {% render 'after-before-2' %}
-            <a href="#popup-comparador-{{ product.id }}" 
+             <a href="#popup-comparador-{{ product.id }}" 
               class="imagen-fija t4s-d-block" 
               data-popup-comparador 
               data-popup-id="popup-comparador-{{ product.id }}"
+              aria-label="{{ 'products.product.view_comparison' | t }}">
+              {% render "imagen-galeria-fix" %}
+            </a>
+             {% endcomment %}
+             {% render 'after-before-2' %}
+            <a href="javascript:void(0);" 
+              class="imagen-fija t4s-d-block" 
+              data-micromodal-trigger="modal-comparador-{{ product.id }}"
               aria-label="{{ 'products.product.view_comparison' | t }}">
               {% render "imagen-galeria-fix" %}
             </a>
@@ -4442,8 +4448,18 @@ endif -%}
 }
 {% endschema %}
 
-{% comment %}
-<div id="popup-comparador-{{ product.id }}" class="t4s-mfp-hide">
-  {% render 'popup-comparador' %}
-</div>
-{% endcomment %}
+{% render 'micromodal-popup' %}
+
+<script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    MicroModal.init({
+      openTrigger: 'data-micromodal-trigger',
+      closeTrigger: 'data-micromodal-close',
+      disableScroll: true,
+      disableFocus: false,
+      awaitOpenAnimation: true,
+      awaitCloseAnimation: true
+    });
+  });
+</script>

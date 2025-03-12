@@ -26,7 +26,7 @@
   height: 100%;
 }
 
-#before_after-2 {
+#before_after {
   background-image: var(--before-image);
   background-size: cover;
   bottom: 0;
@@ -38,11 +38,11 @@
   overflow: visible;
   position: absolute;
   width: 50%;
-  animation: first-2 2s 1 normal ease-in-out 0.1s;
-  -webkit-animation: first-2 2s 1 normal ease-in-out 0.1s;
+  animation: first 2s 1 normal ease-in-out 0.1s;
+  -webkit-animation: first 2s 1 normal ease-in-out 0.1s;
 }
 
-input#before_after_slider-2 {
+input#before_after_slider {
   -moz-appearance: none;
   -webkit-appearance: none;
   border: none;
@@ -58,11 +58,11 @@ input#before_after_slider-2 {
   width: 100%;
 }
 
-input#before_after_slider-2::-moz-range-track {
+input#before_after_slider::-moz-range-track {
   background: transparent;
 }
 
-input#before_after_slider-2::-ms-track {
+input#before_after_slider::-ms-track {
   border: none;
   background-color: transparent;
   height: 100vw;
@@ -77,35 +77,35 @@ input#before_after_slider-2::-ms-track {
   color: transparent;
 }
 
-input#before_after_slider-2::-ms-fill-lower {
+input#before_after_slider::-ms-fill-lower {
   background-color: transparent;
 }
 
-input#before_after_slider-2::-webkit-slider-thumb {
+input#before_after_slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   height: 100vw;
   width: 0.5%;
   opacity: 0;
 }
 
-input#before_after_slider-2::-moz-range-thumb {
+input#before_after_slider::-moz-range-thumb {
   -moz-appearance: none;
   height: 100vw;
   width: 0.5%;
   opacity: 0;
 }
 
-input#before_after_slider-2::-ms-thumb {
+input#before_after_slider::-ms-thumb {
   height: 100vw;
   width: 0.5%;
   opacity: 0;
 }
 
-input#before_after_slider-2::-ms-tooltip {
+input#before_after_slider::-ms-tooltip {
   display: none;
 }
 
-#before_after-2::before {
+#before_after::before {
   background: url(https://assets.codepen.io/191814/comparision.png) no-repeat scroll 0 center transparent;
   background-size: contain;
   content: " ";
@@ -117,13 +117,13 @@ input#before_after_slider-2::-ms-tooltip {
   width: 64px;
 }
 
-@keyframes first-2 {
+@keyframes first {
   0% { width: 0%; }
   50% { width: 80%; }
   100% { width: 50%; }
 }
 
-@-webkit-keyframes first-2 {
+@-webkit-keyframes first {
   0% { width: 0%; }
   50% { width: 80%; }
   100% { width: 50%; }
@@ -132,15 +132,15 @@ input#before_after_slider-2::-ms-tooltip {
 
 <div class="before-after-container">
   <figure>
-    <div id="before_after-2"></div>
+    <div id="before_after"></div>
   </figure>
-  <input oninput="beforeAfter2()" onchange="beforeAfter2()" type="range" min="0" max="100" value="50" id="before_after_slider-2" />
+  <input oninput="beforeAfter()" onchange="beforeAfter()" type="range" min="0" max="100" value="50" id="before_after_slider" />
 </div>
 
 <script>
-function beforeAfter2() {
-  document.getElementById("before_after-2").style.width = 
-    document.getElementById("before_after_slider-2").value + "%";
+function beforeAfter() {
+  document.getElementById("before_after").style.width = 
+    document.getElementById("before_after_slider").value + "%";
 }
 </script>
 
