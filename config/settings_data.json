@@ -27,6 +27,7 @@
     "accent_color": "#0028a1",
     "link_color_hover": "#fff",
     "cl_lazyload": "#0028a1",
+    "use_cus_lz": true,
     "cus_lz": "shopify://shop_images/MH_LOGO_Black.png",
     "font_source": "2",
     "fnt_fm_sp2": "poppins_n4",
