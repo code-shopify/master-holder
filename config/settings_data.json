@@ -31,7 +31,7 @@
     "cus_lz": "shopify://shop_images/MH_LOGO_Black.png",
     "font_source": "2",
     "fnt_fm_sp2": "poppins_n4",
-    "fnt_fm_sp3": "libre_baskerville_n4",
+    "fnt_fm_sp3": "poppins_n4",
     "fnt_fm_gg2": "Poppins",
     "fnt_fm_gg3": "Libre Baskerville",
     "hd_ffamily": "1",
@@ -987,7 +987,7 @@
           "toolbar_mobile-4"
         ],
         "settings": {
-          "enable_toolbar": true,
+          "enable_toolbar": false,
           "show_txt": true,
           "bg_color": "#ffffff",
           "icon_color": "#222222",
