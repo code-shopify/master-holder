@@ -655,7 +655,7 @@
           "enable_active": false,
           "h_navmb": 60,
           "bgnav": "#ffffff",
-          "opnav": 0,
+          "opnav": 100,
           "clnav": "#222222",
           "clnav_hover": "#00449e",
           "h_icon": "kalles",
