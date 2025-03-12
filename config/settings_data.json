@@ -1749,9 +1749,9 @@
           "ef55a72d-2a3a-4be2-b303-7904b5feef29"
         ],
         "settings": {
-          "btn_vi": "hover",
+          "btn_vi": "always",
           "btn_owl": "outline",
-          "btn_shape": "round",
+          "btn_shape": "none",
           "btn_size": "medium",
           "dot_owl": "elessi",
           "dots_round": true,
