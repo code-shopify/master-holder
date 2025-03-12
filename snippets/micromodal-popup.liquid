@@ -11,12 +11,15 @@
       <main class="modal__content" id="modal-comparador-{{ product.id }}-content">
         <!-- Aquí va el contenido del popup -->
         {% comment %}
-        {% render 'imagen-galeria-fix' %}
+            {% render 'imagen-galeria-fix' %}
          {% endcomment %}
          {% render 'popup-comparador' %}
       </main>
       <footer class="modal__footer">
-        <button class="modal__btn" data-micromodal-close aria-label="Cerrar">Cerrar</button>
+        {% comment %}
+            <button class="modal__btn" data-micromodal-close aria-label="Cerrar">X</button>
+        {% endcomment %}
+        
       </footer>
     </div>
   </div>
@@ -43,6 +46,7 @@
 .modal__container {
   background-color: #fff;
   padding: 30px;
+  width:100%
   max-width: 800px;
   max-height: 90vh;
   border-radius: 4px;
@@ -60,8 +64,8 @@
 .modal__title {
   margin: 0;
   font-weight: 600;
-  font-size: 1.25rem;
-  line-height: 1.25;
+  font-size: 2.25rem;
+  line-height: 2.25;
   color: #00449e;
 }
 
@@ -70,11 +74,14 @@
   border: 0;
   cursor: pointer;
   padding: 0;
+  
 }
 
 .modal__close:before {
   content: '\2715';
   font-size: 20px;
+  color: #00449e;
+  font-weight: bold;
 }
 
 .modal__content {
