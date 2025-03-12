@@ -163,7 +163,7 @@
         "media_size": "medium",
         "thumb_lr_size": "small",
         "image_ratio": "ratio1_1",
-        "image_size": "cover",
+        "image_size": "contain",
         "image_position": "8",
         "main_click": "none",
         "zoom_tp": "external",
