@@ -98,12 +98,24 @@
             ]
           }
         },
+        "text_CdafGR": {
+          "type": "text",
+          "settings": {
+            "text": "<p>¡Master HLDR es original Portacaguamón! Todos los artefactos que utilizabas para mantener frio tu Caguamón / Caguama han quedado en el olvido. Este producto incluye:</p><p>✅ Portacaguamón / Portacaguama</p><p>✅ Kit de Adaptadores (5 Adaptadores de Botella)</p><p>✅ Tapa (Para convertir tu Portacaguamón en Termo/Tarro)</p>"
+          }
+        },
         "tab_html_T8cCC7": {
           "type": "tab_html",
           "settings": {
             "title": "Descripción",
-            "content": "{{ block.settings.page.content }}",
+            "content": "",
             "page": ""
+          }
+        },
+        "custom_liquid_EGe7nY": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div class=\"whatsapp-container\">\n    <p>Nota: *Si deseas más información comunícate vía \n        <a href=\"https://wa.me/528128723060?text={{ '¡Hola! Estoy interesado en este producto: ' | append: shop.url | append: product.url | url_encode }}\" target=\"_blank\">\n            <button class=\"whatsapp-button\">WhatsApp</button>\n        </a> \n        con gusto te atenderemos.\n    </p>\n</div>\n\n<style>\n    .whatsapp-container {\n        font-family: Arial, sans-serif;\n        font-size: 14px;\n        margin-top: 20px;\n    }\n    .whatsapp-button {\n        background-color: #25D366;\n        color: white;\n        border: none;\n        padding: 10px 15px;\n        font-size: 14px;\n        cursor: pointer;\n        border-radius: 5px;\n        text-decoration: none;\n    }\n    .whatsapp-button:hover {\n        background-color: #1ebe57;\n    }\n</style>"
           }
         },
         "23551ebc-3be1-40d6-81b2-30f03478cccb": {
@@ -140,7 +152,9 @@
         "price_review",
         "description",
         "form",
+        "text_CdafGR",
         "tab_html_T8cCC7",
+        "custom_liquid_EGe7nY",
         "23551ebc-3be1-40d6-81b2-30f03478cccb",
         "size_delivery_ask"
       ],
