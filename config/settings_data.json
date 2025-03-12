@@ -644,7 +644,7 @@
         ],
         "custom_css": [
           ".header {box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);}",
-          ".t4s-container {display: flex, }"
+          ".t4s-menu-item.t4s-type__mega {display: flex; }"
         ],
         "settings": {
           "layout": "logo_left",
