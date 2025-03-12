@@ -1018,6 +1018,14 @@
               "id": 1
             }
           },
+          "html_J6DwiQ": {
+            "type": "html",
+            "settings": {
+              "html": "",
+              "page": "",
+              "col": "1"
+            }
+          },
           "banner_D3NtHa": {
             "type": "banner",
             "settings": {
@@ -1033,7 +1041,7 @@
               "html": "<p>Porta Caguamon</p>",
               "content_align": "center",
               "cv_pos": 100,
-              "ch_pos": 100,
+              "ch_pos": 50,
               "cl_txt": "#ffffff",
               "cl_overlay": "#000000",
               "cl_opacity": 5,
@@ -1165,7 +1173,7 @@
               "html": "<p>Tazas de 20 oz</p>",
               "content_align": "center",
               "cv_pos": 100,
-              "ch_pos": 0,
+              "ch_pos": 50,
               "cl_txt": "#ffffff",
               "cl_overlay": "#000000",
               "cl_opacity": 5,
@@ -1187,7 +1195,7 @@
               "html": "<p>Vasos de 20 oz</p>",
               "content_align": "center",
               "cv_pos": 100,
-              "ch_pos": 0,
+              "ch_pos": 50,
               "cl_txt": "#ffffff",
               "cl_overlay": "#000000",
               "cl_opacity": 5,
@@ -1209,20 +1217,19 @@
               "html": "<p> Accesorios </p>",
               "content_align": "center",
               "cv_pos": 100,
-              "ch_pos": 0,
+              "ch_pos": 50,
               "cl_txt": "#ffffff",
               "cl_overlay": "#000000",
               "cl_opacity": 5,
               "col": "1"
             }
           },
-          "html_J6DwiQ": {
+          "html_f6Nrb6": {
             "type": "html",
-            "disabled": true,
             "settings": {
-              "html": "<p> hola </p>",
+              "html": "",
               "page": "",
-              "col": "2"
+              "col": "1"
             }
           },
           "mega_kWMCWz": {
@@ -1234,6 +1241,7 @@
         },
         "block_order": [
           "mega_tYbwQw",
+          "html_J6DwiQ",
           "banner_D3NtHa",
           "banner_KMD6TH",
           "banner_x7TQdy",
@@ -1243,7 +1251,7 @@
           "banner_QWtAB3",
           "banner_ipcyEt",
           "banner_hDpxxm",
-          "html_J6DwiQ",
+          "html_f6Nrb6",
           "mega_kWMCWz"
         ],
         "custom_css": [],
