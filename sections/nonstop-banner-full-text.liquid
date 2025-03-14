@@ -33,26 +33,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 6rem 0;
+    padding: 10rem 0;
     width: 100%;
     position: relative;
   }
 
   .nonstop-banner__container {
     display: grid;
-    grid-template-columns: 45% 45%;
-    gap: 5%;
-    max-width: 1400px;
+    grid-template-columns: 50% 50%; /* Se mantiene el mismo espacio */
+    max-width: 1500px;
     width: 100%;
     align-items: center;
     position: relative;
     border-radius: 1rem;
   }
 
-  /* Sección Izquierda (Texto y Botón) */
+  /* Sección Izquierda y Derecha (Texto y Botón) */
   .nonstop-banner__left, .nonstop-banner__right {
     background-color: #f0f0f0;
-    padding: 3rem 4rem;
+    padding: 4rem 7rem;
     text-align: left;
     display: flex;
     flex-direction: column;
@@ -62,37 +61,37 @@
   }
 
   .nonstop-banner__left h2, .nonstop-banner__right h2 {
-    font-size: 2.2em;
+    font-size: 2.4em;
     font-weight: bold;
     margin-bottom: 10px;
   }
 
   .nonstop-banner__left p, .nonstop-banner__right p {
-    font-size: 1.2em;
-    margin-bottom: 15px;
+    font-size: 1.4em;
+    margin-bottom: 20px;
   }
 
   .nonstop-banner__button {
     display: inline-block;
-    padding: 12px 22px;
+    padding: 14px 26px;
     text-decoration: none;
     font-weight: bold;
     border-radius: 1rem;
     text-align: center;
     border: 2px solid black;
-    font-size: 1em;
+    font-size: 1.2em;
     background: black;
     color: white;
   }
 
-  /* Imagen Flotante (Inclinada hacia la izquierda) */
+  /* Imagen Flotante (Ahora inclinada a la izquierda) */
   .nonstop-banner__center {
     position: absolute;
     top: 50%;
-    left: 38%; /* Movemos la imagen hacia la izquierda */
-    transform: translate(-50%, -50%) rotate(-10deg); /* Inclinamos hacia la izquierda */
+    left: 33%; /* Movemos la imagen más a la izquierda */
+    transform: translate(-50%, -50%) rotate(-10deg); /* Inclinamos a la izquierda */
     z-index: 5;
-    width: 18rem; /* Tamaño ajustado */
+    width: 18rem; /* Tamaño más grande */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -100,7 +99,7 @@
   }
 
   .nonstop-banner__main-image {
-    width: 120%;
+    width: 140%; /* La imagen es más grande */
     height: auto;
     object-fit: contain;
     filter: drop-shadow(15px 15px 40px rgba(0, 0, 0, 0.4));
@@ -119,7 +118,6 @@
     .nonstop-banner__container {
       grid-template-columns: 1fr;
       text-align: center;
-      gap: 0;
     }
 
     .nonstop-banner__left, .nonstop-banner__right {
@@ -127,35 +125,35 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 2rem;
+      padding: 4rem; /* Se mantiene el mismo padding */
     }
 
     .nonstop-banner__left h2, .nonstop-banner__right h2 {
-      font-size: 1.8em;
+      font-size: 2em;
     }
 
     .nonstop-banner__left p, .nonstop-banner__right p {
-      font-size: 1em;
+      font-size: 1.2em;
     }
 
     .nonstop-banner__button {
-      padding: 10px 18px;
-      font-size: 0.9em;
+      padding: 12px 22px;
+      font-size: 1em;
     }
 
     .nonstop-banner__center {
-      width: 12rem;
+      width: 14rem;
       top: 55%;
-      left: 40%; /* Mantenemos la imagen inclinada a la izquierda en móvil */
+      left: 30%; /* Se mantiene más a la izquierda */
       transform: translate(-50%, -50%) rotate(-10deg);
     }
 
     .nonstop-banner {
-      padding: 4rem 0;
+      padding: 5rem 0;
     }
     
     .nonstop-banner__main-image {
-      width: 100%;
+      width: 140%;
       height: auto;
     }
   }
