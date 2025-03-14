@@ -1021,6 +1021,7 @@
     },
     "nonstop_color_banner_NLeWcF": {
       "type": "nonstop-color-banner",
+      "disabled": true,
       "settings": {
         "bg_color": "#f0f0f0",
         "title": "CATÁLOGO 2025",
@@ -1028,6 +1029,21 @@
         "text_color": "#000000",
         "main_image": "shopify://shop_images/Master_Holder_banner_catalogo.png",
         "button_text": "¡Solicitarlo Ahora!",
+        "button_link": "",
+        "button_bg_color": "#000000",
+        "button_text_color": "#ffffff"
+      }
+    },
+    "nonstop_banner_full_text_jMCPa9": {
+      "type": "nonstop-banner-full-text",
+      "settings": {
+        "bg_color": "#f0f0f0",
+        "title": "CATÁLOGO 2025",
+        "subtitle": "NEW color-matched caps and lids.",
+        "text_color": "#000000",
+        "right_title": "New Feature",
+        "right_subtitle": "A description for the right section.",
+        "button_text": "Shop New Colors",
         "button_link": "",
         "button_bg_color": "#000000",
         "button_text_color": "#ffffff"
@@ -1045,6 +1061,7 @@
     "16460368750174c54a",
     "tiktok_slider_B9674h",
     "feature_columns_3jfRdU",
-    "nonstop_color_banner_NLeWcF"
+    "nonstop_color_banner_NLeWcF",
+    "nonstop_banner_full_text_jMCPa9"
   ]
 }
