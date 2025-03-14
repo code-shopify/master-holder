@@ -24,7 +24,6 @@
   </div>
 </div>
 
-<style>
   .nonstop-banner1 {
     display: flex;
     justify-content: center;
@@ -80,21 +79,19 @@
     color: white;
   }
 
-  /* Sección Derecha (Imagen Full Width Flotante) */
+  /* Sección Derecha (Imagen Flotante más Pequeña) */
   .nonstop-banner__right1 {
-    
     position: relative;
     width: 100%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     height: 100%;
-  
   }
 
   .nonstop-banner__main-image1 {
-    width: 100%;
-    max-width: 100%;
+    width: 70%;  /* Ajustado al 70% del ancho */
+    max-width: 500px;  /* Máximo tamaño */
     height: auto;
     object-fit: contain;
     transform: rotate(5deg);
@@ -135,12 +132,12 @@
     }
 
     .nonstop-banner__main-image1 {
-      
-      max-width: 100%;
+      width: 80%;  /* Para pantallas pequeñas */
+      max-width: 400px;
       height: auto;
     }
   }
-</style>
+
 
 {% schema %}
 {
