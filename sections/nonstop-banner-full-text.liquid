@@ -7,30 +7,25 @@
         <div class="nonstop-banner__left1" style="background-color: {{ section.settings.bg_color }}">
           <h2 style="color: {{ section.settings.text_color }}">{{ section.settings.title }}</h2>
           <p style="color: {{ section.settings.text_color }}">{{ section.settings.subtitle }}</p>
-          <a href="{{ section.settings.button_link }}" class="nonstop-banner__button1" style="background-color: {{ section.settings.button_bg_color }}; color: {{ section.settings.button_text_color }}">
+          <a href="{{ section.settings.button_link }}" class="nonstop-banner__button1" 
+             style="background-color: {{ section.settings.button_bg_color }}; color: {{ section.settings.button_text_color }}">
             {{ section.settings.button_text }}
           </a>
-          
         </div>
 
-        <!-- Sección Centro: Imagen Flotante -->
-        <div class="nonstop-banner__center1">
-          <img src="{{ section.settings.main_image | img_url: 'master' }}" alt="Main Product" class="nonstop-banner__main-image1">
-        </div>
-
-        <!-- Sección Derecha: Texto en lugar de imagen -->
-        <div class="nonstop-banner__right1" style="background-color: {{ section.settings.bg_color }}">
-          <h2 style="color: {{ section.settings.text_color }}">{{ section.settings.right_title }}</h2>
-          <p style="color: {{ section.settings.text_color }}">{{ section.settings.right_subtitle }}</p>
-          
+        <!-- Sección Derecha: Imagen Flotante Full Width -->
+        <div class="nonstop-banner__right1">
+          <img src="{{ section.settings.main_image | img_url: 'master' }}" 
+               alt="Main Product" class="nonstop-banner__main-image1">
         </div>
 
       </div>
     </div>
   </div>
 </div>
+
 <style>
-  .nonstop-banner1{
+  .nonstop-banner1 {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,7 +45,7 @@
   }
 
   /* Sección Izquierda (Texto y Botón) */
-  .nonstop-banner__left1, .nonstop-banner__right1{
+  .nonstop-banner__left1 {
     background-color: #f0f0f0;
     padding: 4rem 7rem;
     text-align: left;
@@ -61,13 +56,13 @@
     height: 100%;
   }
 
-  .nonstop-banner__left1 h2, .nonstop-banner__right1 h2 {
+  .nonstop-banner__left1 h2 {
     font-size: 2.4em;
     font-weight: bold;
     margin-bottom: 10px;
   }
 
-  .nonstop-banner__left1 p, .nonstop-banner__right1 p {
+  .nonstop-banner__left1 p {
     font-size: 1.4em;
     margin-bottom: 20px;
   }
@@ -85,34 +80,31 @@
     color: white;
   }
 
-  /* Imagen Flotante en el Centro */
-  .nonstop-banner__center1 {
-    position: absolute;
-    top: 40%;
-    left: 45%;
-    transform: translate(-50%, -40%);
-    z-index: 5;
-    width: 14rem;
+  /* Sección Derecha (Imagen Full Width Flotante) */
+  .nonstop-banner__right1 {
+    position: relative;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: transparent;
   }
 
   .nonstop-banner__main-image1 {
     width: 100%;
-    height: 100%;
+    max-width: 100%;
+    height: auto;
     object-fit: contain;
-    transform: rotate(10deg);
-    filter: drop-shadow(15px 15px 40px rgba(0, 0, 0, 0.4));
+    transform: rotate(5deg);
+    filter: drop-shadow(10px 10px 30px rgba(0, 0, 0, 0.3));
     animation: float 3s ease-in-out infinite;
   }
 
   /* Animación de Flotación */
   @keyframes float {
-    0% { transform: translateY(0px) rotate(10deg); }
-    50% { transform: translateY(-10px) rotate(12deg); }
-    100% { transform: translateY(0px) rotate(10deg); }
+    0% { transform: translateY(0px) rotate(5deg); }
+    50% { transform: translateY(-10px) rotate(7deg); }
+    100% { transform: translateY(0px) rotate(5deg); }
   }
 
   /* Responsive para Pantallas Pequeñas */
@@ -122,36 +114,35 @@
       text-align: center;
     }
 
-    .nonstop-banner__left1, .nonstop-banner__right1 {
+    .nonstop-banner__left1 {
       width: 100%;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 1rem;
+      padding: 2rem;
     }
 
-    .nonstop-banner__center1 {
-      width: 7rem;
-      top: 50%;
-      left: 95%;
-      transform: translate(-50%, -35%);
+    .nonstop-banner__right1 {
+      width: 100%;
+      justify-content: center;
+      align-items: center;
     }
 
-    .nonstop-banner1{
+    .nonstop-banner1 {
       padding: 5rem 0;
     }
-    
-    .nonstop-banner__main-image1{
+
+    .nonstop-banner__main-image1 {
       width: 100%;
-      height: 100%;
+      max-width: 90%;
+      height: auto;
     }
   }
-</style> 
-
+</style>
 
 {% schema %}
 {
-  "name": "Nonstop Banner text",
+  "name": "Nonstop Banner Full Image",
   "settings": [
     {
       "type": "color",
@@ -176,18 +167,6 @@
       "id": "text_color",
       "label": "Text Color",
       "default": "#000000"
-    },
-    {
-      "type": "text",
-      "id": "right_title",
-      "label": "Right Title",
-      "default": "New Feature"
-    },
-    {
-      "type": "text",
-      "id": "right_subtitle",
-      "label": "Right Subtitle",
-      "default": "A description for the right section."
     },
     {
       "type": "image_picker",
@@ -220,7 +199,7 @@
   ],
   "presets": [
     {
-      "name": "Nonstop Banner text",
+      "name": "Nonstop Banner Full Image",
       "category": "Custom Sections"
     }
   ]
