@@ -940,6 +940,20 @@
       ],
       "settings": {}
     },
+    "nonstop_banner_full_text_jMCPa9": {
+      "type": "nonstop-banner-full-text",
+      "settings": {
+        "bg_color": "#f0f0f0",
+        "title": "CATÁLOGO 2025",
+        "subtitle": "¡Inicia tu nuevo negocio!                     Distribuye productos Master Holder.",
+        "text_color": "#000000",
+        "main_image": "shopify://shop_images/2c9ceb818d69bfb7018d8420ee35720f.jpg",
+        "button_text": "¡Solocitalo Ahora!",
+        "button_link": "",
+        "button_bg_color": "#000000",
+        "button_text_color": "#ffffff"
+      }
+    },
     "feature_columns_3jfRdU": {
       "type": "feature_columns",
       "blocks": {
@@ -1034,20 +1048,6 @@
         "button_bg_color": "#000000",
         "button_text_color": "#ffffff"
       }
-    },
-    "nonstop_banner_full_text_jMCPa9": {
-      "type": "nonstop-banner-full-text",
-      "settings": {
-        "bg_color": "#f0f0f0",
-        "title": "CATÁLOGO 2025",
-        "subtitle": "¡Inicia tu nuevo negocio!                     Distribuye productos Master Holder.",
-        "text_color": "#000000",
-        "main_image": "shopify://shop_images/2c9ceb818d69bfb7018d8420ee35720f.jpg",
-        "button_text": "¡Solocitalo Ahora!",
-        "button_link": "",
-        "button_bg_color": "#000000",
-        "button_text_color": "#ffffff"
-      }
     }
   },
   "order": [
@@ -1060,8 +1060,8 @@
     "164620932069107a3a",
     "16460368750174c54a",
     "tiktok_slider_B9674h",
+    "nonstop_banner_full_text_jMCPa9",
     "feature_columns_3jfRdU",
-    "nonstop_color_banner_NLeWcF",
-    "nonstop_banner_full_text_jMCPa9"
+    "nonstop_color_banner_NLeWcF"
   ]
 }
