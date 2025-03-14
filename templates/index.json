@@ -964,6 +964,7 @@
       "block_order": [
         "text_block_b7YU6K"
       ],
+      "disabled": true,
       "settings": {
         "design_heading": "1",
         "heading_align": "t4s-text-center",
