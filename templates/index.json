@@ -943,23 +943,6 @@
     "feature_columns_3jfRdU": {
       "type": "feature_columns",
       "blocks": {
-        "text_block_RYEUzU": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image": "shopify://shop_images/Master_holder_BANNER_Amazon_USA.png",
-            "title": "Ordenar en Estados Unidos",
-            "text": "<p>Amazon USA</p><p>¡Master Holder está en Amazon USA!</p>",
-            "button_label": "Amazon USA",
-            "button_link": "https://www.amazon.com/s?me=A2O1S0AUNU2I2M&language=es&marketplaceID=ATVPDKIKX0DER",
-            "open_link": "_blank",
-            "btn_icon": false,
-            "button_style": "outline",
-            "btn_size": "extra-small",
-            "btn_cl": "dark",
-            "button_effect": "default"
-          }
-        },
         "text_block_b7YU6K": {
           "type": "text_block",
           "settings": {
@@ -976,29 +959,10 @@
             "btn_cl": "dark",
             "button_effect": "fade"
           }
-        },
-        "text_block_K9q7BR": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image": "shopify://shop_images/Master_Holder_banner_mercado_libre.png",
-            "title": "MERCADO LÍDER PLATINUM",
-            "text": "<p>ENVÍOS MÁS RÁPIDOS<br/>Más de 30 mil ventas nos respaldan<br/>recibe tu producto rápido y seguro aquí.</p>",
-            "button_label": "¡PEDIR POR MERCADO LIBRE!",
-            "button_link": "https://listado.mercadolibre.com.mx/tienda/master-holder/",
-            "open_link": "_blank",
-            "btn_icon": false,
-            "button_style": "outline",
-            "btn_size": "extra-small",
-            "btn_cl": "dark",
-            "button_effect": "fade"
-          }
         }
       },
       "block_order": [
-        "text_block_RYEUzU",
-        "text_block_b7YU6K",
-        "text_block_K9q7BR"
+        "text_block_b7YU6K"
       ],
       "settings": {
         "design_heading": "1",
@@ -1023,7 +987,7 @@
         "space_v_item": "30",
         "space_h_item_mb": "10",
         "space_v_item_mb": "10",
-        "col_dk": "3",
+        "col_dk": "2",
         "col_tb": "2",
         "col_mb": "1",
         "loop": true,
