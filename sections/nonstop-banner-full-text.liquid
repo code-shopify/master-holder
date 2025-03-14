@@ -29,7 +29,7 @@
   </div>
 </div>
 <style>
-  .nonstop-banner1{
+  .nonstop-banner1 {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,7 +49,7 @@
   }
 
   /* Sección Izquierda (Texto y Botón) */
-  .nonstop-banner__left1, .nonstop-banner__right1{
+  .nonstop-banner__left1, .nonstop-banner__right1 {
     background-color: #f0f0f0;
     padding: 4rem 7rem;
     text-align: left;
@@ -84,14 +84,15 @@
     color: white;
   }
 
-  /* Imagen Flotante en el Centro */
+  /* Imagen Flotante en el Centro (Full Width y Extendiéndose a la Derecha) */
   .nonstop-banner__center1 {
     position: absolute;
-    top: 40%;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%, -40%);
+    transform: translate(-50%, -50%);
     z-index: 5;
-    width: 14rem;
+    width: 100vw; /* Hace la imagen full width */
+    max-width: 1500px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -100,18 +101,9 @@
 
   .nonstop-banner__main-image1 {
     width: 100%;
-    height: 100%;
-    object-fit: contain;
-    transform: rotate(10deg);
+    height: auto;
+    object-fit: cover;
     filter: drop-shadow(15px 15px 40px rgba(0, 0, 0, 0.4));
-    animation: float 3s ease-in-out infinite;
-  }
-
-  /* Animación de Flotación */
-  @keyframes float {
-    0% { transform: translateY(0px) rotate(10deg); }
-    50% { transform: translateY(-10px) rotate(12deg); }
-    100% { transform: translateY(0px) rotate(10deg); }
   }
 
   /* Responsive para Pantallas Pequeñas */
@@ -130,22 +122,23 @@
     }
 
     .nonstop-banner__center1 {
-      width: 7rem;
+      width: 100vw;
       top: 50%;
-      left: 95%;
-      transform: translate(-50%, -35%);
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
 
-    .nonstop-banner1{
+    .nonstop-banner1 {
       padding: 5rem 0;
     }
     
-    .nonstop-banner__main-image1{
+    .nonstop-banner__main-image1 {
       width: 100%;
-      height: 100%;
+      height: auto;
     }
   }
-</style> 
+</style>
+
 
 
 {% schema %}
