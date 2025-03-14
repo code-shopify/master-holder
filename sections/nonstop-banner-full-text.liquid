@@ -1,35 +1,36 @@
 <div class="t4s-section-inner t4s-container-wrap">
   <div class="t4s-container"> 
-    <div class="nonstop-banner">
-      <div class="nonstop-banner__container">
+    <div class="nonstop-banner1">
+      <div class="nonstop-banner__container1">
 
         <!-- Sección Izquierda: Texto y Botón -->
-        <div class="nonstop-banner__left" style="background-color: {{ section.settings.bg_color }}">
+        <div class="nonstop-banner__left1" style="background-color: {{ section.settings.bg_color }}">
           <h2 style="color: {{ section.settings.text_color }}">{{ section.settings.title }}</h2>
           <p style="color: {{ section.settings.text_color }}">{{ section.settings.subtitle }}</p>
-          <a href="{{ section.settings.button_link }}" class="nonstop-banner__button" style="background-color: {{ section.settings.button_bg_color }}; color: {{ section.settings.button_text_color }}">
+          <a href="{{ section.settings.button_link }}" class="nonstop-banner__button1" style="background-color: {{ section.settings.button_bg_color }}; color: {{ section.settings.button_text_color }}">
             {{ section.settings.button_text }}
           </a>
+          
         </div>
 
-        <!-- Sección Derecha: Texto y Espacio para la Imagen Flotante -->
-        <div class="nonstop-banner__right" style="background-color: {{ section.settings.bg_color }}">
+        <!-- Sección Centro: Imagen Flotante -->
+        <div class="nonstop-banner__center1">
+          <img src="{{ section.settings.main_image | img_url: 'master' }}" alt="Main Product" class="nonstop-banner__main-image1">
+        </div>
+
+        <!-- Sección Derecha: Texto en lugar de imagen -->
+        <div class="nonstop-banner__right1" style="background-color: {{ section.settings.bg_color }}">
           <h2 style="color: {{ section.settings.text_color }}">{{ section.settings.right_title }}</h2>
           <p style="color: {{ section.settings.text_color }}">{{ section.settings.right_subtitle }}</p>
-        </div>
-
-        <!-- Imagen Flotante -->
-        <div class="nonstop-banner__center">
-          <img src="{{ section.settings.main_image | img_url: 'master' }}" alt="Main Product" class="nonstop-banner__main-image">
+          
         </div>
 
       </div>
     </div>
   </div>
 </div>
-
 <style>
-  .nonstop-banner {
+  .nonstop-banner1{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -38,7 +39,7 @@
     position: relative;
   }
 
-  .nonstop-banner__container {
+  .nonstop-banner__container1 {
     display: grid;
     grid-template-columns: 50% 50%;
     max-width: 1500px;
@@ -49,7 +50,7 @@
   }
 
   /* Sección Izquierda (Texto y Botón) */
-  .nonstop-banner__left, .nonstop-banner__right {
+  .nonstop-banner__left1, .nonstop-banner__right1{
     background-color: #f0f0f0;
     padding: 4rem 7rem;
     text-align: left;
@@ -58,21 +59,20 @@
     justify-content: center;
     align-items: flex-start;
     height: 100%;
-    z-index: 1; /* Para que la imagen quede encima */
   }
 
-  .nonstop-banner__left h2, .nonstop-banner__right h2 {
+  .nonstop-banner__left1 h2, .nonstop-banner__right1 h2 {
     font-size: 2.4em;
     font-weight: bold;
     margin-bottom: 10px;
   }
 
-  .nonstop-banner__left p, .nonstop-banner__right p {
+  .nonstop-banner__left1 p, .nonstop-banner__right1 p {
     font-size: 1.4em;
     margin-bottom: 20px;
   }
 
-  .nonstop-banner__button {
+  .nonstop-banner__button1 {
     display: inline-block;
     padding: 14px 26px;
     text-decoration: none;
@@ -85,47 +85,44 @@
     color: white;
   }
 
-  /* Imagen Flotante en el Centro (Ocupa Todo el Espacio) */
-  .nonstop-banner__center {
+  /* Imagen Flotante en el Centro */
+  .nonstop-banner__center1 {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    width: 35%; /* Aumenta el tamaño de la imagen */
-    max-width: 400px; /* Máximo tamaño */
+    top: 40%;
+    left: 45%;
+    transform: translate(-50%, -40%);
+    z-index: 5;
+    width: 14rem;
     display: flex;
     justify-content: center;
     align-items: center;
     background: transparent;
   }
 
-  .nonstop-banner__main-image {
+  .nonstop-banner__main-image1 {
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: contain;
+    transform: rotate(10deg);
     filter: drop-shadow(15px 15px 40px rgba(0, 0, 0, 0.4));
+    animation: float 3s ease-in-out infinite;
   }
 
   /* Animación de Flotación */
   @keyframes float {
-    0% { transform: translateY(0px) rotate(5deg); }
-    50% { transform: translateY(-10px) rotate(7deg); }
-    100% { transform: translateY(0px) rotate(5deg); }
-  }
-
-  .nonstop-banner__main-image {
-    animation: float 3s ease-in-out infinite;
+    0% { transform: translateY(0px) rotate(10deg); }
+    50% { transform: translateY(-10px) rotate(12deg); }
+    100% { transform: translateY(0px) rotate(10deg); }
   }
 
   /* Responsive para Pantallas Pequeñas */
   @media (max-width: 767px) {
-    .nonstop-banner__container {
+    .nonstop-banner__container1 {
       grid-template-columns: 1fr;
       text-align: center;
     }
 
-    .nonstop-banner__left, .nonstop-banner__right {
+    .nonstop-banner__left1, .nonstop-banner__right1 {
       width: 100%;
       justify-content: center;
       align-items: center;
@@ -133,20 +130,23 @@
       padding: 1rem;
     }
 
-    .nonstop-banner__center {
-      width: 50%;
-      max-width: 250px;
+    .nonstop-banner__center1 {
+      width: 7rem;
       top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      left: 95%;
+      transform: translate(-50%, -35%);
     }
 
-    .nonstop-banner {
+    .nonstop-banner1{
       padding: 5rem 0;
     }
+    
+    .nonstop-banner__main-image1{
+      width: 100%;
+      height: 100%;
+    }
   }
-</style>
-
+</style> 
 
 
 {% schema %}
