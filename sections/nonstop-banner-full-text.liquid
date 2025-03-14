@@ -24,7 +24,7 @@
   </div>
 </div>
 <style>
-  .nonstop-banner1 {
+   .nonstop-banner1 {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,7 +45,7 @@
 
   /* Sección Izquierda (Texto y Botón) */
   .nonstop-banner__left1 {
-   background-color: #f0f0f0;
+    background-color: #f0f0f0;
     padding: 4rem 7rem;
     text-align: left;
     display: flex;
@@ -79,7 +79,7 @@
     color: white;
   }
 
-  /* Sección Derecha (Imagen Flotante más Pequeña) */
+  /* Sección Derecha (Imagen Flotante con movimiento lateral) */
   .nonstop-banner__right1 {
     background-color: #f0f0f0;
     position: relative;
@@ -97,14 +97,14 @@
     object-fit: contain;
     transform: rotate(5deg);
     filter: drop-shadow(10px 10px 30px rgba(0, 0, 0, 0.3));
-    animation: float 3s ease-in-out infinite;
+    animation: move-side 4s ease-in-out infinite; /* Nueva animación */
   }
 
-  /* Animación de Flotación */
-  @keyframes float {
-    0% { transform: translateY(0px) rotate(5deg); }
-    50% { transform: translateY(-10px) rotate(7deg); }
-    100% { transform: translateY(0px) rotate(5deg); }
+  /* Animación de Movimiento de Lado a Lado */
+  @keyframes move-side {
+    0% { transform: translateX(0px) rotate(5deg); }
+    50% { transform: translateX(-10px) rotate(5deg); } /* Movimiento a la izquierda */
+    100% { transform: translateX(0px) rotate(5deg); }
   }
 
   /* Responsive para Pantallas Pequeñas */
@@ -138,6 +138,7 @@
       height: auto;
     }
   }
+
 </style
 
 {% schema %}
