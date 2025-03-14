@@ -40,7 +40,7 @@
 
   .nonstop-banner__container {
     display: grid;
-    grid-template-columns: 50% 50%; /* Se mantiene el mismo espacio */
+    grid-template-columns: 50% 50%;
     max-width: 1500px;
     width: 100%;
     align-items: center;
@@ -48,7 +48,7 @@
     border-radius: 1rem;
   }
 
-  /* Sección Izquierda y Derecha (Texto y Botón) */
+  /* Sección Izquierda (Texto y Botón) */
   .nonstop-banner__left, .nonstop-banner__right {
     background-color: #f0f0f0;
     padding: 4rem 7rem;
@@ -84,14 +84,14 @@
     color: white;
   }
 
-  /* Imagen Flotante (Ahora inclinada a la izquierda) */
+  /* Imagen Flotante en el Centro */
   .nonstop-banner__center {
     position: absolute;
-    top: 50%;
-    left: 33%; /* Movemos la imagen más a la izquierda */
-    transform: translate(-50%, -50%) rotate(-10deg); /* Inclinamos a la izquierda */
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -40%);
     z-index: 5;
-    width: 18rem; /* Tamaño más grande */
+    width: 14rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -99,18 +99,19 @@
   }
 
   .nonstop-banner__main-image {
-    width: 140%; /* La imagen es más grande */
-    height: auto;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
+    transform: rotate(10deg);
     filter: drop-shadow(15px 15px 40px rgba(0, 0, 0, 0.4));
     animation: float 3s ease-in-out infinite;
   }
 
   /* Animación de Flotación */
   @keyframes float {
-    0% { transform: translateY(0px) rotate(-10deg); }
-    50% { transform: translateY(-10px) rotate(-12deg); }
-    100% { transform: translateY(0px) rotate(-10deg); }
+    0% { transform: translateY(0px) rotate(10deg); }
+    50% { transform: translateY(-10px) rotate(12deg); }
+    100% { transform: translateY(0px) rotate(10deg); }
   }
 
   /* Responsive para Pantallas Pequeñas */
@@ -125,27 +126,14 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 4rem; /* Se mantiene el mismo padding */
-    }
-
-    .nonstop-banner__left h2, .nonstop-banner__right h2 {
-      font-size: 2em;
-    }
-
-    .nonstop-banner__left p, .nonstop-banner__right p {
-      font-size: 1.2em;
-    }
-
-    .nonstop-banner__button {
-      padding: 12px 22px;
-      font-size: 1em;
+      padding: 1rem;
     }
 
     .nonstop-banner__center {
-      width: 14rem;
-      top: 55%;
-      left: 30%; /* Se mantiene más a la izquierda */
-      transform: translate(-50%, -50%) rotate(-10deg);
+      width: 7rem;
+      top: 50%;
+      left: 95%;
+      transform: translate(-50%, -35%);
     }
 
     .nonstop-banner {
@@ -153,11 +141,11 @@
     }
     
     .nonstop-banner__main-image {
-      width: 140%;
-      height: auto;
+      width: 100%;
+      height: 100%;
     }
   }
-</style>
+</style> 
 
 
 {% schema %}
