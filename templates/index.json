@@ -988,7 +988,7 @@
         "space_h_item_mb": "10",
         "space_v_item_mb": "10",
         "col_dk": "1",
-        "col_tb": "2",
+        "col_tb": "3",
         "col_mb": "1",
         "loop": true,
         "au_time": 0,
@@ -1018,6 +1018,20 @@
         "use_cus_css": false,
         "code_cus_css": ""
       }
+    },
+    "nonstop_color_banner_NLeWcF": {
+      "type": "nonstop-color-banner",
+      "settings": {
+        "bg_color": "#f0f0f0",
+        "title": "CATÁLOGO 2025",
+        "subtitle": "",
+        "text_color": "#000000",
+        "main_image": "shopify://shop_images/Master_Holder_banner_catalogo.png",
+        "button_text": "¡Solicitarlo Ahora!",
+        "button_link": "",
+        "button_bg_color": "#000000",
+        "button_text_color": "#ffffff"
+      }
     }
   },
   "order": [
@@ -1030,6 +1044,7 @@
     "164620932069107a3a",
     "16460368750174c54a",
     "tiktok_slider_B9674h",
-    "feature_columns_3jfRdU"
+    "feature_columns_3jfRdU",
+    "nonstop_color_banner_NLeWcF"
   ]
 }
