@@ -1,0 +1,93 @@
+{%- assign pdf_url = product.metafields.custom.cat_logo_pdf -%}
+
+{% if pdf_url != blank %}
+  <div class="pdf-flipbook-container">
+    <!-- Contenedor del visor -->
+    <div id="pdf-flipbook"></div>
+
+    <!-- Botón de descarga -->
+    <a href="{{ pdf_url }}" download="catalogo.pdf" class="download-btn">Descargar PDF</a>
+  </div>
+
+  <!-- Incluir PDF.js desde CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.min.js"></script>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var url = "{{ pdf_url }}";
+
+      // Configuración del visor de PDF
+      var container = document.getElementById("pdf-flipbook");
+
+      pdfjsLib.getDocument(url).promise.then(function(pdfDoc) {
+        var totalPages = pdfDoc.numPages;
+        var html = '<div class="flipbook">';
+
+        for (let i = 1; i <= totalPages; i++) {
+          html += '<canvas id="page-' + i + '"></canvas>';
+        }
+        html += '</div>';
+        container.innerHTML = html;
+
+        for (let i = 1; i <= totalPages; i++) {
+          renderPage(i, pdfDoc);
+        }
+      });
+
+      function renderPage(pageNumber, pdfDoc) {
+        pdfDoc.getPage(pageNumber).then(function(page) {
+          var canvas = document.getElementById("page-" + pageNumber);
+          var ctx = canvas.getContext("2d");
+          var viewport = page.getViewport({ scale: 1.5 });
+
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
+
+          var renderContext = {
+            canvasContext: ctx,
+            viewport: viewport,
+          };
+          page.render(renderContext);
+        });
+      }
+    });
+  </script>
+
+  <!-- Estilos -->
+  <style>
+    .pdf-flipbook-container {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .flipbook {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .flipbook canvas {
+      max-width: 100%;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+    }
+
+    .download-btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #ff4c4c;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .download-btn:hover {
+      background-color: #e43b3b;
+    }
+  </style>
+{% else %}
+  <p>No hay catálogo disponible.</p>
+{% endif %}
