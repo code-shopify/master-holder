@@ -2,13 +2,25 @@
 
 {% if pdf_url != blank %}
   <div class="pdf-flipbook-container">
-    <div id="pdf-flipbook"></div>
+    <div id="pdf-flipbook">
+      <div class="flipbook">
+        <!-- Las páginas del PDF se insertarán aquí dinámicamente -->
+      </div>
+    </div>
 
+    <!-- Controles de navegación -->
+    <div class="flipbook-controls">
+      <button id="prev-page" class="flipbook-btn">⏪ Anterior</button>
+      <button id="next-page" class="flipbook-btn">⏩ Siguiente</button>
+    </div>
+
+    <!-- Botón de descarga -->
     <a href="{{ pdf_url }}" download="catalogo.pdf" class="download-btn">Descargar PDF</a>
   </div>
 
-  <!-- Importar PDF.js para renderizar el Flipbook -->
+  <!-- Librerías necesarias -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4/turn.min.js"></script>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -19,21 +31,37 @@
         return;
       }
 
-      var container = document.getElementById("pdf-flipbook");
+      var flipbook = document.querySelector(".flipbook");
 
       pdfjsLib.getDocument(url).promise.then(function(pdfDoc) {
         var totalPages = pdfDoc.numPages;
-        var html = '<div class="flipbook">';
 
         for (let i = 1; i <= totalPages; i++) {
-          html += '<canvas id="page-' + i + '"></canvas>';
+          let pageDiv = document.createElement("div");
+          pageDiv.classList.add("flip-page");
+          pageDiv.innerHTML = `<canvas id="page-${i}"></canvas>`;
+          flipbook.appendChild(pageDiv);
         }
-        html += '</div>';
-        container.innerHTML = html;
 
         for (let i = 1; i <= totalPages; i++) {
           renderPage(i, pdfDoc);
         }
+
+        // Inicializar Turn.js
+        $(".flipbook").turn({
+          width: 600,
+          height: 400,
+          autoCenter: true,
+        });
+
+        // Botones de navegación
+        document.getElementById("prev-page").addEventListener("click", function () {
+          $(".flipbook").turn("previous");
+        });
+
+        document.getElementById("next-page").addEventListener("click", function () {
+          $(".flipbook").turn("next");
+        });
       });
 
       function renderPage(pageNumber, pdfDoc) {
@@ -58,27 +86,47 @@
   <style>
     .pdf-flipbook-container {
       text-align: center;
-      margin: 20px 0;
+      margin: 20px auto;
+      max-width: 650px;
     }
 
     .flipbook {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
+      width: 600px;
+      height: 400px;
+      margin: auto;
     }
 
-    .flipbook canvas {
-      max-width: 100%;
-      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    .flip-page {
+      width: 600px;
+      height: 400px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ccc;
+    }
+
+    .flipbook-btn {
+      background: #ff4c4c;
+      color: white;
+      padding: 10px;
+      margin: 10px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
       border-radius: 5px;
+    }
+
+    .flipbook-btn:hover {
+      background: #e43b3b;
     }
 
     .download-btn {
       display: inline-block;
       margin-top: 15px;
       padding: 10px 20px;
-      background-color: #ff4c4c;
+      background-color: #28a745;
       color: white;
       text-decoration: none;
       border-radius: 5px;
@@ -86,7 +134,7 @@
     }
 
     .download-btn:hover {
-      background-color: #e43b3b;
+      background-color: #218838;
     }
   </style>
 {% else %}
