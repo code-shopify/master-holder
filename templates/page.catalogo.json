@@ -84,12 +84,28 @@
         "mg_mb": ",,30px,",
         "pd_mb": ""
       }
+    },
+    "custom_liquid_pm9wKc": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "{% render 'flipbook-pdf' %}",
+        "layout": "t4s-container-wrap",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": ",,50px,",
+        "pd": "",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": ",,30px,",
+        "pd_mb": ""
+      }
     }
   },
   "order": [
     "heading",
     "main",
     "sidebar-page",
-    "custom_liquid_nitRTx"
+    "custom_liquid_nitRTx",
+    "custom_liquid_pm9wKc"
   ]
 }
