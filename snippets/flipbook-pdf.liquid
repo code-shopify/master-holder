@@ -2,6 +2,7 @@
 
 {% if pdf_url != blank %}
   <div class="pdf-flipbook-container">
+    <!-- Contenedor del Flipbook -->
     <div id="pdf-flipbook">
       <div class="flipbook">
         <!-- Las páginas del PDF se insertarán aquí dinámicamente -->
@@ -15,7 +16,7 @@
     </div>
 
     <!-- Botón de descarga -->
-    <a href="{{ pdf_url }}" download="catalogo.pdf" class="download-btn">Descargar PDF</a>
+    <a href="{{ pdf_url }}" download="catalogo.pdf" class="download-btn">📥 Descargar PDF</a>
   </div>
 
   <!-- Librerías necesarias -->
@@ -47,11 +48,12 @@
           renderPage(i, pdfDoc);
         }
 
-        // Inicializar Turn.js
+        // Inicializar Turn.js con configuraciones corregidas
         $(".flipbook").turn({
-          width: 600,
-          height: 400,
+          width: 800,  // Ancho del flipbook
+          height: 600, // Alto del flipbook
           autoCenter: true,
+          display: "double", // Mostrar páginas en pares
         });
 
         // Botones de navegación
@@ -68,7 +70,7 @@
         pdfDoc.getPage(pageNumber).then(function(page) {
           var canvas = document.getElementById("page-" + pageNumber);
           var ctx = canvas.getContext("2d");
-          var viewport = page.getViewport({ scale: 1.5 });
+          var viewport = page.getViewport({ scale: 2 });
 
           canvas.width = viewport.width;
           canvas.height = viewport.height;
@@ -84,33 +86,43 @@
   </script>
 
   <style>
+    /* Contenedor Principal */
     .pdf-flipbook-container {
       text-align: center;
       margin: 20px auto;
-      max-width: 650px;
+      max-width: 850px;
     }
 
+    /* Estilos del Flipbook */
     .flipbook {
-      width: 600px;
-      height: 400px;
+      width: 800px;
+      height: 600px;
       margin: auto;
+      border: 1px solid #ddd;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     }
 
     .flip-page {
-      width: 600px;
-      height: 400px;
+      width: 400px; /* Tamaño de cada página */
+      height: 600px;
       background: white;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid #ccc;
+    }
+
+    /* Botones de navegación */
+    .flipbook-controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
     }
 
     .flipbook-btn {
       background: #ff4c4c;
       color: white;
-      padding: 10px;
-      margin: 10px;
+      padding: 10px 15px;
       border: none;
       cursor: pointer;
       font-size: 14px;
@@ -122,6 +134,7 @@
       background: #e43b3b;
     }
 
+    /* Botón de descarga */
     .download-btn {
       display: inline-block;
       margin-top: 15px;
@@ -136,7 +149,21 @@
     .download-btn:hover {
       background-color: #218838;
     }
+
+    /* Ajustes Responsivos */
+    @media (max-width: 768px) {
+      .flipbook {
+        width: 100%;
+        height: auto;
+      }
+
+      .flip-page {
+        width: 100%;
+        height: auto;
+      }
+    }
   </style>
+
 {% else %}
   <p>No hay catálogo disponible.</p>
 {% endif %}
