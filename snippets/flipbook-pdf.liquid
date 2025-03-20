@@ -1,22 +1,24 @@
-{%- assign pdf_url = product.metafields.custom.cat_logo_pdf -%}
+{%- assign pdf_url = page.metafields.custom.cat_logo_pdf | file_url -%}
 
 {% if pdf_url != blank %}
   <div class="pdf-flipbook-container">
-    <!-- Contenedor del visor -->
     <div id="pdf-flipbook"></div>
 
-    <!-- Botón de descarga -->
     <a href="{{ pdf_url }}" download="catalogo.pdf" class="download-btn">Descargar PDF</a>
   </div>
 
-  <!-- Incluir PDF.js desde CDN -->
+  <!-- Importar PDF.js para renderizar el Flipbook -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.min.js"></script>
-  
+
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       var url = "{{ pdf_url }}";
 
-      // Configuración del visor de PDF
+      if (!url || url === "undefined") {
+        console.error("⚠️ No se encontró el archivo PDF en el metacampo.");
+        return;
+      }
+
       var container = document.getElementById("pdf-flipbook");
 
       pdfjsLib.getDocument(url).promise.then(function(pdfDoc) {
@@ -53,7 +55,6 @@
     });
   </script>
 
-  <!-- Estilos -->
   <style>
     .pdf-flipbook-container {
       text-align: center;
