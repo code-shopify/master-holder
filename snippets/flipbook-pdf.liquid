@@ -4,212 +4,63 @@
   {% assign pdf_url = "" %}
 {% endif %}
 
+<!-- Cargar CSS y JS de DearFlip -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dearflip@2.0.4/css/dearflip.min.css">
+<script src="https://cdn.jsdelivr.net/npm/dearflip@2.0.4/js/dearflip.min.js"></script>
+
 <!-- Contenedor del FlipBook -->
-<div class="flipbook-container">
+<div id="flipbookContainer">
   {% if pdf_url != "" %}
-    <div id="flipbook">
-      <!-- Aquí se agregarán las páginas -->
-    </div>
+    <div class="df3d" id="myFlipbook" source="{{ pdf_url }}"></div>
   {% else %}
     <p class="error-message">⚠ No se encontró ningún PDF. Verifica el metafield en Shopify.</p>
   {% endif %}
-
-  <!-- Botones de navegación -->
-  <div class="flipbook-controls">
-    <button id="prevPage">⬅ Anterior</button>
-    <span id="pageInfo">Página <span id="currentPage">1</span> de <span id="totalPages">?</span></span>
-    <button id="nextPage">Siguiente ➡</button>
-  </div>
-
-  <!-- Botón de descarga -->
-  {% if pdf_url != "" %}
-    <a class="download-btn" href="{{ pdf_url }}" download>📥 Descargar PDF</a>
-  {% endif %}
 </div>
 
+<!-- Script para Inicializar el FlipBook -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const pdfUrl = "{{ pdf_url }}";
-
-    console.log("🔍 Verificando PDF URL:", pdfUrl);
-
-    if (!pdfUrl || pdfUrl === "") {
-        console.error("❌ No se encontró un PDF en Shopify.");
-        return;
+    const flipbookElement = document.getElementById("myFlipbook");
+    
+    if (flipbookElement && flipbookElement.getAttribute("source")) {
+        new DFLIP({
+            source: flipbookElement.getAttribute("source"),
+            webgl: true,  // Activa el efecto 3D realista
+            backgroundColor: "#ffffff",  // Fondo blanco
+            controls: {
+                zoomIn: true,
+                zoomOut: true,
+                fullScreen: true,
+                download: true  // Habilita botón de descarga
+            }
+        }, flipbookElement);
+    } else {
+        console.error("❌ No se encontró el contenedor del FlipBook o el PDF.");
     }
-
-    console.log("✅ Cargando PDF desde:", pdfUrl);
-
-    const flipbook = document.getElementById("flipbook");
-
-    pdfjsLib.getDocument(pdfUrl).promise.then(function (pdf) {
-        let totalPages = pdf.numPages;
-        document.getElementById("totalPages").textContent = totalPages;
-
-        let loadedPages = 0;
-
-        for (let i = 1; i <= totalPages; i++) {
-            pdf.getPage(i).then(function (page) {
-                let scale = 1.5;
-                let viewport = page.getViewport({ scale });
-
-                let canvas = document.createElement("canvas");
-                let context = canvas.getContext("2d");
-                canvas.width = viewport.width;
-                canvas.height = viewport.height;
-
-                let pageDiv = document.createElement("div");
-                pageDiv.classList.add("page");
-                pageDiv.appendChild(canvas);
-                flipbook.appendChild(pageDiv);
-
-                page.render({ canvasContext: context, viewport }).promise.then(() => {
-                    let img = document.createElement("img");
-                    img.src = canvas.toDataURL("image/png");  // Convertir a imagen
-                    img.classList.add("pdf-page");
-                    pageDiv.innerHTML = "";  // Eliminar canvas para solo mostrar imagen
-                    pageDiv.appendChild(img);
-
-                    loadedPages++;
-
-                    if (loadedPages === totalPages) {
-                        console.log("✅ Todas las páginas listas, activando Turn.js...");
-
-                        $("#flipbook").turn({
-                            width: 500, // Reducimos el tamaño del catálogo
-                            height: 350,
-                            autoCenter: true,
-                            duration: 800,
-                            elevation: 50,
-                            gradients: true,
-                            turnCorners: "bl,br",
-                        });
-
-                        // Conectar los botones de navegación
-                        document.getElementById("prevPage").addEventListener("click", function () {
-                            $("#flipbook").turn("previous");
-                        });
-
-                        document.getElementById("nextPage").addEventListener("click", function () {
-                            $("#flipbook").turn("next");
-                        });
-
-                        // Actualizar número de página
-                        $("#flipbook").bind("turned", function (event, page) {
-                            document.getElementById("currentPage").textContent = page;
-                        });
-
-                        console.log("✅ FlipBook activado correctamente.");
-                    }
-                });
-            });
-        }
-    });
 });
 </script>
 
+<!-- Estilos para el FlipBook -->
 <style>
-/* Contenedor principal */
-.flipbook-container {
+/* Estilos para centrar el FlipBook */
+#flipbookContainer {
   width: 100%;
-  max-width: 600px;
-  margin: 20px auto;
+  max-width: 800px;
+  margin: auto;
   text-align: center;
-  background: #ffffff;
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  overflow: hidden;
 }
 
-/* Ajuste del FlipBook */
-#flipbook {
+/* Ajustar el tamaño del FlipBook */
+.df3d {
   width: 100% !important;
-  max-width: 500px; /* Reducimos el tamaño */
-  height: 350px;
-  margin: 0 auto;
-  border: none;
-  background: #ffffff;
+  height: 600px !important;
 }
 
-/* Estilos para las páginas */
-.page {
-  background: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.pdf-page {
-  width: 100%;
-  height: auto;
-}
-
-/* Botones de navegación */
-.flipbook-controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.flipbook-controls button {
-  background: #ff4c4c;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  font-size: 14px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.flipbook-controls button:hover {
-  background: #cc0000;
-}
-
-/* Botón de descarga */
-.download-btn {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 10px 15px;
-  background: #28a745;
-  color: white;
-  border-radius: 5px;
-  text-decoration: none;
+/* Mensaje de error */
+.error-message {
+  color: red;
   font-weight: bold;
-}
-
-.download-btn:hover {
-  background: #218838;
-}
-
-/* Responsivo */
-@media screen and (max-width: 768px) {
-  .flipbook-container {
-    width: 100%;
-    padding: 5px;
-  }
-
-  #flipbook {
-    max-width: 100%;
-    height: 280px;
-  }
-
-  .download-btn {
-    padding: 8px 12px;
-    font-size: 14px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  #flipbook {
-    height: 220px;
-  }
-
-  .download-btn {
-    font-size: 12px;
-    padding: 6px 10px;
-  }
+  text-align: center;
+  margin-top: 20px;
 }
 </style>
