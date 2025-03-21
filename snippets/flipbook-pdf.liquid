@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Cargar todas las páginas
         for (let i = 1; i <= totalPages; i++) {
             pdf.getPage(i).then(function (page) {
-                let scale = 1.5;
+                let scale = 1.2; // Reducir escala para hacerlo más pequeño
                 let viewport = page.getViewport({ scale });
 
                 let canvas = document.createElement("canvas");
@@ -66,15 +66,15 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
 
-        // Inicializar Turn.js después de que se hayan agregado las páginas
+        // Esperar a que las páginas se carguen antes de activar Turn.js
         setTimeout(() => {
             $("#flipbook").turn({
-                width: 800,
-                height: 600,
+                width: 600, // Reducimos el tamaño del FlipBook
+                height: 400,
                 autoCenter: true,
-                duration: 1000
+                duration: 800
             });
-        }, 3000); // Esperamos a que cargue el PDF antes de inicializar Turn.js
+        }, 3000);
     });
 
     // Botones de navegación
@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
 /* Contenedor principal */
 .flipbook-container {
   width: 100%;
-  max-width: 900px;
+  max-width: 700px;
   margin: 20px auto;
   text-align: center;
   background: #ffffff;
@@ -110,8 +110,8 @@ document.addEventListener("DOMContentLoaded", function () {
 /* Ajuste del FlipBook */
 #flipbook {
   width: 100% !important;
-  max-width: 800px;
-  height: 600px;
+  max-width: 600px; /* Reducimos el tamaño */
+  height: 400px;
   margin: 0 auto;
   border: none;
   background: #ffffff;
@@ -172,7 +172,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   #flipbook {
-    height: 400px;
+    max-width: 100%;
+    height: 300px;
   }
 
   .download-btn {
@@ -183,7 +184,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 @media screen and (max-width: 480px) {
   #flipbook {
-    height: 350px;
+    height: 250px;
   }
 
   .download-btn {
