@@ -7,7 +7,7 @@
 <!-- Contenedor del Flipbook -->
 <div class="flipbook-container">
   {% if pdf_url != "" %}
-    <div id="flipbook" class="dflip" source="{{ pdf_url }}"></div>
+    <div id="flipbook" class="stf__wrapper"></div>
   {% else %}
     <p style="color: red;">⚠ No se encontró ningún PDF. Verifica el metafield en Shopify.</p>
   {% endif %}
@@ -25,9 +25,9 @@
   {% endif %}
 </div>
 
-<!-- Cargar CSS y JS de DearFlip -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dearflip@1.0.0/css/dflip.min.css">
-<script src="https://cdn.jsdelivr.net/npm/dearflip@1.0.0/js/dflip.min.js"></script>
+<!-- Cargar CSS y JS de 3D FlipBook -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/3d-flip-book/css/flipbook.style.css">
+<script src="https://cdn.jsdelivr.net/npm/3d-flip-book/js/flipbook.min.js"></script>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -42,22 +42,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
   console.log("✅ Cargando PDF desde:", pdfUrl);
 
-  // Crear el Flipbook con DearFlip
-  const flipbook = new DFLIP({
+  // Inicializar 3D FlipBook
+  const flipbook = new StfFlipBook({
     source: pdfUrl,
-    webgl: true,
-    controls: {
-      autoHide: false,
-      enableSideNavigation: true,
+    controlsProps: {
+      downloadButton: { vAlign: "top", hAlign: "right" },
+      zoomButton: "visible",
+      pageNumber: "visible"
     }
   });
 
   flipbook.render(document.getElementById("flipbook"));
-
-  // Actualizar número de página al navegar
-  flipbook.on("pageChange", function (event) {
-    document.getElementById("currentPage").textContent = event.page;
-  });
 
   // Botones de navegación
   document.getElementById("prevPage").addEventListener("click", function () {
@@ -66,6 +61,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.getElementById("nextPage").addEventListener("click", function () {
     flipbook.next();
+  });
+
+  // Actualizar número de página
+  flipbook.on("pageChange", function (event) {
+    document.getElementById("currentPage").textContent = event.page;
   });
 });
 </script>
