@@ -30,6 +30,9 @@ t4sp-theme t4s-wrapper__{{ settings.general_layout }}{% if settings.animations_r
   <head>
  {%- render 'ecom_header' -%}
 
+<!-- Cargar CSS y JS de 3D FlipBook desde Shopify -->
+<link rel="stylesheet" href="{{ 'flipbook.style.css' | asset_url }}">
+<script src="{{ 'flipbook.min.js' | asset_url }}"></script>
 
 <!-- Swiper CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
