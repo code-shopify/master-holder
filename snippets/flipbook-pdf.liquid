@@ -19,23 +19,23 @@
   {% endif %}
 </div>
 
+<!-- 📌 Cargar FlowPaper desde CDN -->
+<script type="text/javascript" src="https://flowpaper.com/js/FlowPaperViewer_min.js"></script>
 
-
-<!-- 📌 Script para inicializar FlowPaper y personalizar el fondo -->
+<!-- 📌 Script para inicializar FlowPaper -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const url = "{{ pdf_url }}";
+    const pdfUrl = "{{ pdf_url }}";
 
-    if (!url) {
+    if (!pdfUrl) {
         console.error("❌ No se encontró la URL del PDF.");
         document.getElementById("documentViewer").innerHTML = "<p style='color: red;'>⚠ No hay catálogo disponible.</p>";
         return;
     }
 
-    // Iniciar el visor de FlowPaper
-    $('#documentViewer').FlowPaperViewer({
+    $("#documentViewer").FlowPaperViewer({
         config: {
-            PDFFile: url,
+            PDFFile: pdfUrl,
             Scale: 1,
             FitPageOnLoad: true,
             AutoAdjustPrintSize: true,
@@ -43,19 +43,19 @@ document.addEventListener("DOMContentLoaded", function () {
             ViewerHeight: "600px",
             enableSearch: true,
             enableDownload: false,
-            BackgroundColor: "#ffffff" // Asegurar fondo blanco
+            BackgroundColor: "#ffffff" // 🔹 Forzar fondo blanco
         }
     });
 
-    // Aplicar fondo blanco al wrapper
+    // Asegurar que el fondo del visor sea blanco
     setTimeout(() => {
         document.querySelector(".flowpaper-viewer").style.background = "#ffffff";
         document.querySelector("#documentViewer").style.background = "#ffffff";
-    }, 1000);
+    }, 2000);
 });
 </script>
 
-<!-- 📌 Estilos para asegurar fondo blanco y diseño limpio -->
+<!-- 📌 Estilos para fondo blanco y diseño responsivo -->
 <style>
 /* 📌 Contenedor principal */
 .flipbook-container {
@@ -63,19 +63,17 @@ document.addEventListener("DOMContentLoaded", function () {
   max-width: 900px;
   margin: auto;
   text-align: center;
-  position: relative;
-  background: #ffffff; /* Fondo blanco */
+  background: #ffffff; /* 🔹 Fondo blanco */
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  overflow: hidden;
 }
 
 /* 📌 FlowPaper */
 .flowpaper-viewer {
   width: 100% !important;
   height: 600px !important;
-  background: #ffffff !important; /* Asegura fondo blanco */
+  background: #ffffff !important; /* 🔹 Asegurar fondo blanco */
 }
 
 /* 📌 Controles de navegación */
