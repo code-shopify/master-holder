@@ -10,16 +10,26 @@
 <!-- 📌 Contenedor del FlipBook -->
 <div class="flipbook-container">
   {% if pdf_url != "" %}
-    <div id="flipbook"></div>
+    <div id="flipbook">
+      <div id="pages"></div>
+    </div>
+    <div class="flipbook-controls">
+      <button id="prevPage">⬅ Anterior</button>
+      <span id="pageInfo">Página <span id="currentPage">1</span> de <span id="totalPages">?</span></span>
+      <button id="nextPage">Siguiente ➡</button>
+    </div>
   {% else %}
     <p class="error-message">⚠ No se encontró ningún PDF. Verifica el metafield en Shopify.</p>
   {% endif %}
 </div>
 
-<!-- 📌 Script para Renderizar PDF como FlipBook -->
+<!-- 📌 Script para Renderizar PDF y Aplicar Efecto Flip -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const url = "{{ pdf_url }}";
+    const flipbookContainer = document.getElementById("pages");
+    let currentPage = 1;
+    let totalPages = 0;
 
     if (!url) {
         console.error("❌ No se encontró la URL del PDF.");
@@ -27,35 +37,49 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    const flipbookContainer = document.getElementById("flipbook");
-
     pdfjsLib.getDocument(url).promise.then(pdf => {
-        const totalPages = pdf.numPages;
-        console.log("📂 Total de páginas en el PDF:", totalPages);
+        totalPages = pdf.numPages;
+        document.getElementById("totalPages").textContent = totalPages;
+        loadPage(currentPage, pdf);
+    });
 
-        for (let i = 1; i <= totalPages; i++) {
-            pdf.getPage(i).then(page => {
-                const canvas = document.createElement("canvas");
-                const pageDiv = document.createElement("div");
-                pageDiv.classList.add("page");
-                pageDiv.appendChild(canvas);
-                flipbookContainer.appendChild(pageDiv);
+    function loadPage(pageNum, pdf) {
+        pdf.getPage(pageNum).then(page => {
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+            const viewport = page.getViewport({ scale: 1.5 });
 
-                const viewport = page.getViewport({ scale: 1.5 });
-                canvas.width = viewport.width;
-                canvas.height = viewport.height;
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+            page.render({ canvasContext: ctx, viewport });
 
-                page.render({ canvasContext: canvas.getContext("2d"), viewport });
-            });
+            flipbookContainer.innerHTML = "";
+            const pageDiv = document.createElement("div");
+            pageDiv.classList.add("flip-page");
+            pageDiv.appendChild(canvas);
+            flipbookContainer.appendChild(pageDiv);
+        });
+
+        document.getElementById("currentPage").textContent = pageNum;
+    }
+
+    document.getElementById("prevPage").addEventListener("click", function () {
+        if (currentPage > 1) {
+            currentPage--;
+            loadPage(currentPage, pdfjsLib.getDocument(url).promise);
         }
-    }).catch(error => {
-        console.error("❌ Error al cargar el PDF:", error);
-        flipbookContainer.innerHTML = "<p style='color: red;'>⚠ Error al cargar el catálogo.</p>";
+    });
+
+    document.getElementById("nextPage").addEventListener("click", function () {
+        if (currentPage < totalPages) {
+            currentPage++;
+            loadPage(currentPage, pdfjsLib.getDocument(url).promise);
+        }
     });
 });
 </script>
 
-<!-- 📌 Estilos del FlipBook -->
+<!-- 📌 Estilos para FlipBook -->
 <style>
 /* 📌 Contenedor principal */
 .flipbook-container {
@@ -71,32 +95,42 @@ document.addEventListener("DOMContentLoaded", function () {
   overflow: hidden;
 }
 
-/* 📌 Páginas del FlipBook */
-.page {
+/* 📌 Páginas */
+#pages {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: white;
-  padding: 5px;
-  transition: transform 0.8s ease-in-out;
+  position: relative;
 }
 
-/* 📌 Animación de Flip */
-.page:nth-child(odd) {
-  transform-origin: left;
-  transform: rotateY(0deg);
+/* 📌 Animación Flip */
+.flip-page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: transform 1s ease-in-out;
+  transform-origin: center;
 }
 
-.page:nth-child(even) {
-  transform-origin: right;
-  transform: rotateY(-180deg);
+/* 📌 Controles */
+.flipbook-controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
 }
 
-/* 📌 Botón de error */
-.error-message {
-  color: red;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 20px;
+.flipbook-controls button {
+  background: #ff4c4c;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.flipbook-controls button:hover {
+  background: #cc0000;
 }
 </style>
