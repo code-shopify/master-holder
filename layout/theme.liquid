@@ -29,9 +29,11 @@ t4sp-theme t4s-wrapper__{{ settings.general_layout }}{% if settings.animations_r
 <html class="{{ class_html }} no-js" lang="{{ iso_code }}"{% if isRTL %} dir="rtl"{% endif %}>
   <head>
  {%- render 'ecom_header' -%}
-<!--3dflipbook-->
-<link rel="stylesheet" href="https://cdn.3dflipbook.net/flipbook.style.css">
-<script src="https://cdn.3dflipbook.net/flipbook.min.js"></script>
+<!-- Cargar CSS de 3D FlipBook -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/3d-flip-book/css/flipbook.style.css">
+
+<!-- Cargar JS de 3D FlipBook -->
+<script src="https://cdn.jsdelivr.net/npm/3d-flip-book/js/flipbook.min.js"></script>
 
 <!-- Swiper CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
