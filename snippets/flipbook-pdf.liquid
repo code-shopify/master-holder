@@ -8,7 +8,7 @@
 <div class="flipbook-container">
   {% if pdf_url != "" %}
     <div id="flipbook">
-      <!-- Las páginas del PDF se generarán aquí -->
+      <!-- Aquí se agregarán las páginas -->
     </div>
   {% else %}
     <p class="error-message">⚠ No se encontró ningún PDF. Verifica el metafield en Shopify.</p>
@@ -48,10 +48,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let loadedPages = 0;
 
-        // Cargar todas las páginas del PDF y agregarlas al FlipBook
         for (let i = 1; i <= totalPages; i++) {
             pdf.getPage(i).then(function (page) {
-                let scale = 1.2;
+                let scale = 1.5;
                 let viewport = page.getViewport({ scale });
 
                 let canvas = document.createElement("canvas");
@@ -65,13 +64,20 @@ document.addEventListener("DOMContentLoaded", function () {
                 flipbook.appendChild(pageDiv);
 
                 page.render({ canvasContext: context, viewport }).promise.then(() => {
+                    let img = document.createElement("img");
+                    img.src = canvas.toDataURL("image/png");  // Convertir a imagen
+                    img.classList.add("pdf-page");
+                    pageDiv.innerHTML = "";  // Eliminar canvas para solo mostrar imagen
+                    pageDiv.appendChild(img);
+
                     loadedPages++;
+
                     if (loadedPages === totalPages) {
-                        console.log("✅ Todas las páginas están cargadas, activando Turn.js...");
+                        console.log("✅ Todas las páginas listas, activando Turn.js...");
 
                         $("#flipbook").turn({
-                            width: 600, // Reducimos el tamaño
-                            height: 400,
+                            width: 500, // Reducimos el tamaño del catálogo
+                            height: 350,
                             autoCenter: true,
                             duration: 800,
                             elevation: 50,
@@ -106,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
 /* Contenedor principal */
 .flipbook-container {
   width: 100%;
-  max-width: 700px;
+  max-width: 600px;
   margin: 20px auto;
   text-align: center;
   background: #ffffff;
@@ -119,8 +125,8 @@ document.addEventListener("DOMContentLoaded", function () {
 /* Ajuste del FlipBook */
 #flipbook {
   width: 100% !important;
-  max-width: 600px;
-  height: 400px;
+  max-width: 500px; /* Reducimos el tamaño */
+  height: 350px;
   margin: 0 auto;
   border: none;
   background: #ffffff;
@@ -132,6 +138,11 @@ document.addEventListener("DOMContentLoaded", function () {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.pdf-page {
+  width: 100%;
+  height: auto;
 }
 
 /* Botones de navegación */
@@ -182,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   #flipbook {
     max-width: 100%;
-    height: 300px;
+    height: 280px;
   }
 
   .download-btn {
@@ -193,7 +204,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 @media screen and (max-width: 480px) {
   #flipbook {
-    height: 250px;
+    height: 220px;
   }
 
   .download-btn {
