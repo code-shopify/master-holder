@@ -105,16 +105,16 @@ div#documentViewer {
     background: white !important;
 }
 
-element.style {
-    position: relative;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-    height: 100%;
-    visibility: visible;
-    background: #fff !important;
-    overflow: hidden;
+/* Forzar el fondo blanco del visor de FlowPaper */
+#documentViewer, 
+#documentViewer div, 
+#documentViewer canvas, 
+.flowpaper_wrapper, 
+.flowpaper, 
+div[data-flowpaper-viewer] {
+    background: white !important;
 }
+
 /*---------------- Custom CSS for only desktop -------------------*/
 @media (min-width: 1025px) {
   {{ settings.desktop_css }}
