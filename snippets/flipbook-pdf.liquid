@@ -4,23 +4,13 @@
   {% assign pdf_url = "" %}
 {% endif %}
 
-<!-- 📌 Cargar PDF.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
-
 <!-- 📌 Contenedor del FlipBook -->
 <div class="flipbook-container">
   {% if pdf_url != "" %}
-    <div id="flipbook">
-      <div class="page" id="left-page">
-        <canvas id="pdf-canvas-left"></canvas>
-      </div>
-      <div class="page" id="right-page">
-        <canvas id="pdf-canvas-right"></canvas>
-      </div>
-    </div>
+    <div id="documentViewer" class="flowpaper-viewer"></div>
+
     <div class="flipbook-controls">
       <button id="prevPage">⬅ Anterior</button>
-      <span id="pageInfo">Página <span id="currentPage">1</span> de <span id="totalPages">?</span></span>
       <button id="nextPage">Siguiente ➡</button>
     </div>
     <a class="download-btn" href="{{ pdf_url }}" download>📥 Descargar PDF</a>
@@ -29,89 +19,44 @@
   {% endif %}
 </div>
 
-<!-- 📌 Script para Renderizar PDF con Animación Correcta -->
+<!-- 📌 Cargar librerías de FlowPaper -->
+<script src="https://flowpaper.com/js/FlowPaperViewer.js"></script>
+
+<!-- 📌 Script para inicializar FlowPaper y personalizar el fondo -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const url = "{{ pdf_url }}";
-    const canvasLeft = document.getElementById("pdf-canvas-left");
-    const ctxLeft = canvasLeft.getContext("2d");
-    const canvasRight = document.getElementById("pdf-canvas-right");
-    const ctxRight = canvasRight.getContext("2d");
-    let pdfDoc = null;
-    let currentPage = 1;
-    let totalPages = 0;
-    let scale = 1.5;
-    let flipping = false;
 
     if (!url) {
         console.error("❌ No se encontró la URL del PDF.");
-        document.getElementById("flipbook").innerHTML = "<p style='color: red;'>⚠ No hay catálogo disponible.</p>";
+        document.getElementById("documentViewer").innerHTML = "<p style='color: red;'>⚠ No hay catálogo disponible.</p>";
         return;
     }
 
-    pdfjsLib.getDocument(url).promise.then(pdf => {
-        pdfDoc = pdf;
-        totalPages = pdf.numPages;
-        document.getElementById("totalPages").textContent = totalPages;
-        renderPages(currentPage);
-    });
-
-    function renderPages(num) {
-        flipping = true;
-
-        setTimeout(() => {
-            // Página izquierda (par)
-            if (num > 1) {
-                pdfDoc.getPage(num - 1).then(page => {
-                    const viewport = page.getViewport({ scale: scale });
-                    canvasLeft.width = viewport.width;
-                    canvasLeft.height = viewport.height;
-                    page.render({ canvasContext: ctxLeft, viewport: viewport });
-                });
-            } else {
-                ctxLeft.clearRect(0, 0, canvasLeft.width, canvasLeft.height);
-            }
-
-            // Página derecha (impar)
-            pdfDoc.getPage(num).then(page => {
-                const viewport = page.getViewport({ scale: scale });
-                canvasRight.width = viewport.width;
-                canvasRight.height = viewport.height;
-                page.render({ canvasContext: ctxRight, viewport: viewport });
-            });
-
-            document.getElementById("currentPage").textContent = num;
-            flipping = false;
-        }, 600);
-    }
-
-    document.getElementById("prevPage").addEventListener("click", function () {
-        if (currentPage > 2 && !flipping) {
-            currentPage -= 2;
-            applyPageFlipEffect("left");
-            renderPages(currentPage);
+    // Iniciar el visor de FlowPaper
+    $('#documentViewer').FlowPaperViewer({
+        config: {
+            PDFFile: url,
+            Scale: 1,
+            FitPageOnLoad: true,
+            AutoAdjustPrintSize: true,
+            ViewerWidth: "100%",
+            ViewerHeight: "600px",
+            enableSearch: true,
+            enableDownload: false,
+            BackgroundColor: "#ffffff" // Asegurar fondo blanco
         }
     });
 
-    document.getElementById("nextPage").addEventListener("click", function () {
-        if (currentPage + 1 <= totalPages && !flipping) {
-            currentPage += 2;
-            applyPageFlipEffect("right");
-            renderPages(currentPage);
-        }
-    });
-
-    function applyPageFlipEffect(direction) {
-        let page = direction === "right" ? document.getElementById("right-page") : document.getElementById("left-page");
-        page.classList.add(direction === "right" ? "flip-right" : "flip-left");
-        setTimeout(() => {
-            page.classList.remove("flip-right", "flip-left");
-        }, 600);
-    }
+    // Aplicar fondo blanco al wrapper
+    setTimeout(() => {
+        document.querySelector(".flowpaper-viewer").style.background = "#ffffff";
+        document.querySelector("#documentViewer").style.background = "#ffffff";
+    }, 1000);
 });
 </script>
 
-<!-- 📌 Estilos para FlipBook con Animación Correcta -->
+<!-- 📌 Estilos para asegurar fondo blanco y diseño limpio -->
 <style>
 /* 📌 Contenedor principal */
 .flipbook-container {
@@ -120,44 +65,18 @@ document.addEventListener("DOMContentLoaded", function () {
   margin: auto;
   text-align: center;
   position: relative;
-  background: #fff;
+  background: #ffffff; /* Fondo blanco */
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   overflow: hidden;
 }
 
-/* 📌 FlipBook */
-#flipbook {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  perspective: 1500px;
-  position: relative;
-  transition: transform 0.6s ease-in-out;
-}
-
-/* 📌 Estilos de página */
-.page {
-  width: 50%;
-  position: relative;
-  transform-origin: center right;
-  backface-visibility: hidden;
-  transition: transform 0.6s ease-in-out;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-}
-
-/* 📌 Página izquierda */
-#left-page {
-  transform-origin: center left;
-}
-
-/* 📌 Canvas */
-canvas {
+/* 📌 FlowPaper */
+.flowpaper-viewer {
   width: 100% !important;
-  height: auto;
-  display: block;
+  height: 600px !important;
+  background: #ffffff !important; /* Asegura fondo blanco */
 }
 
 /* 📌 Controles de navegación */
@@ -176,7 +95,6 @@ canvas {
   font-size: 14px;
   border-radius: 5px;
   cursor: pointer;
-  transition: 0.3s;
 }
 
 .flipbook-controls button:hover {
@@ -197,27 +115,6 @@ canvas {
 
 .download-btn:hover {
   background: #218838;
-}
-
-/* 📌 Animación de pasar página */
-.flip-right {
-  animation: pageFlipRight 0.6s ease-in-out;
-}
-
-.flip-left {
-  animation: pageFlipLeft 0.6s ease-in-out;
-}
-
-@keyframes pageFlipRight {
-  0% { transform: rotateY(0deg) translateX(0px); }
-  50% { transform: rotateY(-100deg) translateX(50px); opacity: 0.7; }
-  100% { transform: rotateY(0deg) translateX(0px); opacity: 1; }
-}
-
-@keyframes pageFlipLeft {
-  0% { transform: rotateY(0deg) translateX(0px); }
-  50% { transform: rotateY(100deg) translateX(-50px); opacity: 0.7; }
-  100% { transform: rotateY(0deg) translateX(0px); opacity: 1; }
 }
 
 /* 📌 Mensaje de error */
