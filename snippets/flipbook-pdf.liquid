@@ -1,5 +1,6 @@
 <div class="flipbook-container">
-  <canvas id="pdfCanvas"></canvas>
+  <!-- Contenedor del Flipbook -->
+  <div id="flipbook"></div>
 
   <!-- Botones de Navegación -->
   <div class="flipbook-controls">
@@ -14,63 +15,39 @@
   {% endif %}
 </div>
 
-<!-- Cargar PDF.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+<!-- Cargar jQuery y 3D FlipBook -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/3d-flip-book@1.0.0/dist/flipbook.min.js"></script>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     var url = "{{ page.metafields.custom.cat_logo_pdf | file_url }}";
 
     if (!url) {
-        document.getElementById("pdfCanvas").innerHTML = "No hay catálogo disponible.";
+        document.getElementById("flipbook").innerHTML = "No hay catálogo disponible.";
         return;
     }
 
-    var pdfDoc = null,
-        pageNum = 1,
-        pageRendering = false,
-        pageNumPending = null,
-        canvas = document.getElementById("pdfCanvas"),
-        ctx = canvas.getContext("2d");
+    // Inicializar el flipbook
+    $("#flipbook").flipBook({
+        pdfUrl: url,
+        lightbox: false,
+        pageSize: "small", // Ajustar el tamaño del flipbook
+        pageWidth: 400,   // Ancho personalizado
+        pageHeight: 600,  // Alto personalizado
+        onPageChange: function (pageNum, totalPages) {
+            document.getElementById("currentPage").textContent = pageNum;
+            document.getElementById("totalPages").textContent = totalPages;
+        },
+    });
 
-    function renderPage(num) {
-        pageRendering = true;
-        pdfDoc.getPage(num).then(function (page) {
-            var viewport = page.getViewport({ scale: 1.5 });
-            canvas.height = viewport.height;
-            canvas.width = viewport.width;
-
-            var renderContext = { canvasContext: ctx, viewport: viewport };
-            var renderTask = page.render(renderContext);
-
-            renderTask.promise.then(function () {
-                pageRendering = false;
-                if (pageNumPending !== null) {
-                    renderPage(pageNumPending);
-                    pageNumPending = null;
-                }
-            });
-        });
-
-        document.getElementById("currentPage").textContent = num;
-    }
-
+    // Navegación manual
     document.getElementById("prevPage").addEventListener("click", function () {
-        if (pageNum <= 1) return;
-        pageNum--;
-        renderPage(pageNum);
+        $("#flipbook").flipBook("prevPage");
     });
 
     document.getElementById("nextPage").addEventListener("click", function () {
-        if (pageNum >= pdfDoc.numPages) return;
-        pageNum++;
-        renderPage(pageNum);
-    });
-
-    pdfjsLib.getDocument(url).promise.then(function (pdf) {
-        pdfDoc = pdf;
-        document.getElementById("totalPages").textContent = pdf.numPages;
-        renderPage(pageNum);
+        $("#flipbook").flipBook("nextPage");
     });
 });
 </script>
@@ -89,10 +66,11 @@ document.addEventListener("DOMContentLoaded", function () {
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* Ajuste del canvas */
-#pdfCanvas {
+/* Ajuste del flipbook */
+#flipbook {
   width: 100%;
-  border: 1px solid #ddd;
+  height: auto;
+  margin: 0 auto;
 }
 
 /* Botones de navegación */
@@ -133,5 +111,4 @@ document.addEventListener("DOMContentLoaded", function () {
 .download-btn:hover {
   background: #218838;
 }
-
 </style>
