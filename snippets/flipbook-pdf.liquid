@@ -4,11 +4,11 @@
   {% assign pdf_url = "" %}
 {% endif %}
 
-<!-- Cargar CSS y JS de DearFlip -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dearflip@2.0.4/css/dearflip.min.css">
-<script src="https://cdn.jsdelivr.net/npm/dearflip@2.0.4/js/dearflip.min.js"></script>
+<!-- 📌 Cargar Librerías de DearFlip -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dearhive/dearflip-css-js/css/dearflip.min.css">
+<script src="https://cdn.jsdelivr.net/gh/dearhive/dearflip-css-js/js/dearflip.min.js"></script>
 
-<!-- Contenedor del FlipBook -->
+<!-- 📌 Contenedor del FlipBook -->
 <div id="flipbookContainer">
   {% if pdf_url != "" %}
     <div class="df3d" id="myFlipbook" source="{{ pdf_url }}"></div>
@@ -17,32 +17,42 @@
   {% endif %}
 </div>
 
-<!-- Script para Inicializar el FlipBook -->
+<!-- 📌 Script para Inicializar el FlipBook -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const flipbookElement = document.getElementById("myFlipbook");
-    
-    if (flipbookElement && flipbookElement.getAttribute("source")) {
+    setTimeout(() => {
+        if (typeof DFLIP === "undefined") {
+            console.error("❌ DearFlip no se ha cargado correctamente.");
+            return;
+        }
+
+        const flipbookElement = document.getElementById("myFlipbook");
+
+        if (!flipbookElement || !flipbookElement.getAttribute("source")) {
+            console.error("❌ No se encontró el contenedor del FlipBook o la URL del PDF.");
+            return;
+        }
+
+        console.log("🚀 Inicializando DearFlip con PDF:", flipbookElement.getAttribute("source"));
+
         new DFLIP({
             source: flipbookElement.getAttribute("source"),
-            webgl: true,  // Activa el efecto 3D realista
+            webgl: true,  // Activar efecto 3D realista
             backgroundColor: "#ffffff",  // Fondo blanco
             controls: {
                 zoomIn: true,
                 zoomOut: true,
                 fullScreen: true,
-                download: true  // Habilita botón de descarga
+                download: true  // Activar botón de descarga
             }
         }, flipbookElement);
-    } else {
-        console.error("❌ No se encontró el contenedor del FlipBook o el PDF.");
-    }
+    }, 3000); // 🔥 Esperar 3 segundos para que Shopify cargue correctamente los scripts
 });
 </script>
 
-<!-- Estilos para el FlipBook -->
+<!-- 📌 Estilos para el FlipBook -->
 <style>
-/* Estilos para centrar el FlipBook */
+/* 📌 Estilos para centrar el FlipBook */
 #flipbookContainer {
   width: 100%;
   max-width: 800px;
@@ -50,13 +60,13 @@ document.addEventListener("DOMContentLoaded", function () {
   text-align: center;
 }
 
-/* Ajustar el tamaño del FlipBook */
+/* 📌 Ajustar el tamaño del FlipBook */
 .df3d {
   width: 100% !important;
   height: 600px !important;
 }
 
-/* Mensaje de error */
+/* 📌 Mensaje de error */
 .error-message {
   color: red;
   font-weight: bold;
