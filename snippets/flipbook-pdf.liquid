@@ -1,26 +1,22 @@
 <div class="flipbook-container">
-  <!-- Contenedor del Flipbook -->
   <div id="flipbook"></div>
 
-  <!-- Botones de Navegación -->
   <div class="flipbook-controls">
     <button id="prevPage">⬅ Anterior</button>
     <span id="pageInfo">Página <span id="currentPage">1</span> de <span id="totalPages">?</span></span>
     <button id="nextPage">Siguiente ➡</button>
   </div>
 
-  <!-- Botón de descarga -->
   {% if page.metafields.custom.cat_logo_pdf != blank %}
     <a class="download-btn" href="{{ page.metafields.custom.cat_logo_pdf | file_url }}" download>📥 Descargar PDF</a>
   {% endif %}
 </div>
 
-<!-- Cargar jQuery y 3D FlipBook -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/3d-flip-book@1.0.0/dist/flipbook.min.js"></script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+jQuery(document).ready(function ($) {
     var url = "{{ page.metafields.custom.cat_logo_pdf | file_url }}";
 
     if (!url) {
@@ -28,20 +24,18 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    // Inicializar el flipbook
     $("#flipbook").flipBook({
         pdfUrl: url,
         lightbox: false,
-        pageSize: "small", // Ajustar el tamaño del flipbook
-        pageWidth: 400,   // Ancho personalizado
-        pageHeight: 600,  // Alto personalizado
+        pageSize: "small",
+        pageWidth: 400,
+        pageHeight: 600,
         onPageChange: function (pageNum, totalPages) {
             document.getElementById("currentPage").textContent = pageNum;
             document.getElementById("totalPages").textContent = totalPages;
         },
     });
 
-    // Navegación manual
     document.getElementById("prevPage").addEventListener("click", function () {
         $("#flipbook").flipBook("prevPage");
     });
