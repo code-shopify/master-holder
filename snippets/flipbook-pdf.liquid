@@ -4,78 +4,95 @@
   {% assign pdf_url = "" %}
 {% endif %}
 
-<!-- 📌 Cargar CSS y JS de 3D FlipBook Free -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/3d-flip-book@1.7.0/css/flipbook.style.css">
-<script defer id="flipbook-script" src="https://cdn.jsdelivr.net/npm/3d-flip-book@1.7.0/js/flipbook.min.js"></script>
+<!-- 📌 Cargar PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
 
 <!-- 📌 Contenedor del FlipBook -->
-<div id="flipbookContainer">
+<div class="flipbook-container">
   {% if pdf_url != "" %}
-    <div class="flip-book" id="myFlipbook" pdf="{{ pdf_url }}"></div>
+    <div id="flipbook"></div>
   {% else %}
     <p class="error-message">⚠ No se encontró ningún PDF. Verifica el metafield en Shopify.</p>
   {% endif %}
 </div>
 
-<!-- 📌 Script para Inicializar el FlipBook -->
+<!-- 📌 Script para Renderizar PDF como FlipBook -->
 <script>
-function loadFlipBook() {
-    if (typeof FlipBook === "undefined") {
-        console.error("❌ 3D FlipBook aún no se ha cargado. Reintentando...");
-        setTimeout(loadFlipBook, 1000);
-        return;
-    }
-
-    const flipbookElement = document.getElementById("myFlipbook");
-
-    if (!flipbookElement || !flipbookElement.getAttribute("pdf")) {
-        console.error("❌ No se encontró el contenedor del FlipBook o la URL del PDF.");
-        return;
-    }
-
-    console.log("🚀 Inicializando 3D FlipBook con PDF:", flipbookElement.getAttribute("pdf"));
-
-    new FlipBook(flipbookElement, {
-        pdf: flipbookElement.getAttribute("pdf"),
-        template: {
-            html: "default",
-            styles: ["default"],
-            sounds: {
-                startFlip: "https://cdn.jsdelivr.net/npm/3d-flip-book@1.7.0/sounds/start.mp3",
-                endFlip: "https://cdn.jsdelivr.net/npm/3d-flip-book@1.7.0/sounds/end.mp3"
-            }
-        },
-        controls: {
-            zoomIn: true,
-            zoomOut: true,
-            fullScreen: true,
-            download: true
-        }
-    });
-}
-
 document.addEventListener("DOMContentLoaded", function () {
-    setTimeout(loadFlipBook, 3000);
+    const url = "{{ pdf_url }}";
+
+    if (!url) {
+        console.error("❌ No se encontró la URL del PDF.");
+        document.getElementById("flipbook").innerHTML = "<p style='color: red;'>⚠ No hay catálogo disponible.</p>";
+        return;
+    }
+
+    const flipbookContainer = document.getElementById("flipbook");
+
+    pdfjsLib.getDocument(url).promise.then(pdf => {
+        const totalPages = pdf.numPages;
+        console.log("📂 Total de páginas en el PDF:", totalPages);
+
+        for (let i = 1; i <= totalPages; i++) {
+            pdf.getPage(i).then(page => {
+                const canvas = document.createElement("canvas");
+                const pageDiv = document.createElement("div");
+                pageDiv.classList.add("page");
+                pageDiv.appendChild(canvas);
+                flipbookContainer.appendChild(pageDiv);
+
+                const viewport = page.getViewport({ scale: 1.5 });
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+
+                page.render({ canvasContext: canvas.getContext("2d"), viewport });
+            });
+        }
+    }).catch(error => {
+        console.error("❌ Error al cargar el PDF:", error);
+        flipbookContainer.innerHTML = "<p style='color: red;'>⚠ Error al cargar el catálogo.</p>";
+    });
 });
 </script>
 
-<!-- 📌 Estilos para el FlipBook -->
+<!-- 📌 Estilos del FlipBook -->
 <style>
-/* 📌 Estilos para centrar el FlipBook */
-#flipbookContainer {
-  width: 100%;
+/* 📌 Contenedor principal */
+.flipbook-container {
+  width: 90%;
   max-width: 800px;
   margin: auto;
   text-align: center;
+  position: relative;
+  background: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
 }
 
-/* 📌 Ajustar el tamaño del FlipBook */
-.flip-book {
-  width: 100% !important;
-  height: 600px !important;
+/* 📌 Páginas del FlipBook */
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  padding: 5px;
+  transition: transform 0.8s ease-in-out;
 }
 
-/* 📌 Mensaje de error */
+/* 📌 Animación de Flip */
+.page:nth-child(odd) {
+  transform-origin: left;
+  transform: rotateY(0deg);
+}
+
+.page:nth-child(even) {
+  transform-origin: right;
+  transform: rotateY(-180deg);
+}
+
+/* 📌 Botón de error */
 .error-message {
   color: red;
   font-weight: bold;
