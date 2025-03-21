@@ -4,6 +4,9 @@
   {% assign pdf_url = "" %}
 {% endif %}
 
+<!-- 📌 Cargar CSS y JS de 3D FlipBook Free -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/3d-flip-book@1.7.0/css/flipbook.style.css">
+<script defer id="flipbook-script" src="https://cdn.jsdelivr.net/npm/3d-flip-book@1.7.0/js/flipbook.min.js"></script>
 
 <!-- 📌 Contenedor del FlipBook -->
 <div id="flipbookContainer">
@@ -16,40 +19,43 @@
 
 <!-- 📌 Script para Inicializar el FlipBook -->
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    setTimeout(() => {
-        if (typeof FlipBook === "undefined") {
-            console.error("❌ 3D FlipBook no se ha cargado correctamente.");
-            return;
-        }
+function loadFlipBook() {
+    if (typeof FlipBook === "undefined") {
+        console.error("❌ 3D FlipBook aún no se ha cargado. Reintentando...");
+        setTimeout(loadFlipBook, 1000);
+        return;
+    }
 
-        const flipbookElement = document.getElementById("myFlipbook");
+    const flipbookElement = document.getElementById("myFlipbook");
 
-        if (!flipbookElement || !flipbookElement.getAttribute("pdf")) {
-            console.error("❌ No se encontró el contenedor del FlipBook o la URL del PDF.");
-            return;
-        }
+    if (!flipbookElement || !flipbookElement.getAttribute("pdf")) {
+        console.error("❌ No se encontró el contenedor del FlipBook o la URL del PDF.");
+        return;
+    }
 
-        console.log("🚀 Inicializando 3D FlipBook con PDF:", flipbookElement.getAttribute("pdf"));
+    console.log("🚀 Inicializando 3D FlipBook con PDF:", flipbookElement.getAttribute("pdf"));
 
-        new FlipBook(flipbookElement, {
-            pdf: flipbookElement.getAttribute("pdf"),
-            template: {
-                html: "default",
-                styles: ["default"],
-                sounds: {
-                    startFlip: "https://cdn.jsdelivr.net/npm/3d-flip-book@1.7.0/sounds/start.mp3",
-                    endFlip: "https://cdn.jsdelivr.net/npm/3d-flip-book@1.7.0/sounds/end.mp3"
-                }
-            },
-            controls: {
-                zoomIn: true,
-                zoomOut: true,
-                fullScreen: true,
-                download: true
+    new FlipBook(flipbookElement, {
+        pdf: flipbookElement.getAttribute("pdf"),
+        template: {
+            html: "default",
+            styles: ["default"],
+            sounds: {
+                startFlip: "https://cdn.jsdelivr.net/npm/3d-flip-book@1.7.0/sounds/start.mp3",
+                endFlip: "https://cdn.jsdelivr.net/npm/3d-flip-book@1.7.0/sounds/end.mp3"
             }
-        });
-    }, 3000);
+        },
+        controls: {
+            zoomIn: true,
+            zoomOut: true,
+            fullScreen: true,
+            download: true
+        }
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(loadFlipBook, 3000);
 });
 </script>
 
