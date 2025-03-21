@@ -1,6 +1,6 @@
 <!-- Contenedor del Flipbook -->
 <div class="flipbook-container">
-  <div id="flipbook" class="dflip"></div>
+  <div id="flipbook" class="dflip" source="{{ page.metafields.custom.cat_logo_pdf | file_url }}"></div>
 
   <!-- Botones de navegación -->
   <div class="flipbook-controls">
@@ -15,18 +15,21 @@
   {% endif %}
 </div>
 
-<!-- Cargar DearFlip -->
+<!-- Cargar CSS y JS de DearFlip -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dearflip@1.0.0/css/dflip.min.css">
 <script src="https://cdn.jsdelivr.net/npm/dearflip@1.0.0/js/dflip.min.js"></script>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   const pdfUrl = "{{ page.metafields.custom.cat_logo_pdf | file_url }}";
-  
+
   if (!pdfUrl) {
     document.getElementById("flipbook").innerHTML = "No hay catálogo disponible.";
     return;
   }
+
+  // Verificar que el PDF se está cargando correctamente
+  console.log("Cargando PDF desde:", pdfUrl);
 
   // Crear el Flipbook con DearFlip
   const flipbook = new DFLIP({
@@ -53,15 +56,14 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("nextPage").addEventListener("click", function () {
     flipbook.next();
   });
-
 });
 </script>
 
 <style>
 /* Contenedor principal */
 .flipbook-container {
-  width: 90%;
-  max-width: 800px;
+  width: 100%;
+  max-width: 900px;
   margin: 20px auto;
   text-align: center;
   background: #fff;
@@ -71,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
   overflow: hidden;
 }
 
-/* Estilos del Flipbook */
+/* Ajuste del Flipbook */
 #flipbook {
   width: 100% !important;
   max-width: 800px;
