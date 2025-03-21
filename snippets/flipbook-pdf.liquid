@@ -1,118 +1,48 @@
 {% if page.metafields.custom.cat_logo_pdf != blank %}
-  {% assign pdf_url = page.metafields.custom.cat_logo_pdf | file_url %}
+  {% assign pdf_url = page.metafields.custom.cat_logo_pdf | file_url | prepend: "https:" %}
 {% else %}
   {% assign pdf_url = "" %}
 {% endif %}
 
-<!-- 📌 Cargar jQuery antes de FlowPaper -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- 📌 Cargar FlowPaper -->
-<script type="text/javascript" src="https://flowpaper.com/js/FlowPaperViewer.js"></script>
-
-<!-- 📌 Contenedor del visor -->
+<!-- Contenedor del Flipbook -->
 <div class="flipbook-container">
   {% if pdf_url != "" %}
-    <div id="documentViewer" class="flowpaper-viewer"></div>
-
-    <div class="flipbook-controls">
-      <button id="prevPage">⬅ Anterior</button>
-      <button id="nextPage">Siguiente ➡</button>
-    </div>
-    <a class="download-btn" href="{{ pdf_url }}" download>📥 Descargar PDF</a>
+    <iframe id="flipbook" src="https://flowpaper.com/flipbook/?pdf={{ pdf_url }}" frameborder="0"></iframe>
   {% else %}
-    <p class="error-message">⚠ No se encontró ningún PDF. Verifica el metafield en Shopify.</p>
+    <p style="color: red;">⚠ No se encontró ningún PDF. Verifica el metafield en Shopify.</p>
+  {% endif %}
+
+  <!-- Botón de descarga -->
+  {% if pdf_url != "" %}
+    <a class="download-btn" href="{{ pdf_url }}" download>📥 Descargar PDF</a>
   {% endif %}
 </div>
 
-<!-- 📌 Script para inicializar FlowPaper -->
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    console.log("✅ Intentando cargar FlowPaper...");
-    const pdfUrl = "{{ pdf_url }}";
-
-    if (!pdfUrl) {
-        console.error("❌ No se encontró la URL del PDF.");
-        document.getElementById("documentViewer").innerHTML = "<p style='color: red;'>⚠ No hay catálogo disponible.</p>";
-        return;
-    }
-
-    setTimeout(() => {
-        if (typeof $.fn.FlowPaperViewer === "undefined") {
-            console.error("❌ FlowPaper no se cargó correctamente. Revisa la URL del CDN.");
-            return;
-        }
-
-        $("#documentViewer").FlowPaperViewer({
-            config: {
-                PDFFile: pdfUrl,
-                Scale: 1,
-                FitPageOnLoad: true,
-                AutoAdjustPrintSize: true,
-                ViewerWidth: "100%",
-                ViewerHeight: "600px",
-                enableSearch: true,
-                enableDownload: false,
-                BackgroundColor: "#ffffff" // 🔹 Fondo blanco
-            }
-        });
-
-        console.log("✅ FlowPaper cargado correctamente.");
-    }, 1000);
-
-    // 🔹 Asegurar fondo blanco en el visor
-    setTimeout(() => {
-        document.querySelector(".flowpaper-viewer").style.background = "#ffffff";
-        document.querySelector("#documentViewer").style.background = "#ffffff";
-        console.log("✅ Fondo blanco aplicado correctamente.");
-    }, 2000);
-});
-</script>
-
-<!-- 📌 Estilos -->
 <style>
-/* 📌 Contenedor principal */
+/* Contenedor principal */
 .flipbook-container {
   width: 100%;
   max-width: 900px;
-  margin: auto;
+  margin: 20px auto;
   text-align: center;
-  background: #ffffff;
+  background: #ffffff; /* Fondo blanco */
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
 }
 
-/* 📌 FlowPaper */
-.flowpaper-viewer {
+/* Ajuste del Flipbook */
+#flipbook {
   width: 100% !important;
-  height: 600px !important;
-  background: #ffffff !important;
+  max-width: 800px;
+  height: 600px;
+  margin: 0 auto;
+  border: none; /* Eliminar borde gris */
+  background: #ffffff !important; /* Fondo blanco */
 }
 
-/* 📌 Controles de navegación */
-.flipbook-controls {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.flipbook-controls button {
-  background: #ff4c4c;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  font-size: 14px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.flipbook-controls button:hover {
-  background: #cc0000;
-}
-
-/* 📌 Botón de descarga */
+/* Botón de descarga */
 .download-btn {
   display: inline-block;
   margin-top: 10px;
@@ -128,11 +58,5 @@ document.addEventListener("DOMContentLoaded", function () {
   background: #218838;
 }
 
-/* 📌 Mensaje de error */
-.error-message {
-  color: red;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 20px;
 }
 </style>
