@@ -1,6 +1,16 @@
+{% if page.metafields.custom.cat_logo_pdf != blank %}
+  {% assign pdf_url = page.metafields.custom.cat_logo_pdf | file_url %}
+{% else %}
+  {% assign pdf_url = "" %}
+{% endif %}
+
 <!-- Contenedor del Flipbook -->
 <div class="flipbook-container">
-  <div id="flipbook" class="dflip" source="{{ page.metafields.custom.cat_logo_pdf | file_url }}"></div>
+  {% if pdf_url != "" %}
+    <div id="flipbook" class="dflip" source="{{ pdf_url }}"></div>
+  {% else %}
+    <p style="color: red;">⚠ No se encontró ningún PDF. Verifica el metafield en Shopify.</p>
+  {% endif %}
 
   <!-- Botones de navegación -->
   <div class="flipbook-controls">
@@ -10,8 +20,8 @@
   </div>
 
   <!-- Botón de descarga -->
-  {% if page.metafields.custom.cat_logo_pdf != blank %}
-    <a class="download-btn" href="{{ page.metafields.custom.cat_logo_pdf | file_url }}" download>📥 Descargar PDF</a>
+  {% if pdf_url != "" %}
+    <a class="download-btn" href="{{ pdf_url }}" download>📥 Descargar PDF</a>
   {% endif %}
 </div>
 
@@ -21,15 +31,16 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  const pdfUrl = "{{ page.metafields.custom.cat_logo_pdf | file_url }}";
+  const pdfUrl = "{{ pdf_url }}";
 
-  if (!pdfUrl) {
-    document.getElementById("flipbook").innerHTML = "No hay catálogo disponible.";
+  console.log("🔍 Verificando PDF URL:", pdfUrl);
+
+  if (!pdfUrl || pdfUrl === "") {
+    console.error("❌ No se encontró un PDF en Shopify.");
     return;
   }
 
-  // Verificar que el PDF se está cargando correctamente
-  console.log("Cargando PDF desde:", pdfUrl);
+  console.log("✅ Cargando PDF desde:", pdfUrl);
 
   // Crear el Flipbook con DearFlip
   const flipbook = new DFLIP({
