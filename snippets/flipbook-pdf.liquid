@@ -26,62 +26,69 @@
 
 <script>
 jQuery(document).ready(function ($) {
-    var url = "{{ page.metafields.custom.cat_logo_pdf | file_url }}";
+  const url = "{{ page.metafields.custom.cat_logo_pdf | file_url }}";
 
-    if (!url) {
-        document.getElementById("flipbook").innerHTML = "No hay catálogo disponible.";
-        return;
-    }
+  if (!url) {
+    document.getElementById("flipbook").innerHTML = "No hay catálogo disponible.";
+    return;
+  }
 
-    // Inicializar el flipbook con Turn.js
-    $("#flipbook").turn({
-        width: 800,
-        height: 600,
-        autoCenter: true, // Centrar el flipbook
-        duration: 1000,   // Duración de la animación en milisegundos
-    });
+  const flipbookEl = document.getElementById("flipbook");
 
-    // Cargar el PDF y renderizar las páginas
-    pdfjsLib.getDocument(url).promise.then(function (pdf) {
-        var totalPages = pdf.numPages;
-        document.getElementById("totalPages").textContent = totalPages;
+  pdfjsLib.getDocument(url).promise.then(function (pdf) {
+    const totalPages = pdf.numPages;
+    document.getElementById("totalPages").textContent = totalPages;
 
-        for (let i = 1; i <= totalPages; i++) {
-            pdf.getPage(i).then(function (page) {
-                var canvas = document.createElement("canvas");
-                var pageDiv = document.createElement("div");
-                pageDiv.classList.add("page");
-                pageDiv.appendChild(canvas);
-                document.getElementById("flipbook").appendChild(pageDiv);
+    let renderedPages = 0;
 
-                var viewport = page.getViewport({ scale: 1.5 });
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
+    for (let i = 1; i <= totalPages; i++) {
+      pdf.getPage(i).then(function (page) {
+        const canvas = document.createElement("canvas");
+        const pageDiv = document.createElement("div");
+        pageDiv.classList.add("page");
+        pageDiv.appendChild(canvas);
+        flipbookEl.appendChild(pageDiv);
 
-                // Renderizar la página del PDF en el canvas
-                page.render({ canvasContext: canvas.getContext("2d"), viewport });
+        const viewport = page.getViewport({ scale: 1.5 });
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        page.render({ canvasContext: canvas.getContext("2d"), viewport }).promise.then(() => {
+          renderedPages++;
+
+          // Esperamos hasta que TODAS las páginas se hayan renderizado
+          if (renderedPages === totalPages) {
+            // Inicializar el flipbook SOLO después de renderizar todo
+            $("#flipbook").turn({
+              width: 800,
+              height: 600,
+              autoCenter: true,
+              duration: 1000
             });
-        }
-    }).catch(function (error) {
-        console.error("Error al cargar el PDF:", error);
-        document.getElementById("flipbook").innerHTML = "Error al cargar el catálogo.";
-    });
+          }
+        });
+      });
+    }
+  }).catch(function (error) {
+    console.error("Error al cargar el PDF:", error);
+    flipbookEl.innerHTML = "Error al cargar el catálogo.";
+  });
 
-    // Navegación manual
-    document.getElementById("prevPage").addEventListener("click", function () {
-        $("#flipbook").turn("previous");
-    });
+  // Botones de navegación
+  document.getElementById("prevPage").addEventListener("click", function () {
+    $("#flipbook").turn("previous");
+  });
 
-    document.getElementById("nextPage").addEventListener("click", function () {
-        $("#flipbook").turn("next");
-    });
+  document.getElementById("nextPage").addEventListener("click", function () {
+    $("#flipbook").turn("next");
+  });
 
-    // Actualizar el número de página actual
-    $("#flipbook").bind("turned", function (event, page) {
-        document.getElementById("currentPage").textContent = page;
-    });
+  $("#flipbook").bind("turned", function (event, page) {
+    document.getElementById("currentPage").textContent = page;
+  });
 });
 </script>
+
 
 <style>
 /* Contenedor principal */
