@@ -1,6 +1,8 @@
 <div class="flipbook-container">
   <!-- Contenedor del flipbook -->
-  <div id="flipbook"></div>
+  <div id="flipbook">
+    <div id="loading-message">📄 Cargando catálogo...</div>
+  </div>
 
   <!-- Botones de navegación -->
   <div class="flipbook-controls">
@@ -33,7 +35,8 @@ jQuery(document).ready(function ($) {
     return;
   }
 
-  const flipbookEl = document.getElementById("flipbook");
+  const flipbookEl = $("#flipbook");
+  const loadingMessage = $("#loading-message");
 
   pdfjsLib.getDocument(url).promise.then(function (pdf) {
     const totalPages = pdf.numPages;
@@ -47,7 +50,7 @@ jQuery(document).ready(function ($) {
         const pageDiv = document.createElement("div");
         pageDiv.classList.add("page");
         pageDiv.appendChild(canvas);
-        flipbookEl.appendChild(pageDiv);
+        flipbookEl.append(pageDiv);
 
         const viewport = page.getViewport({ scale: 1.5 });
         canvas.height = viewport.height;
@@ -56,11 +59,11 @@ jQuery(document).ready(function ($) {
         page.render({ canvasContext: canvas.getContext("2d"), viewport }).promise.then(() => {
           renderedPages++;
 
-          // Esperamos hasta que TODAS las páginas se hayan renderizado
+          // Una vez que todas las páginas han sido renderizadas, se activa el flipbook
           if (renderedPages === totalPages) {
-            // Inicializar el flipbook SOLO después de renderizar todo
-            $("#flipbook").turn({
-              width: 800,
+            loadingMessage.hide();
+            flipbookEl.turn({
+              width: flipbookEl.parent().width(),
               height: 600,
               autoCenter: true,
               duration: 1000
@@ -71,15 +74,15 @@ jQuery(document).ready(function ($) {
     }
   }).catch(function (error) {
     console.error("Error al cargar el PDF:", error);
-    flipbookEl.innerHTML = "Error al cargar el catálogo.";
+    flipbookEl.html("<p>Error al cargar el catálogo.</p>");
   });
 
   // Botones de navegación
-  document.getElementById("prevPage").addEventListener("click", function () {
+  $("#prevPage").on("click", function () {
     $("#flipbook").turn("previous");
   });
 
-  document.getElementById("nextPage").addEventListener("click", function () {
+  $("#nextPage").on("click", function () {
     $("#flipbook").turn("next");
   });
 
@@ -88,7 +91,6 @@ jQuery(document).ready(function ($) {
   });
 });
 </script>
-
 
 <style>
 /* Contenedor principal */
@@ -102,13 +104,27 @@ jQuery(document).ready(function ($) {
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
 }
 
 /* Ajuste del flipbook */
 #flipbook {
-  width: 100%;
-  height: 600px; /* Altura fija para el flipbook */
+  width: 100% !important;
+  max-width: 800px;
+  height: 600px;
   margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Mensaje de carga */
+#loading-message {
+  font-size: 18px;
+  font-weight: bold;
+  color: #555;
+  text-align: center;
 }
 
 /* Estilos para las páginas */
