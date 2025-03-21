@@ -7,25 +7,16 @@
 <!-- Contenedor del Flipbook -->
 <div class="flipbook-container">
   {% if pdf_url != "" %}
-    <div id="flipbook" class="stf__wrapper"></div>
+    <div id="flipbook"></div>
   {% else %}
     <p style="color: red;">⚠ No se encontró ningún PDF. Verifica el metafield en Shopify.</p>
   {% endif %}
-
-  <!-- Botones de navegación -->
-  <div class="flipbook-controls">
-    <button id="prevPage">⬅ Anterior</button>
-    <span id="pageInfo">Página <span id="currentPage">1</span> de <span id="totalPages">?</span></span>
-    <button id="nextPage">Siguiente ➡</button>
-  </div>
 
   <!-- Botón de descarga -->
   {% if pdf_url != "" %}
     <a class="download-btn" href="{{ pdf_url }}" download>📥 Descargar PDF</a>
   {% endif %}
 </div>
-
-
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -40,30 +31,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
   console.log("✅ Cargando PDF desde:", pdfUrl);
 
-  // Inicializar 3D FlipBook
-  const flipbook = new StfFlipBook({
-    source: pdfUrl,
-    controlsProps: {
-      downloadButton: { vAlign: "top", hAlign: "right" },
-      zoomButton: "visible",
-      pageNumber: "visible"
+  // Inicializar FlowPaper
+  $("#flipbook").FlowPaperViewer({
+    config: {
+      PDFFile: pdfUrl,
+      Scale: 1,
+      ZoomTransition: "easeOut",
+      ZoomTime: 0.5,
+      FitPageOnLoad: true,
+      FitWidthOnLoad: true,
+      AutoAdjustLayout: true,
+      PrintEnabled: true
     }
-  });
-
-  flipbook.render(document.getElementById("flipbook"));
-
-  // Botones de navegación
-  document.getElementById("prevPage").addEventListener("click", function () {
-    flipbook.prev();
-  });
-
-  document.getElementById("nextPage").addEventListener("click", function () {
-    flipbook.next();
-  });
-
-  // Actualizar número de página
-  flipbook.on("pageChange", function (event) {
-    document.getElementById("currentPage").textContent = event.page;
   });
 });
 </script>
@@ -88,29 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
   max-width: 800px;
   height: 600px;
   margin: 0 auto;
-}
-
-/* Botones de navegación */
-.flipbook-controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.flipbook-controls button {
-  background: #ff4c4c;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  font-size: 14px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.flipbook-controls button:hover {
-  background: #cc0000;
+  border: 1px solid #ccc;
 }
 
 /* Botón de descarga */
