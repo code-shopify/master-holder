@@ -46,10 +46,12 @@ document.addEventListener("DOMContentLoaded", function () {
         let totalPages = pdf.numPages;
         document.getElementById("totalPages").textContent = totalPages;
 
-        // Cargar todas las páginas
+        let loadedPages = 0;
+
+        // Cargar todas las páginas del PDF y agregarlas al FlipBook
         for (let i = 1; i <= totalPages; i++) {
             pdf.getPage(i).then(function (page) {
-                let scale = 1.2; // Reducir escala para hacerlo más pequeño
+                let scale = 1.2;
                 let viewport = page.getViewport({ scale });
 
                 let canvas = document.createElement("canvas");
@@ -62,33 +64,40 @@ document.addEventListener("DOMContentLoaded", function () {
                 pageDiv.appendChild(canvas);
                 flipbook.appendChild(pageDiv);
 
-                page.render({ canvasContext: context, viewport });
+                page.render({ canvasContext: context, viewport }).promise.then(() => {
+                    loadedPages++;
+                    if (loadedPages === totalPages) {
+                        console.log("✅ Todas las páginas están cargadas, activando Turn.js...");
+
+                        $("#flipbook").turn({
+                            width: 600, // Reducimos el tamaño
+                            height: 400,
+                            autoCenter: true,
+                            duration: 800,
+                            elevation: 50,
+                            gradients: true,
+                            turnCorners: "bl,br",
+                        });
+
+                        // Conectar los botones de navegación
+                        document.getElementById("prevPage").addEventListener("click", function () {
+                            $("#flipbook").turn("previous");
+                        });
+
+                        document.getElementById("nextPage").addEventListener("click", function () {
+                            $("#flipbook").turn("next");
+                        });
+
+                        // Actualizar número de página
+                        $("#flipbook").bind("turned", function (event, page) {
+                            document.getElementById("currentPage").textContent = page;
+                        });
+
+                        console.log("✅ FlipBook activado correctamente.");
+                    }
+                });
             });
         }
-
-        // Esperar a que las páginas se carguen antes de activar Turn.js
-        setTimeout(() => {
-            $("#flipbook").turn({
-                width: 600, // Reducimos el tamaño del FlipBook
-                height: 400,
-                autoCenter: true,
-                duration: 800
-            });
-        }, 3000);
-    });
-
-    // Botones de navegación
-    document.getElementById("prevPage").addEventListener("click", function () {
-        $("#flipbook").turn("previous");
-    });
-
-    document.getElementById("nextPage").addEventListener("click", function () {
-        $("#flipbook").turn("next");
-    });
-
-    // Actualizar número de página
-    $("#flipbook").bind("turned", function (event, page) {
-        document.getElementById("currentPage").textContent = page;
     });
 });
 </script>
@@ -110,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
 /* Ajuste del FlipBook */
 #flipbook {
   width: 100% !important;
-  max-width: 600px; /* Reducimos el tamaño */
+  max-width: 600px;
   height: 400px;
   margin: 0 auto;
   border: none;
