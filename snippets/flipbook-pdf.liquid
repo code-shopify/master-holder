@@ -56,6 +56,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     function renderPages(num) {
+        // Agregar animación de paso de página
+        document.getElementById("flipbook").classList.add("flipping");
+
         // Página izquierda (par)
         if (num > 1) {
             pdfDoc.getPage(num - 1).then(page => {
@@ -77,14 +80,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         document.getElementById("currentPage").textContent = num;
-        applyFlipEffect();
-    }
 
-    function applyFlipEffect() {
-        const flipbook = document.getElementById("flipbook");
-        flipbook.classList.remove("flip-animation");
-        void flipbook.offsetWidth;  // Reinicia la animación
-        flipbook.classList.add("flip-animation");
+        // Eliminar la animación después de 0.6s (para que solo ocurra en el cambio de página)
+        setTimeout(() => {
+            document.getElementById("flipbook").classList.remove("flipping");
+        }, 600);
     }
 
     document.getElementById("prevPage").addEventListener("click", function () {
@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
-<!-- 📌 Estilos para FlipBook -->
+<!-- 📌 Estilos para FlipBook con Animación de Página -->
 <style>
 /* 📌 Contenedor principal */
 .flipbook-container {
@@ -124,7 +124,13 @@ document.addEventListener("DOMContentLoaded", function () {
   display: flex;
   justify-content: center;
   align-items: center;
-  perspective: 1000px;
+  perspective: 1200px;
+  transition: transform 0.6s;
+}
+
+/* 📌 Efecto de pasar página */
+.flipping {
+  transform: rotateY(180deg);
 }
 
 /* 📌 Páginas */
@@ -132,7 +138,8 @@ document.addEventListener("DOMContentLoaded", function () {
   width: 50%;
   padding: 10px;
   transform-origin: center right;
-  transition: transform 0.5s ease-in-out;
+  transition: transform 0.6s ease-in-out;
+  backface-visibility: hidden;
 }
 
 .left {
@@ -187,8 +194,8 @@ canvas {
 }
 
 /* 📌 Animación de pasar página */
-.flip-animation .flip-page {
-  animation: flip 0.5s ease-in-out;
+.flipping .flip-page {
+  animation: flip 0.6s ease-in-out;
 }
 
 @keyframes flip {
