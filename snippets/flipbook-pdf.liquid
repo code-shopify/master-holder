@@ -11,13 +11,14 @@
 <div class="flipbook-container">
   {% if pdf_url != "" %}
     <div id="flipbook">
-      <div id="pages"></div>
+      <canvas id="pdf-canvas"></canvas>
     </div>
     <div class="flipbook-controls">
       <button id="prevPage">⬅ Anterior</button>
       <span id="pageInfo">Página <span id="currentPage">1</span> de <span id="totalPages">?</span></span>
       <button id="nextPage">Siguiente ➡</button>
     </div>
+    <a class="download-btn" href="{{ pdf_url }}" download>📥 Descargar PDF</a>
   {% else %}
     <p class="error-message">⚠ No se encontró ningún PDF. Verifica el metafield en Shopify.</p>
   {% endif %}
@@ -27,9 +28,12 @@
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const url = "{{ pdf_url }}";
-    const flipbookContainer = document.getElementById("pages");
+    const canvas = document.getElementById("pdf-canvas");
+    const ctx = canvas.getContext("2d");
+    let pdfDoc = null;
     let currentPage = 1;
     let totalPages = 0;
+    let scale = 1.5;
 
     if (!url) {
         console.error("❌ No se encontró la URL del PDF.");
@@ -38,42 +42,39 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     pdfjsLib.getDocument(url).promise.then(pdf => {
+        pdfDoc = pdf;
         totalPages = pdf.numPages;
         document.getElementById("totalPages").textContent = totalPages;
-        loadPage(currentPage, pdf);
+        renderPage(currentPage);
     });
 
-    function loadPage(pageNum, pdf) {
-        pdf.getPage(pageNum).then(page => {
-            const canvas = document.createElement("canvas");
-            const ctx = canvas.getContext("2d");
-            const viewport = page.getViewport({ scale: 1.5 });
-
+    function renderPage(num) {
+        pdfDoc.getPage(num).then(page => {
+            const viewport = page.getViewport({ scale: scale });
             canvas.width = viewport.width;
             canvas.height = viewport.height;
-            page.render({ canvasContext: ctx, viewport });
 
-            flipbookContainer.innerHTML = "";
-            const pageDiv = document.createElement("div");
-            pageDiv.classList.add("flip-page");
-            pageDiv.appendChild(canvas);
-            flipbookContainer.appendChild(pageDiv);
+            const renderContext = {
+                canvasContext: ctx,
+                viewport: viewport
+            };
+            page.render(renderContext);
         });
 
-        document.getElementById("currentPage").textContent = pageNum;
+        document.getElementById("currentPage").textContent = num;
     }
 
     document.getElementById("prevPage").addEventListener("click", function () {
         if (currentPage > 1) {
             currentPage--;
-            loadPage(currentPage, pdfjsLib.getDocument(url).promise);
+            renderPage(currentPage);
         }
     });
 
     document.getElementById("nextPage").addEventListener("click", function () {
         if (currentPage < totalPages) {
             currentPage++;
-            loadPage(currentPage, pdfjsLib.getDocument(url).promise);
+            renderPage(currentPage);
         }
     });
 });
@@ -95,24 +96,15 @@ document.addEventListener("DOMContentLoaded", function () {
   overflow: hidden;
 }
 
-/* 📌 Páginas */
-#pages {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-
-/* 📌 Animación Flip */
-.flip-page {
-  position: absolute;
+/* 📌 Canvas para renderizar el PDF */
+#pdf-canvas {
   width: 100%;
-  height: 100%;
-  transition: transform 1s ease-in-out;
-  transform-origin: center;
+  height: auto;
+  display: block;
+  margin: auto;
 }
 
-/* 📌 Controles */
+/* 📌 Controles de navegación */
 .flipbook-controls {
   display: flex;
   justify-content: center;
@@ -132,5 +124,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
 .flipbook-controls button:hover {
   background: #cc0000;
+}
+
+/* 📌 Botón de descarga */
+.download-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 15px;
+  background: #28a745;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.download-btn:hover {
+  background: #218838;
+}
+
+/* 📌 Mensaje de error */
+.error-message {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
 }
 </style>
