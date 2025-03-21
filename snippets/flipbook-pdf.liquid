@@ -11,10 +11,7 @@
 <div class="flipbook-container">
   {% if pdf_url != "" %}
     <div id="flipbook">
-      <div class="flip-page" id="page1">
-        <canvas id="pdf-canvas"></canvas>
-      </div>
-      <div class="flip-page" id="page2"></div>
+      <canvas id="pdf-canvas"></canvas>
     </div>
     <div class="flipbook-controls">
       <button id="prevPage">⬅ Anterior</button>
@@ -54,24 +51,28 @@ document.addEventListener("DOMContentLoaded", function () {
     function renderPage(num) {
         pdfDoc.getPage(num).then(page => {
             const viewport = page.getViewport({ scale: scale });
+
+            // Ajustar el tamaño del canvas
             canvas.width = viewport.width;
             canvas.height = viewport.height;
 
+            // Renderizar la página en el canvas
             const renderContext = {
                 canvasContext: ctx,
                 viewport: viewport
             };
-            page.render(renderContext);
+            page.render(renderContext).promise.then(() => {
+                applyFlipEffect();
+            });
         });
 
         document.getElementById("currentPage").textContent = num;
-        applyFlipEffect();
     }
 
     function applyFlipEffect() {
         const flipbook = document.getElementById("flipbook");
         flipbook.classList.remove("flip-animation");
-        void flipbook.offsetWidth;  // Reinicia la animación
+        void flipbook.offsetWidth;  // Reinicia la animación para que se vea bien
         flipbook.classList.add("flip-animation");
     }
 
@@ -95,8 +96,8 @@ document.addEventListener("DOMContentLoaded", function () {
 <style>
 /* 📌 Contenedor principal */
 .flipbook-container {
-  width: 90%;
-  max-width: 800px;
+  width: 100%;
+  max-width: 900px;
   margin: auto;
   text-align: center;
   position: relative;
@@ -107,39 +108,23 @@ document.addEventListener("DOMContentLoaded", function () {
   overflow: hidden;
 }
 
-/* 📌 Efecto FlipBook */
+/* 📌 Ajustar FlipBook */
 #flipbook {
-  position: relative;
   width: 100%;
   height: auto;
   perspective: 1000px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* 📌 Página */
-.flip-page {
-  width: 100%;
-  height: auto;
-  position: absolute;
-  backface-visibility: hidden;
-}
-
-/* 📌 Animación de pasar página */
-.flip-animation {
-  animation: flip 0.6s ease-in-out;
-}
-
-@keyframes flip {
-  0% { transform: rotateY(0deg); }
-  50% { transform: rotateY(90deg); }
-  100% { transform: rotateY(0deg); }
-}
-
-/* 📌 Canvas para renderizar el PDF */
+/* 📌 Ajuste del Canvas */
 #pdf-canvas {
-  width: 100%;
+  width: 100% !important;
+  max-width: 850px;
   height: auto;
   display: block;
-  margin: auto;
+  border-radius: 5px;
 }
 
 /* 📌 Controles de navegación */
@@ -158,6 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
   font-size: 14px;
   border-radius: 5px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 .flipbook-controls button:hover {
@@ -178,6 +164,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
 .download-btn:hover {
   background: #218838;
+}
+
+/* 📌 Animación de pasar página */
+.flip-animation {
+  animation: flip 0.5s ease-in-out;
+}
+
+@keyframes flip {
+  0% { transform: rotateY(0deg); }
+  50% { transform: rotateY(90deg); }
+  100% { transform: rotateY(0deg); }
 }
 
 /* 📌 Mensaje de error */
