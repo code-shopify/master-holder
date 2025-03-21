@@ -11,7 +11,10 @@
 <div class="flipbook-container">
   {% if pdf_url != "" %}
     <div id="flipbook">
-      <canvas id="pdf-canvas"></canvas>
+      <div class="flip-page" id="page1">
+        <canvas id="pdf-canvas"></canvas>
+      </div>
+      <div class="flip-page" id="page2"></div>
     </div>
     <div class="flipbook-controls">
       <button id="prevPage">⬅ Anterior</button>
@@ -24,7 +27,7 @@
   {% endif %}
 </div>
 
-<!-- 📌 Script para Renderizar PDF y Aplicar Efecto Flip -->
+<!-- 📌 Script para Renderizar PDF con Efecto FlipBook -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const url = "{{ pdf_url }}";
@@ -62,6 +65,14 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         document.getElementById("currentPage").textContent = num;
+        applyFlipEffect();
+    }
+
+    function applyFlipEffect() {
+        const flipbook = document.getElementById("flipbook");
+        flipbook.classList.remove("flip-animation");
+        void flipbook.offsetWidth;  // Reinicia la animación
+        flipbook.classList.add("flip-animation");
     }
 
     document.getElementById("prevPage").addEventListener("click", function () {
@@ -94,6 +105,33 @@ document.addEventListener("DOMContentLoaded", function () {
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   overflow: hidden;
+}
+
+/* 📌 Efecto FlipBook */
+#flipbook {
+  position: relative;
+  width: 100%;
+  height: auto;
+  perspective: 1000px;
+}
+
+/* 📌 Página */
+.flip-page {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  backface-visibility: hidden;
+}
+
+/* 📌 Animación de pasar página */
+.flip-animation {
+  animation: flip 0.6s ease-in-out;
+}
+
+@keyframes flip {
+  0% { transform: rotateY(0deg); }
+  50% { transform: rotateY(90deg); }
+  100% { transform: rotateY(0deg); }
 }
 
 /* 📌 Canvas para renderizar el PDF */
