@@ -7,63 +7,49 @@
 <!-- Contenedor del Flipbook -->
 <div class="flipbook-wrapper">
   <div class="flipbook-container">
-    {% if pdf_url != "" %}
-      <iframe id="flipbook" src="https://flowpaper.com/flipbook/?pdf={{ pdf_url }}" frameborder="0"></iframe>
-    {% else %}
-      <p class="error-message">⚠ No se encontró ningún PDF. Verifica el metafield en Shopify.</p>
-    {% endif %}
+    <!-- FlipHTML5 embebido -->
+    <iframe 
+      id="fliphtml5-embed" 
+      src="https://online.fliphtml5.com/uhszp/cfcf/" 
+      frameborder="0" 
+      allowfullscreen 
+      allow="fullscreen" 
+      loading="lazy">
+    </iframe>
 
-    <!-- Botón de descarga -->
+    <!-- Botón de descarga del PDF -->
     {% if pdf_url != "" %}
       <a class="download-btn" href="{{ pdf_url }}" download>📥 Descargar PDF</a>
     {% endif %}
   </div>
 </div>
 
-<!-- Forzar fondo blanco con JavaScript -->
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    setTimeout(() => {
-        let flipbookIframe = document.getElementById("flipbook");
-        if (flipbookIframe) {
-            flipbookIframe.style.background = "#ffffff"; // Forzar fondo blanco
-        }
-        console.log("✅ Fondo blanco aplicado al flipbook.");
-    }, 1000);
-});
-</script>
-
+<!-- Estilos -->
 <style>
-/* Fondo blanco en toda la sección */
 .flipbook-wrapper {
   width: 100%;
-  background: #ffffff; /* Fondo blanco global */
+  background: #ffffff;
   padding: 40px 0;
   display: flex;
   justify-content: center;
 }
 
-/* Contenedor del flipbook */
 .flipbook-container {
   width: 100%;
-  max-width: 900px;
-  text-align: center;
-  background: #ffffff; /* Fondo blanco */
+  max-width: 960px;
+  background: #ffffff;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  overflow: hidden;
-  position: relative;
+  text-align: center;
 }
 
-/* Ajustes del iframe */
-#flipbook {
-  width: 100% !important;
-  max-width: 800px;
+/* Estilo del visor */
+#fliphtml5-embed {
+  width: 100%;
   height: 600px;
-  margin: auto;
   border: none;
-  display: block;
+  background: #ffffff;
 }
 
 /* Botón de descarga */
@@ -80,13 +66,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
 .download-btn:hover {
   background: #218838;
-}
-
-/* Mensaje de error */
-.error-message {
-  color: red;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 20px;
 }
 </style>
