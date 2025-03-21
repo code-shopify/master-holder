@@ -127,7 +127,32 @@ t4sp-theme t4s-wrapper__{{ settings.general_layout }}{% if settings.animations_r
       render 'render_bottom'
       render 'structured-data'
     -%}
-  {%- render "ecom_footer"-%}</body>
+  {%- render "ecom_footer"-%}
+  
+  <script>
+document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+        let viewer = document.querySelector("#documentViewer");
+        if (viewer) {
+            viewer.style.background = "white";
+            viewer.style.setProperty("background-color", "white", "important");
+
+            // Buscar y cambiar todos los elementos internos de FlowPaper
+            let elements = viewer.querySelectorAll("*");
+            elements.forEach(el => {
+                el.style.background = "white";
+                el.style.setProperty("background-color", "white", "important");
+            });
+
+            console.log("✅ Fondo blanco aplicado correctamente.");
+        } else {
+            console.log("⚠ No se encontró #documentViewer, revisa el HTML.");
+        }
+    }, 3000); // Esperar 3 segundos para asegurar que FlowPaper se haya cargado
+});
+</script>
+
+  </body>
 </html>
 
 {% else %}
