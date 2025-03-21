@@ -1,5 +1,5 @@
 {% if page.metafields.custom.cat_logo_pdf != blank %}
-  {% assign pdf_url = page.metafields.custom.cat_logo_pdf | file_url %}
+  {% assign pdf_url = page.metafields.custom.cat_logo_pdf | file_url | prepend: "https:" %}
 {% else %}
   {% assign pdf_url = "" %}
 {% endif %}
@@ -7,7 +7,7 @@
 <!-- Contenedor del Flipbook -->
 <div class="flipbook-container">
   {% if pdf_url != "" %}
-    <div id="flipbook"></div>
+    <iframe id="flipbook" src="https://flowpaper.com/flipbook/?pdf={{ pdf_url }}" frameborder="0"></iframe>
   {% else %}
     <p style="color: red;">⚠ No se encontró ningún PDF. Verifica el metafield en Shopify.</p>
   {% endif %}
@@ -17,35 +17,6 @@
     <a class="download-btn" href="{{ pdf_url }}" download>📥 Descargar PDF</a>
   {% endif %}
 </div>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const pdfUrl = "{{ pdf_url }}";
-
-  console.log("🔍 Verificando PDF URL:", pdfUrl);
-
-  if (!pdfUrl || pdfUrl === "") {
-    console.error("❌ No se encontró un PDF en Shopify.");
-    return;
-  }
-
-  console.log("✅ Cargando PDF desde:", pdfUrl);
-
-  // Inicializar FlowPaper
-  $("#flipbook").FlowPaperViewer({
-    config: {
-      PDFFile: pdfUrl,
-      Scale: 1,
-      ZoomTransition: "easeOut",
-      ZoomTime: 0.5,
-      FitPageOnLoad: true,
-      FitWidthOnLoad: true,
-      AutoAdjustLayout: true,
-      PrintEnabled: true
-    }
-  });
-});
-</script>
 
 <style>
 /* Contenedor principal */
