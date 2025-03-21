@@ -8,7 +8,7 @@
 <div class="flipbook-container">
   {% if pdf_url != "" %}
     <div id="flipbook">
-      <!-- Aquí se cargarán las páginas del PDF -->
+      <!-- Las páginas del PDF se generarán aquí -->
     </div>
   {% else %}
     <p class="error-message">⚠ No se encontró ningún PDF. Verifica el metafield en Shopify.</p>
@@ -30,7 +30,7 @@
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const pdfUrl = "{{ pdf_url }}";
-    
+
     console.log("🔍 Verificando PDF URL:", pdfUrl);
 
     if (!pdfUrl || pdfUrl === "") {
@@ -40,26 +40,44 @@ document.addEventListener("DOMContentLoaded", function () {
 
     console.log("✅ Cargando PDF desde:", pdfUrl);
 
-    // Inicializar el FlipBook con Turn.js
-    var flipbook = document.getElementById("flipbook");
+    const flipbook = document.getElementById("flipbook");
 
-    // Crear páginas del FlipBook dinámicamente
-    for (let i = 1; i <= 10; i++) { // Simulación de 10 páginas
-        let page = document.createElement("div");
-        page.classList.add("page");
-        page.innerHTML = `<canvas id="page-${i}"></canvas>`; // Se usará para dibujar el PDF
-        flipbook.appendChild(page);
-    }
+    pdfjsLib.getDocument(pdfUrl).promise.then(function (pdf) {
+        let totalPages = pdf.numPages;
+        document.getElementById("totalPages").textContent = totalPages;
 
-    // Aplicar Turn.js al FlipBook
-    $("#flipbook").turn({
-        width: 800,
-        height: 600,
-        autoCenter: true,
-        duration: 1000
+        // Cargar todas las páginas
+        for (let i = 1; i <= totalPages; i++) {
+            pdf.getPage(i).then(function (page) {
+                let scale = 1.5;
+                let viewport = page.getViewport({ scale });
+
+                let canvas = document.createElement("canvas");
+                let context = canvas.getContext("2d");
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+
+                let pageDiv = document.createElement("div");
+                pageDiv.classList.add("page");
+                pageDiv.appendChild(canvas);
+                flipbook.appendChild(pageDiv);
+
+                page.render({ canvasContext: context, viewport });
+            });
+        }
+
+        // Inicializar Turn.js después de que se hayan agregado las páginas
+        setTimeout(() => {
+            $("#flipbook").turn({
+                width: 800,
+                height: 600,
+                autoCenter: true,
+                duration: 1000
+            });
+        }, 3000); // Esperamos a que cargue el PDF antes de inicializar Turn.js
     });
 
-    // Navegación de botones
+    // Botones de navegación
     document.getElementById("prevPage").addEventListener("click", function () {
         $("#flipbook").turn("previous");
     });
@@ -72,7 +90,6 @@ document.addEventListener("DOMContentLoaded", function () {
     $("#flipbook").bind("turned", function (event, page) {
         document.getElementById("currentPage").textContent = page;
     });
-
 });
 </script>
 
@@ -90,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
   overflow: hidden;
 }
 
-/* Ajuste del Flipbook */
+/* Ajuste del FlipBook */
 #flipbook {
   width: 100% !important;
   max-width: 800px;
