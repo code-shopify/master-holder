@@ -1,2 +1,40 @@
-<div class="img_fija" style="background-image: url('{{ product.metafields.custom.imagen_fija | file_url }}');  margin-top: 5px; width: 134px; height: 134px; background-size: cover; background-position: center; border: 1px solid #000; border-radius: 5px; "></div>
+<div class="img_fija producto-imagen-galeria" style="background-image: url('{{ product.metafields.custom.imagen_fija | file_url }}');"></div>
+
+<style>
+  .producto-imagen-galeria {
+    margin-top: 5px;
+    width: 134px;
+    height: 134px;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #000;
+    border-radius: 5px;
+  }
+
+  /* Dispositivos móviles pequeños */
+  @media screen and (max-width: 480px) {
+    .producto-imagen-galeria {
+      width: 100px;
+      height: 100px;
+      margin-top: 3px;
+    }
+  }
+
+  /* Tablets y dispositivos medianos */
+  @media screen and (min-width: 481px) and (max-width: 768px) {
+    .producto-imagen-galeria {
+      width: 120px;
+      height: 120px;
+      margin-top: 4px;
+    }
+  }
+
+  /* Pantallas grandes */
+  @media screen and (min-width: 1200px) {
+    .producto-imagen-galeria {
+      width: 150px;
+      height: 150px;
+    }
+  }
+</style>
 
