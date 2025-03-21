@@ -4,7 +4,13 @@
   {% assign pdf_url = "" %}
 {% endif %}
 
-<!-- 📌 Contenedor del FlipBook -->
+<!-- 📌 Cargar jQuery antes de FlowPaper -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- 📌 Cargar FlowPaper -->
+<script type="text/javascript" src="https://flowpaper.com/js/FlowPaperViewer.js"></script>
+
+<!-- 📌 Contenedor del visor -->
 <div class="flipbook-container">
   {% if pdf_url != "" %}
     <div id="documentViewer" class="flowpaper-viewer"></div>
@@ -19,12 +25,10 @@
   {% endif %}
 </div>
 
-<!-- 📌 Cargar FlowPaper desde CDN -->
-<script type="text/javascript" src="https://flowpaper.com/js/FlowPaperViewer_min.js"></script>
-
 <!-- 📌 Script para inicializar FlowPaper -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+    console.log("✅ Intentando cargar FlowPaper...");
     const pdfUrl = "{{ pdf_url }}";
 
     if (!pdfUrl) {
@@ -33,29 +37,39 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    $("#documentViewer").FlowPaperViewer({
-        config: {
-            PDFFile: pdfUrl,
-            Scale: 1,
-            FitPageOnLoad: true,
-            AutoAdjustPrintSize: true,
-            ViewerWidth: "100%",
-            ViewerHeight: "600px",
-            enableSearch: true,
-            enableDownload: false,
-            BackgroundColor: "#ffffff" // 🔹 Forzar fondo blanco
+    setTimeout(() => {
+        if (typeof $.fn.FlowPaperViewer === "undefined") {
+            console.error("❌ FlowPaper no se cargó correctamente. Revisa la URL del CDN.");
+            return;
         }
-    });
 
-    // Asegurar que el fondo del visor sea blanco
+        $("#documentViewer").FlowPaperViewer({
+            config: {
+                PDFFile: pdfUrl,
+                Scale: 1,
+                FitPageOnLoad: true,
+                AutoAdjustPrintSize: true,
+                ViewerWidth: "100%",
+                ViewerHeight: "600px",
+                enableSearch: true,
+                enableDownload: false,
+                BackgroundColor: "#ffffff" // 🔹 Fondo blanco
+            }
+        });
+
+        console.log("✅ FlowPaper cargado correctamente.");
+    }, 1000);
+
+    // 🔹 Asegurar fondo blanco en el visor
     setTimeout(() => {
         document.querySelector(".flowpaper-viewer").style.background = "#ffffff";
         document.querySelector("#documentViewer").style.background = "#ffffff";
+        console.log("✅ Fondo blanco aplicado correctamente.");
     }, 2000);
 });
 </script>
 
-<!-- 📌 Estilos para fondo blanco y diseño responsivo -->
+<!-- 📌 Estilos -->
 <style>
 /* 📌 Contenedor principal */
 .flipbook-container {
@@ -63,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
   max-width: 900px;
   margin: auto;
   text-align: center;
-  background: #ffffff; /* 🔹 Fondo blanco */
+  background: #ffffff;
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -73,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
 .flowpaper-viewer {
   width: 100% !important;
   height: 600px !important;
-  background: #ffffff !important; /* 🔹 Asegurar fondo blanco */
+  background: #ffffff !important;
 }
 
 /* 📌 Controles de navegación */
