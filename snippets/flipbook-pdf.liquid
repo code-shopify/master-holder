@@ -58,9 +58,13 @@ jQuery(document).ready(function ($) {
                 canvas.height = viewport.height;
                 canvas.width = viewport.width;
 
+                // Renderizar la página del PDF en el canvas
                 page.render({ canvasContext: canvas.getContext("2d"), viewport });
             });
         }
+    }).catch(function (error) {
+        console.error("Error al cargar el PDF:", error);
+        document.getElementById("flipbook").innerHTML = "Error al cargar el catálogo.";
     });
 
     // Navegación manual
