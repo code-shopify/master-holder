@@ -4,6 +4,9 @@
   {% assign pdf_url = "" %}
 {% endif %}
 
+<!-- 📌 Cargar DearFlip de Forma Segura -->
+<link rel="stylesheet" href="https://dearflip.com/releases/dearflip.css">
+<script defer id="dearflip-script" src="https://dearflip.com/releases/dearflip.js"></script>
 
 <!-- 📌 Contenedor del FlipBook -->
 <div id="flipbookContainer">
@@ -14,36 +17,39 @@
   {% endif %}
 </div>
 
-<!-- 📌 Script para Inicializar el FlipBook -->
+<!-- 📌 Script para Inicializar el FlipBook de Forma Correcta -->
 <script>
+function loadDearFlip() {
+    if (typeof DFLIP === "undefined") {
+        console.error("❌ DearFlip aún no se ha cargado. Reintentando...");
+        setTimeout(loadDearFlip, 1000); // 🔥 Reintentar cada 1 segundo hasta que cargue
+        return;
+    }
+
+    const flipbookElement = document.getElementById("myFlipbook");
+
+    if (!flipbookElement || !flipbookElement.getAttribute("source")) {
+        console.error("❌ No se encontró el contenedor del FlipBook o la URL del PDF.");
+        return;
+    }
+
+    console.log("🚀 Inicializando DearFlip con PDF:", flipbookElement.getAttribute("source"));
+
+    new DFLIP({
+        source: flipbookElement.getAttribute("source"),
+        webgl: true,  // Activar efecto 3D realista
+        backgroundColor: "#ffffff",  // Fondo blanco
+        controls: {
+            zoomIn: true,
+            zoomOut: true,
+            fullScreen: true,
+            download: true  // Activar botón de descarga
+        }
+    }, flipbookElement);
+}
+
 document.addEventListener("DOMContentLoaded", function () {
-    setTimeout(() => {
-        if (typeof DFLIP === "undefined") {
-            console.error("❌ DearFlip no se ha cargado correctamente.");
-            return;
-        }
-
-        const flipbookElement = document.getElementById("myFlipbook");
-
-        if (!flipbookElement || !flipbookElement.getAttribute("source")) {
-            console.error("❌ No se encontró el contenedor del FlipBook o la URL del PDF.");
-            return;
-        }
-
-        console.log("🚀 Inicializando DearFlip con PDF:", flipbookElement.getAttribute("source"));
-
-        new DFLIP({
-            source: flipbookElement.getAttribute("source"),
-            webgl: true,  // Activar efecto 3D realista
-            backgroundColor: "#ffffff",  // Fondo blanco
-            controls: {
-                zoomIn: true,
-                zoomOut: true,
-                fullScreen: true,
-                download: true  // Activar botón de descarga
-            }
-        }, flipbookElement);
-    }, 3000); // 🔥 Esperar 3 segundos para que Shopify cargue correctamente los scripts
+    setTimeout(loadDearFlip, 3000); // 🔥 Esperar 3 segundos para que Shopify cargue correctamente los scripts
 });
 </script>
 
