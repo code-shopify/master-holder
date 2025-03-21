@@ -5,47 +5,71 @@
 {% endif %}
 
 <!-- Contenedor del Flipbook -->
-<div class="flipbook-container">
-  {% if pdf_url != "" %}
-    <iframe id="flipbook" src="https://flowpaper.com/flipbook/?pdf={{ pdf_url }}" frameborder="0"></iframe>
-  {% else %}
-    <p style="color: red;">⚠ No se encontró ningún PDF. Verifica el metafield en Shopify.</p>
-  {% endif %}
+<div class="flipbook-wrapper">
+  <div class="flipbook-container">
+    {% if pdf_url != "" %}
+      <iframe id="flipbook" src="https://flowpaper.com/flipbook/?pdf={{ pdf_url }}" frameborder="0"></iframe>
+    {% else %}
+      <p class="error-message">⚠ No se encontró ningún PDF. Verifica el metafield en Shopify.</p>
+    {% endif %}
 
-  <!-- Botón de descarga -->
-  {% if pdf_url != "" %}
-    <a class="download-btn" href="{{ pdf_url }}" download>📥 Descargar PDF</a>
-  {% endif %}
+    <!-- Botón de descarga -->
+    {% if pdf_url != "" %}
+      <a class="download-btn" href="{{ pdf_url }}" download>📥 Descargar PDF</a>
+    {% endif %}
+  </div>
 </div>
 
+<!-- Forzar fondo blanco con JavaScript -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(() => {
+        let flipbookIframe = document.getElementById("flipbook");
+        if (flipbookIframe) {
+            flipbookIframe.style.background = "#ffffff"; // Forzar fondo blanco
+        }
+        console.log("✅ Fondo blanco aplicado al flipbook.");
+    }, 1000);
+});
+</script>
+
 <style>
-/* Contenedor principal */
+/* Fondo blanco en toda la sección */
+.flipbook-wrapper {
+  width: 100%;
+  background: #ffffff; /* Fondo blanco global */
+  padding: 40px 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* Contenedor del flipbook */
 .flipbook-container {
   width: 100%;
   max-width: 900px;
-  margin: 20px auto;
   text-align: center;
   background: #ffffff; /* Fondo blanco */
-  padding: 10px;
+  padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   overflow: hidden;
+  position: relative;
 }
 
-/* Ajuste del Flipbook */
+/* Ajustes del iframe */
 #flipbook {
   width: 100% !important;
   max-width: 800px;
   height: 600px;
-  margin: 0 auto;
-  border: none; /* Eliminar borde gris */
-  background: #ffffff !important; /* Fondo blanco */
+  margin: auto;
+  border: none;
+  display: block;
 }
 
 /* Botón de descarga */
 .download-btn {
   display: inline-block;
-  margin-top: 10px;
+  margin-top: 15px;
   padding: 10px 15px;
   background: #28a745;
   color: white;
@@ -58,5 +82,11 @@
   background: #218838;
 }
 
+/* Mensaje de error */
+.error-message {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
 }
 </style>
