@@ -29,6 +29,12 @@ t4sp-theme t4s-wrapper__{{ settings.general_layout }}{% if settings.animations_r
 <html class="{{ class_html }} no-js" lang="{{ iso_code }}"{% if isRTL %} dir="rtl"{% endif %}>
   <head>
  {%- render 'ecom_header' -%}
+
+    <!-- 📌 Cargar CSS y JS de 3D FlipBook Free -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/3d-flip-book@1.7.0/css/flipbook.style.css">
+<script src="https://cdn.jsdelivr.net/npm/3d-flip-book@1.7.0/js/flipbook.min.js"></script>
+
+    
 <!-- Cargar CSS de 3D FlipBook -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/3d-flip-book/css/flipbook.style.css">
 
