@@ -1,6 +1,6 @@
+<!-- Contenedor del Flipbook -->
 <div class="flipbook-container">
-  <!-- Contenedor del flipbook -->
-  <div id="flipbook"></div>
+  <div id="flipbook" class="dflip"></div>
 
   <!-- Botones de navegación -->
   <div class="flipbook-controls">
@@ -15,88 +15,53 @@
   {% endif %}
 </div>
 
-<!-- Cargar jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- Cargar Turn.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
-
-<!-- Cargar PDF.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+<!-- Cargar DearFlip -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dearflip@1.0.0/css/dflip.min.css">
+<script src="https://cdn.jsdelivr.net/npm/dearflip@1.0.0/js/dflip.min.js"></script>
 
 <script>
-jQuery(document).ready(function ($) {
-  const url = "{{ page.metafields.custom.cat_logo_pdf | file_url }}";
-
-  if (!url) {
-    $("#flipbook").html("No hay catálogo disponible.");
+document.addEventListener("DOMContentLoaded", function () {
+  const pdfUrl = "{{ page.metafields.custom.cat_logo_pdf | file_url }}";
+  
+  if (!pdfUrl) {
+    document.getElementById("flipbook").innerHTML = "No hay catálogo disponible.";
     return;
   }
 
-  const flipbookEl = $("#flipbook");
-  let totalPages = 0;
-  let renderedPages = 0;
-
-  pdfjsLib.getDocument(url).promise.then(function (pdf) {
-    totalPages = pdf.numPages;
-    $("#totalPages").text(totalPages);
-
-    // Crear páginas vacías en el flipbook
-    for (let i = 0; i < totalPages; i++) {
-      flipbookEl.append(`<div class="page"><canvas id="canvas${i + 1}"></canvas></div>`);
+  // Crear el Flipbook con DearFlip
+  const flipbook = new DFLIP({
+    source: pdfUrl,
+    webgl: true,
+    controls: {
+      autoHide: false,
+      enableSideNavigation: true,
     }
-
-    // Cargar cada página en su correspondiente canvas
-    for (let i = 1; i <= totalPages; i++) {
-      pdf.getPage(i).then(function (page) {
-        const viewport = page.getViewport({ scale: 1.5 });
-        const canvas = document.getElementById(`canvas${i}`);
-        const context = canvas.getContext("2d");
-
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
-
-        page.render({ canvasContext: context, viewport }).promise.then(() => {
-          renderedPages++;
-          if (renderedPages === totalPages) {
-            inicializarFlipbook();
-          }
-        });
-      });
-    }
-  }).catch(function (error) {
-    console.error("Error al cargar el PDF:", error);
-    flipbookEl.html("<p>Error al cargar el catálogo.</p>");
   });
 
-  function inicializarFlipbook() {
-    $("#flipbook").turn({
-      width: 800,
-      height: 600,
-      autoCenter: true,
-      duration: 1000
-    });
+  flipbook.render(document.getElementById("flipbook"));
 
-    $("#prevPage").on("click", function () {
-      $("#flipbook").turn("previous");
-    });
+  // Actualizar número de página al navegar
+  flipbook.on("pageChange", function (event) {
+    document.getElementById("currentPage").textContent = event.page;
+  });
 
-    $("#nextPage").on("click", function () {
-      $("#flipbook").turn("next");
-    });
+  // Botones de navegación
+  document.getElementById("prevPage").addEventListener("click", function () {
+    flipbook.prev();
+  });
 
-    $("#flipbook").bind("turned", function (event, page) {
-      $("#currentPage").text(page);
-    });
-  }
+  document.getElementById("nextPage").addEventListener("click", function () {
+    flipbook.next();
+  });
+
 });
 </script>
 
 <style>
 /* Contenedor principal */
 .flipbook-container {
-  width: 100%;
-  max-width: 900px;
+  width: 90%;
+  max-width: 800px;
   margin: 20px auto;
   text-align: center;
   background: #fff;
@@ -106,20 +71,12 @@ jQuery(document).ready(function ($) {
   overflow: hidden;
 }
 
-/* Ajuste del flipbook */
+/* Estilos del Flipbook */
 #flipbook {
   width: 100% !important;
   max-width: 800px;
   height: 600px;
   margin: 0 auto;
-}
-
-/* Estilos para las páginas */
-.page {
-  background: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 /* Botones de navegación */
