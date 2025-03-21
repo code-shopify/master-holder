@@ -105,6 +105,20 @@ t4sp-theme t4s-wrapper__{{ settings.general_layout }}{% if settings.animations_r
   <body class="template-{{ request.page_type | handle }} {{ class_lazy }}"{% if body_img != blank %} data-bgset="{{ body_img | image_url: width: 1 }}" data-optimumx="2" data-sizes="auto"{% endif -%}>{% if isRTL %}<script type="text/javascript" id="t4s-flicker-fix">// Flicker fix.</script>{% endif -%}
     <a class="skip-to-content-link visually-hidden" href="#MainContent">{{ "accessibility.skip_to_text" | t }}</a>
     <div class="t4s-close-overlay t4s-op-0"></div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+        let viewer = document.querySelector("#documentViewer");
+        if (viewer) {
+            viewer.style.background = "white";
+            viewer.style.setProperty("background", "white", "important");
+            console.log("✅ Fondo cambiado a blanco.");
+        } else {
+            console.log("⚠ No se encontró #documentViewer, revisa el HTML.");
+        }
+    }, 2000); // Se espera 2 segundos para asegurar que FlowPaper cargue
+});
+</script>
 
     <div class="t4s-website-wrapper">
       {%- render 'header', t_name: t_name -%}
