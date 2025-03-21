@@ -23,7 +23,7 @@
 <!-- Cargar Turn.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
 
-<!-- Cargar PDF.js para renderizar el PDF -->
+<!-- Cargar PDF.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
 
 <script>
@@ -31,7 +31,7 @@ jQuery(document).ready(function ($) {
   const url = "{{ page.metafields.custom.cat_logo_pdf | file_url }}";
 
   if (!url) {
-    document.getElementById("flipbook").innerHTML = "No hay catálogo disponible.";
+    $("#flipbook").html("No hay catálogo disponible.");
     return;
   }
 
@@ -40,7 +40,7 @@ jQuery(document).ready(function ($) {
 
   pdfjsLib.getDocument(url).promise.then(function (pdf) {
     const totalPages = pdf.numPages;
-    document.getElementById("totalPages").textContent = totalPages;
+    $("#totalPages").text(totalPages);
 
     let renderedPages = 0;
 
@@ -59,14 +59,28 @@ jQuery(document).ready(function ($) {
         page.render({ canvasContext: canvas.getContext("2d"), viewport }).promise.then(() => {
           renderedPages++;
 
-          // Una vez que todas las páginas han sido renderizadas, se activa el flipbook
+          // Una vez que todas las páginas están listas, inicializar el flipbook
           if (renderedPages === totalPages) {
             loadingMessage.hide();
             flipbookEl.turn({
-              width: flipbookEl.parent().width(),
+              width: 800,
               height: 600,
               autoCenter: true,
-              duration: 1000
+              duration: 1000,
+              when: {
+                turned: function (event, page) {
+                  $("#currentPage").text(page);
+                }
+              }
+            });
+
+            // Habilitar botones de navegación
+            $("#prevPage").on("click", function () {
+              flipbookEl.turn("previous");
+            });
+
+            $("#nextPage").on("click", function () {
+              flipbookEl.turn("next");
             });
           }
         });
@@ -75,19 +89,6 @@ jQuery(document).ready(function ($) {
   }).catch(function (error) {
     console.error("Error al cargar el PDF:", error);
     flipbookEl.html("<p>Error al cargar el catálogo.</p>");
-  });
-
-  // Botones de navegación
-  $("#prevPage").on("click", function () {
-    $("#flipbook").turn("previous");
-  });
-
-  $("#nextPage").on("click", function () {
-    $("#flipbook").turn("next");
-  });
-
-  $("#flipbook").bind("turned", function (event, page) {
-    document.getElementById("currentPage").textContent = page;
   });
 });
 </script>
