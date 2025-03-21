@@ -1,19 +1,28 @@
 <div class="flipbook-container">
+  <!-- Contenedor del flipbook -->
   <div id="flipbook"></div>
 
+  <!-- Botones de navegación -->
   <div class="flipbook-controls">
     <button id="prevPage">⬅ Anterior</button>
     <span id="pageInfo">Página <span id="currentPage">1</span> de <span id="totalPages">?</span></span>
     <button id="nextPage">Siguiente ➡</button>
   </div>
 
+  <!-- Botón de descarga -->
   {% if page.metafields.custom.cat_logo_pdf != blank %}
     <a class="download-btn" href="{{ page.metafields.custom.cat_logo_pdf | file_url }}" download>📥 Descargar PDF</a>
   {% endif %}
 </div>
 
+<!-- Cargar jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/3d-flip-book@1.0.0/dist/flipbook.min.js"></script>
+
+<!-- Cargar Turn.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
+
+<!-- Cargar PDF.js para renderizar el PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
 
 <script>
 jQuery(document).ready(function ($) {
@@ -24,24 +33,48 @@ jQuery(document).ready(function ($) {
         return;
     }
 
-    $("#flipbook").flipBook({
-        pdfUrl: url,
-        lightbox: false,
-        pageSize: "small",
-        pageWidth: 400,
-        pageHeight: 600,
-        onPageChange: function (pageNum, totalPages) {
-            document.getElementById("currentPage").textContent = pageNum;
-            document.getElementById("totalPages").textContent = totalPages;
-        },
+    // Inicializar el flipbook con Turn.js
+    $("#flipbook").turn({
+        width: 800,
+        height: 600,
+        autoCenter: true, // Centrar el flipbook
+        duration: 1000,   // Duración de la animación en milisegundos
     });
 
+    // Cargar el PDF y renderizar las páginas
+    pdfjsLib.getDocument(url).promise.then(function (pdf) {
+        var totalPages = pdf.numPages;
+        document.getElementById("totalPages").textContent = totalPages;
+
+        for (let i = 1; i <= totalPages; i++) {
+            pdf.getPage(i).then(function (page) {
+                var canvas = document.createElement("canvas");
+                var pageDiv = document.createElement("div");
+                pageDiv.classList.add("page");
+                pageDiv.appendChild(canvas);
+                document.getElementById("flipbook").appendChild(pageDiv);
+
+                var viewport = page.getViewport({ scale: 1.5 });
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                page.render({ canvasContext: canvas.getContext("2d"), viewport });
+            });
+        }
+    });
+
+    // Navegación manual
     document.getElementById("prevPage").addEventListener("click", function () {
-        $("#flipbook").flipBook("prevPage");
+        $("#flipbook").turn("previous");
     });
 
     document.getElementById("nextPage").addEventListener("click", function () {
-        $("#flipbook").flipBook("nextPage");
+        $("#flipbook").turn("next");
+    });
+
+    // Actualizar el número de página actual
+    $("#flipbook").bind("turned", function (event, page) {
+        document.getElementById("currentPage").textContent = page;
     });
 });
 </script>
@@ -63,8 +96,16 @@ jQuery(document).ready(function ($) {
 /* Ajuste del flipbook */
 #flipbook {
   width: 100%;
-  height: auto;
+  height: 600px; /* Altura fija para el flipbook */
   margin: 0 auto;
+}
+
+/* Estilos para las páginas */
+.page {
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Botones de navegación */
