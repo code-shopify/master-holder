@@ -1,8 +1,6 @@
 <div class="flipbook-container">
   <!-- Contenedor del flipbook -->
-  <div id="flipbook">
-    <div id="loading-message">📄 Cargando catálogo...</div>
-  </div>
+  <div id="flipbook"></div>
 
   <!-- Botones de navegación -->
   <div class="flipbook-controls">
@@ -36,52 +34,32 @@ jQuery(document).ready(function ($) {
   }
 
   const flipbookEl = $("#flipbook");
-  const loadingMessage = $("#loading-message");
+  let totalPages = 0;
+  let renderedPages = 0;
 
   pdfjsLib.getDocument(url).promise.then(function (pdf) {
-    const totalPages = pdf.numPages;
+    totalPages = pdf.numPages;
     $("#totalPages").text(totalPages);
 
-    let renderedPages = 0;
+    // Crear páginas vacías en el flipbook
+    for (let i = 0; i < totalPages; i++) {
+      flipbookEl.append(`<div class="page"><canvas id="canvas${i + 1}"></canvas></div>`);
+    }
 
+    // Cargar cada página en su correspondiente canvas
     for (let i = 1; i <= totalPages; i++) {
       pdf.getPage(i).then(function (page) {
-        const canvas = document.createElement("canvas");
-        const pageDiv = document.createElement("div");
-        pageDiv.classList.add("page");
-        pageDiv.appendChild(canvas);
-        flipbookEl.append(pageDiv);
-
         const viewport = page.getViewport({ scale: 1.5 });
+        const canvas = document.getElementById(`canvas${i}`);
+        const context = canvas.getContext("2d");
+
         canvas.height = viewport.height;
         canvas.width = viewport.width;
 
-        page.render({ canvasContext: canvas.getContext("2d"), viewport }).promise.then(() => {
+        page.render({ canvasContext: context, viewport }).promise.then(() => {
           renderedPages++;
-
-          // Una vez que todas las páginas están listas, inicializar el flipbook
           if (renderedPages === totalPages) {
-            loadingMessage.hide();
-            flipbookEl.turn({
-              width: 800,
-              height: 600,
-              autoCenter: true,
-              duration: 1000,
-              when: {
-                turned: function (event, page) {
-                  $("#currentPage").text(page);
-                }
-              }
-            });
-
-            // Habilitar botones de navegación
-            $("#prevPage").on("click", function () {
-              flipbookEl.turn("previous");
-            });
-
-            $("#nextPage").on("click", function () {
-              flipbookEl.turn("next");
-            });
+            inicializarFlipbook();
           }
         });
       });
@@ -90,17 +68,37 @@ jQuery(document).ready(function ($) {
     console.error("Error al cargar el PDF:", error);
     flipbookEl.html("<p>Error al cargar el catálogo.</p>");
   });
+
+  function inicializarFlipbook() {
+    $("#flipbook").turn({
+      width: 800,
+      height: 600,
+      autoCenter: true,
+      duration: 1000
+    });
+
+    $("#prevPage").on("click", function () {
+      $("#flipbook").turn("previous");
+    });
+
+    $("#nextPage").on("click", function () {
+      $("#flipbook").turn("next");
+    });
+
+    $("#flipbook").bind("turned", function (event, page) {
+      $("#currentPage").text(page);
+    });
+  }
 });
 </script>
 
 <style>
 /* Contenedor principal */
 .flipbook-container {
-  width: 90%;
-  max-width: 800px;
+  width: 100%;
+  max-width: 900px;
   margin: 20px auto;
   text-align: center;
-  position: relative;
   background: #fff;
   padding: 10px;
   border-radius: 10px;
@@ -114,23 +112,11 @@ jQuery(document).ready(function ($) {
   max-width: 800px;
   height: 600px;
   margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Mensaje de carga */
-#loading-message {
-  font-size: 18px;
-  font-weight: bold;
-  color: #555;
-  text-align: center;
 }
 
 /* Estilos para las páginas */
 .page {
-  background: #fff;
+  background: white;
   display: flex;
   justify-content: center;
   align-items: center;
