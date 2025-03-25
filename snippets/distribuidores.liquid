@@ -1,0 +1,208 @@
+{% assign distribuidores = shop.metaobjects.distribuidor.values %}
+
+<style>
+    /* Contenedor general */
+    .contenedor {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    /* Contenedor de filtros */
+    .filtro-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    /* Botones de filtro */
+    .btn-filtro {
+        padding: 10px 15px;
+        font-size: 14px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background:#111795;
+        color: white;
+        transition: background 0.2s;
+    }
+
+    .btn-filtro:hover, .btn-filtro.active {
+        background: #0056b3;
+    }
+
+    /* Input de búsqueda por distribuidor */
+    .search-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+
+    }
+
+    .search-input {
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 2rem;
+        width: 400px;
+
+        
+
+    }
+
+    /* Grid de tarjetas */
+    .grid-distribuidores {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        width: 100%;
+        max-width: 1200px;
+    }
+
+    /* Tarjetas */
+    .distribuidor {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+        text-align: center;
+    }
+
+    .distribuidor:hover {
+        transform: scale(1.03);
+    }
+
+    .distribuidor img {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+
+    .distribuidor h3 {
+        font-size: 18px;
+        margin: 5px 0;
+    }
+
+    .distribuidor p {
+        font-size: 14px;
+        color: #666;
+        margin: 3px 0;
+    }
+
+    .btn-como-llegar {
+        display: inline-block;
+        text-align: center;
+        background: #111795;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-top: 10px;
+    }
+
+    .btn-como-llegar:hover {
+        background: #111795;
+        color: white;
+    }
+</style>
+
+<div class="contenedor">
+    <!-- Input de búsqueda por distribuidor -->
+    <div class="search-container">
+        <input type="text" id="distribuidorInput" class="search-input" placeholder="Buscar distribuidor" onkeyup="filtrarPorDistribuidor()">
+    </div>
+
+    <!-- Filtros de ciudades -->
+    <div id="filtro-container" class="filtro-container">
+        <button class="btn-filtro active" data-ciudad="todas" onclick="filtrarPorCiudad('todas')">Todas</button>
+
+        {% assign ciudadesUnicas = "" %}
+        {% for distribuidor in distribuidores %}
+            {% assign ciudad = distribuidor.ciudad | strip | downcase %}
+            {% unless ciudadesUnicas contains ciudad %}
+                <button class="btn-filtro" data-ciudad="{{ ciudad }}" onclick="filtrarPorCiudad('{{ ciudad }}')">
+                    {{ distribuidor.ciudad }}
+                </button>
+                {% assign ciudadesUnicas = ciudadesUnicas | append: ciudad | append: "," %}
+            {% endunless %}
+        {% endfor %}
+    </div>
+
+    <!-- Grid de tarjetas -->
+    <div id="grid-distribuidores" class="grid-distribuidores">
+        {% assign contadorDistribuidores = 0 %}
+        {% for distribuidor in distribuidores %}
+            {% assign ciudad = distribuidor.ciudad | strip | downcase %}
+            {% assign nombreDistribuidor = distribuidor.nombre | strip | downcase %}
+            {% assign contadorDistribuidores = contadorDistribuidores | plus: 1 %}
+
+            <!-- Validar si la ubicación ya es un link -->
+            {% if distribuidor.ubicacion contains "http" %}
+                {% assign ubicacionUrl = distribuidor.ubicacion %}
+            {% else %}
+                {% assign direccion_encoded = distribuidor.direccion | replace: " ", "+" | replace: ",", "" %}
+                {% assign ubicacionUrl = "https://www.google.com/maps/search/?api=1&query=" | append: direccion_encoded %}
+            {% endif %}
+
+            <div class="distribuidor" data-ciudad="{{ ciudad }}" data-nombre="{{ nombreDistribuidor }}">
+                <img src="{{ distribuidor.logo | image_url }}" alt="{{ distribuidor.nombre }}">
+                <h3>{{ distribuidor.nombre }}</h3>
+                <p><strong>Ciudad:</strong> {{ distribuidor.ciudad }}</p>
+                <p><strong>Dirección:</strong> {{ distribuidor.direccion }}</p>
+                <p><strong>Teléfono:</strong> {{ distribuidor.telefono }}</p>
+                <p><strong>Horario:</strong> {{ distribuidor.horario }}</p>
+                <a href="{{ ubicacionUrl }}" target="_blank" rel="noopener noreferrer" class="btn-como-llegar">Cómo llegar</a>
+            </div>
+        {% endfor %}
+        <script>
+            console.log("Total distribuidores mostrados:", {{ contadorDistribuidores }});
+        </script>
+    </div>
+</div>
+
+<script>
+    function filtrarPorCiudad(ciudadSeleccionada) {
+        console.log("Ciudad seleccionada:", ciudadSeleccionada);
+
+        document.querySelectorAll(".btn-filtro").forEach(btn => btn.classList.remove("active"));
+        document.querySelector(`[data-ciudad="${ciudadSeleccionada}"]`).classList.add("active");
+
+        let totalDistribuidores = 0;
+        document.querySelectorAll(".distribuidor").forEach(distribuidor => {
+            let ciudadDistribuidor = distribuidor.getAttribute("data-ciudad");
+            
+            if (ciudadSeleccionada === "todas" || ciudadDistribuidor === ciudadSeleccionada) {
+                distribuidor.style.display = "block";
+                totalDistribuidores++;
+            } else {
+                distribuidor.style.display = "none";
+            }
+        });
+
+        console.log("Distribuidores mostrados en", ciudadSeleccionada, ":", totalDistribuidores);
+    }
+
+    function filtrarPorDistribuidor() {
+        let input = document.getElementById("distribuidorInput").value.toLowerCase();
+        let distribuidores = document.querySelectorAll(".distribuidor");
+
+        distribuidores.forEach(distribuidor => {
+            let nombreDistribuidor = distribuidor.getAttribute("data-nombre");
+
+            if (nombreDistribuidor.includes(input) || input === "") {
+                distribuidor.style.display = "block";
+            } else {
+                distribuidor.style.display = "none";
+            }
+        });
+
+        console.log("Filtrado por distribuidor:", input);
+    }
+</script>
