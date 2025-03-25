@@ -221,15 +221,18 @@
       {{ 'sections.newsletter_form.confirmation' | t }}
     </div>
 
-    <!-- Redirección automática -->
+    <!-- Espera 2.5 segundos y redirige -->
     <script>
-      window.location.href = "https://www.masterholder.com.mx/en/pages/catalogo";
+      setTimeout(function() {
+        window.location.href = "https://www.masterholder.com.mx/en/pages/catalogo";
+      }, 2500);
     </script>
 
   {%- elsif form.errors -%}
     <div class="t4s-newsletter__error">{{ form.errors | default_errors }}</div>
   {%- endif -%}
 </div>
+
  <!-- Bloque de redireccion del newsletter, aqui termina -->
         
     {%- endform -%}
