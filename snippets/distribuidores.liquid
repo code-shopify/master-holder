@@ -1,14 +1,8 @@
 {% assign distribuidores = shop.metaobjects.distribuidor.values %}
 
 <style>
-  .contenedor {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-
- .filtro-container {
+/* Carrusel horizontal para botones de filtro */
+.filtro-container {
   display: flex;
   overflow-x: auto;
   gap: 10px;
@@ -38,76 +32,79 @@
   background: #0056b3;
 }
 
-  .search-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-    width: 100%;
-  }
+/* Estilos generales y tarjetas se mantienen en grid */
+.contenedor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
 
-  .search-input {
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 2rem;
-    width: 100%;
-    max-width: 400px;
-  }
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
 
-  .carousel-distribuidores {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    gap: 20px;
-    width: 100%;
-    padding: 10px;
-  }
+.search-input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 2rem;
+  width: 100%;
+  max-width: 400px;
+}
 
-  .distribuidor {
-    flex: 0 0 auto;
-    scroll-snap-align: start;
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    min-width: 280px;
-    max-width: 300px;
-  }
+.grid-distribuidores {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+}
 
-  .distribuidor img {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-    border-radius: 8px;
-    margin-bottom: 10px;
-  }
+.distribuidor {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  text-align: center;
+}
 
-  .distribuidor h3 {
-    font-size: 18px;
-    margin: 5px 0;
-  }
+.distribuidor:hover {
+  transform: scale(1.03);
+}
 
-  .distribuidor p {
-    font-size: 14px;
-    color: #666;
-    margin: 3px 0;
-  }
+.distribuidor img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
 
-  .btn-como-llegar {
-    display: inline-block;
-    background: #111795;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    margin-top: 10px;
-  }
+.distribuidor h3 {
+  font-size: 18px;
+  margin: 5px 0;
+}
 
-  .btn-como-llegar:hover {
-    background: #0056b3;
-  }
+.distribuidor p {
+  font-size: 14px;
+  color: #666;
+  margin: 3px 0;
+}
+
+.btn-como-llegar {
+  display: inline-block;
+  background: #111795;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-top: 10px;
+}
 </style>
 
 <div class="contenedor">
@@ -129,11 +126,10 @@
     {% endfor %}
   </div>
 
-  <div id="grid-distribuidores" class="carousel-distribuidores">
+  <div id="grid-distribuidores" class="grid-distribuidores">
     {% for distribuidor in distribuidores %}
       {% assign ciudad = distribuidor.ciudad | strip | downcase %}
       {% assign nombreDistribuidor = distribuidor.nombre | strip | downcase %}
-
       {% if distribuidor.ubicacion contains "http" %}
         {% assign ubicacionUrl = distribuidor.ubicacion %}
       {% else %}
@@ -155,21 +151,21 @@
 </div>
 
 <script>
-  function filtrarPorCiudad(ciudadSeleccionada) {
-    document.querySelectorAll(".btn-filtro").forEach(btn => btn.classList.remove("active"));
-    document.querySelector(`[data-ciudad="${ciudadSeleccionada}"]`).classList.add("active");
+function filtrarPorCiudad(ciudadSeleccionada) {
+  document.querySelectorAll(".btn-filtro").forEach(btn => btn.classList.remove("active"));
+  document.querySelector(`[data-ciudad="${ciudadSeleccionada}"]`).classList.add("active");
 
-    document.querySelectorAll(".distribuidor").forEach(distribuidor => {
-      const ciudad = distribuidor.getAttribute("data-ciudad");
-      distribuidor.style.display = (ciudadSeleccionada === "todas" || ciudad === ciudadSeleccionada) ? "block" : "none";
-    });
-  }
+  document.querySelectorAll(".distribuidor").forEach(distribuidor => {
+    let ciudadDistribuidor = distribuidor.getAttribute("data-ciudad");
+    distribuidor.style.display = (ciudadSeleccionada === "todas" || ciudadDistribuidor === ciudadSeleccionada) ? "block" : "none";
+  });
+}
 
-  function filtrarPorDistribuidor() {
-    const input = document.getElementById("distribuidorInput").value.toLowerCase();
-    document.querySelectorAll(".distribuidor").forEach(distribuidor => {
-      const nombre = distribuidor.getAttribute("data-nombre");
-      distribuidor.style.display = nombre.includes(input) ? "block" : "none";
-    });
-  }
+function filtrarPorDistribuidor() {
+  let input = document.getElementById("distribuidorInput").value.toLowerCase();
+  document.querySelectorAll(".distribuidor").forEach(distribuidor => {
+    let nombreDistribuidor = distribuidor.getAttribute("data-nombre");
+    distribuidor.style.display = (nombreDistribuidor.includes(input) || input === "") ? "block" : "none";
+  });
+}
 </script>
