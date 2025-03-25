@@ -111,22 +111,25 @@
         background: #111795;
         color: white;
 
-      @media (max-width: 767px) {
-    .grid-distribuidores {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        gap: 16px;
-        padding: 0 10px;
-    }
+     @media (max-width: 767px) {
+  .grid-distribuidores {
+    display: flex !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 16px;
+    padding: 10px;
+  }
 
-    .distribuidor {
-        flex: 0 0 80%;
-        scroll-snap-align: start;
-        min-width: 250px;
-        max-width: 80%;
-    }
+  .distribuidor {
+    flex: 0 0 80%;
+    scroll-snap-align: start;
+    min-width: 260px;
+    max-width: 80%;
+    box-sizing: border-box;
+  }
+}
+
 }
 
     }
