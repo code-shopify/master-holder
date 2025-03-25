@@ -211,7 +211,7 @@
           }
         </script>
       {%- endif -%}
-      
+       <!-- Bloque de redireccion del newsletter, aqui empieza -->
    <div data-new-response-form class="t4s-newsletter__response">
   {%- if form.posted_successfully? -%}
     <div class="t4s-newsletter__success">
@@ -230,7 +230,7 @@
     <div class="t4s-newsletter__error">{{ form.errors | default_errors }}</div>
   {%- endif -%}
 </div>
-
+ <!-- Bloque de redireccion del newsletter, aqui termina -->
         
     {%- endform -%}
      
