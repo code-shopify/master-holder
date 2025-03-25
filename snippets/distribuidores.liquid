@@ -8,28 +8,33 @@
     padding: 20px;
   }
 
-  .filtro-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
+   display: flex;
+  overflow-x: auto;
+  gap: 10px;
+  padding: 10px 0;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 20px;
+  width: 100%;
+}
 
-  .btn-filtro {
-    padding: 10px 15px;
-    font-size: 14px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background: #111795;
-    color: white;
-    transition: background 0.2s;
-  }
+.filtro-container .btn-filtro {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  white-space: nowrap;
+  padding: 10px 15px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #111795;
+  color: white;
+  transition: background 0.2s;
+}
 
-  .btn-filtro:hover, .btn-filtro.active {
-    background: #0056b3;
-  }
+.filtro-container .btn-filtro:hover,
+.filtro-container .btn-filtro.active {
+  background: #0056b3;
 
   .search-container {
     display: flex;
