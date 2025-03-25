@@ -553,7 +553,7 @@
         "btn_shape": "round",
         "btn_cl": "dark",
         "btn_size": "small",
-        "btn_hidden_mobile": true,
+        "btn_hidden_mobile": false,
         "nav_dot": false,
         "dot_owl": "1",
         "dots_cl": "dark",
