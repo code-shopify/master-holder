@@ -42,11 +42,15 @@
         <div class="count-hours-item hot">
           <strong>HASTA <span id="hot-counter">{{ section.settings.hot_hours }}</span> HRS CALIENTE</strong>
         </div>
-      {% endcomment %}
+      {% endcomment %} 
+      {% comment %}
       <div class="count-hours-item">
+        
         {%- render 'custom-product-icons' -%}
       </div>
+      {% endcomment %} 
     </div>
+    
     {% comment %}
         <div class="count-hours-icons">
           {%- render 'custom-product-icons' -%}
