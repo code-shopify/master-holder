@@ -72,7 +72,7 @@
     "custom_liquid_CX46ap": {
       "type": "custom-liquid",
       "settings": {
-        "custom_liquid": "{%render 'distribuidroes' %}",
+        "custom_liquid": "{%render 'distribuidores' %}",
         "layout": "t4s-container-wrap",
         "cl_bg": "",
         "cl_bg_gradient": "",
