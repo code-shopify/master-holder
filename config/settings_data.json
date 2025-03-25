@@ -951,6 +951,7 @@
         "blocks": {
           "toolbar_mobile-0": {
             "type": "shop",
+            "disabled": true,
             "settings": {
               "title": "Shop",
               "link": ""
@@ -958,6 +959,7 @@
           },
           "toolbar_mobile-1": {
             "type": "wish",
+            "disabled": true,
             "settings": {
               "title": "Wishlist"
             }
@@ -965,17 +967,27 @@
           "toolbar_mobile-2": {
             "type": "cart",
             "settings": {
-              "title": "Cart"
+              "title": "Carrito"
+            }
+          },
+          "link_A8JWbW": {
+            "type": "link",
+            "settings": {
+              "title": "Whatsapp",
+              "image": "shopify://shop_images/LogosWhatsappIcon.svg",
+              "link": "https://api.whatsapp.com/send/?phone=528116582504&text=Hola%20!%20Vengo%20de%20la%20tienda%20en%20linea%20y%20quiero..."
             }
           },
           "toolbar_mobile-3": {
             "type": "account",
+            "disabled": true,
             "settings": {
               "title": "Account"
             }
           },
           "toolbar_mobile-4": {
             "type": "search",
+            "disabled": true,
             "settings": {
               "title": "Search"
             }
@@ -985,11 +997,12 @@
           "toolbar_mobile-0",
           "toolbar_mobile-1",
           "toolbar_mobile-2",
+          "link_A8JWbW",
           "toolbar_mobile-3",
           "toolbar_mobile-4"
         ],
         "settings": {
-          "enable_toolbar": false,
+          "enable_toolbar": true,
           "show_txt": true,
           "bg_color": "#ffffff",
           "icon_color": "#222222",
