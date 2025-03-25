@@ -1318,7 +1318,7 @@
             "type": "menu",
             "settings": {
               "title": "BLOG",
-              "url": "shopify://blogs/news",
+              "url": "shopify://blogs/nuestra-seccion-de-noticias",
               "open_link": "_self",
               "menu": "",
               "lb": "",
