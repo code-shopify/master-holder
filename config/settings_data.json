@@ -1360,10 +1360,12 @@
           },
           "mb_nav-5": {
             "type": "sea",
+            "disabled": true,
             "settings": {}
           },
           "mb_nav-6": {
             "type": "acc",
+            "disabled": true,
             "settings": {}
           },
           "mb_nav-7": {
