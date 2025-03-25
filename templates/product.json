@@ -549,7 +549,7 @@
         "au_hover": true,
         "nav_btn": true,
         "btn_vi": "1",
-        "btn_owl": "outline",
+        "btn_owl": "simple",
         "btn_shape": "round",
         "btn_cl": "dark",
         "btn_size": "small",
