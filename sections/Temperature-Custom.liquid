@@ -1,913 +1,510 @@
-{% schema %}
-{
-  "name": "Temperature Retention",
-  "tag": "section",
-  "class": "temperature-retention-section",
-  "settings": [
-    {
-      "type": "header",
-      "content": "Estilos de la Sección"
-    },
-    {
-      "type": "range",
-      "id": "section_height",
-      "min": 200,
-      "max": 1000,
-      "step": 10,
-      "unit": "px",
-      "label": "Altura de la Sección",
-      "default": 520
-    },
-    {
-      "type": "header",
-      "content": "Padding de la Sección"
-    },
-    {
-      "type": "range",
-      "id": "section_padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "px",
-      "label": "Padding Superior",
-      "default": 50
-    },
-    {
-      "type": "range",
-      "id": "section_padding_right",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "px",
-      "label": "Padding Derecho",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "section_padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "px",
-      "label": "Padding Inferior",
-      "default": 50
-    },
-    {
-      "type": "range",
-      "id": "section_padding_left",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "px",
-      "label": "Padding Izquierdo",
-      "default": 0
-    },
-    {
-      "type": "header",
-      "content": "Margin de la Sección"
-    },
-    {
-      "type": "range",
-      "id": "section_margin_top",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "px",
-      "label": "Margin Superior",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "section_margin_right",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "px",
-      "label": "Margin Derecho",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "section_margin_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "px",
-      "label": "Margin Inferior",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "section_margin_left",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "px",
-      "label": "Margin Izquierdo",
-      "default": 0
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Título Principal",
-      "default": "SUPERIOR TEMPERATURE RETENTION"
-    },
-    {
-      "type": "textarea",
-      "id": "paragraph",
-      "label": "Texto descriptivo",
-      "default": "Keep your coffee hot. Keep your water cold.<br>Keep your food fresh and your day under control."
-    },
-    {
-      "type": "image_picker",
-      "id": "cold_image",
-      "label": "Imagen Cold"
-    },
-    {
-      "type": "text",
-      "id": "cold_text1",
-      "label": "Cold: línea 1",
-      "default": "Keeps"
-    },
-    {
-      "type": "text",
-      "id": "cold_text2",
-      "label": "Cold: línea 2",
-      "default": "cold"
-    },
-    {
-      "type": "image_picker",
-      "id": "hot_image",
-      "label": "Imagen Hot"
-    },
-    {
-      "type": "text",
-      "id": "hot_text1",
-      "label": "Hot: línea 1",
-      "default": "Keeps"
-    },
-    {
-      "type": "text",
-      "id": "hot_text2",
-      "label": "Hot: línea 2",
-      "default": "Hot"
-    },
-    {
-      "type": "header",
-      "content": "Estilos del Título Principal"
-    },
-    {
-      "type": "font_picker",
-      "id": "heading_font",
-      "label": "Fuente del Título",
-      "default": "helvetica_n4"
-    },
-    {
-      "type": "range",
-      "id": "heading_size",
-      "min": 12,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Tamaño del Título",
-      "default": 70
-    },
-    {
-      "type": "range",
-      "id": "heading_line_height",
-      "min": 1,
-      "max": 2,
-      "step": 0.1,
-      "label": "Altura de Línea del Título",
-      "default": 1.1
-    },
-    {
-      "type": "color",
-      "id": "heading_color",
-      "label": "Color del Título",
-      "default": "#212529"
-    },
-    {
-      "type": "header",
-      "content": "Padding del Título"
-    },
-    {
-      "type": "range",
-      "id": "heading_padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Padding Superior",
-      "default": 48
-    },
-    {
-      "type": "range",
-      "id": "heading_padding_right",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Padding Derecho",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "heading_padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Padding Inferior",
-      "default": 48
-    },
-    {
-      "type": "range",
-      "id": "heading_padding_left",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Padding Izquierdo",
-      "default": 0
-    },
-    {
-      "type": "header",
-      "content": "Margin del Título"
-    },
-    {
-      "type": "range",
-      "id": "heading_margin_top",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Margin Superior",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "heading_margin_right",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Margin Derecho",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "heading_margin_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Margin Inferior",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "heading_margin_left",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Margin Izquierdo",
-      "default": 0
-    },
-    {
-      "type": "select",
-      "id": "heading_text_align",
-      "label": "Alineación del Título",
-      "options": [
-        {
-          "value": "left",
-          "label": "Izquierda"
-        },
-        {
-          "value": "center",
-          "label": "Centro"
-        },
-        {
-          "value": "right",
-          "label": "Derecha"
-        }
-      ],
-      "default": "center"
-    },
-    {
-      "type": "header",
-      "content": "Estilos del Párrafo"
-    },
-    {
-      "type": "font_picker",
-      "id": "paragraph_font",
-      "label": "Fuente del Párrafo",
-      "default": "helvetica_n4"
-    },
-    {
-      "type": "range",
-      "id": "paragraph_size",
-      "min": 12,
-      "max": 50,
-      "step": 1,
-      "unit": "px",
-      "label": "Tamaño del Párrafo",
-      "default": 22
-    },
-    {
-      "type": "range",
-      "id": "paragraph_line_height",
-      "min": 1,
-      "max": 2,
-      "step": 0.1,
-      "label": "Altura de Línea del Párrafo",
-      "default": 1.6
-    },
-    {
-      "type": "color",
-      "id": "paragraph_color",
-      "label": "Color del Párrafo",
-      "default": "#212529"
-    },
-    {
-      "type": "header",
-      "content": "Padding del Párrafo"
-    },
-    {
-      "type": "range",
-      "id": "paragraph_padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Padding Superior",
-      "default": 29
-    },
-    {
-      "type": "range",
-      "id": "paragraph_padding_right",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Padding Derecho",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "paragraph_padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Padding Inferior",
-      "default": 29
-    },
-    {
-      "type": "range",
-      "id": "paragraph_padding_left",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Padding Izquierdo",
-      "default": 0
-    },
-    {
-      "type": "header",
-      "content": "Margin del Párrafo"
-    },
-    {
-      "type": "range",
-      "id": "paragraph_margin_top",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Margin Superior",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "paragraph_margin_right",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Margin Derecho",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "paragraph_margin_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Margin Inferior",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "paragraph_margin_left",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Margin Izquierdo",
-      "default": 0
-    },
-    {
-      "type": "select",
-      "id": "paragraph_text_align",
-      "label": "Alineación del Párrafo",
-      "options": [
-        {
-          "value": "left",
-          "label": "Izquierda"
-        },
-        {
-          "value": "center",
-          "label": "Centro"
-        },
-        {
-          "value": "right",
-          "label": "Derecha"
-        }
-      ],
-      "default": "center"
-    },
-    {
-      "type": "header",
-      "content": "Estilos de las Características"
-    },
-    {
-      "type": "font_picker",
-      "id": "feature_font",
-      "label": "Fuente de las Características",
-      "default": "helvetica_n4"
-    },
-    {
-      "type": "range",
-      "id": "feature_size",
-      "min": 12,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Tamaño de las Características",
-      "default": 40
-    },
-    {
-      "type": "range",
-      "id": "feature_line_height",
-      "min": 1,
-      "max": 2,
-      "step": 0.1,
-      "label": "Altura de Línea de las Características",
-      "default": 1.2
-    },
-    {
-      "type": "color",
-      "id": "feature_color",
-      "label": "Color Base de las Características",
-      "default": "#212529"
-    },
-    {
-      "type": "color",
-      "id": "cold_feature_color",
-      "label": "Color de Característica Cold",
-      "default": "#2C20B7"
-    },
-    {
-      "type": "color",
-      "id": "hot_feature_color",
-      "label": "Color de Característica Hot",
-      "default": "#F00D19"
-    },
-    {
-      "type": "header",
-      "content": "Padding de las Características"
-    },
-    {
-      "type": "range",
-      "id": "feature_padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Padding Superior",
-      "default": 16
-    },
-    {
-      "type": "range",
-      "id": "feature_padding_right",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Padding Derecho",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "feature_padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Padding Inferior",
-      "default": 16
-    },
-    {
-      "type": "range",
-      "id": "feature_padding_left",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Padding Izquierdo",
-      "default": 0
-    },
-    {
-      "type": "header",
-      "content": "Margin de las Características"
-    },
-    {
-      "type": "range",
-      "id": "feature_margin_top",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Margin Superior",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "feature_margin_right",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Margin Derecho",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "feature_margin_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Margin Inferior",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "feature_margin_left",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "label": "Margin Izquierdo",
-      "default": 0
-    },
-    {
-      "type": "select",
-      "id": "feature_text_align",
-      "label": "Alineación de las Características",
-      "options": [
-        {
-          "value": "left",
-          "label": "Izquierda"
-        },
-        {
-          "value": "center",
-          "label": "Centro"
-        },
-        {
-          "value": "right",
-          "label": "Derecha"
-        }
-      ],
-      "default": "center"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Temperature Retention",
-      "category": "Custom"
-    }
-  ]
+/* Estilos base */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
 }
-{% endschema %}
 
-{% style %}
-.temperature-retention {
-    height: {{ section.settings.section_height }}px;
-    padding: {{ section.settings.section_padding_top }}px {{ section.settings.section_padding_right }}px {{ section.settings.section_padding_bottom }}px {{ section.settings.section_padding_left }}px;
-    margin: {{ section.settings.section_margin_top }}px {{ section.settings.section_margin_right }}px {{ section.settings.section_margin_bottom }}px {{ section.settings.section_margin_left }}px;
+.CotizaComparador {
+    width: 210mm;  /* Mantener ancho A4 */
+    min-height: 297mm; /* Cambiar height por min-height */
+    margin: 10px auto;
+    position: relative;
+    background: #ffffff;
+    padding-bottom: 40px;
+}
+
+/* Estilos del encabezado */
+.CotizaComparador-header {
+    position: relative;
+    background-color: white;
+    height: 60px;
     width: 100%;
-    box-sizing: border-box;
 }
 
-.temperature-retention__container {
-    block-size: 516.35px;
-    border-block-end-color: rgb(33, 37, 41);
-    border-block-start-color: rgb(33, 37, 41);
-    border-inline-end-color: rgb(33, 37, 41);
-    border-inline-start-color: rgb(33, 37, 41);
-    box-sizing: border-box;
-    caret-color: rgb(33, 37, 41);
-    color: rgb(33, 37, 41);
-    column-rule-color: rgb(33, 37, 41);
-    height: 516.35px;
-    inline-size: 1520.8px;
-    letter-spacing: 0.4px;
-    padding-block-start: 48px;
-    padding-inline-end: 12px;
-    padding-inline-start: 12px;
-    perspective-origin: 760.4px 258.175px;
-    text-decoration: none solid rgb(33, 37, 41);
-    text-emphasis-color: rgb(33, 37, 41);
-    text-rendering: optimizespeed;
-    text-size-adjust: 100%;
-    transform-origin: 760.4px 258.175px;
-    width: 1520.8px;
-    border: 0px none rgb(33, 37, 41);
-    font: 16px / 24px "DINOT - Cond Bold";
-    outline: rgb(33, 37, 41) none 0px;
-    padding: 48px 12px 0px;
-}
-
-.temperature-retention__content {
-    block-size: 468.35px;
-    border-block-end-color: rgb(33, 37, 41);
-    border-block-start-color: rgb(33, 37, 41);
-    border-inline-end-color: rgb(33, 37, 41);
-    border-inline-start-color: rgb(33, 37, 41);
-    box-sizing: border-box;
-    caret-color: rgb(33, 37, 41);
-    color: rgb(33, 37, 41);
-    column-rule-color: rgb(33, 37, 41);
+.CotizaComparador-header__container {
+    position: relative;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
     display: flex;
-    height: 468.35px;
-    inline-size: 1520.8px;
-    letter-spacing: 0.4px;
-    margin-inline-end: -12px;
-    margin-inline-start: -12px;
-    perspective-origin: 760.4px 234.175px;
-    text-decoration: none solid rgb(33, 37, 41);
-    text-emphasis-color: rgb(33, 37, 41);
-    text-rendering: optimizespeed;
-    text-size-adjust: 100%;
-    transform-origin: 760.4px 234.175px;
-    width: 1520.8px;
-    border: 0px none rgb(33, 37, 41);
-    flex-flow: row wrap;
-    font: 16px / 24px "DINOT - Cond Bold";
-    margin: 0px -12px;
-    outline: rgb(33, 37, 41) none 0px;
+    height: 100%;
+    margin: 0;
+    padding: 0px 5%;
+    z-index: 2;
 }
 
-.temperature-retention__text-container {
-    block-size: 468.35px;
-    border-block-end-color: rgb(33, 37, 41);
-    border-block-start-color: rgb(33, 37, 41);
-    border-inline-end-color: rgb(33, 37, 41);
-    border-inline-start-color: rgb(33, 37, 41);
-    box-sizing: border-box;
-    caret-color: rgb(33, 37, 41);
-    color: rgb(33, 37, 41);
-    column-rule-color: rgb(33, 37, 41);
-    height: 468.35px;
-    inline-size: 760.4px;
-    letter-spacing: 0.4px;
-    max-inline-size: 100%;
-    max-width: 100%;
-    min-block-size: auto;
-    min-height: auto;
-    min-inline-size: auto;
-    min-width: auto;
-    padding-inline-end: 12px;
-    padding-inline-start: 12px;
-    perspective-origin: 380.2px 234.175px;
-    text-decoration: none solid rgb(33, 37, 41);
-    text-emphasis-color: rgb(33, 37, 41);
-    text-rendering: optimizespeed;
-    text-size-adjust: 100%;
-    transform-origin: 380.2px 234.175px;
-    width: 760.4px;
-    border: 0px none rgb(33, 37, 41);
-    flex: 0 0 auto;
-    font: 16px / 24px "DINOT - Cond Bold";
-    outline: rgb(33, 37, 41) none 0px;
-    padding: 0px 12px;
-}
-
-.temperature-retention__heading {
-    font-family: {{ section.settings.heading_font.family }};
-    font-size: {{ section.settings.heading_size }}px;
-    line-height: {{ section.settings.heading_line_height }};
-    color: {{ section.settings.heading_color }};
-    padding: {{ section.settings.heading_padding_top }}px {{ section.settings.heading_padding_right }}px {{ section.settings.heading_padding_bottom }}px {{ section.settings.heading_padding_left }}px;
-    margin: {{ section.settings.heading_margin_top }}px {{ section.settings.heading_margin_right }}px {{ section.settings.heading_margin_bottom }}px {{ section.settings.heading_margin_left }}px;
-    text-align: {{ section.settings.heading_text_align }};
-    text-transform: uppercase;
-}
-
-.temperature-retention__paragraph {
-    font-family: {{ section.settings.paragraph_font.family }};
-    font-size: {{ section.settings.paragraph_size }}px;
-    line-height: {{ section.settings.paragraph_line_height }};
-    color: {{ section.settings.paragraph_color }};
-    padding: {{ section.settings.paragraph_padding_top }}px {{ section.settings.paragraph_padding_right }}px {{ section.settings.paragraph_padding_bottom }}px {{ section.settings.paragraph_padding_left }}px;
-    margin: {{ section.settings.paragraph_margin_top }}px {{ section.settings.paragraph_margin_right }}px {{ section.settings.paragraph_margin_bottom }}px {{ section.settings.paragraph_margin_left }}px;
-    text-align: {{ section.settings.paragraph_text_align }};
-}
-
-.temperature-retention__features {
-    block-size: 259.263px;
-    border-block-end-color: rgb(33, 37, 41);
-    border-block-start-color: rgb(33, 37, 41);
-    border-inline-end-color: rgb(33, 37, 41);
-    border-inline-start-color: rgb(33, 37, 41);
-    box-sizing: border-box;
-    caret-color: rgb(33, 37, 41);
-    color: rgb(33, 37, 41);
-    column-rule-color: rgb(33, 37, 41);
-    height: 259.263px;
-    inline-size: 736.4px;
-    margin-block-start: 110.45px;
-    padding-inline-end: 12px;
-    padding-inline-start: 12px;
-    perspective-origin: 368.2px 129.625px;
-    text-decoration: none solid rgb(33, 37, 41);
-    text-emphasis-color: rgb(33, 37, 41);
-    text-rendering: optimizespeed;
-    text-size-adjust: 100%;
-    transform-origin: 368.2px 129.631px;
-    width: 736.4px;
-    border: 0px none rgb(33, 37, 41);
-    font: 70px / 73px "DINOT - Cond Bold";
-    margin: 110.45px 0px 0px;
-    outline: rgb(33, 37, 41) none 0px;
-    padding: 0px 12px;
-}
-
-.temperature-retention__features-container {
-    block-size: 259.263px;
-    border-block-end-color: rgb(33, 37, 41);
-    border-block-start-color: rgb(33, 37, 41);
-    border-inline-end-color: rgb(33, 37, 41);
-    border-inline-start-color: rgb(33, 37, 41);
-    box-sizing: border-box;
-    caret-color: rgb(33, 37, 41);
-    color: rgb(33, 37, 41);
-    column-rule-color: rgb(33, 37, 41);
-    display: flex;
-    height: 259.263px;
-    inline-size: 736.4px;
-    justify-content: center;
-    margin-inline-end: -12px;
-    margin-inline-start: -12px;
-    perspective-origin: 368.2px 129.625px;
-    text-decoration: none solid rgb(33, 37, 41);
-    text-emphasis-color: rgb(33, 37, 41);
-    text-rendering: optimizespeed;
-    text-size-adjust: 100%;
-    transform-origin: 368.2px 129.631px;
-    width: 736.4px;
-    border: 0px none rgb(33, 37, 41);
-    flex-flow: row wrap;
-    font: 70px / 73px "DINOT - Cond Bold";
-    margin: 0px -12px;
-    outline: rgb(33, 37, 41) none 0px;
-}
-
-.temperature-retention__feature {
-    block-size: 259.263px;
-    border-block-end-color: rgb(33, 37, 41);
-    border-block-start-color: rgb(33, 37, 41);
-    border-inline-end-color: rgb(33, 37, 41);
-    border-inline-start-color: rgb(33, 37, 41);
-    box-sizing: border-box;
-    caret-color: rgb(33, 37, 41);
-    color: rgb(33, 37, 41);
-    column-rule-color: rgb(33, 37, 41);
-    height: 259.263px;
-    inline-size: 245.462px;
-    max-inline-size: 100%;
-    max-width: 100%;
-    min-block-size: auto;
-    min-height: auto;
-    min-inline-size: auto;
-    min-width: auto;
-    padding-inline-end: 12px;
-    padding-inline-start: 12px;
-    perspective-origin: 122.725px 129.625px;
-    text-align: center;
-    text-decoration: none solid rgb(33, 37, 41);
-    text-emphasis-color: rgb(33, 37, 41);
-    text-rendering: optimizespeed;
-    text-size-adjust: 100%;
-    transform-origin: 122.731px 129.631px;
-    width: 245.462px;
-    border: 0px none rgb(33, 37, 41);
-    flex: 0 0 auto;
-    font: 70px / 73px "DINOT - Cond Bold";
-    outline: rgb(33, 37, 41) none 0px;
-    padding: 0px 12px;
-}
-
-.temperature-retention__image {
-    block-size: 139.262px;
-    border-block-end-color: rgb(33, 37, 41);
-    border-block-start-color: rgb(33, 37, 41);
-    border-inline-end-color: rgb(33, 37, 41);
-    border-inline-start-color: rgb(33, 37, 41);
-    box-sizing: border-box;
-    caret-color: rgb(33, 37, 41);
-    color: rgb(33, 37, 41);
-    column-rule-color: rgb(33, 37, 41);
+.CotizaComparador-header__logo {
+    height: 20px;
+    width: auto;
     display: block;
-    height: 139.262px;
-    inline-size: 140px;
-    margin-inline-end: 40.7375px;
-    margin-inline-start: 40.725px;
-    max-inline-size: 140px;
-    max-width: 140px;
-    perspective-origin: 70px 69.625px;
+}
+
+.CotizaComparador-header__pleca {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.CotizaComparador-header__pleca-img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    object-position: left;
+}
+
+/* Contenedor del contenido */
+.CotizaComparador__container {
+    padding: 0 24px;
+    margin-bottom: 20px;
+    height: auto;
+    overflow: visible;
+}
+
+/* Título y fecha */
+.CotizaComparador-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-inline: 5%;
+}
+
+.CotizaComparador-title__text {
+    color: #23246C;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.CotizaComparador-title__date {
+    color: #23246C;
+    font-size: 12px;
+}
+
+/* Estilos de la tarjeta principal */
+.CotizaComparador-card {
+    background: #fff;
+    border-radius: 12px;
+    border: 2px solid #23246C;
+    overflow: visible;
+    height: auto;
+}
+
+.CotizaComparador-card__date {
+    text-align: right;
+    padding: 10px 10px;
+    color: #666;
+    font-size: 14px;
+}
+
+.CotizaComparador-card__content {
+    display: flex;
+    /* padding: 24px; */
+}
+
+/* Estilos del paquete */
+.CotizaComparador-package {
+    flex: 1;
+    padding: 12px 24px;
+    height: auto;
+    min-height: fit-content;
+}
+
+.CotizaComparador-package__title {
+    color: #23246C;
+    font-size: 14px;
+    line-height: 1.2;
+    font-weight: 600;
+    margin: 0 0 16px 0;
+}
+
+.CotizaComparador-package__details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: auto;
+}
+
+.CotizaComparador-package__item {
+    display: flex;
+    align-items: center;
+    color: #4B5563;
+    font-size: 10px;
+}
+
+.CotizaComparador-package__item i {
+    width: 14px;
+    color: #23246C;
+    margin-right: 10px;
+    font-size: 12px;
+}
+
+.CotizaComparador-package__item strong {
+    color: #23246C;
+}
+
+.CotizaComparador-price__container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* Estilos del precio */
+.CotizaComparador-price {
+    background: #F15B5B;
+    padding: 16px;
+    border-radius: 0px 10px 0px 8px;
+    color: white;
+    height: 90px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.CotizaComparador-price__label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.CotizaComparador-price__amount {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+}
+
+.CotizaComparador-price__note {
+    font-size: 8px;
+    margin: 0;
+    opacity: 0.9;
+    line-height: 1.4;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-right: 5px;
+}
+
+/* Reservaciones */
+.CotizaComparador-reservations {
+    margin-top: 10px;
+}
+
+.CotizaComparador-reservations__title {
+    margin-left: 34px;
+}
+
+.CotizaComparador-season__header {
+    background: #23246C;
+    color: white;
+    padding: 10px 20px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.CotizaComparador-season__container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-inline: 22px;
+    padding-block: 12px 12px;
+}
+
+.CotizaComparador-season__content {
+    background: white;
+    margin-bottom: 10px;
+}
+
+.CotizaComparador-season__title {
+    color: #23246C;
+    font-size: 13px;
+    font-weight: 600;
+    margin-block-start: 0;
+    margin-block-end: 0.73em;
+}
+
+.CotizaComparador-season__content-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 7px;
+}
+
+.CotizaComparador-season__deposit {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.2;
+    color: #333;
+}
+
+.CotizaComparador-season__payment {
+    font-size: 11px;
+    line-height: 1.2;
+    color: #000000;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.CotizaComparador-season--emayorista .CotizaComparador-season__header {
+    background: #878787;
+}
+
+/* Vuelos */
+.CotizaComparador-flights {
+    background: white;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 8px;
+}
+
+.CotizaComparador-flights__title {
+    color: #23246C;
+    font-size: 16px;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+/* Estilos para las temporadas */
+.CotizaComparador-seasons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.CotizaComparador-season {
+    overflow: hidden;
+}
+
+/* Estilos para los vuelos */
+.CotizaComparador-flight {
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+.CotizaComparador-flight__header {
+    background-color: #6B7280;
+    padding: 12px 16px;
+}
+
+.CotizaComparador-flight__title {
+    color: white;
+    font-size: 16px;
+    margin: 0;
+    font-weight: 500;
+}
+
+.CotizaComparador-flight__content {
+    padding: 32px 32px;
+    background: white;
+}
+
+.CotizaComparador-flight__summary {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.CotizaComparador-flight__airline-icon {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    border-radius: 25px;
+    border: 1px solid #EBEDEF;
+    padding: 5px;
+}
+
+.CotizaComparador-flight__airline-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.CotizaComparador-flight__info {
+    flex: 1;
+    margin-block: 15px;
+}
+
+.CotizaComparador-flight__time {
+    font-size: 16px;
+    color: #111827;
+    margin-bottom: 12px;
+}
+
+.CotizaComparador-flight__direct,
+.CotizaComparador-flight__duration {
+    color: #23246C;
+    font-size: 12px;
+    margin-left: 8px;
+}
+
+.CotizaComparador-flight__airports {
+    color: #4B5563;
+    font-size: 12px;
+}
+
+.CotizaComparador-flight__airport {
+    margin-bottom: 4px;
+}
+
+.CotizaComparador-flight__airport strong {
+    color: #111827;
+}
+
+.CotizaComparador-flight__subtitle {
+    color: #374151;
+    font-size: 14px;
+    margin: 0 0 16px 0;
+    font-weight: 600;
+}
+
+.CotizaComparador-flight__grid {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 16px;
+}
+
+.CotizaComparador-flight__detail {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.CotizaComparador-flight__label {
+    color: #6B7280;
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.CotizaComparador-flight__value {
+    color: #111827;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.CotizaComparador-flight__details {
+    margin-left: 10px;
+}
+
+/* Footer */
+.CotizaComparador-footer {
+    padding: 0;
+    position: absolute; /* Cambiado de fixed a absolute */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.CotizaComparador-footer__pagination {
+    background-color: #23246C;
+    color: white;
     text-align: center;
-    text-decoration: none solid rgb(33, 37, 41);
-    text-emphasis-color: rgb(33, 37, 41);
-    text-rendering: optimizespeed;
-    text-size-adjust: 100%;
-    transform-origin: 70px 69.6312px;
-    vertical-align: middle;
-    width: 140px;
-    animation: 0.5s cubic-bezier(0.29, 0.65, 0.58, 1) 0s 1 normal forwards running fade-in;
-    border: 0px none rgb(33, 37, 41);
-    font: 70px / 73px "DINOT - Cond Bold";
-    margin: 0px 40.7375px 0px 40.725px;
-    outline: rgb(33, 37, 41) none 0px;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 8px;
+    border-radius: 15px 15px 0 0;
+    width: 120px;
 }
 
-.temperature-retention__feature-title {
-    font-family: {{ section.settings.feature_font.family }};
-    font-size: {{ section.settings.feature_size }}px;
-    line-height: {{ section.settings.feature_line_height }};
-    color: {{ section.settings.feature_color }};
-    padding: {{ section.settings.feature_padding_top }}px {{ section.settings.feature_padding_right }}px {{ section.settings.feature_padding_bottom }}px {{ section.settings.feature_padding_left }}px;
-    margin: {{ section.settings.feature_margin_top }}px {{ section.settings.feature_margin_right }}px {{ section.settings.feature_margin_bottom }}px {{ section.settings.feature_margin_left }}px;
-    text-align: {{ section.settings.feature_text_align }};
-    text-transform: uppercase;
+/* Estilos para el hotel */
+.CotizaComparador-hotel {
+    padding: 20px 32px;
 }
 
-.temperature-retention__feature-title--cold {
-    color: {{ section.settings.cold_feature_color }};
+.CotizaComparador-hotel__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.temperature-retention__feature-title--hot {
-    color: {{ section.settings.hot_feature_color }};
+.CotizaComparador-hotel__name {
+    color: #000000;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
 }
 
-{% endstyle %}
+.CotizaComparador-hotel__description {
+    color: #28333E;
+    font-size: 13px;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
 
-<div class="temperature-retention">
-	<div class="temperature-retention__container">
-		<div class="temperature-retention__content">
-			<div class="temperature-retention__text-container">
-				<h1 class="temperature-retention__heading">
-					{{ section.settings.heading }}
-					</h1>
-				<p class="temperature-retention__paragraph">
-					{{ section.settings.paragraph }}
-					</p>
-				</div>
-			<div class="temperature-retention__features">
-				<div class="temperature-retention__features-container">
-					<div class="temperature-retention__feature">
-						<img src="{{ section.settings.cold_image | img_url: '200x' }}" alt="" width="200" height="198.96373056994818" class="temperature-retention__image" />
-						<h1 class="temperature-retention__feature-title">
-							{{ section.settings.cold_text1 }}
-								</h1>
-						<h1 class="temperature-retention__feature-title temperature-retention__feature-title--cold">
-							{{ section.settings.cold_text2 }}
-								</h1>
-							</div>
-					<div class="temperature-retention__feature">
-						<img src="{{ section.settings.hot_image | img_url: '200x' }}" alt="" width="200" height="200.0" class="temperature-retention__image" />
-						<h1 class="temperature-retention__feature-title">
-							{{ section.settings.hot_text1 }}
-								</h1>
-						<h1 class="temperature-retention__feature-title temperature-retention__feature-title--hot">
-							{{ section.settings.hot_text2 }}
-								</h1>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-</div>
+.CotizaComparador-hotel__rating-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.CotizaComparador-hotel__rating {
+    color: #FFD700;
+    font-size: 14px;
+    margin-block: 8px;
+}
+
+.CotizaComparador-hotel__address {
+    color: #4B5563;
+    font-size: 13px;
+    margin-bottom: 16px;
+}
+
+.CotizaComparador-hotel__address span {
+    font-weight: 600;
+    color: #23246C;
+}
+
+.CotizaComparador-hotel__details {
+    margin-top: 24px;
+}
+
+.CotizaComparador-hotel__subtitle {
+    color: #23246C;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+}
+
+.CotizaComparador-hotel__rooms {
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+    gap: 16px;
+}
+
+.CotizaComparador-hotel__room {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 4px;
+}
+
+.CotizaComparador-hotel__room-type {
+    color: #000000;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.CotizaComparador-hotel__occupancy {
+    color: #4B5563;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.CotizaComparador-hotel__plan {
+    color: #000000;
+    font-size: 11px;
+    text-align: center;
+}
