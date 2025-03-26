@@ -2146,6 +2146,33 @@
               "cl_gradient": "",
               "color_img": false
             }
+          },
+          "bg_color_BEKU9j": {
+            "type": "bg_color",
+            "settings": {
+              "title": "SkyBlue",
+              "color": "#8fbedf",
+              "cl_gradient": "",
+              "color_img": false
+            }
+          },
+          "bg_color_zeXJRF": {
+            "type": "bg_color",
+            "settings": {
+              "title": "Blanco",
+              "color": "#fff",
+              "cl_gradient": "",
+              "color_img": false
+            }
+          },
+          "bg_color_BYDQ8P": {
+            "type": "bg_color",
+            "settings": {
+              "title": "Morado",
+              "color": "#311463",
+              "cl_gradient": "",
+              "color_img": false
+            }
           }
         },
         "block_order": [
@@ -2153,7 +2180,10 @@
           "bg_color_gaKNrB",
           "bg_color_LdAEHH",
           "bg_color_pJAdhV",
-          "bg_color_6P8yy6"
+          "bg_color_6P8yy6",
+          "bg_color_BEKU9j",
+          "bg_color_zeXJRF",
+          "bg_color_BYDQ8P"
         ],
         "settings": {}
       },
