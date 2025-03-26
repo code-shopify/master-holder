@@ -2110,10 +2110,50 @@
               "cl_gradient": "",
               "color_img": false
             }
+          },
+          "bg_color_gaKNrB": {
+            "type": "bg_color",
+            "settings": {
+              "title": "Aqua",
+              "color": "#b1d1b7",
+              "cl_gradient": "",
+              "color_img": false
+            }
+          },
+          "bg_color_LdAEHH": {
+            "type": "bg_color",
+            "settings": {
+              "title": "Rose Gold Glitter",
+              "color": "#a89896",
+              "cl_gradient": "",
+              "color_img": false
+            }
+          },
+          "bg_color_pJAdhV": {
+            "type": "bg_color",
+            "settings": {
+              "title": "Mermaid",
+              "color": "",
+              "cl_gradient": "linear-gradient(183deg, rgba(131, 109, 179, 1) 8%, rgba(54, 212, 255, 1) 47%, rgba(43, 252, 135, 1) 83%)",
+              "color_img": false
+            }
+          },
+          "bg_color_6P8yy6": {
+            "type": "bg_color",
+            "settings": {
+              "title": "Aqua Glitter",
+              "color": "#73cbc5",
+              "cl_gradient": "",
+              "color_img": false
+            }
           }
         },
         "block_order": [
-          "06eaa184-e59c-4525-ac5d-eac6fc91f3e8"
+          "06eaa184-e59c-4525-ac5d-eac6fc91f3e8",
+          "bg_color_gaKNrB",
+          "bg_color_LdAEHH",
+          "bg_color_pJAdhV",
+          "bg_color_6P8yy6"
         ],
         "settings": {}
       },
