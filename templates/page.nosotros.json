@@ -296,6 +296,50 @@
         "hot_text1": "Keeps",
         "hot_text2": "Hot"
       }
+    },
+    "atributes_custom_gbcLxz": {
+      "type": "Atributes-Custom",
+      "blocks": {
+        "feature_3wtWHi": {
+          "type": "feature",
+          "settings": {
+            "title": "DISHWASHER SAFE",
+            "description": "Most of our products are dishwasher-safe. Easy to clean and stand the test of time.",
+            "background": "#4a4c51"
+          }
+        },
+        "feature_MxNyTn": {
+          "type": "feature",
+          "settings": {
+            "title": "DISHWASHER SAFE",
+            "description": "Most of our products are dishwasher-safe. Easy to clean and stand the test of time.",
+            "background": "#4a4c51"
+          }
+        },
+        "feature_yiQhwR": {
+          "type": "feature",
+          "settings": {
+            "title": "DISHWASHER SAFE",
+            "description": "Most of our products are dishwasher-safe. Easy to clean and stand the test of time.",
+            "background": "#4a4c51"
+          }
+        },
+        "feature_PNiEqK": {
+          "type": "feature",
+          "settings": {
+            "title": "DISHWASHER SAFE",
+            "description": "Most of our products are dishwasher-safe. Easy to clean and stand the test of time.",
+            "background": "#4a4c51"
+          }
+        }
+      },
+      "block_order": [
+        "feature_3wtWHi",
+        "feature_MxNyTn",
+        "feature_yiQhwR",
+        "feature_PNiEqK"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -305,6 +349,7 @@
     "background_video_qitbL7",
     "image_text_4nqpw4",
     "trapeze_custom_e997h9",
-    "temperature_custom_DeDBKP"
+    "temperature_custom_DeDBKP",
+    "atributes_custom_gbcLxz"
   ]
 }
