@@ -384,18 +384,11 @@
     "collections_list_manual_XUm7Kj": {
       "type": "collections-list-manual",
       "blocks": {
-        "collection_item_NaD9KW": {
-          "type": "collection_item",
-          "settings": {
-            "collection": "",
-            "collection_title": "Collection title",
-            "collection_link": ""
-          }
-        },
         "collection_item_HbMEqD": {
           "type": "collection_item",
           "settings": {
             "collection": "",
+            "image": "shopify://shop_images/Tumbler_XL_-_2A.webp",
             "collection_title": "Collection title",
             "collection_link": ""
           }
@@ -403,16 +396,26 @@
         "collection_item_KqLQKB": {
           "type": "collection_item",
           "settings": {
-            "collection": "",
+            "collection": "portalaton-5-en-1",
+            "image": "shopify://shop_images/Master_Holder_Portalaton_5en1_Banner_cuadrado.png",
+            "collection_title": "Collection title",
+            "collection_link": ""
+          }
+        },
+        "collection_item_NaD9KW": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "4-en-1-anticaida",
+            "image": "shopify://shop_images/tapa-vaso-4-en-1-16-tapa-855215.jpg",
             "collection_title": "Collection title",
             "collection_link": ""
           }
         }
       },
       "block_order": [
-        "collection_item_NaD9KW",
         "collection_item_HbMEqD",
-        "collection_item_KqLQKB"
+        "collection_item_KqLQKB",
+        "collection_item_NaD9KW"
       ],
       "settings": {
         "design_heading": "1",
@@ -421,7 +424,7 @@
         "icon_heading": "las la-gem",
         "top_subheading": "",
         "tophead_mb": 30,
-        "collection_des": "1",
+        "collection_des": "2",
         "title_cl": "#ffffff",
         "title_cl_hover": "#222222",
         "subtitle_cl": "#878787",
@@ -437,8 +440,8 @@
         "img_effect": "none",
         "b_effect": "none",
         "image_position": "8",
-        "coll_layout": "3",
-        "layout": "t4s-container-wrap",
+        "coll_layout": "2",
+        "layout": "t4s-container-fluid",
         "cl_bg": "",
         "cl_bg_gradient": "",
         "mg": "50px,,50px,",
