@@ -19,6 +19,16 @@
       "default": 520
     },
     {
+      "type": "range",
+      "id": "section_height_mobile",
+      "min": 200,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "label": "Altura de la Sección en Móvil",
+      "default": 800
+    },
+    {
       "type": "header",
       "content": "Padding de la Sección"
     },
@@ -592,6 +602,30 @@
         }
       ],
       "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Tamaño de Imágenes"
+    },
+    {
+      "type": "range",
+      "id": "image_size_desktop",
+      "min": 100,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Tamaño de Imágenes en Desktop",
+      "default": 140
+    },
+    {
+      "type": "range",
+      "id": "image_size_mobile",
+      "min": 80,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Tamaño de Imágenes en Móvil",
+      "default": 120
     }
   ],
   "presets": [
@@ -726,6 +760,10 @@
 }
 
 @media screen and (max-width: 768px) {
+    .temperature-retention {
+        height: {{ section.settings.section_height_mobile }}px;
+    }
+
     .temperature-retention__container {
         width: 100%;
         height: auto;
@@ -766,7 +804,7 @@
     }
 
     .temperature-retention__image {
-        width: 120px;
+        width: {{ section.settings.image_size_mobile }}px;
         height: auto;
         margin: 0 auto 16px;
     }
@@ -820,7 +858,7 @@
 			<div class="temperature-retention__features">
 				<div class="temperature-retention__features-container">
 					<div class="temperature-retention__feature">
-						<img src="{{ section.settings.cold_image | img_url: '200x' }}" alt="" width="200" height="198.96373056994818" class="temperature-retention__image" />
+						<img src="{{ section.settings.cold_image | img_url: 'master' }}" alt="" width="{{ section.settings.image_size_desktop }}" height="{{ section.settings.image_size_desktop }}" class="temperature-retention__image" />
 						<h1 class="temperature-retention__feature-title">
 							{{ section.settings.cold_text1 }}
 								</h1>
@@ -829,7 +867,7 @@
 								</h1>
 							</div>
 					<div class="temperature-retention__feature">
-						<img src="{{ section.settings.hot_image | img_url: '200x' }}" alt="" width="200" height="200.0" class="temperature-retention__image" />
+						<img src="{{ section.settings.hot_image | img_url: 'master' }}" alt="" width="{{ section.settings.image_size_desktop }}" height="{{ section.settings.image_size_desktop }}" class="temperature-retention__image" />
 						<h1 class="temperature-retention__feature-title">
 							{{ section.settings.hot_text1 }}
 								</h1>
