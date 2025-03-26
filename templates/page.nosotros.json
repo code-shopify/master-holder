@@ -32,6 +32,7 @@
     },
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "layout": "t4s-container-wrap",
         "cl_bg": "",
@@ -280,7 +281,6 @@
     },
     "trapeze_custom_e997h9": {
       "type": "Trapeze-Custom",
-      "disabled": true,
       "settings": {
         "heading": "HOT STAYS HOT.COLD STAYS COLD.",
         "description": "Our durable double wall stainless steel vacuum insulated technology, you are certain to find a product that fits your lifestyle while delivering superior performance with exceptional durability."
