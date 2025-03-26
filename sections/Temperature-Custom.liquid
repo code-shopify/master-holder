@@ -1,6 +1,185 @@
 {% schema %}
-  {
-    "name": "Section name",
-    "settings": []
-  }
+{
+  "name": "Temperature Custom",
+  "tag": "section",
+  "class": "temperature-retention-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título Principal",
+      "default": "SUPERIOR TEMPERATURE RETENTION"
+    },
+    {
+      "type": "textarea",
+      "id": "paragraph",
+      "label": "Texto descriptivo",
+      "default": "Keep your coffee hot. Keep your water cold.<br>Keep your food fresh and your day under control."
+    },
+    {
+      "type": "image_picker",
+      "id": "cold_image",
+      "label": "Imagen Cold"
+    },
+    {
+      "type": "text",
+      "id": "cold_text1",
+      "label": "Cold: línea 1",
+      "default": "Keeps"
+    },
+    {
+      "type": "text",
+      "id": "cold_text2",
+      "label": "Cold: línea 2",
+      "default": "cold"
+    },
+    {
+      "type": "image_picker",
+      "id": "hot_image",
+      "label": "Imagen Hot"
+    },
+    {
+      "type": "text",
+      "id": "hot_text1",
+      "label": "Hot: línea 1",
+      "default": "Keeps"
+    },
+    {
+      "type": "text",
+      "id": "hot_text2",
+      "label": "Hot: línea 2",
+      "default": "Hot"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Temperature Retention",
+      "category": "Custom"
+    }
+  ]
+}
 {% endschema %}
+
+{% style %}
+.temperature-retention-section {
+  display: flex;
+  flex-wrap: wrap;
+  font-family: "DINOT - Cond Bold", sans-serif;
+  padding: 48px 12px 0;
+  max-width: 1520px;
+  margin: auto;
+}
+
+.temperature-retention-section .left,
+.temperature-retention-section .right {
+  width: 100%;
+  max-width: 760px;
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+
+.temperature-retention-section h1 {
+  font-size: 70px;
+  line-height: 73px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin: 110px 0 8px;
+}
+
+.temperature-retention-section p {
+  font-family: DINOT, sans-serif;
+  font-size: 22px;
+  line-height: 36px;
+  text-align: center;
+  margin: 30px 0 110px;
+}
+
+.temperature-retention-section .icons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 48px;
+  margin-top: 24px;
+}
+
+.temperature-retention-section .icon-block {
+  text-align: center;
+  max-width: 245px;
+}
+
+.temperature-retention-section .icon-block img {
+  width: 140px;
+  height: 140px;
+  max-width: 100%;
+  margin: 0 auto;
+  display: block;
+  animation: fade-in 0.5s ease forwards;
+}
+
+.temperature-retention-section .icon-block h2 {
+  font-size: 40px;
+  line-height: 48px;
+  margin: 16px 0 0;
+  text-transform: uppercase;
+}
+
+.temperature-retention-section .icon-block .cold {
+  color: #2c20b7;
+  margin-bottom: 8px;
+}
+
+.temperature-retention-section .icon-block .hot {
+  color: #f00d19;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media only screen and (max-width: 768px) {
+  .temperature-retention-section h1 {
+    font-size: 40px;
+    line-height: 48px;
+    margin-top: 60px;
+  }
+
+  .temperature-retention-section p {
+    font-size: 16px;
+    line-height: 24px;
+    margin: 20px 0 60px;
+  }
+
+  .temperature-retention-section .icon-block h2 {
+    font-size: 28px;
+  }
+}
+{% endstyle %}
+
+<div class="temperature-retention-section">
+  <div class="left">
+    <h1>{{ section.settings.heading }}</h1>
+    <p>{{ section.settings.paragraph }}</p>
+  </div>
+
+  <div class="right">
+    <div class="icons">
+      <div class="icon-block">
+        {% if section.settings.cold_image %}
+          <img src="{{ section.settings.cold_image | image_url: width: 200 }}" alt="Cold Icon">
+        {% endif %}
+        <h2>{{ section.settings.cold_text1 }}</h2>
+        <h2 class="cold">{{ section.settings.cold_text2 }}</h2>
+      </div>
+
+      <div class="icon-block">
+        {% if section.settings.hot_image %}
+          <img src="{{ section.settings.hot_image | image_url: width: 200 }}" alt="Hot Icon">
+        {% endif %}
+        <h2>{{ section.settings.hot_text1 }}</h2>
+        <h2 class="hot">{{ section.settings.hot_text2 }}</h2>
+      </div>
+    </div>
+  </div>
+</div>
