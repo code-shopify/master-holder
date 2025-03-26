@@ -285,6 +285,17 @@
         "description": "Our durable double wall stainless steel vacuum insulated technology, you are certain to find a product that fits your lifestyle while delivering superior performance with exceptional durability.",
         "background_image": "shopify://shop_images/IS2102GT4_ICON_OctMed_23_CAL_Lake_16A_0006_Steam_Pour_HotStaysHot_3000x1700_1024x1024_8d8f649b-433a-4501-b13a-c8e459abad22.webp"
       }
+    },
+    "temperature_custom_DAKFW7": {
+      "type": "Temperature-Custom",
+      "settings": {
+        "heading": "SUPERIOR TEMPERATURE RETENTION",
+        "paragraph": "Keep your coffee hot. Keep your water cold.<br>Keep your food fresh and your day under control.",
+        "cold_text1": "Keeps",
+        "cold_text2": "cold",
+        "hot_text1": "Keeps",
+        "hot_text2": "Hot"
+      }
     }
   },
   "order": [
@@ -293,6 +304,7 @@
     "sidebar-page",
     "background_video_qitbL7",
     "image_text_4nqpw4",
-    "trapeze_UfXMtJ"
+    "trapeze_UfXMtJ",
+    "temperature_custom_DAKFW7"
   ]
 }
