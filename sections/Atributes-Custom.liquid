@@ -131,50 +131,25 @@
 <div class="promotions">
     <div class="promotions-container">
         <div class="promotions-grid">
-            <div class="promotion-item promotion-item--gray">
-                <image class="promotion-icon">
-                    <img src="https://thermos.com/cdn/shop/files/4-layers_1.5x.png?v=1622652198&amp;width=200" alt="" width="200" height="200.0" />
-                </image>
-                <h1 class="promotion-title">
-                    DISHWASHER SAFE
-                </h1>
-                <p class="promotion-description">
-                    Most of our products are dishwasher-safe. Easy to clean and stand the test of time.
-                </p>
-            </div>
-            <div class="promotion-item promotion-item--gray">
-                <image class="promotion-icon">
-                    <img src="https://thermos.com/cdn/shop/files/2-layers_1.5x_2_3c050c98-8bdd-41bf-9eb7-687deb053b78.png?v=1625048929&amp;width=200" alt="" width="200" height="200.0" />
-                </image>
-                <h1 class="promotion-title">
-                    REUSABLE
-                </h1>
-                <p class="promotion-description">
-                    Durable and reusable. Say goodbye to single use.
-                </p>
-            </div>
-            <div class="promotion-item promotion-item--gray">
-                <image class="promotion-icon">
-                    <img src="https://thermos.com/cdn/shop/files/5-layers_1.5x_2c7ca3be-9cdf-48ed-89c1-a4f66f29191a.png?v=1625048958&amp;width=200" alt="" width="200" height="200.0" />
-                </image>
-                <h1 class="promotion-title">
-                    VACUUM INSULATED
-                </h1>
-                <p class="promotion-description">
-                    Hots stay Hot. Colds stay Cold. You stay focused on everything else.
-                </p>
-            </div>
-            <div class="promotion-item promotion-item--blue">
-                <image class="promotion-icon">
-                    <img src="https://thermos.com/cdn/shop/files/7-layers_1.5x.png?v=1622652505&amp;width=200" alt="" width="200" height="200.0" />
-                </image>
-                <h1 class="promotion-title">
-                    KID-FRIENDLY
-                </h1>
-                <p class="promotion-description">
-                    Kids can open and closeit all by themselves.
-                </p>
-            </div>
+            {% for block in section.blocks %}
+                <div class="promotion-item" style="background-color: {{ block.settings.background }}">
+                    {% if block.settings.icon %}
+                        <image class="promotion-icon">
+                            <img src="{{ block.settings.icon | img_url: '200x' }}" alt="{{ block.settings.title }}" width="200" height="200.0" />
+                        </image>
+                    {% endif %}
+                    {% if block.settings.title %}
+                        <h1 class="promotion-title">
+                            {{ block.settings.title }}
+                        </h1>
+                    {% endif %}
+                    {% if block.settings.description %}
+                        <p class="promotion-description">
+                            {{ block.settings.description }}
+                        </p>
+                    {% endif %}
+                </div>
+            {% endfor %}
         </div>
     </div>
 </div>
