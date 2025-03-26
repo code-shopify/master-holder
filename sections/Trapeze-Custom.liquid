@@ -17,6 +17,80 @@
       "default": "Our durable double wall stainless steel vacuum insulated technology, you are certain to find a product that fits your lifestyle while delivering superior performance with exceptional durability"
     },
     {
+      "type": "header",
+      "content": "Estilos del Título"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Color del título",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 20,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamaño del título",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "heading_line_height",
+      "min": 20,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Altura de línea del título",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espacio superior del título",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Estilos de la Descripción"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Color de la descripción",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamaño de la descripción",
+      "default": 19
+    },
+    {
+      "type": "range",
+      "id": "description_line_height",
+      "min": 16,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Altura de línea de la descripción",
+      "default": 25
+    },
+    {
+      "type": "header",
+      "content": "Colores Generales"
+    },
+    {
       "type": "color",
       "id": "background_color",
       "label": "Color de fondo",
@@ -95,20 +169,20 @@
 }
 
 .trapeze-heading {
-  color: {{ section.settings.text_color }};
+  color: {{ section.settings.heading_color }};
   font-family: var(--thermos-dinot-cond-bold);
-  font-size: var(--thermos-font-size-70);
-  line-height: var(--thermos-line-height-70);
+  font-size: {{ section.settings.heading_size }}px;
+  line-height: {{ section.settings.heading_line_height }}px;
   text-transform: uppercase;
   margin: 0;
-  padding: 24px 0 0;
+  padding: {{ section.settings.heading_padding_top }}px 0 0;
 }
 
 .trapeze-description {
-  color: {{ section.settings.text_color }};
+  color: {{ section.settings.description_color }};
   font-family: var(--thermos-dinot);
-  font-size: var(--thermos-font-size-19);
-  line-height: var(--thermos-line-height-25-5);
+  font-size: {{ section.settings.description_size }}px;
+  line-height: {{ section.settings.description_line_height }}px;
   font-weight: var(--thermos-font-Weight-bold);
   margin: 0;
 }
@@ -148,14 +222,14 @@
   }
 
   .trapeze-heading {
-    font-size: var(--thermos-font-size-34);
-    line-height: var(--thermos-line-height-40);
+    font-size: calc({{ section.settings.heading_size }}px * 0.5);
+    line-height: calc({{ section.settings.heading_line_height }}px * 0.5);
     text-align: center;
   }
 
   .trapeze-description {
-    font-size: var(--thermos-font-size-14);
-    line-height: var(--thermos-line-height-20);
+    font-size: calc({{ section.settings.description_size }}px * 0.75);
+    line-height: calc({{ section.settings.description_line_height }}px * 0.75);
     text-align: center;
   }
 
