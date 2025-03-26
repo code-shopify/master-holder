@@ -792,101 +792,32 @@
 }
 
 .temperature-retention__content {
-    block-size: 468.35px;
-    border-block-end-color: rgb(33, 37, 41);
-    border-block-start-color: rgb(33, 37, 41);
-    border-inline-end-color: rgb(33, 37, 41);
-    border-inline-start-color: rgb(33, 37, 41);
-    box-sizing: border-box;
-    caret-color: rgb(33, 37, 41);
-    color: rgb(33, 37, 41);
-    column-rule-color: rgb(33, 37, 41);
     display: flex;
-    height: 468.35px;
-    inline-size: 1520.8px;
-    letter-spacing: 0.4px;
-    margin-inline-end: -12px;
-    margin-inline-start: -12px;
-    perspective-origin: 760.4px 234.175px;
-    text-decoration: none solid rgb(33, 37, 41);
-    text-emphasis-color: rgb(33, 37, 41);
-    text-rendering: optimizespeed;
-    text-size-adjust: 100%;
-    transform-origin: 760.4px 234.175px;
-    width: 1520.8px;
-    border: 0px none rgb(33, 37, 41);
-    flex-flow: row wrap;
-    font: 16px / 24px "DINOT - Cond Bold";
-    margin: 0px -12px;
-    outline: rgb(33, 37, 41) none 0px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
 }
 
 .temperature-retention__text-container {
-    block-size: 468.35px;
-    border-block-end-color: rgb(33, 37, 41);
-    border-block-start-color: rgb(33, 37, 41);
-    border-inline-end-color: rgb(33, 37, 41);
-    border-inline-start-color: rgb(33, 37, 41);
-    box-sizing: border-box;
-    caret-color: rgb(33, 37, 41);
-    color: rgb(33, 37, 41);
-    column-rule-color: rgb(33, 37, 41);
-    height: 468.35px;
-    inline-size: 760.4px;
-    letter-spacing: 0.4px;
-    max-inline-size: 100%;
-    max-width: 100%;
-    min-block-size: auto;
-    min-height: auto;
-    min-inline-size: auto;
-    min-width: auto;
-    padding-inline-end: 12px;
-    padding-inline-start: 12px;
-    perspective-origin: 380.2px 234.175px;
-    text-decoration: none solid rgb(33, 37, 41);
-    text-emphasis-color: rgb(33, 37, 41);
-    text-rendering: optimizespeed;
-    text-size-adjust: 100%;
-    transform-origin: 380.2px 234.175px;
-    width: 760.4px;
-    border: 0px none rgb(33, 37, 41);
-    flex: 0 0 auto;
-    font: 16px / 24px "DINOT - Cond Bold";
-    outline: rgb(33, 37, 41) none 0px;
-    padding: 0px 12px;
-}
-
-.temperature-retention__heading {
-    font-family: {{ section.settings.heading_font.family }};
-    font-size: {{ section.settings.heading_size }}px;
-    line-height: {{ section.settings.heading_line_height }};
-    color: {{ section.settings.heading_color }};
-    padding: {{ section.settings.heading_padding_top }}px {{ section.settings.heading_padding_right }}px {{ section.settings.heading_padding_bottom }}px {{ section.settings.heading_padding_left }}px;
-    margin: {{ section.settings.heading_margin_top }}px {{ section.settings.heading_margin_right }}px {{ section.settings.heading_margin_bottom }}px {{ section.settings.heading_margin_left }}px;
-    text-align: {{ section.settings.heading_text_align }};
-    text-transform: uppercase;
-}
-
-.temperature-retention__paragraph {
-    font-family: {{ section.settings.paragraph_font.family }};
-    font-size: {{ section.settings.paragraph_size }}px;
-    line-height: {{ section.settings.paragraph_line_height }};
-    color: {{ section.settings.paragraph_color }};
-    padding: {{ section.settings.paragraph_padding_top }}px {{ section.settings.paragraph_padding_right }}px {{ section.settings.paragraph_padding_bottom }}px {{ section.settings.paragraph_padding_left }}px;
-    margin: {{ section.settings.paragraph_margin_top }}px {{ section.settings.paragraph_margin_right }}px {{ section.settings.paragraph_margin_bottom }}px {{ section.settings.paragraph_margin_left }}px;
-    text-align: {{ section.settings.paragraph_text_align }};
+    flex: 0 0 50%;
+    padding: 0 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .temperature-retention__features {
+    flex: 0 0 50%;
     padding: {{ section.settings.features_padding_top }}px {{ section.settings.features_padding_right }}px {{ section.settings.features_padding_bottom }}px {{ section.settings.features_padding_left }}px;
     margin: {{ section.settings.features_margin_top }}px {{ section.settings.features_margin_right }}px {{ section.settings.features_margin_bottom }}px {{ section.settings.features_margin_left }}px;
-    width: 100%;
     box-sizing: border-box;
 }
 
 .temperature-retention__features-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -894,14 +825,13 @@
 }
 
 .temperature-retention__feature {
-    flex: 0 0 calc(50% - 10px);
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     padding: 0;
     margin: 0;
-    height: auto;
+    width: 100%;
 }
 
 .temperature-retention__image {
