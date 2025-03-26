@@ -78,6 +78,38 @@
 {%- style -%}
 .t4s-section-{{ section.id }} {
   min-height: {{ section.settings.height }}px;
+  position: relative;
+  overflow: hidden;
+}
+
+.t4s-section-{{ section.id }} .video-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.t4s-section-{{ section.id }} .video-wrapper iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.t4s-section-{{ section.id }} .t4s-hero-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
 }
 {%- endstyle -%}
 
@@ -85,34 +117,29 @@
 {{ 'hero.css' | asset_url | stylesheet_tag }}
 
 <div class="t4s-section-inner t4s_nt_se_{{ section.id }} t4s-section-{{ section.id }}">
-  <div class="t4s-bg-video t4s-row t4s-row-cols-1 t4s-gx-0">
-    <div class="t4s-col-item">
-      <div class="t4s-hero-inner t4s-pr t4s-oh">
-        {% if section.settings.video_url != blank %}
-          <div class="video-wrapper">
-            {% if section.settings.video_url.type == "youtube" %}
-              <iframe
-                src="https://www.youtube.com/embed/{{ section.settings.video_url.id }}?autoplay=1&controls=0&mute=1&loop=1&playlist={{ section.settings.video_url.id }}"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-                title="YouTube video player"
-              ></iframe>
-            {% elsif section.settings.video_url.type == "vimeo" %}
-              <iframe
-                src="https://player.vimeo.com/video/{{ section.settings.video_url.id }}?autoplay=1&controls=0&mute=1&loop=1"
-                frameborder="0"
-                allow="autoplay; fullscreen"
-                allowfullscreen
-                title="Vimeo video player"
-              ></iframe>
-            {% endif %}
-          </div>
-        {% endif %}
-      </div>
+  {% if section.settings.video_url != blank %}
+    <div class="video-wrapper">
+      {% if section.settings.video_url.type == "youtube" %}
+        <iframe
+          src="https://www.youtube.com/embed/{{ section.settings.video_url.id }}?autoplay=1&controls=0&mute=1&loop=1&playlist={{ section.settings.video_url.id }}&rel=0&showinfo=0"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          title="YouTube video player"
+        ></iframe>
+      {% elsif section.settings.video_url.type == "vimeo" %}
+        <iframe
+          src="https://player.vimeo.com/video/{{ section.settings.video_url.id }}?autoplay=1&controls=0&mute=1&loop=1&background=1"
+          frameborder="0"
+          allow="autoplay; fullscreen"
+          allowfullscreen
+          title="Vimeo video player"
+        ></iframe>
+      {% endif %}
     </div>
-  </div>
-  <div class="t4s-hero-content t4s-pr">
+  {% endif %}
+  
+  <div class="t4s-hero-content">
     <div class="t4s-container">
       <div class="t4s-hero-text">
         <h2 class="t4s-hero-title">{{ section.settings.title }}</h2>
@@ -128,48 +155,20 @@
   overflow: hidden;
 }
 
-.t4s-bg-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-
-.video-wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.video-wrapper iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.t4s-hero-content {
-  position: relative;
-  z-index: 2;
-  padding: 60px 0;
-  text-align: center;
-}
-
 .t4s-hero-title {
   color: {{ section.settings.text_color }};
   margin-bottom: 20px;
+  font-size: 2.5em;
 }
 
 .t4s-hero-description {
   color: {{ section.settings.text_color }};
   opacity: 0.9;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.t4s-hero-inner:after {
+.t4s-section-inner:after {
   content: '';
   position: absolute;
   top: 0;
@@ -178,5 +177,6 @@
   height: 100%;
   background-color: {{ section.settings.overlay_color }};
   opacity: {{ section.settings.overlay_opacity }};
+  z-index: 1;
 }
 </style>
