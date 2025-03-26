@@ -1,6 +1,6 @@
 {% schema %}
 {
-  "name": "Temperature Custom",
+  "name": "Temperature Retention",
   "tag": "section",
   "class": "temperature-retention-section",
   "settings": [
@@ -65,42 +65,45 @@
   display: flex;
   flex-wrap: wrap;
   font-family: "DINOT - Cond Bold", sans-serif;
-  padding: 48px 12px 0;
+  padding: 48px 12px;
   max-width: 1520px;
   margin: auto;
 }
 
-.temperature-retention-section .left,
-.temperature-retention-section .right {
+.temperature-retention-section .column {
   width: 100%;
-  max-width: 760px;
-  padding: 0 12px;
+  max-width: 50%;
   box-sizing: border-box;
+  padding: 0 12px;
+}
+
+.temperature-retention-section .left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
 }
 
 .temperature-retention-section h1 {
   font-size: 70px;
   line-height: 73px;
-  text-align: center;
+  margin: 110px 0 8px;
   text-transform: uppercase;
   font-weight: 500;
-  margin: 110px 0 8px;
 }
 
 .temperature-retention-section p {
   font-family: DINOT, sans-serif;
   font-size: 22px;
   line-height: 36px;
-  text-align: center;
   margin: 30px 0 110px;
 }
 
 .temperature-retention-section .icons {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   gap: 48px;
-  margin-top: 24px;
+  margin-top: 110px;
 }
 
 .temperature-retention-section .icon-block {
@@ -124,12 +127,12 @@
   text-transform: uppercase;
 }
 
-.temperature-retention-section .icon-block .cold {
+.temperature-retention-section .cold {
   color: #2c20b7;
   margin-bottom: 8px;
 }
 
-.temperature-retention-section .icon-block .hot {
+.temperature-retention-section .hot {
   color: #f00d19;
 }
 
@@ -139,16 +142,22 @@
 }
 
 @media only screen and (max-width: 768px) {
+  .temperature-retention-section {
+    flex-direction: column;
+  }
+
+  .temperature-retention-section .column {
+    max-width: 100%;
+  }
+
   .temperature-retention-section h1 {
     font-size: 40px;
-    line-height: 48px;
     margin-top: 60px;
   }
 
   .temperature-retention-section p {
     font-size: 16px;
-    line-height: 24px;
-    margin: 20px 0 60px;
+    margin-bottom: 60px;
   }
 
   .temperature-retention-section .icon-block h2 {
@@ -158,12 +167,12 @@
 {% endstyle %}
 
 <div class="temperature-retention-section">
-  <div class="left">
+  <div class="column left">
     <h1>{{ section.settings.heading }}</h1>
     <p>{{ section.settings.paragraph }}</p>
   </div>
 
-  <div class="right">
+  <div class="column right">
     <div class="icons">
       <div class="icon-block">
         {% if section.settings.cold_image %}
