@@ -53,14 +53,12 @@
 {% stylesheet %}
 .promotions {
     width: 100%;
-    height: 420.862px;
     font-family: "DINOT - Cond Bold";
     letter-spacing: 0.4px;
 }
 
 .promotions-container {
     width: 100%;
-    height: 420.862px;
     padding: 4px 12px;
 }
 
@@ -68,17 +66,20 @@
     display: flex;
     flex-flow: row wrap;
     margin: 0 -12px;
-    height: 412.862px;
+    width: 100%;
 }
 
 .promotion-item {
-    height: 412.862px;
-    width: 380.2px;
-    max-width: 100%;
-    padding: 0 12px;
+    flex: 1 1 300px;
+    min-width: 300px;
+    padding: 20px;
     text-align: center;
     border: 3.2px solid #ffffff;
-    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
 }
 
 .promotion-item--gray {
@@ -93,9 +94,15 @@
     display: block;
     width: 140px;
     height: 140px;
-    margin: 48px 104.9px 24px;
+    margin: 0 auto 24px;
     max-width: 140px;
     animation: fade-in 0.5s cubic-bezier(0.29, 0.65, 0.58, 1) forwards;
+}
+
+.promotion-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .promotion-title {
@@ -113,8 +120,8 @@
     font-size: 19px;
     line-height: 30px;
     font-family: DINOT;
-    margin: 0 0 16px;
-    padding: 6.9875px 20.9875px 38.475px;
+    margin: 0;
+    padding: 0 20px;
     text-align: center;
 }
 
@@ -126,6 +133,13 @@
         opacity: 1;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .promotion-item {
+        flex: 1 1 100%;
+        min-width: 100%;
+    }
+}
 {% endstylesheet %}
 
 <div class="promotions">
@@ -133,17 +147,22 @@
         <div class="promotions-grid">
             {% for block in section.blocks %}
                 <div class="promotion-item" style="background-color: {{ block.settings.background }}">
-                    {% if block.settings.icon %}
-                        <image class="promotion-icon">
-                            <img src="{{ block.settings.icon | img_url: '200x' }}" alt="{{ block.settings.title }}" width="200" height="200.0" />
-                        </image>
+                    {% if block.settings.icon != blank %}
+                        <div class="promotion-icon">
+                            {{ block.settings.icon | image_url: width: 200 | image_tag: 
+                                alt: block.settings.title,
+                                width: 200,
+                                height: 200,
+                                loading: 'lazy'
+                            }}
+                        </div>
                     {% endif %}
-                    {% if block.settings.title %}
+                    {% if block.settings.title != blank %}
                         <h1 class="promotion-title">
                             {{ block.settings.title }}
                         </h1>
                     {% endif %}
-                    {% if block.settings.description %}
+                    {% if block.settings.description != blank %}
                         <p class="promotion-description">
                             {{ block.settings.description }}
                         </p>
