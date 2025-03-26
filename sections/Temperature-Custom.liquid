@@ -19,19 +19,24 @@
       "default": 520
     },
     {
-      "type": "text",
+      "type": "range",
       "id": "section_padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
       "label": "Padding de la Sección",
-      "info": "Padding superior, derecho, inferior, izquierdo. Si no se usa, dejar en blanco",
-      "placeholder": "50px,,50px,"
+      "default": 50
     },
     {
-      "type": "text",
+      "type": "range",
       "id": "section_margin",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
       "label": "Margin de la Sección",
-      "info": "Margin superior, derecho, inferior, izquierdo. Si no se usa, dejar en blanco",
-      "default": ",,50px,",
-      "placeholder": ",,50px,"
+      "default": 0
     },
     {
       "type": "text",
@@ -115,19 +120,24 @@
       "default": "#212529"
     },
     {
-      "type": "text",
+      "type": "range",
       "id": "heading_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
       "label": "Padding del Título",
-      "info": "Padding superior, derecho, inferior, izquierdo. Si no se usa, dejar en blanco",
-      "placeholder": "50px,,50px,"
+      "default": 48
     },
     {
-      "type": "text",
+      "type": "range",
       "id": "heading_margin",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
       "label": "Margin del Título",
-      "info": "Margin superior, derecho, inferior, izquierdo. Si no se usa, dejar en blanco",
-      "default": ",,50px,",
-      "placeholder": ",,50px,"
+      "default": 0
     },
     {
       "type": "select",
@@ -185,19 +195,24 @@
       "default": "#212529"
     },
     {
-      "type": "text",
+      "type": "range",
       "id": "paragraph_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
       "label": "Padding del Párrafo",
-      "info": "Padding superior, derecho, inferior, izquierdo. Si no se usa, dejar en blanco",
-      "placeholder": "50px,,50px,"
+      "default": 29
     },
     {
-      "type": "text",
+      "type": "range",
       "id": "paragraph_margin",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
       "label": "Margin del Párrafo",
-      "info": "Margin superior, derecho, inferior, izquierdo. Si no se usa, dejar en blanco",
-      "default": ",,50px,",
-      "placeholder": ",,50px,"
+      "default": 0
     },
     {
       "type": "select",
@@ -267,19 +282,24 @@
       "default": "#F00D19"
     },
     {
-      "type": "text",
+      "type": "range",
       "id": "feature_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
       "label": "Padding de las Características",
-      "info": "Padding superior, derecho, inferior, izquierdo. Si no se usa, dejar en blanco",
-      "placeholder": "50px,,50px,"
+      "default": 16
     },
     {
-      "type": "text",
+      "type": "range",
       "id": "feature_margin",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
       "label": "Margin de las Características",
-      "info": "Margin superior, derecho, inferior, izquierdo. Si no se usa, dejar en blanco",
-      "default": ",,50px,",
-      "placeholder": ",,50px,"
+      "default": 0
     },
     {
       "type": "select",
@@ -314,8 +334,8 @@
 {% style %}
 .temperature-retention {
     height: {{ section.settings.section_height }}px;
-    padding: {% if section.settings.section_padding != blank %}{{ section.settings.section_padding }}{% else %}50px{% endif %};
-    margin: {% if section.settings.section_margin != blank %}{{ section.settings.section_margin }}{% else %}0{% endif %};
+    padding: {{ section.settings.section_padding }}px;
+    margin: {{ section.settings.section_margin }}px 0;
     width: 100%;
     box-sizing: border-box;
 }
@@ -419,8 +439,8 @@
     font-size: {{ section.settings.heading_size }}px;
     line-height: {{ section.settings.heading_line_height }};
     color: {{ section.settings.heading_color }};
-    padding: {% if section.settings.heading_padding != blank %}{{ section.settings.heading_padding }}{% else %}48px 0{% endif %};
-    margin: {% if section.settings.heading_margin != blank %}{{ section.settings.heading_margin }}{% else %}0{% endif %};
+    padding: {{ section.settings.heading_padding }}px 0;
+    margin: {{ section.settings.heading_margin }}px 0;
     text-align: {{ section.settings.heading_text_align }};
     text-transform: uppercase;
 }
@@ -430,8 +450,8 @@
     font-size: {{ section.settings.paragraph_size }}px;
     line-height: {{ section.settings.paragraph_line_height }};
     color: {{ section.settings.paragraph_color }};
-    padding: {% if section.settings.paragraph_padding != blank %}{{ section.settings.paragraph_padding }}{% else %}29px 0{% endif %};
-    margin: {% if section.settings.paragraph_margin != blank %}{{ section.settings.paragraph_margin }}{% else %}0{% endif %};
+    padding: {{ section.settings.paragraph_padding }}px 0;
+    margin: {{ section.settings.paragraph_margin }}px 0;
     text-align: {{ section.settings.paragraph_text_align }};
 }
 
@@ -567,8 +587,8 @@
     font-size: {{ section.settings.feature_size }}px;
     line-height: {{ section.settings.feature_line_height }};
     color: {{ section.settings.feature_color }};
-    padding: {% if section.settings.feature_padding != blank %}{{ section.settings.feature_padding }}{% else %}16px 0{% endif %};
-    margin: {% if section.settings.feature_margin != blank %}{{ section.settings.feature_margin }}{% else %}0{% endif %};
+    padding: {{ section.settings.feature_padding }}px 0;
+    margin: {{ section.settings.feature_margin }}px 0;
     text-align: {{ section.settings.feature_text_align }};
     text-transform: uppercase;
 }
