@@ -441,6 +441,54 @@
         "code_cus_css": ""
       }
     },
+    "about_us_eMQdX8": {
+      "type": "about_us",
+      "blocks": {
+        "bl_text_8pYg9C": {
+          "type": "bl_text",
+          "settings": {
+            "text": "<h2>Hecho para durar. Diseñado para destacar.</h2>",
+            "mgb": 25,
+            "mgb_mb": 10
+          }
+        },
+        "bl_text_nGzNaJ": {
+          "type": "bl_text",
+          "settings": {
+            "text": "<p>Cada Master Holder está pensado para brindarte funcionalidad, estilo y rendimiento.</p>",
+            "mgb": 25,
+            "mgb_mb": 10
+          }
+        }
+      },
+      "block_order": [
+        "bl_text_8pYg9C",
+        "bl_text_nGzNaJ"
+      ],
+      "settings": {
+        "design_heading": "1",
+        "heading_align": "t4s-text-center",
+        "top_heading": "",
+        "icon_heading": "las la-gem",
+        "top_subheading": "",
+        "tophead_mb": 30,
+        "txt_align": "center",
+        "image_ratio": "ratio16_9",
+        "image_size": "cover",
+        "image_position": "8",
+        "layout": "t4s-container-wrap",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": ",,50px,",
+        "pd": "",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": ",,30px,",
+        "pd_mb": "",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
     "hero_image_njqizK": {
       "type": "hero_image",
       "settings": {
@@ -750,6 +798,7 @@
     "trapeze_custom_e997h9",
     "temperature_custom_DeDBKP",
     "collections_list_manual_XUm7Kj",
+    "about_us_eMQdX8",
     "hero_image_njqizK",
     "atributes_custom_gbcLxz",
     "hero_image_yDPyzQ"
