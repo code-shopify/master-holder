@@ -384,12 +384,12 @@
     "collections_list_manual_XUm7Kj": {
       "type": "collections-list-manual",
       "blocks": {
-        "collection_item_HbMEqD": {
+        "collection_item_NaD9KW": {
           "type": "collection_item",
           "settings": {
-            "collection": "",
-            "image": "shopify://shop_images/Tumbler_XL_-_2A.webp",
-            "collection_title": "Collection title",
+            "collection": "4-en-1-anticaida",
+            "image": "shopify://shop_images/tapa-vaso-4-en-1-16-tapa-855215.jpg",
+            "collection_title": "",
             "collection_link": ""
           }
         },
@@ -397,25 +397,25 @@
           "type": "collection_item",
           "settings": {
             "collection": "portalaton-5-en-1",
-            "image": "shopify://shop_images/Master_Holder_Portalaton_5en1_Banner_cuadrado.png",
-            "collection_title": "Collection title",
+            "image": "shopify://shop_images/Tumbler_XL_-_1A.webp",
+            "collection_title": "",
             "collection_link": ""
           }
         },
-        "collection_item_NaD9KW": {
+        "collection_item_HbMEqD": {
           "type": "collection_item",
           "settings": {
-            "collection": "4-en-1-anticaida",
-            "image": "shopify://shop_images/tapa-vaso-4-en-1-16-tapa-855215.jpg",
-            "collection_title": "Collection title",
+            "collection": "",
+            "image": "shopify://shop_images/Tumbler_XL_-_2A.webp",
+            "collection_title": "",
             "collection_link": ""
           }
         }
       },
       "block_order": [
-        "collection_item_HbMEqD",
+        "collection_item_NaD9KW",
         "collection_item_KqLQKB",
-        "collection_item_NaD9KW"
+        "collection_item_HbMEqD"
       ],
       "settings": {
         "design_heading": "1",
