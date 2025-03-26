@@ -15,16 +15,186 @@
           "label": "Ícono"
         },
         {
+          "type": "range",
+          "id": "icon_width",
+          "min": 50,
+          "max": 300,
+          "step": 10,
+          "unit": "px",
+          "label": "Ancho del ícono",
+          "default": 140
+        },
+        {
+          "type": "range",
+          "id": "icon_height",
+          "min": 50,
+          "max": 300,
+          "step": 10,
+          "unit": "px",
+          "label": "Alto del ícono",
+          "default": 140
+        },
+        {
+          "type": "range",
+          "id": "icon_margin_top",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "px",
+          "label": "Margen superior del ícono",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "icon_margin_bottom",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "px",
+          "label": "Margen inferior del ícono",
+          "default": 24
+        },
+        {
           "type": "text",
           "id": "title",
           "label": "Título",
           "default": "DISHWASHER SAFE"
         },
         {
+          "type": "select",
+          "id": "title_font",
+          "label": "Fuente del título",
+          "options": [
+            {
+              "value": "DINOT - Cond Bold",
+              "label": "DINOT - Cond Bold"
+            },
+            {
+              "value": "Arial",
+              "label": "Arial"
+            },
+            {
+              "value": "Helvetica",
+              "label": "Helvetica"
+            }
+          ],
+          "default": "DINOT - Cond Bold"
+        },
+        {
+          "type": "range",
+          "id": "title_size",
+          "min": 16,
+          "max": 60,
+          "step": 2,
+          "unit": "px",
+          "label": "Tamaño del título",
+          "default": 33
+        },
+        {
+          "type": "range",
+          "id": "title_line_height",
+          "min": 1,
+          "max": 2,
+          "step": 0.1,
+          "label": "Altura de línea del título",
+          "default": 1.1
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Color del título",
+          "default": "#ffffff"
+        },
+        {
+          "type": "range",
+          "id": "title_margin_bottom",
+          "min": 0,
+          "max": 50,
+          "step": 5,
+          "unit": "px",
+          "label": "Margen inferior del título",
+          "default": 8
+        },
+        {
           "type": "textarea",
           "id": "description",
           "label": "Descripción",
           "default": "Most of our products are dishwasher-safe. Easy to clean and stand the test of time."
+        },
+        {
+          "type": "select",
+          "id": "description_font",
+          "label": "Fuente de la descripción",
+          "options": [
+            {
+              "value": "DINOT",
+              "label": "DINOT"
+            },
+            {
+              "value": "Arial",
+              "label": "Arial"
+            },
+            {
+              "value": "Helvetica",
+              "label": "Helvetica"
+            }
+          ],
+          "default": "DINOT"
+        },
+        {
+          "type": "range",
+          "id": "description_size",
+          "min": 12,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "label": "Tamaño de la descripción",
+          "default": 19
+        },
+        {
+          "type": "range",
+          "id": "description_line_height",
+          "min": 1,
+          "max": 2,
+          "step": 0.1,
+          "label": "Altura de línea de la descripción",
+          "default": 1.6
+        },
+        {
+          "type": "color",
+          "id": "description_color",
+          "label": "Color de la descripción",
+          "default": "#ffffff"
+        },
+        {
+          "type": "range",
+          "id": "description_padding",
+          "min": 0,
+          "max": 50,
+          "step": 5,
+          "unit": "px",
+          "label": "Padding de la descripción",
+          "default": 20
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "label": "Alineación del texto",
+          "options": [
+            {
+              "value": "left",
+              "label": "Izquierda"
+            },
+            {
+              "value": "center",
+              "label": "Centro"
+            },
+            {
+              "value": "right",
+              "label": "Derecha"
+            }
+          ],
+          "default": "center"
         },
         {
           "type": "color",
@@ -92,10 +262,7 @@
 
 .promotion-icon {
     display: block;
-    width: 140px;
-    height: 140px;
-    margin: 0 auto 24px;
-    max-width: 140px;
+    margin: 0 auto;
     animation: fade-in 0.5s cubic-bezier(0.29, 0.65, 0.58, 1) forwards;
 }
 
@@ -106,22 +273,11 @@
 }
 
 .promotion-title {
-    color: #ffffff;
-    font-size: 33px;
-    line-height: 35px;
-    font-weight: 500;
     text-transform: uppercase;
-    margin: 0 0 8px;
     text-align: center;
 }
 
 .promotion-description {
-    color: #ffffff;
-    font-size: 19px;
-    line-height: 30px;
-    font-family: DINOT;
-    margin: 0;
-    padding: 0 20px;
     text-align: center;
 }
 
@@ -148,22 +304,41 @@
             {% for block in section.blocks %}
                 <div class="promotion-item" style="background-color: {{ block.settings.background }}">
                     {% if block.settings.icon != blank %}
-                        <div class="promotion-icon">
-                            {{ block.settings.icon | image_url: width: 200 | image_tag: 
+                        <div class="promotion-icon" style="
+                            width: {{ block.settings.icon_width }}px;
+                            height: {{ block.settings.icon_height }}px;
+                            margin-top: {{ block.settings.icon_margin_top }}px;
+                            margin-bottom: {{ block.settings.icon_margin_bottom }}px;
+                        ">
+                            {{ block.settings.icon | image_url: width: block.settings.icon_width | image_tag: 
                                 alt: block.settings.title,
-                                width: 200,
-                                height: 200,
+                                width: block.settings.icon_width,
+                                height: block.settings.icon_height,
                                 loading: 'lazy'
                             }}
                         </div>
                     {% endif %}
                     {% if block.settings.title != blank %}
-                        <h1 class="promotion-title">
+                        <h1 class="promotion-title" style="
+                            font-family: {{ block.settings.title_font }};
+                            font-size: {{ block.settings.title_size }}px;
+                            line-height: {{ block.settings.title_line_height }};
+                            color: {{ block.settings.title_color }};
+                            margin-bottom: {{ block.settings.title_margin_bottom }}px;
+                            text-align: {{ block.settings.text_alignment }};
+                        ">
                             {{ block.settings.title }}
                         </h1>
                     {% endif %}
                     {% if block.settings.description != blank %}
-                        <p class="promotion-description">
+                        <p class="promotion-description" style="
+                            font-family: {{ block.settings.description_font }};
+                            font-size: {{ block.settings.description_size }}px;
+                            line-height: {{ block.settings.description_line_height }};
+                            color: {{ block.settings.description_color }};
+                            padding: 0 {{ block.settings.description_padding }}px;
+                            text-align: {{ block.settings.text_alignment }};
+                        ">
                             {{ block.settings.description }}
                         </p>
                     {% endif %}
