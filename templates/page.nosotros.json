@@ -85,48 +85,13 @@
         "pd_mb": ""
       }
     },
-    "video_hero_fqdPz8": {
-      "type": "video-hero",
-      "settings": {
-        "video_url": "https://www.youtube.com/watch?v=3lINrvuqwsU",
-        "title": "Over 120 years of heritage",
-        "description": "For over a century people have loved Thermos products because they make everyday life better every time. The little things go a long way. So do we.",
-        "height": 500,
-        "overlay_color": "#000000",
-        "overlay_opacity": 0.4,
-        "text_color": "#ffffff"
-      }
-    },
     "background_video_qitbL7": {
       "type": "background_video",
       "blocks": {
-        "custom_text_Thy4TG": {
-          "type": "custom_text",
-          "settings": {
-            "text": "Theme Kalles",
-            "remove_br_tag": false,
-            "tag": "p",
-            "fontf": "inherit",
-            "text_cl": "#fff",
-            "text_fs": 16,
-            "text_lh": 0,
-            "text_fw": 400,
-            "text_ls": 1,
-            "text_mgb": 15,
-            "font_italic": false,
-            "text_shadow": false,
-            "hidden_mobile": false,
-            "text_fs_mb": 16,
-            "text_lh_mb": 0,
-            "text_ls_mb": 0,
-            "text_mgb_mobile": 10,
-            "animation": "none"
-          }
-        },
         "custom_text_8HRhyx": {
           "type": "custom_text",
           "settings": {
-            "text": "Best shopify theme",
+            "text": "Over 120 years of heritage",
             "remove_br_tag": false,
             "tag": "p",
             "fontf": "inherit",
@@ -146,8 +111,32 @@
             "animation": "none"
           }
         },
+        "custom_text_Thy4TG": {
+          "type": "custom_text",
+          "settings": {
+            "text": "For over a century people have loved Thermos products because they make everyday life better every time. The little things go a long way. So do we.",
+            "remove_br_tag": false,
+            "tag": "p",
+            "fontf": "inherit",
+            "text_cl": "#fff",
+            "text_fs": 16,
+            "text_lh": 0,
+            "text_fw": 400,
+            "text_ls": 1,
+            "text_mgb": 15,
+            "font_italic": false,
+            "text_shadow": false,
+            "hidden_mobile": false,
+            "text_fs_mb": 16,
+            "text_lh_mb": 0,
+            "text_ls_mb": 0,
+            "text_mgb_mobile": 10,
+            "animation": "none"
+          }
+        },
         "custom_button_w9gG6c": {
           "type": "custom_button",
+          "disabled": true,
           "settings": {
             "button_text": "Button label",
             "button_link": "",
@@ -179,14 +168,14 @@
         }
       },
       "block_order": [
-        "custom_text_Thy4TG",
         "custom_text_8HRhyx",
+        "custom_text_Thy4TG",
         "custom_button_w9gG6c"
       ],
       "settings": {
         "se_height": "t4s_ratio16_9",
         "custom_dk": true,
-        "height_dk": 600,
+        "height_dk": 650,
         "custom_tb": true,
         "height_tb": 400,
         "custom_mb": true,
@@ -237,7 +226,6 @@
     "main",
     "sidebar-page",
     "custom_liquid_nitRTx",
-    "video_hero_fqdPz8",
     "background_video_qitbL7"
   ]
 }
