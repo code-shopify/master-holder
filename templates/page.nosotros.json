@@ -67,7 +67,7 @@
             "remove_br_tag": false,
             "tag": "p",
             "fontf": "inherit",
-            "text_cl": "#fff",
+            "text_cl": "#ffffff",
             "text_fs": 70,
             "text_lh": 70,
             "text_fw": 300,
@@ -90,7 +90,7 @@
             "remove_br_tag": false,
             "tag": "p",
             "fontf": "inherit",
-            "text_cl": "#fff",
+            "text_cl": "#ffffff",
             "text_fs": 16,
             "text_lh": 0,
             "text_fw": 400,
@@ -117,10 +117,10 @@
             "button_icon_w": 0,
             "button_style": "default",
             "button_effect": "default",
-            "pri_cl": "#222",
-            "second_cl": "#fff",
+            "pri_cl": "#222222",
+            "second_cl": "#ffffff",
             "pri_cl_hover": "#56cfe1",
-            "second_cl_hover": "#fff",
+            "second_cl_hover": "#ffffff",
             "fsbutton": 14,
             "fwbutton": 400,
             "button_ls": 0,
@@ -162,17 +162,17 @@
         "ch_pos": 50,
         "cv_pos_mb": 50,
         "ch_pos_mb": 50,
-        "bg_overlay": "#000",
+        "bg_overlay": "#000000",
         "bg_opacity": 0,
-        "bg_content_cl": "#fff",
+        "bg_content_cl": "#ffffff",
         "bg_content_op": 0,
         "content_pd_tb": 15,
         "content_pd_lr": 15,
         "content_pd_tb_mb": 10,
         "content_pd_lr_mb": 10,
         "border_bl": false,
-        "br_color": "#222",
-        "br_bg": "#fff",
+        "br_color": "#222222",
+        "br_bg": "#ffffff",
         "br_opacity": 50,
         "br_style": "solid",
         "br_pd": 20,
@@ -198,6 +198,7 @@
         "bl_image_LtrmWH": {
           "type": "bl_image",
           "settings": {
+            "image1": "shopify://shop_images/Master_Holder_Portalaton_5en1_Banner_cuadrado.png",
             "col_dk": "6",
             "col_tb": "6",
             "layout_des": "carousel",
@@ -276,6 +277,14 @@
         "use_cus_css": false,
         "code_cus_css": ""
       }
+    },
+    "trapeze_UfXMtJ": {
+      "type": "trapeze",
+      "settings": {
+        "heading": "HOT STAYS HOT.COLD STAYS COLD.",
+        "description": "Our durable double wall stainless steel vacuum insulated technology, you are certain to find a product that fits your lifestyle while delivering superior performance with exceptional durability.",
+        "background_image": "shopify://shop_images/IS2102GT4_ICON_OctMed_23_CAL_Lake_16A_0006_Steam_Pour_HotStaysHot_3000x1700_1024x1024_8d8f649b-433a-4501-b13a-c8e459abad22.webp"
+      }
     }
   },
   "order": [
@@ -283,6 +292,7 @@
     "main",
     "sidebar-page",
     "background_video_qitbL7",
-    "image_text_4nqpw4"
+    "image_text_4nqpw4",
+    "trapeze_UfXMtJ"
   ]
 }
