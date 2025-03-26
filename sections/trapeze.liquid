@@ -8,13 +8,13 @@
       "type": "text",
       "id": "heading",
       "label": "Título",
-      "default": "HOT STAYS HOT. COLD STAYS COLD."
+      "default": "HOT STAYS HOT.<br>COLD STAYS COLD."
     },
     {
       "type": "textarea",
       "id": "description",
       "label": "Descripción",
-      "default": "Our durable double wall stainless steel vacuum insulated technology..."
+      "default": "Our durable double wall stainless steel vacuum insulated technology, you are certain to find a product that fits your lifestyle while delivering superior performance with exceptional durability."
     },
     {
       "type": "image_picker",
@@ -45,41 +45,107 @@
 .shopify_trapeze-section {
   display: flex;
   min-height: 617px;
+  font-family: var(--thermos-dinot, "DINOT - Cond Bold", sans-serif);
   overflow: hidden;
 }
-.shopify_trapeze-section .content {
-  width: 50%;
-  background-color: #3DA3D3;
+
+.shopify_trapeze-section .left {
+  width: 48%;
+  background-color: var(--thermos-cornflower-blue);
   padding: 76px 96px;
+  position: relative;
   color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-.shopify_trapeze-section .content h2 {
+
+.shopify_trapeze-section .left::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -66px;
+  width: 128px;
+  background-color: var(--thermos-cornflower-blue);
+  transform: skewX(-10deg);
+}
+
+.shopify_trapeze-section .left h2 {
+  font-family: var(--thermos-dinot-cond-bold, "DINOT - Cond Bold");
   font-size: 70px;
   line-height: 70px;
+  font-weight: bold;
   text-transform: uppercase;
   margin: 0 0 24px;
 }
-.shopify_trapeze-section .content p {
+
+.shopify_trapeze-section .left p {
+  font-family: var(--thermos-dinot, DINOT);
   font-size: 19px;
   line-height: 25.5px;
+  font-weight: 700;
+  margin: 0;
 }
+
 .shopify_trapeze-section .icons {
   display: flex;
-  gap: 12px;
-  margin-top: 24px;
+  gap: 16px;
+  margin-top: 32px;
+  flex-wrap: wrap;
 }
+
 .shopify_trapeze-section .icons img {
   width: 217px;
+  max-width: 100%;
 }
-.shopify_trapeze-section .image {
-  width: 50%;
-  background-size: cover;
+
+.shopify_trapeze-section .right {
+  width: 52%;
   background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* Mobile */
+@media only screen and (max-width: 768px) {
+  .shopify_trapeze-section {
+    flex-direction: column-reverse;
+  }
+
+  .shopify_trapeze-section .left {
+    width: 100%;
+    padding: 48px 24px;
+    text-align: center;
+  }
+
+  .shopify_trapeze-section .left::after {
+    display: none;
+  }
+
+  .shopify_trapeze-section .left h2 {
+    font-size: 34px;
+    line-height: 40px;
+  }
+
+  .shopify_trapeze-section .left p {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .shopify_trapeze-section .right {
+    width: 100%;
+    height: 250px;
+  }
+
+  .shopify_trapeze-section .icons {
+    justify-content: center;
+  }
 }
 {% endstyle %}
 
 <div class="shopify_trapeze-section">
-  <div class="content">
+  <div class="left">
     <h2>{{ section.settings.heading }}</h2>
     <p>{{ section.settings.description }}</p>
     <div class="icons">
@@ -91,5 +157,5 @@
       {% endif %}
     </div>
   </div>
-  <div class="image" style="background-image: url({{ section.settings.background_image | image_url }});"></div>
+  <div class="right" style="background-image: url('{{ section.settings.background_image | image_url: width: 1200 }}');"></div>
 </div>
