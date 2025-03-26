@@ -84,12 +84,25 @@
         "mg_mb": ",,30px,",
         "pd_mb": ""
       }
+    },
+    "video_hero_fqdPz8": {
+      "type": "video-hero",
+      "settings": {
+        "video_url": "https://www.youtube.com/watch?v=3lINrvuqwsU",
+        "title": "Over 120 years of heritage",
+        "description": "For over a century people have loved Thermos products because they make everyday life better every time. The little things go a long way. So do we.",
+        "height": 500,
+        "overlay_color": "#000000",
+        "overlay_opacity": 0.4,
+        "text_color": "#ffffff"
+      }
     }
   },
   "order": [
     "heading",
     "main",
     "sidebar-page",
-    "custom_liquid_nitRTx"
+    "custom_liquid_nitRTx",
+    "video_hero_fqdPz8"
   ]
 }
