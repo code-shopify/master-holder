@@ -280,12 +280,13 @@
     },
     "trapeze_custom_e997h9": {
       "type": "Trapeze-Custom",
+      "disabled": true,
       "settings": {
         "heading": "HOT STAYS HOT.COLD STAYS COLD.",
         "description": "Our durable double wall stainless steel vacuum insulated technology, you are certain to find a product that fits your lifestyle while delivering superior performance with exceptional durability."
       }
     },
-    "temperature_custom_DAKFW7": {
+    "temperature_custom_DeDBKP": {
       "type": "Temperature-Custom",
       "settings": {
         "heading": "SUPERIOR TEMPERATURE RETENTION",
@@ -304,6 +305,6 @@
     "background_video_qitbL7",
     "image_text_4nqpw4",
     "trapeze_custom_e997h9",
-    "temperature_custom_DAKFW7"
+    "temperature_custom_DeDBKP"
   ]
 }
