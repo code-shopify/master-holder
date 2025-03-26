@@ -365,7 +365,20 @@
         "feature_margin_right": 0,
         "feature_margin_bottom": 0,
         "feature_margin_left": 0,
-        "feature_text_align": "center"
+        "feature_text_align": "center",
+        "features_padding_top": 0,
+        "features_padding_right": 12,
+        "features_padding_bottom": 0,
+        "features_padding_left": 12,
+        "features_margin_top": 110,
+        "features_margin_right": 0,
+        "features_margin_bottom": 0,
+        "features_margin_left": 0,
+        "image_size": 140,
+        "image_margin_top": 0,
+        "image_margin_right": 40,
+        "image_margin_bottom": 0,
+        "image_margin_left": 40
       }
     },
     "collections_list_manual_XUm7Kj": {
@@ -600,6 +613,7 @@
       "blocks": {
         "custom_text_DVAwzL": {
           "type": "custom_text",
+          "disabled": true,
           "settings": {
             "text": "Theme Kalles",
             "remove_br_tag": false,
@@ -623,6 +637,7 @@
         },
         "custom_text_dxHh88": {
           "type": "custom_text",
+          "disabled": true,
           "settings": {
             "text": "Best shopify theme",
             "remove_br_tag": false,
@@ -646,6 +661,7 @@
         },
         "custom_button_GfaHkx": {
           "type": "custom_button",
+          "disabled": true,
           "settings": {
             "button_text": "Button label",
             "button_link": "",
@@ -689,6 +705,7 @@
         "height_tb": 400,
         "custom_mb": true,
         "height_mb": 250,
+        "image": "shopify://shop_images/03.jpg",
         "parallax": false,
         "image_position": "0",
         "link_img1": "",
