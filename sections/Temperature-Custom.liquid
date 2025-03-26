@@ -49,6 +49,126 @@
       "id": "hot_text2",
       "label": "Hot: línea 2",
       "default": "Hot"
+    },
+    {
+      "type": "header",
+      "content": "Estilos del Título Principal"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Fuente del Título",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 12,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamaño del Título",
+      "default": 70
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Color del Título",
+      "default": "#212529"
+    },
+    {
+      "type": "range",
+      "id": "heading_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding del Título",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Estilos del Párrafo"
+    },
+    {
+      "type": "font_picker",
+      "id": "paragraph_font",
+      "label": "Fuente del Párrafo",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "paragraph_size",
+      "min": 12,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamaño del Párrafo",
+      "default": 22
+    },
+    {
+      "type": "color",
+      "id": "paragraph_color",
+      "label": "Color del Párrafo",
+      "default": "#212529"
+    },
+    {
+      "type": "range",
+      "id": "paragraph_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding del Párrafo",
+      "default": 29
+    },
+    {
+      "type": "header",
+      "content": "Estilos de las Características"
+    },
+    {
+      "type": "font_picker",
+      "id": "feature_font",
+      "label": "Fuente de las Características",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "feature_size",
+      "min": 12,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamaño de las Características",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "feature_color",
+      "label": "Color Base de las Características",
+      "default": "#212529"
+    },
+    {
+      "type": "color",
+      "id": "cold_feature_color",
+      "label": "Color de Característica Cold",
+      "default": "#2C20B7"
+    },
+    {
+      "type": "color",
+      "id": "hot_feature_color",
+      "label": "Color de Característica Hot",
+      "default": "#F00D19"
+    },
+    {
+      "type": "range",
+      "id": "feature_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding de las Características",
+      "default": 16
     }
   ],
   "presets": [
@@ -181,60 +301,22 @@
 }
 
 .temperature-retention__heading {
-    block-size: 146px;
-    border-block-end-color: rgb(33, 37, 41);
-    border-block-start-color: rgb(33, 37, 41);
-    border-inline-end-color: rgb(33, 37, 41);
-    border-inline-start-color: rgb(33, 37, 41);
-    box-sizing: border-box;
-    caret-color: rgb(33, 37, 41);
-    color: rgb(33, 37, 41);
-    column-rule-color: rgb(33, 37, 41);
-    height: 146px;
-    inline-size: 736.4px;
-    margin-block-end: 8px;
-    margin-block-start: 110.45px;
-    perspective-origin: 368.2px 73px;
+    font-family: {{ section.settings.heading_font.family }};
+    font-size: {{ section.settings.heading_size }}px;
+    color: {{ section.settings.heading_color }};
+    padding: {{ section.settings.heading_padding }}px 0;
     text-align: center;
-    text-decoration: none solid rgb(33, 37, 41);
-    text-emphasis-color: rgb(33, 37, 41);
-    text-rendering: optimizespeed;
-    text-size-adjust: 100%;
     text-transform: uppercase;
-    transform-origin: 368.2px 73px;
-    width: 736.4px;
-    border: 0px none rgb(33, 37, 41);
-    font: 500 70px / 73px "DINOT - Cond Bold";
-    margin: 110.45px 0px 8px;
-    outline: rgb(33, 37, 41) none 0px;
+    margin: 0;
 }
 
 .temperature-retention__paragraph {
-    block-size: 72px;
-    border-block-end-color: rgb(33, 37, 41);
-    border-block-start-color: rgb(33, 37, 41);
-    border-inline-end-color: rgb(33, 37, 41);
-    border-inline-start-color: rgb(33, 37, 41);
-    box-sizing: border-box;
-    caret-color: rgb(33, 37, 41);
-    color: rgb(33, 37, 41);
-    column-rule-color: rgb(33, 37, 41);
-    height: 72px;
-    inline-size: 736.4px;
-    margin-block-end: 110.45px;
-    margin-block-start: 29.45px;
-    perspective-origin: 368.2px 36px;
+    font-family: {{ section.settings.paragraph_font.family }};
+    font-size: {{ section.settings.paragraph_size }}px;
+    color: {{ section.settings.paragraph_color }};
+    padding: {{ section.settings.paragraph_padding }}px 0;
     text-align: center;
-    text-decoration: none solid rgb(33, 37, 41);
-    text-emphasis-color: rgb(33, 37, 41);
-    text-rendering: optimizespeed;
-    text-size-adjust: 100%;
-    transform-origin: 368.2px 36px;
-    width: 736.4px;
-    border: 0px none rgb(33, 37, 41);
-    font: 22px / 36px DINOT;
-    margin: 29.45px 0px 110.45px;
-    outline: rgb(33, 37, 41) none 0px;
+    margin: 0;
 }
 
 .temperature-retention__features {
@@ -365,40 +447,21 @@
 }
 
 .temperature-retention__feature-title {
-    block-size: 48px;
-    border-block-end-color: rgb(33, 37, 41);
-    border-block-start-color: rgb(33, 37, 41);
-    border-inline-end-color: rgb(33, 37, 41);
-    border-inline-start-color: rgb(33, 37, 41);
-    box-sizing: border-box;
-    caret-color: rgb(33, 37, 41);
-    color: rgb(33, 37, 41);
-    column-rule-color: rgb(33, 37, 41);
-    height: 48px;
-    inline-size: 221.462px;
-    margin-block-end: 0px;
-    margin-block-start: 16px;
-    perspective-origin: 110.725px 24px;
+    font-family: {{ section.settings.feature_font.family }};
+    font-size: {{ section.settings.feature_size }}px;
+    color: {{ section.settings.feature_color }};
+    padding: {{ section.settings.feature_padding }}px 0;
     text-align: center;
-    text-decoration: none solid rgb(33, 37, 41);
-    text-emphasis-color: rgb(33, 37, 41);
-    text-rendering: optimizespeed;
-    text-size-adjust: 100%;
     text-transform: uppercase;
-    transform-origin: 110.731px 24px;
-    width: 221.462px;
-    border: 0px none rgb(33, 37, 41);
-    font: 500 40px / 48px "DINOT - Cond Bold";
-    margin: 16px 0px 0px;
-    outline: rgb(33, 37, 41) none 0px;
+    margin: 0;
 }
 
 .temperature-retention__feature-title--cold {
-    color: rgb(44, 32, 183);
+    color: {{ section.settings.cold_feature_color }};
 }
 
 .temperature-retention__feature-title--hot {
-    color: rgb(240, 13, 25);
+    color: {{ section.settings.hot_feature_color }};
 }
 
 {% endstyle %}
