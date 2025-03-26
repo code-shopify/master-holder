@@ -2173,6 +2173,150 @@
               "cl_gradient": "",
               "color_img": false
             }
+          },
+          "bg_color_CQHrQz": {
+            "type": "bg_color",
+            "settings": {
+              "title": "Azul Rey",
+              "color": "#012852",
+              "cl_gradient": "",
+              "color_img": false
+            }
+          },
+          "bg_color_8mzzhR": {
+            "type": "bg_color",
+            "settings": {
+              "title": "Morado",
+              "color": "#5a2b86",
+              "cl_gradient": "",
+              "color_img": false
+            }
+          },
+          "bg_color_CaVAJa": {
+            "type": "bg_color",
+            "settings": {
+              "title": "Rojo",
+              "color": "#6b100f",
+              "cl_gradient": "",
+              "color_img": false
+            }
+          },
+          "bg_color_hi3eXd": {
+            "type": "bg_color",
+            "settings": {
+              "title": "Negro",
+              "color": "#0a0b0a",
+              "cl_gradient": "",
+              "color_img": false
+            }
+          },
+          "bg_color_bagJnn": {
+            "type": "bg_color",
+            "settings": {
+              "title": "Azul",
+              "color": "#074e74",
+              "cl_gradient": "",
+              "color_img": false
+            }
+          },
+          "bg_color_XHxLHN": {
+            "type": "bg_color",
+            "settings": {
+              "title": "Rosa",
+              "color": "#b96b7a",
+              "cl_gradient": "",
+              "color_img": false
+            }
+          },
+          "bg_color_epq37j": {
+            "type": "bg_color",
+            "settings": {
+              "title": "Lila",
+              "color": "#876e7e",
+              "cl_gradient": "",
+              "color_img": false
+            }
+          },
+          "bg_color_EAMqXK": {
+            "type": "bg_color",
+            "settings": {
+              "title": "Crema",
+              "color": "#b9b09d",
+              "cl_gradient": "",
+              "color_img": false
+            }
+          },
+          "bg_color_mWmbLK": {
+            "type": "bg_color",
+            "settings": {
+              "title": "Pink Dust",
+              "color": "#dbb5ae",
+              "cl_gradient": "",
+              "color_img": false
+            }
+          },
+          "bg_color_K6XCAU": {
+            "type": "bg_color",
+            "settings": {
+              "title": "Rosa",
+              "color": "#f3386c",
+              "cl_gradient": "",
+              "color_img": false
+            }
+          },
+          "bg_color_aPxW3g": {
+            "type": "bg_color",
+            "settings": {
+              "title": "Light Blue",
+              "color": "#7eafb4",
+              "cl_gradient": "",
+              "color_img": false
+            }
+          },
+          "bg_color_7FGLWk": {
+            "type": "bg_color",
+            "settings": {
+              "title": "",
+              "color": "",
+              "cl_gradient": "",
+              "color_img": false
+            }
+          },
+          "bg_color_RTxDE6": {
+            "type": "bg_color",
+            "settings": {
+              "title": "",
+              "color": "",
+              "cl_gradient": "",
+              "color_img": false
+            }
+          },
+          "bg_color_aHpipe": {
+            "type": "bg_color",
+            "settings": {
+              "title": "",
+              "color": "",
+              "cl_gradient": "",
+              "color_img": false
+            }
+          },
+          "bg_color_RPfHfP": {
+            "type": "bg_color",
+            "settings": {
+              "title": "",
+              "color": "",
+              "cl_gradient": "",
+              "color_img": false
+            }
+          },
+          "bg_color_8xkLyW": {
+            "type": "bg_color",
+            "settings": {
+              "title": "",
+              "color": "",
+              "cl_gradient": "",
+              "color_img": false
+            }
           }
         },
         "block_order": [
@@ -2183,7 +2327,23 @@
           "bg_color_6P8yy6",
           "bg_color_BEKU9j",
           "bg_color_zeXJRF",
-          "bg_color_BYDQ8P"
+          "bg_color_BYDQ8P",
+          "bg_color_CQHrQz",
+          "bg_color_8mzzhR",
+          "bg_color_CaVAJa",
+          "bg_color_hi3eXd",
+          "bg_color_bagJnn",
+          "bg_color_XHxLHN",
+          "bg_color_epq37j",
+          "bg_color_EAMqXK",
+          "bg_color_mWmbLK",
+          "bg_color_K6XCAU",
+          "bg_color_aPxW3g",
+          "bg_color_7FGLWk",
+          "bg_color_RTxDE6",
+          "bg_color_aHpipe",
+          "bg_color_RPfHfP",
+          "bg_color_8xkLyW"
         ],
         "settings": {}
       },
