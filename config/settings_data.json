@@ -558,7 +558,7 @@
             "type": "base",
             "settings": {
               "title": "NOSOTROS",
-              "url": "/",
+              "url": "shopify://pages/somos-master-holder",
               "open_link": "_self",
               "icon": "",
               "cus_cl": false,
