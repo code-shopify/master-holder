@@ -2105,8 +2105,8 @@
           "06eaa184-e59c-4525-ac5d-eac6fc91f3e8": {
             "type": "bg_color",
             "settings": {
-              "title": "",
-              "color": "",
+              "title": "Azul",
+              "color": "#233c85",
               "cl_gradient": "",
               "color_img": false
             }
