@@ -1279,7 +1279,7 @@
             "type": "menu",
             "settings": {
               "title": "NOSOTROS",
-              "url": "/",
+              "url": "shopify://pages/somos-master-holder",
               "open_link": "_self",
               "menu": "",
               "lb": "",
@@ -2160,7 +2160,7 @@
             "type": "bg_color",
             "settings": {
               "title": "Blanco",
-              "color": "#fff",
+              "color": "#ffffff",
               "cl_gradient": "",
               "color_img": false
             }
