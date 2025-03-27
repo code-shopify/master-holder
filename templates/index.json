@@ -259,8 +259,8 @@
         "390cb6f8-c5fc-44ed-badf-074a03818e5a"
       ],
       "settings": {
-        "se_height": "t4s_ratioadapt_f",
-        "custom_dk": true,
+        "se_height": "t4s_ratioadapt",
+        "custom_dk": false,
         "height_dk": 700,
         "custom_tb": true,
         "height_tb": 500,
