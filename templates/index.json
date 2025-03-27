@@ -292,7 +292,7 @@
         "pd": "",
         "mg_tb": ",50px",
         "pd_tb": "",
-        "mg_mb": ",,10px,",
+        "mg_mb": "",
         "pd_mb": "",
         "use_cus_css": false,
         "code_cus_css": ".SectionID {\nbackground-color:red\n}"
