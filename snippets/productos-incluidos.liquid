@@ -1,12 +1,13 @@
-ok
-
 {%- if product.metafields.custom.inlcuye.value == blank -%}{%- continue -%}{% endif -%}
 
 <div class="t4s-complimentary">
   <h3 class="t4s-complimentary-title">{{ block.settings.text | default: "Tu compra incluye" }}</h3>
-  <ul class="t4s-complimentary_products">
+  <div class="t4s-included-wrapper">
     {%- for item in product.metafields.custom.inlcuye.value -%}
-      <li class="complimentary-card">
+      {% if forloop.index > 1 %}
+        <div class="plus-symbol">+</div>
+      {% endif %}
+      <div class="complimentary-card">
         <div class="card-image">
           <a href="{{ item.url }}">
             <img
@@ -21,9 +22,9 @@ ok
           <p class="product-title">{{ item.title }}</p>
           <p class="product-price"><span>{{ item.compare_at_price | default: item.price | money }}</span></p>
         </div>
-      </li>
+      </div>
     {%- endfor -%}
-  </ul>
+  </div>
 </div>
 
 <style>
@@ -36,13 +37,11 @@ ok
     margin-bottom: 1.5rem;
   }
 
-  .t4s-complimentary_products {
+  .t4s-included-wrapper {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    align-items: center;
+    gap: 12px;
   }
 
   .complimentary-card {
@@ -51,10 +50,10 @@ ok
     border: 1px solid #eee;
     border-radius: 10px;
     overflow: hidden;
-    position: relative;
     text-align: center;
     flex-shrink: 0;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    position: relative;
   }
 
   .card-image {
@@ -96,8 +95,15 @@ ok
     font-size: 0.85rem;
   }
 
+  .plus-symbol {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #007ace;
+    margin: 0 6px;
+  }
+
   @media (max-width: 768px) {
-    .t4s-complimentary_products {
+    .t4s-included-wrapper {
       overflow-x: auto;
       flex-wrap: nowrap;
       -webkit-overflow-scrolling: touch;
@@ -106,6 +112,10 @@ ok
 
     .complimentary-card {
       scroll-snap-align: start;
+    }
+
+    .plus-symbol {
+      flex-shrink: 0;
     }
   }
 </style>
