@@ -125,7 +125,7 @@
             "icon": "2",
             "icon_name": "las la-truck",
             "ani": "none",
-            "txt": "Order in the next [hour] to get it between [date_start] and [date_end]",
+            "txt": "Haz tu pedido en las próximas [hora] para recibirlo entre [fecha_inicio] y [fecha_fin] con Paquete Express.\nSi prefieres otra opción de paquetería, por favor indícalo en las notas de tu pedido.",
             "ds": 10,
             "de": 15,
             "mode": "1",
