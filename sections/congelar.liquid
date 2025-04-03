@@ -1,18 +1,17 @@
 {% schema %}
 {
-  "name": "efecto congelado",
+  "name": "Freeze Effect",
   "tag": "section",
   "class": "shopify-section",
   "settings": [],
   "presets": [
     {
-      "name": "efecto congelado",
+      "name": "Freeze Effect",
       "category": "Efectos visuales"
     }
   ]
 }
 {% endschema %}
-
 
 <style>
   .frost-container {
@@ -40,18 +39,18 @@
     width: 100%;
     height: 100%;
     opacity: 0;
-    animation: fadein 15s forwards 4s;
+    animation: fadein 3s forwards 0.5s;
     z-index: 2;
     pointer-events: none;
   }
 
   .frost::before {
-    background: linear-gradient(to right, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 25%, rgba(255,255,255,0) 75%, rgba(255,255,255,0.35) 100%);
+    background: linear-gradient(to right, rgba(180, 220, 255, 0.15) 0%, rgba(255,255,255,0) 25%, rgba(255,255,255,0) 75%, rgba(180, 220, 255, 0.15) 100%);
   }
 
   .frost::after {
-    background: linear-gradient(to right, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 15%, rgba(255,255,255,0) 85%, rgba(255,255,255,0.35) 100%);
-    animation-duration: 10s;
+    background: linear-gradient(to right, rgba(180, 220, 255, 0.1) 0%, rgba(255,255,255,0) 15%, rgba(255,255,255,0) 85%, rgba(180, 220, 255, 0.1) 100%);
+    animation-duration: 2s;
   }
 
   @keyframes fadein {
@@ -64,8 +63,6 @@
   <div class="frost">
     <svg width="100%" height="100%" viewBox="0 0 1920 1080" preserveAspectRatio="none">
       <filter id="frost">
-        <!-- 🔽 PEGADO DIRECTO DEL FILTRO QUE ME COMPARTISTE 🔽 -->
-
         <feTurbulence type="fractalNoise" baseFrequency="0.005" numOctaves="5" result="FROST_NOISE" />
         <feColorMatrix type="matrix" in="FROST_NOISE" result="FROST_PATTERN"
           values="0.01 0 0 0 0
@@ -77,28 +74,28 @@
           <feFuncG type="linear" slope="0.1" intercept="1" />
           <feFuncB type="linear" slope="0.1" intercept="1" />
           <feFuncA type="linear" slope="0">
-            <animate attributeName="slope" values="0;0.2" begin="5s" dur="15s" keyTimes="0;1" calcMode="spline" keySplines="0.3 0 0.3 1" fill="freeze" />
+            <animate attributeName="slope" values="0;0.3" begin="0s" dur="2s" fill="freeze" />
           </feFuncA>
         </feComponentTransfer>
         <feBlend in="SourceGraphic" in2="FROST_BASE" mode="screen" result="BASE" />
         <feTurbulence baseFrequency="0.004" numOctaves="10" seed="400" result="FROSTPATTERN_NOISE" />
         <feComponentTransfer in="FROSTPATTERN_NOISE" result="FROSTPATTERN_COLORSHIFT">
-          <feFuncR type="linear" slope="50" intercept="-0.25">
-            <animate attributeName="slope" values="50;4" dur="10s" keyTimes="0;1" calcMode="spline" keySplines="0.3 0 0.3 1" fill="freeze" />
+          <feFuncR type="linear" slope="30" intercept="-0.25">
+            <animate attributeName="slope" values="30;4" dur="2s" begin="0s" fill="freeze" />
           </feFuncR>
-          <feFuncG type="linear" slope="4" intercept="0.25">
-            <animate attributeName="slope" values="10;4" dur="6s" keyTimes="0;1" calcMode="spline" keySplines="0.3 0 0.3 1" fill="freeze" />
+          <feFuncG type="linear" slope="10" intercept="0.25">
+            <animate attributeName="slope" values="10;4" dur="1.5s" begin="0s" fill="freeze" />
           </feFuncG>
-          <feFuncB type="linear" slope="4" intercept="1">
-            <animate attributeName="slope" values="10;4" dur="6s" keyTimes="0;1" calcMode="spline" keySplines="0.3 0 0.3 1" fill="freeze" />
+          <feFuncB type="linear" slope="10" intercept="1">
+            <animate attributeName="slope" values="10;6" dur="1.5s" begin="0s" fill="freeze" />
           </feFuncB>
           <feFuncA type="linear" slope="0" intercept="1" />
         </feComponentTransfer>
         <feColorMatrix type="matrix" in="FROSTPATTERN_COLORSHIFT" result="FROSTPATTERN"
-          values="0.33 0.33 0.33 0 0
-                  0.33 0.33 0.33 0 0
-                  0.33 0.33 0.33 0 0
-                  0 0 0 1 0" />
+          values="0.2 0.2 0.6 0 0
+                  0.2 0.2 0.6 0 0
+                  0.2 0.2 0.6 0 0
+                  0    0    0 1 0" />
         <feColorMatrix type="matrix" in="FROSTPATTERN" result="FROSTPATTERN_ALPHA"
           values="1 0 0 0 0
                   1 0 0 0 0
@@ -106,22 +103,22 @@
                   -0.33 -0.33 -0.33 1 0" />
         <feTurbulence baseFrequency="0.003" numOctaves="10" seed="200" result="FROSTPATTERN_NOISE_HIGHLIGHT" />
         <feComponentTransfer in="FROSTPATTERN_NOISE_HIGHLIGHT" result="FROSTPATTERN_COLORSHIFT_HIGHLIGHT">
-          <feFuncR type="linear" slope="50" intercept="-0.25">
-            <animate attributeName="slope" values="50;6" dur="10s" keyTimes="0;1" calcMode="spline" keySplines="0.3 0 0.3 1" fill="freeze" />
+          <feFuncR type="linear" slope="20" intercept="-0.25">
+            <animate attributeName="slope" values="20;6" dur="2s" begin="0s" fill="freeze" />
           </feFuncR>
-          <feFuncG type="linear" slope="4" intercept="0.25">
-            <animate attributeName="slope" values="10;4" dur="6s" keyTimes="0;1" calcMode="spline" keySplines="0.3 0 0.3 1" fill="freeze" />
+          <feFuncG type="linear" slope="10" intercept="0.25">
+            <animate attributeName="slope" values="10;4" dur="1.5s" begin="0s" fill="freeze" />
           </feFuncG>
-          <feFuncB type="linear" slope="4" intercept="1">
-            <animate attributeName="slope" values="10;4" dur="6s" keyTimes="0;1" calcMode="spline" keySplines="0.3 0 0.3 1" fill="freeze" />
+          <feFuncB type="linear" slope="10" intercept="1">
+            <animate attributeName="slope" values="10;6" dur="1.5s" begin="0s" fill="freeze" />
           </feFuncB>
           <feFuncA type="linear" slope="0" intercept="1" />
         </feComponentTransfer>
         <feColorMatrix type="matrix" in="FROSTPATTERN_COLORSHIFT_HIGHLIGHT" result="FROSTPATTERN_HIGHLIGHT"
-          values="0.33 0.33 0.33 0 0
-                  0.33 0.33 0.33 0 0
-                  0.33 0.33 0.33 0 0
-                  0 0 0 1 0" />
+          values="0.2 0.2 0.6 0 0
+                  0.2 0.2 0.6 0 0
+                  0.2 0.2 0.6 0 0
+                  0    0    0 1 0" />
         <feColorMatrix type="matrix" in="FROSTPATTERN_HIGHLIGHT" result="FROSTPATTERN_ALPHA_HIGHLIGHT"
           values="1 0 0 0 0
                   1 0 0 0 0
@@ -134,7 +131,9 @@
           <feMergeNode in="FROSTPATTERN_ALPHA_HIGHLIGHT" />
         </feMerge>
       </filter>
-      <rect filter="url(#frost)" x="0" y="0" width="100%" height="100%" fill="#000"/>
+
+      <!-- ✅ CAMBIAMOS fondo negro por azul transparente -->
+      <rect filter="url(#frost)" x="0" y="0" width="100%" height="100%" fill="rgba(180, 220, 255, 0.05)"/>
     </svg>
   </div>
 </div>
