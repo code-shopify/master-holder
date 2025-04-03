@@ -140,7 +140,7 @@
         "custom_liquid_F6GKEn": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "<pre>\nMetacampo bruto:\n{{ product.metafields.custom.incluye | json }}\n</pre>"
+            "custom_liquid": "<pre>{{ product.metafields.custom.incluye | json }}</pre>"
           }
         }
       },
