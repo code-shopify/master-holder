@@ -1,0 +1,157 @@
+{% schema %}
+{
+  "name": "Freeze Effect",
+  "tag": "section",
+  "class": "shopify-section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Freeze Effect",
+      "category": "Efectos visuales"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .frost-container {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    pointer-events: none;
+  }
+
+  .frost {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .frost::before,
+  .frost::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    animation: fadein 2s forwards 0.2s;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .frost::before {
+    background: linear-gradient(to right, rgba(100,170,255,0.25) 0%, rgba(255,255,255,0) 25%, rgba(255,255,255,0) 75%, rgba(100,170,255,0.25) 100%);
+  }
+
+  .frost::after {
+    background: linear-gradient(to right, rgba(100,170,255,0.15) 0%, rgba(255,255,255,0) 15%, rgba(255,255,255,0) 85%, rgba(100,170,255,0.15) 100%);
+    animation-duration: 1.5s;
+  }
+
+  @keyframes fadein {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+</style>
+
+<div class="frost-container" id="frostContainer">
+  <div class="frost">
+    <svg width="100%" height="100%" viewBox="0 0 1920 1080" preserveAspectRatio="none">
+      <filter id="frost">
+        <feTurbulence type="fractalNoise" baseFrequency="0.005" numOctaves="5" result="FROST_NOISE" />
+        <feColorMatrix type="matrix" in="FROST_NOISE" result="FROST_PATTERN"
+          values="0.01 0 0 0 0
+                  0.01 0 0 0 0
+                  0.08 0 0 0 0
+                  0 0 0 0.75 0" />
+        <feComponentTransfer in="FROST_PATTERN" result="FROST_BASE">
+          <feFuncR type="linear" slope="0.1" intercept="1" />
+          <feFuncG type="linear" slope="0.1" intercept="1" />
+          <feFuncB type="linear" slope="0.1" intercept="1.2" />
+          <feFuncA type="linear" slope="0">
+            <animate attributeName="slope" values="0;0.4" begin="0s" dur="1.5s" fill="freeze" />
+          </feFuncA>
+        </feComponentTransfer>
+        <feBlend in="SourceGraphic" in2="FROST_BASE" mode="screen" result="BASE" />
+        <feTurbulence baseFrequency="0.004" numOctaves="10" seed="400" result="FROSTPATTERN_NOISE" />
+        <feComponentTransfer in="FROSTPATTERN_NOISE" result="FROSTPATTERN_COLORSHIFT">
+          <feFuncR type="linear" slope="20" intercept="-0.1">
+            <animate attributeName="slope" values="20;4" dur="1.5s" begin="0s" fill="freeze" />
+          </feFuncR>
+          <feFuncG type="linear" slope="10" intercept="0.2">
+            <animate attributeName="slope" values="10;4" dur="1.5s" begin="0s" fill="freeze" />
+          </feFuncG>
+          <feFuncB type="linear" slope="15" intercept="1.2">
+            <animate attributeName="slope" values="15;6" dur="1.5s" begin="0s" fill="freeze" />
+          </feFuncB>
+          <feFuncA type="linear" slope="0" intercept="1" />
+        </feComponentTransfer>
+        <feColorMatrix type="matrix" in="FROSTPATTERN_COLORSHIFT" result="FROSTPATTERN"
+          values="0.15 0.25 0.8 0 0
+                  0.15 0.25 0.8 0 0
+                  0.15 0.25 0.8 0 0
+                  0 0 0 1 0" />
+        <feColorMatrix type="matrix" in="FROSTPATTERN" result="FROSTPATTERN_ALPHA"
+          values="1 0 0 0 0
+                  1 0 0 0 0
+                  1 0 0 0 0
+                  -0.33 -0.33 -0.33 1 0" />
+        <feTurbulence baseFrequency="0.003" numOctaves="10" seed="200" result="FROSTPATTERN_NOISE_HIGHLIGHT" />
+        <feComponentTransfer in="FROSTPATTERN_NOISE_HIGHLIGHT" result="FROSTPATTERN_COLORSHIFT_HIGHLIGHT">
+          <feFuncR type="linear" slope="20" intercept="-0.25">
+            <animate attributeName="slope" values="20;6" dur="1.5s" begin="0s" fill="freeze" />
+          </feFuncR>
+          <feFuncG type="linear" slope="10" intercept="0.25">
+            <animate attributeName="slope" values="10;4" dur="1.5s" begin="0s" fill="freeze" />
+          </feFuncG>
+          <feFuncB type="linear" slope="10" intercept="1">
+            <animate attributeName="slope" values="10;6" dur="1.5s" begin="0s" fill="freeze" />
+          </feFuncB>
+          <feFuncA type="linear" slope="0" intercept="1" />
+        </feComponentTransfer>
+        <feColorMatrix type="matrix" in="FROSTPATTERN_COLORSHIFT_HIGHLIGHT" result="FROSTPATTERN_HIGHLIGHT"
+          values="0.15 0.3 0.9 0 0
+                  0.15 0.3 0.9 0 0
+                  0.15 0.3 0.9 0 0
+                  0 0 0 1 0" />
+        <feColorMatrix type="matrix" in="FROSTPATTERN_HIGHLIGHT" result="FROSTPATTERN_ALPHA_HIGHLIGHT"
+          values="1 0 0 0 0
+                  1 0 0 0 0
+                  1 0 0 0 0
+                  -0.33 -0.33 -0.33 1 0" />
+        <feMerge>
+          <feMergeNode in="SourceGraphic" />
+          <feMergeNode in="BASE" />
+          <feMergeNode in="FROSTPATTERN_ALPHA" />
+          <feMergeNode in="FROSTPATTERN_ALPHA_HIGHLIGHT" />
+        </feMerge>
+      </filter>
+
+      <!-- Más azul y translúcido -->
+      <rect filter="url(#frost)" x="0" y="0" width="100%" height="100%" fill="rgba(120,180,255,0.15)"/>
+    </svg>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const button = document.querySelector('#btn-congelar');
+    const frost = document.getElementById('frostContainer');
+
+    if (button && frost) {
+      button.addEventListener('click', function () {
+        frost.style.display = 'block';
+
+        // ❄️ Se oculta automáticamente después de 3 segundos
+        setTimeout(() => {
+          frost.style.display = 'none';
+        }, 3000);
+      });
+    }
+  });
+</script>
