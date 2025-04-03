@@ -8,20 +8,22 @@
         <div class="plus-symbol">+</div>
       {% endif %}
       <div class="complimentary-card">
-        <div class="card-image">
-          <a href="{{ item.url }}">
+        <a href="{{ item.url }}" class="card-link">
+          <div class="card-image">
             <img
               src="{{ item.featured_image | image_url: width: 300 }}"
               alt="{{ item.title }}"
               loading="lazy"
             >
             <span class="incluido-badge">Incluido</span>
-          </a>
-        </div>
-        <div class="card-info">
-          <p class="product-title">{{ item.title }}</p>
-          <p class="product-price"><span>{{ item.compare_at_price | default: item.price | money }}</span></p>
-        </div>
+          </div>
+          <div class="card-info">
+            <p class="product-title">{{ item.title }}</p>
+            <p class="product-price">
+              <span>{{ item.compare_at_price | default: item.price | money }}</span>
+            </p>
+          </div>
+        </a>
       </div>
     {%- endfor -%}
   </div>
@@ -30,6 +32,7 @@
 <style>
   .t4s-complimentary {
     margin-top: 2rem;
+    text-align: center;
   }
 
   .t4s-complimentary-title {
@@ -41,19 +44,31 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 12px;
+    justify-content: center;
+    gap: 16px;
   }
 
   .complimentary-card {
-    width: 140px;
+    width: 160px;
+    min-height: 260px;
     background: #fff;
     border: 1px solid #eee;
     border-radius: 10px;
     overflow: hidden;
-    text-align: center;
-    flex-shrink: 0;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-shrink: 0;
+    text-align: center;
+  }
+
+  .card-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
   }
 
   .card-image {
@@ -62,8 +77,8 @@
 
   .card-image img {
     width: 100%;
+    height: auto;
     display: block;
-    border-bottom: 1px solid #f0f0f0;
   }
 
   .incluido-badge {
@@ -80,19 +95,20 @@
   }
 
   .card-info {
-    padding: 10px 8px;
+    padding: 12px 8px 14px;
   }
 
   .product-title {
-    font-size: 0.9rem;
-    font-weight: 500;
-    margin: 0.3em 0 0.4em;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 6px;
   }
 
   .product-price span {
     text-decoration: line-through;
-    color: #888;
-    font-size: 0.85rem;
+    color: #007ace;
+    font-size: 1rem;
+    font-weight: 600;
   }
 
   .plus-symbol {
@@ -110,12 +126,9 @@
       scroll-snap-type: x mandatory;
     }
 
-    .complimentary-card {
-      scroll-snap-align: start;
-    }
-
+    .complimentary-card,
     .plus-symbol {
-      flex-shrink: 0;
+      scroll-snap-align: center;
     }
   }
 </style>
