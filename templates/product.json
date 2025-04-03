@@ -140,7 +140,7 @@
         "custom_liquid_F6GKEn": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "<pre>{{ product.metafields.custom.incluye | json }}</pre>\n\n\n\n<pre>{{ product.metafields.custom.inlcuye }}</pre>"
+            "custom_liquid": "{% assign incluye_ids = product.metafields.custom.inlcuye %}\n{% assign incluye_ids = incluye_ids | join: ',' %}\n\n{% for prod in collections.all.products %}\n  {% assign prod_gid = 'gid://shopify/Product/' | append: prod.id %}\n  {% if incluye_ids contains prod_gid %}\n    <div>\n      <img src=\"{{ prod.featured_image | image_url: width: 300 }}\" alt=\"{{ prod.title }}\">\n      <p>{{ prod.title }}</p>\n      <p style=\"text-decoration: line-through;\">{{ prod.price | money }}</p>\n    </div>\n  {% endif %}\n{% endfor %}"
           }
         }
       },
