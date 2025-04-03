@@ -140,7 +140,7 @@
         "custom_liquid_F6GKEn": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "{% assign incluye = product.metafields.custom.inlcuye %}\n\n{% if incluye %}\n  <h3>Tu compra incluye:</h3>\n\n  {% if incluye.value and incluye.value.size > 0 %}\n    <ul>\n      {% for item in incluye.value %}\n        <li>\n          <strong>{{ item.title }}</strong><br>\n          ID: {{ item.id }}<br>\n          {% if item.featured_image %}\n            <img src=\"{{ item.featured_image | image_url: width: 200 }}\">\n          {% else %}\n            Sin imagen\n          {% endif %}<br>\n          Precio: {{ item.price | money }}<br>\n          Precio tachado: <span style=\"text-decoration:line-through;\">\n            {{ item.compare_at_price | default: item.price | money }}\n          </span><br><br>\n        </li>\n      {% endfor %}\n    </ul>\n  {% else %}\n    <p><strong>Metacampo existe pero no tiene productos en .value</strong></p>\n  {% endif %}\n{% else %}\n  <p><strong>El metacampo no existe o está vacío.</strong></p>\n{% endif %}"
+            "custom_liquid": "{% if product.metafields.custom.incluye_productos and product.metafields.custom.incluye_productos.value != blank %}\n  <p>Tu compra incluye:</p>\n  <!-- Aquí puedes renderizar la lista de productos incluidos -->\n  <ul>\n    {% for producto in product.metafields.custom.incluye_productos.value %}\n      <li>{{ producto.title }}</li>\n    {% endfor %}\n  </ul>\n{% endif %}"
           }
         }
       },
