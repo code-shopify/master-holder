@@ -124,6 +124,7 @@
             "hide_pre": true,
             "icon": "3",
             "icon_name": "las la-truck",
+            "img": "shopify://shop_images/FluentEmojiDeliveryTruck.svg",
             "ani": "none",
             "txt": "Haz tu pedido en las próximas [hour] para recibirlo entre [date_start] y [date_end] con Paquete Express.\nSi prefieres otra opción de paquetería, por favor indícalo en las notas de tu pedido.",
             "ds": 10,
