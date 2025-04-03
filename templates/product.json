@@ -140,7 +140,7 @@
         "custom_liquid_F6GKEn": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "{% assign incluye_metafield = product.metafields.custom.inlcuye %}\n\n{% if incluye_metafield %}\n  <div class=\"tu-compra-incluye\">\n    <h3>Tu compra incluye:</h3>\n\n    {% if incluye_metafield.value and incluye_metafield.value.size > 0 %}\n      <ul class=\"productos-incluidos\">\n        {% for included_product in incluye_metafield.value %}\n          <li class=\"producto-item\">\n            <a href=\"{{ included_product.url }}\">\n              {% if included_product.featured_image %}\n                <img src=\"{{ included_product.featured_image | image_url: width: 400 }}\" alt=\"{{ included_product.title }}\">\n              {% else %}\n                <div style=\"background:#eee; padding:50px;\">Sin imagen</div>\n              {% endif %}\n              <p class=\"producto-title\">{{ included_product.title }}</p>\n              <p class=\"producto-precio-tachado\">\n                {{ included_product.compare_at_price | default: included_product.price | money }}\n              </p>\n            </a>\n          </li>\n        {% endfor %}\n      </ul>\n    {% else %}\n      <p>No hay productos en el metacampo <code>custom.incluye</code>.</p>\n    {% endif %}\n  </div>\n{% else %}\n  <p>El metacampo <code>product.metafields.custom.incluye</code> no existe o está vacío.</p>\n{% endif %}"
+            "custom_liquid": "<pre>{{ product.metafields.custom.incluye | json }}</pre>\n\n\n\n<pre>{{ product.metafields.custom.inlcuye }}</pre>"
           }
         }
       },
