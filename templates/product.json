@@ -132,7 +132,7 @@
             "mode": "1",
             "cut_day": "SAT,SUN",
             "frm_day": "t44, DD t46",
-            "time": "16:00:00",
+            "time": "15:00:00",
             "hr": "Horas",
             "min": "Minutos"
           }
@@ -140,7 +140,7 @@
         "custom_liquid_F6GKEn": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "{% render \"productos-incluidos\", product:product %}"
+            "custom_liquid": "{% render \"productos-incluidos\", product: product %}"
           }
         }
       },
