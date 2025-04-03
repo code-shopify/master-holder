@@ -142,6 +142,12 @@
           "settings": {
             "custom_liquid": "{% render \"productos-incluidos\", product: product %}"
           }
+        },
+        "custom_liquid_daMACr": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<button id=\"btn-congelar\">❄️ Congelar pantalla</button>"
+          }
         }
       },
       "block_order": [
@@ -153,7 +159,8 @@
         "tab_html_T8cCC7",
         "custom_liquid_EGe7nY",
         "order_Wqzeff",
-        "custom_liquid_F6GKEn"
+        "custom_liquid_F6GKEn",
+        "custom_liquid_daMACr"
       ],
       "custom_css": [
         ".t4s-container {margin-top: 5rem;}"
