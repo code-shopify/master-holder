@@ -140,7 +140,7 @@
         "custom_liquid_F6GKEn": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "{%- if product.metafields.custom.inlcuye.value == blank -%}{%- continue -%}{% endif -%}\n\n<div class=\"t4s-complimentary\">\n  <h3>{{ block.settings.text | default: \"Tu compra incluye\" }}</h3>\n  <ul class=\"t4s-complimentary_products\">\n    {%- for item in product.metafields.custom.inlcuye.value -%}\n      <li class=\"t4s-complimentary_product t4s_{{ image_ratio }}\">\n        <a href=\"{{ item.url }}\" class=\"t4s-d-block t4s-pr t4s-oh t4s_ratio t4s-bg-11\" style=\"background: url({{ item.featured_image | image_url: width: 1 }}); aspect-ratio: {{ item.featured_image.aspect_ratio | default: 1 }};\">\n          <img\n            class=\"lazyloadt4s\"\n            data-src=\"{{ item.featured_image | image_url: width: 400 }}\"\n            data-widths=\"[100,200,400,600,700]\"\n            data-optimumx=\"2\"\n            data-sizes=\"auto\"\n            src=\"data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==\"\n            width=\"{{ item.featured_image.width }}\"\n            height=\"{{ item.featured_image.height }}\"\n            alt=\"{{ item.featured_image.alt | escape }}\"\n          >\n        </a>\n        <a href=\"{{ item.url }}\" class=\"t4s-d-block t4s-widget__pr-title\">{{ item.title }}</a>\n        <p class=\"t4s-widget__pr-price\" style=\"text-decoration: line-through;\">\n          {{ item.compare_at_price | default: item.price | money }}\n        </p>\n      </li>\n    {%- endfor -%}\n  </ul>\n</div>"
+            "custom_liquid": "{% render \"productos-incluidos\", product:product %}"
           }
         }
       },
