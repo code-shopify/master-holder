@@ -1,0 +1,109 @@
+{%- if product.metafields.custom.inlcuye.value == blank -%}{%- continue -%}{% endif -%}
+
+<div class="t4s-complimentary">
+  <h3 class="t4s-complimentary-title">{{ block.settings.text | default: "Tu compra incluye" }}</h3>
+  <ul class="t4s-complimentary_products">
+    {%- for item in product.metafields.custom.inlcuye.value -%}
+      <li class="complimentary-card">
+        <div class="card-image">
+          <a href="{{ item.url }}">
+            <img
+              src="{{ item.featured_image | image_url: width: 300 }}"
+              alt="{{ item.title }}"
+              loading="lazy"
+            >
+            <span class="incluido-badge">Incluido</span>
+          </a>
+        </div>
+        <div class="card-info">
+          <p class="product-title">{{ item.title }}</p>
+          <p class="product-price"><span>{{ item.compare_at_price | default: item.price | money }}</span></p>
+        </div>
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>
+
+<style>
+  .t4s-complimentary {
+    margin-top: 2rem;
+  }
+
+  .t4s-complimentary-title {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .t4s-complimentary_products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .complimentary-card {
+    width: 140px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+
+  .card-image {
+    position: relative;
+  }
+
+  .card-image img {
+    width: 100%;
+    display: block;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .incluido-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background-color: #e0f0ff;
+    color: #007ace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 12px;
+    text-transform: uppercase;
+  }
+
+  .card-info {
+    padding: 10px 8px;
+  }
+
+  .product-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin: 0.3em 0 0.4em;
+  }
+
+  .product-price span {
+    text-decoration: line-through;
+    color: #888;
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 768px) {
+    .t4s-complimentary_products {
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+    }
+
+    .complimentary-card {
+      scroll-snap-align: start;
+    }
+  }
+</style>
