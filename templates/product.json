@@ -122,7 +122,7 @@
           "type": "order",
           "settings": {
             "hide_pre": true,
-            "icon": "2",
+            "icon": "3",
             "icon_name": "las la-truck",
             "ani": "none",
             "txt": "Haz tu pedido en las próximas [hour] para recibirlo entre [date_start] y [date_end] con Paquete Express.\nSi prefieres otra opción de paquetería, por favor indícalo en las notas de tu pedido.",
@@ -130,10 +130,10 @@
             "de": 15,
             "mode": "1",
             "cut_day": "SAT,SUN",
-            "frm_day": "t44, t45 t46",
+            "frm_day": "t44, DD t46",
             "time": "16:00:00",
-            "hr": "hours",
-            "min": "minutes"
+            "hr": "Horas",
+            "min": "Minutos"
           }
         }
       },
