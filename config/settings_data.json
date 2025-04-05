@@ -2187,6 +2187,7 @@
           },
           "bg_color_bagJnn": {
             "type": "bg_color",
+            "disabled": true,
             "settings": {
               "title": "Azul",
               "color": "#074e74",
@@ -2196,6 +2197,7 @@
           },
           "bg_color_XHxLHN": {
             "type": "bg_color",
+            "disabled": true,
             "settings": {
               "title": "Rosa",
               "color": "#b96b7a",
@@ -2205,6 +2207,7 @@
           },
           "bg_color_epq37j": {
             "type": "bg_color",
+            "disabled": true,
             "settings": {
               "title": "Lila",
               "color": "#876e7e",
@@ -2214,6 +2217,7 @@
           },
           "bg_color_EAMqXK": {
             "type": "bg_color",
+            "disabled": true,
             "settings": {
               "title": "Crema",
               "color": "#b9b09d",
@@ -2223,6 +2227,7 @@
           },
           "bg_color_mWmbLK": {
             "type": "bg_color",
+            "disabled": true,
             "settings": {
               "title": "Pink Dust",
               "color": "#dbb5ae",
@@ -2232,6 +2237,7 @@
           },
           "bg_color_K6XCAU": {
             "type": "bg_color",
+            "disabled": true,
             "settings": {
               "title": "Rosa",
               "color": "#f3386c",
@@ -2241,6 +2247,7 @@
           },
           "bg_color_aPxW3g": {
             "type": "bg_color",
+            "disabled": true,
             "settings": {
               "title": "Light Blue",
               "color": "#7eafb4",
@@ -2250,6 +2257,7 @@
           },
           "bg_color_7FGLWk": {
             "type": "bg_color",
+            "disabled": true,
             "settings": {
               "title": "",
               "color": "",
@@ -2259,6 +2267,7 @@
           },
           "bg_color_RTxDE6": {
             "type": "bg_color",
+            "disabled": true,
             "settings": {
               "title": "",
               "color": "",
@@ -2268,6 +2277,7 @@
           },
           "bg_color_aHpipe": {
             "type": "bg_color",
+            "disabled": true,
             "settings": {
               "title": "",
               "color": "",
@@ -2277,6 +2287,7 @@
           },
           "bg_color_RPfHfP": {
             "type": "bg_color",
+            "disabled": true,
             "settings": {
               "title": "",
               "color": "",
@@ -2286,6 +2297,7 @@
           },
           "bg_color_8xkLyW": {
             "type": "bg_color",
+            "disabled": true,
             "settings": {
               "title": "",
               "color": "",
