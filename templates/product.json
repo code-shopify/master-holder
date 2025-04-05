@@ -62,7 +62,7 @@
           "type": "form",
           "settings": {
             "selector_mode": "circle",
-            "color_mode": "circle",
+            "color_mode": "color is-sw-cl__round",
             "enable_fit_ratio_img": false,
             "color_size": "exlarge",
             "show_qty": false,
@@ -206,7 +206,7 @@
         "sticky_mode": "2",
         "sticky_show": "2",
         "sticky_layout_mb": "minimal",
-        "enable_select": true,
+        "enable_select": false,
         "ani": "t4s-ani-shake",
         "time": 3
       }
